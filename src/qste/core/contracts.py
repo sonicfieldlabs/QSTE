@@ -27,6 +27,14 @@ JsonObject = dict[str, Any]
 class ContractError(ValueError):
     """A stable, structured QSTE contract failure."""
 
+    # Services may attach these stable diagnostic fields before re-raising.
+    # They are deliberately optional at runtime; callers must continue to use
+    # ``getattr`` when the originating operation does not supply one.
+    receipt_id: str
+    authorization_status: str
+    capability_status: str
+    diagnostics_extra: Mapping[str, Any]
+
     def __init__(
         self,
         reason_code: str,
@@ -252,14 +260,18 @@ def _validate_semantics(record: Mapping[str, Any]) -> None:
     if record_type == "TaskSpec":
         bound = record["meaningful_bound"]
         region = record["equivalence_region"]
-        if not isinstance(bound, (int, float)) or not math.isfinite(bound):
+        if (
+            not isinstance(bound, (int, float))
+            or isinstance(bound, bool)
+            or not math.isfinite(bound)
+        ):
             raise ContractError("invalid_assessment_spec", "meaningful_bound must be finite")
         if not isinstance(region, Mapping):
             raise ContractError("invalid_assessment_spec", "equivalence_region must be structured")
         epsilon_minus = region.get("epsilon_minus")
         epsilon_plus = region.get("epsilon_plus")
         if not all(
-            isinstance(value, (int, float)) and math.isfinite(value)
+            isinstance(value, (int, float)) and not isinstance(value, bool) and math.isfinite(value)
             for value in (epsilon_minus, epsilon_plus)
         ):
             raise ContractError("invalid_assessment_spec", "equivalence bounds must be finite")

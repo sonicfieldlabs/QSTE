@@ -51,7 +51,8 @@ def _harness(record: Mapping[str, Any]) -> None:
         raise ContractError("conformance_failed", "P10 harness claims an experiencing subject")
     limits = _object(record.get("qste:limits"), "harness limits")
     if len(limits) != 5 or any(
-        not isinstance(value, int) or value < 1 for value in limits.values()
+        not isinstance(value, int) or isinstance(value, bool) or value < 1
+        for value in limits.values()
     ):
         raise ContractError("conformance_failed", "P10 harness limits are incomplete")
 

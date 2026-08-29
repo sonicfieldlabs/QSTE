@@ -175,3 +175,23 @@ def test_resume_requires_explicit_human_authorization(tmp_path: Path) -> None:
     resumed_records = _by_type(resumed)
     assert resumed_records["DecisionEvent"]["decision_action"] == "resume"
     assert resumed["data"]["successor_created"] is True
+
+
+def test_revision_human_authorization_requires_an_exact_boolean(tmp_path: Path) -> None:
+    fixture = build_p10_fixture(tmp_path)
+    material = treatments(fixture)["authentic"]
+    plan = fixture.service.plan(
+        opportunity_record_id=fixture.opportunity["record_id"],
+        treatment_record_id=material["record_id"],
+        proposal=proposal(fixture, action_id="resume", treatment="authentic"),
+    ).value
+    with pytest.raises(ContractError) as caught:
+        fixture.service.revise(
+            plan_record_id=plan["record_id"],
+            authority_record_id=fixture.base.apparatus["record_id"],
+            source_authorization_status="permitted",
+            enforcement_mode="active",
+            fixture_authorization="synthetic",
+            human_authorized=cast(Any, "false"),
+        )
+    assert caught.value.reason_code == "invalid_input"

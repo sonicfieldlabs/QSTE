@@ -27,13 +27,21 @@ def read(path: Path) -> Any:
     return json.loads(path.read_text())
 
 
+def require(condition: bool, message: str) -> None:
+    if not condition:
+        raise SystemExit(message)
+
+
 def must_fail(reason: str, operation: Callable[[], None]) -> None:
     try:
         operation()
     except ContractError as error:
-        assert error.reason_code == reason, (error.reason_code, error)
+        require(
+            error.reason_code == reason,
+            f"expected reason {reason}, received {error.reason_code}: {error}",
+        )
         return
-    raise AssertionError(f"expected {reason}")
+    raise SystemExit(f"expected failure reason {reason}")
 
 
 def main() -> None:
@@ -43,11 +51,14 @@ def main() -> None:
         path.relative_to(registry.schema_root).as_posix()
         for path in registry.schema_root.rglob("*.schema.json")
     }
-    assert indexed_schema_paths == actual_schema_paths
+    require(indexed_schema_paths == actual_schema_paths, "schema index and filesystem differ")
     conformance_index = read(CONFORMANCE / "conformance-index.json")
     for entry in conformance_index["files"]:
         path = ROOT / entry["path"]
-        assert hashlib.sha256(path.read_bytes()).hexdigest() == entry["sha256"]
+        require(
+            hashlib.sha256(path.read_bytes()).hexdigest() == entry["sha256"],
+            f"conformance digest differs: {entry['path']}",
+        )
     fixture_manifest = read(FIXTURES / "fixture-manifest.json")
     positive = 0
     negative = 0
@@ -60,8 +71,11 @@ def main() -> None:
         except ContractError as error:
             valid = False
             if case["expected_reason"] in {"type", "required", "enum", "additionalProperties"}:
-                assert error.keyword == case["expected_reason"], (case, error.keyword, error)
-        assert valid == case["expected_valid"], case
+                require(
+                    error.keyword == case["expected_reason"],
+                    f"fixture keyword differs for {case['path']}: {error.keyword}",
+                )
+        require(valid == case["expected_valid"], f"fixture expectation differs: {case['path']}")
         if valid:
             positive += 1
         else:
@@ -74,7 +88,10 @@ def main() -> None:
             else:
                 encoded = registry.write_record(payload)
                 decoded = registry.read_record(encoded)
-            assert decoded["ext:futureField"] == payload["ext:futureField"]
+            require(
+                decoded["ext:futureField"] == payload["ext:futureField"],
+                f"extension round-trip differs: {case['path']}",
+            )
             extensions += 1
 
     closed = read(FIXTURES / "reference-closure" / "closed.valid.json")
@@ -145,14 +162,24 @@ def main() -> None:
 
     must_fail("invalid_input", lambda: loads_json('{"a":1,"a":2}'))
     must_fail("invalid_input", lambda: loads_json('{"a":NaN}'))
-    assert loads_json(dumps_json({"z": 1, "a": [True, None]})) == {"a": [True, None], "z": 1}
+    require(
+        loads_json(dumps_json({"z": 1, "a": [True, None]})) == {"a": [True, None], "z": 1},
+        "canonical JSON round-trip differs",
+    )
 
     coverage = read(CONFORMANCE / "entity-coverage.json")["entities"]
-    assert len([item for item in coverage if item["contract_form"] == "serialized_record"]) == 31
-    assert next(item for item in coverage if item["entity"] == "Phenomenon")["schema"] is None
-    assert (
+    require(
+        len([item for item in coverage if item["contract_form"] == "serialized_record"]) == 31,
+        "serialized record coverage differs",
+    )
+    require(
+        next(item for item in coverage if item["entity"] == "Phenomenon")["schema"] is None,
+        "Phenomenon must remain conceptual",
+    )
+    require(
         next(item for item in coverage if item["entity"] == "Bundle")["contract_form"]
-        == "sealed_container"
+        == "sealed_container",
+        "Bundle contract form differs",
     )
 
     print(

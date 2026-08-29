@@ -4,7 +4,7 @@
 from __future__ import annotations
 
 import json
-import subprocess
+import subprocess  # nosec B404
 import sys
 from pathlib import Path
 
@@ -60,7 +60,9 @@ def main() -> int:
         raise SystemExit("P10 executor fixture classes are incomplete")
     if executors.get("implementer_class_decisive") is not False:
         raise SystemExit("P10 executor fixture makes implementer class decisive")
-    result = subprocess.run([sys.executable, "-m", "pytest", "-q", *TESTS], cwd=ROOT, check=False)
+    result = subprocess.run(  # nosec B603
+        [sys.executable, "-m", "pytest", "-q", *TESTS], cwd=ROOT, check=False
+    )
     if result.returncode != 0:
         return result.returncode
     print(

@@ -10,3 +10,7 @@ Run `uv run python tools/verify_model_research.py`. The verifier is local and
 offline and keeps dataset-byte access, checkpoint download, training,
 generation, empirical evaluation, human interaction, and public projection
 false.
+
+Human-data items require permitted consent, self-generation is an exact
+boolean with matching provenance, and split, task, model-card, failure, and
+custom-route arrays contain unique bounded text.

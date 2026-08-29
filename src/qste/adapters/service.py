@@ -993,8 +993,8 @@ class ExternalRepresentationService:
             created_at=timestamp,
         )
         error = ContractError(reason, message)
-        error.receipt_id = receipt["record_id"]  # type: ignore[attr-defined]
-        error.authorization_status = effective_authorization_status  # type: ignore[attr-defined]
+        error.receipt_id = receipt["record_id"]
+        error.authorization_status = effective_authorization_status
         raise error
 
     def _require_aperture(self, aperture: Mapping[str, Any], artifact_record_id: str) -> None:

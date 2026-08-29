@@ -4,7 +4,7 @@
 from __future__ import annotations
 
 import json
-import subprocess
+import subprocess  # nosec B404
 import sys
 from importlib.metadata import version
 from pathlib import Path
@@ -46,6 +46,7 @@ def main() -> int:
         "default": "stdio",
         "streamable_http_host": "127.0.0.1",
         "dns_rebinding_protection": True,
+        "workbench_dns_rebinding_protection": True,
         "remote_binding": False,
     }:
         raise SystemExit("P13 transport boundary differs")
@@ -65,7 +66,9 @@ def main() -> int:
         or "$qste-inspection" not in agent_text
     ):
         raise SystemExit("P13 skill package is incomplete")
-    result = subprocess.run([sys.executable, "-m", "pytest", "-q", *TESTS], cwd=ROOT)
+    result = subprocess.run(  # nosec B603
+        [sys.executable, "-m", "pytest", "-q", *TESTS], cwd=ROOT
+    )
     if result.returncode != 0:
         return result.returncode
     print(

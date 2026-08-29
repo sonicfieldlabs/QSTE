@@ -36,15 +36,15 @@
     },
     {
       "id": "P13-G06",
-      "requirement": "Relation comparison and transduction require both human-controlled server enablement and human_approved=true on the individual call."
+      "requirement": "Relation comparison and transduction require both human-controlled server enablement and human_approved=true on the individual call; both values must be exact JSON booleans, never truthy strings or numbers."
     },
     {
       "id": "P13-G07",
-      "requirement": "Record counts, lineage depth, input bytes, URL bytes, and output groups remain within declared process bounds."
+      "requirement": "Record-list queries, lineage edges and depth, input bytes, URL bytes, and output groups remain within declared process bounds; aggregate counts use bounded database results rather than materializing the complete record store."
     },
     {
       "id": "P13-G08",
-      "requirement": "The HTTP workbench is loopback-only, GET/HEAD-only, no-store, and presents bounded lineage, disagreement, mappings, claims, and evidence."
+      "requirement": "The HTTP workbench is loopback-only, read-only, no-store, rejects non-loopback Host or Origin headers as DNS-rebinding protection, and presents bounded lineage, disagreement, mappings, claims, and evidence."
     },
     {
       "id": "P13-G09",

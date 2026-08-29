@@ -519,11 +519,15 @@ or acquisition aperture. SPL and extra-human-frequency capabilities remain
 Failed SQLite batches roll back. Failed ingress records a failed receipt/event,
 does not alter or delete the external input, and creates no SourceRecord or
 AcquisitionEvent. A replay starts again from the unchanged source digest.
-Failed dense or bundle writes remain staged or unregistered and are not
-authoritative. Recovery may remove only a proven incomplete path under
-`.staging`; it must not rewrite a committed record, event, edge, artifact,
-dense manifest, or sealed bundle.
+Failed dense or bundle construction does not create a successful domain
+operation. A content object or dense manifest registered before a later
+metadata transaction fails is immutable byte state, not an authoritative
+domain derivative; exact workspace verification exposes unregistered or
+otherwise inconsistent filesystem state for explicit recovery. Recovery may
+remove only a proven incomplete path under `.staging`; it must not rewrite a
+committed record, event, edge, registered artifact, registered dense manifest,
+or sealed bundle.
 
 A future migration copies into a new workspace or bundle format and verifies
 the copy before switching authority. The prior SQLite database and bundle are
-retained. There is no in-place migration or legacy compatibility reader in P3-P13.
+retained. There is no in-place migration or legacy compatibility reader in P3-P14.

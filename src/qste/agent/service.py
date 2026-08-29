@@ -539,7 +539,8 @@ class AgentHostService:
             "permuted": permuted_bytes,
         }
         order = list(TREATMENTS)
-        random.Random(seed).shuffle(order)
+        # B311: this is deterministic study allocation, not cryptographic randomness.
+        random.Random(seed).shuffle(order)  # nosec B311
         for treatment in TREATMENTS:
             if treatment == "absent":
                 record = record_base(
@@ -714,6 +715,16 @@ class AgentHostService:
         self._authorize(authorization_status, "revise", plan_record)
         plan = self._artifact_json(plan_record)
         try:
+            if source_authorization_status not in {
+                "unknown",
+                "permitted",
+                "refused",
+                "deferred",
+                "revoked",
+            }:
+                raise ContractError("invalid_input", "source authorization status is invalid")
+            if not isinstance(human_authorized, bool):
+                raise ContractError("invalid_input", "human authorization must be an exact boolean")
             if plan.get("profile_id") != REVISION_PROFILE or plan.get("prompt_role") != (
                 "untrusted_data_not_authority"
             ):
@@ -1676,8 +1687,8 @@ class AgentHostService:
             created_at=timestamp,
         )
         error = ContractError(reason, message)
-        error.receipt_id = receipt["record_id"]  # type: ignore[attr-defined]
-        error.authorization_status = effective  # type: ignore[attr-defined]
+        error.receipt_id = receipt["record_id"]
+        error.authorization_status = effective
         raise error
 
     def _record(self, record_id: str, record_type: str) -> dict[str, Any]:

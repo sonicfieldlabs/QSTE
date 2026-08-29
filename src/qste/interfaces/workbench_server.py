@@ -26,6 +26,8 @@ def create_handler(policy: InterfacePolicy) -> type[BaseHTTPRequestHandler]:
         server_version = "QSTEWorkbench/0.1"
 
         def do_GET(self) -> None:
+            if not self._request_allowed():
+                return
             try:
                 if len(self.path.encode("utf-8")) > MAX_URL_BYTES:
                     self._json(HTTPStatus.REQUEST_URI_TOO_LONG, {"error": "URL exceeds bound"})
@@ -42,13 +44,15 @@ def create_handler(policy: InterfacePolicy) -> type[BaseHTTPRequestHandler]:
                     return
                 if parsed.path == "/api/record":
                     record_id = _one(query, "record_id")
-                    assert record_id is not None
+                    if record_id is None:  # defensive narrowing; _one already rejects absence
+                        raise ValueError("missing query parameter: record_id")
                     self._result(broker.inspect(record_id))
                     return
                 if parsed.path == "/api/lineage":
                     record_id = _one(query, "record_id")
                     direction = _one(query, "direction", default="ancestors")
-                    assert record_id is not None and direction is not None
+                    if record_id is None or direction is None:
+                        raise ValueError("lineage query parameters are incomplete")
                     self._result(
                         broker.lineage(
                             record_id,
@@ -62,16 +66,57 @@ def create_handler(policy: InterfacePolicy) -> type[BaseHTTPRequestHandler]:
                 self._json(HTTPStatus.BAD_REQUEST, {"error": str(error)})
 
         def do_HEAD(self) -> None:
+            if not self._request_allowed():
+                return
             if urlsplit(self.path).path == "/":
                 self._send(HTTPStatus.OK, b"", "text/html; charset=utf-8")
                 return
             self._json(HTTPStatus.NOT_FOUND, {"error": "route not found"})
 
         def do_POST(self) -> None:
+            if not self._request_allowed():
+                return
             self._json(HTTPStatus.METHOD_NOT_ALLOWED, {"error": "workbench is read-only"})
 
-        def log_message(self, format: str, *args: Any) -> None:
+        def do_PUT(self) -> None:
+            self.do_POST()
+
+        def do_PATCH(self) -> None:
+            self.do_POST()
+
+        def do_DELETE(self) -> None:
+            self.do_POST()
+
+        def do_OPTIONS(self) -> None:
+            self.do_POST()
+
+        def log_message(self, _format: str, *_args: Any) -> None:
             return
+
+        def _request_allowed(self) -> bool:
+            port = getattr(self.server, "server_port", None)
+            if not isinstance(port, int):
+                self._json(HTTPStatus.INTERNAL_SERVER_ERROR, {"error": "server port is invalid"})
+                return False
+            hosts = self.headers.get_all("Host", failobj=[])
+            allowed_hosts = {f"127.0.0.1:{port}", f"localhost:{port}"}
+            if len(hosts) != 1 or hosts[0].strip().casefold() not in allowed_hosts:
+                self._json(
+                    HTTPStatus.MISDIRECTED_REQUEST,
+                    {"error": "Host is outside the loopback workbench origin"},
+                )
+                return False
+            origins = self.headers.get_all("Origin", failobj=[])
+            allowed_origins = {f"http://{host}" for host in allowed_hosts}
+            if len(origins) > 1 or (
+                origins and origins[0].strip().casefold() not in allowed_origins
+            ):
+                self._json(
+                    HTTPStatus.FORBIDDEN,
+                    {"error": "Origin is outside the loopback workbench origin"},
+                )
+                return False
+            return True
 
         def _result(self, result: dict[str, Any]) -> None:
             status = (
@@ -91,7 +136,13 @@ def create_handler(policy: InterfacePolicy) -> type[BaseHTTPRequestHandler]:
             self.send_header("Content-Length", str(len(data)))
             self.send_header("Cache-Control", "no-store")
             self.send_header("X-Content-Type-Options", "nosniff")
+            self.send_header("X-Frame-Options", "DENY")
             self.send_header("Referrer-Policy", "no-referrer")
+            self.send_header("Cross-Origin-Resource-Policy", "same-origin")
+            self.send_header(
+                "Permissions-Policy",
+                "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
+            )
             self.send_header(
                 "Content-Security-Policy",
                 "default-src 'self'; script-src 'self' 'unsafe-inline'; "

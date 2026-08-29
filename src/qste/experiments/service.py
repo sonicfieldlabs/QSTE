@@ -300,8 +300,8 @@ class ExperimentPreparationService:
             created_at=timestamp,
         )
         error = ContractError(reason, message)
-        error.receipt_id = receipt["record_id"]  # type: ignore[attr-defined]
-        error.authorization_status = effective  # type: ignore[attr-defined]
+        error.receipt_id = receipt["record_id"]
+        error.authorization_status = effective
         raise error
 
 

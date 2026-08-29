@@ -100,7 +100,7 @@ class RelationService:
         try:
             normalized = _validate_projection_input(specification)
         except ContractError as error:
-            error.receipt_id = self._failure_receipt(  # type: ignore[attr-defined]
+            error.receipt_id = self._failure_receipt(
                 "declare_projection", arm, specification, error, authorization_status
             )
             raise
@@ -177,7 +177,7 @@ class RelationService:
             normalized = _validate_comparison_input(specification)
             _validate_projection_pair(projections, normalized)
         except ContractError as error:
-            error.receipt_id = self._failure_receipt(  # type: ignore[attr-defined]
+            error.receipt_id = self._failure_receipt(
                 "declare_comparison", subject, specification, error, authorization_status
             )
             raise
@@ -285,7 +285,7 @@ class RelationService:
                 authorization_status,
             )
         except ContractError as error:
-            error.receipt_id = self._failure_receipt(  # type: ignore[attr-defined]
+            error.receipt_id = self._failure_receipt(
                 "compare", comparison, evidence, error, authorization_status
             )
             raise
@@ -373,7 +373,7 @@ class RelationService:
                 "invalid_input",
                 "relation invalidation requires a canonical reason and evidence",
             )
-            failure.receipt_id = self._failure_receipt(  # type: ignore[attr-defined]
+            failure.receipt_id = self._failure_receipt(
                 "invalidate_relation",
                 assertion,
                 {"invalidation_reason": invalidation_reason},
@@ -970,9 +970,7 @@ class RelationService:
         if status == "permitted":
             return
         error = ContractError("policy_refused", f"{operation} requires explicit permission")
-        error.receipt_id = self._failure_receipt(  # type: ignore[attr-defined]
-            operation, subject, parameters, error, status
-        )
+        error.receipt_id = self._failure_receipt(operation, subject, parameters, error, status)
         raise error
 
     def _failure_receipt(

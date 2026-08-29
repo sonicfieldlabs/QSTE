@@ -10,7 +10,13 @@ from conftest import fixture_record
 
 from qste.core import SemanticKeySpec, content_digest, semantic_key
 from qste.core.contracts import ContractError
-from qste.storage import ArtifactStore, RecordStore, WorkspacePaths
+from qste.storage import (
+    ArtifactStore,
+    DenseStore,
+    RecordStore,
+    WorkspacePaths,
+    verify_workspace_storage,
+)
 
 
 def _source(number: int, *, locator: str = "qste://fixtures/source") -> dict[str, Any]:
@@ -76,6 +82,25 @@ def test_batch_reference_failure_rolls_back_every_record(
     with pytest.raises(ContractError, match="missing internal references"):
         store.insert_record(record)
     assert store.iter_records() == ()
+
+
+def test_typed_reference_mismatch_rolls_back_the_new_record(
+    workspace: tuple[WorkspacePaths, RecordStore],
+) -> None:
+    _, store = workspace
+    parent = _source(1)
+    child = _source(2, locator="qste://fixtures/child")
+    child["references"] = [
+        {
+            "record_id": parent["record_id"],
+            "record_type": "ArtifactRecord",
+            "relation": "derived_from",
+        }
+    ]
+    store.insert_record(parent)
+    with pytest.raises(ContractError, match="typed reference mismatch"):
+        store.insert_record(child)
+    assert [item.record_id for item in store.iter_records()] == [parent["record_id"]]
 
 
 def test_record_and_event_transaction_rolls_back_as_one_unit(
@@ -200,3 +225,143 @@ def test_events_require_canonical_utc_seconds(
             created_at="2026-08-28T00:00:00.123Z",
         )
     assert store.iter_events() == ()
+
+
+def test_verification_rejects_unregistered_or_missing_artifact_bytes(tmp_path: Path) -> None:
+    store = RecordStore.initialize(tmp_path / "unregistered")
+    artifacts = ArtifactStore(store.paths)
+    artifacts.put_bytes(b"not registered")
+    with pytest.raises(ContractError, match="artifact filesystem closure"):
+        verify_workspace_storage(store)
+
+    registered_store = RecordStore.initialize(tmp_path / "missing")
+    registered_artifacts = ArtifactStore(registered_store.paths)
+    object_ = registered_artifacts.put_bytes(b"registered")
+    registered_store.register_artifact(object_.content_digest, object_.size, object_.relative_path)
+    registered_store.paths.owned_path(object_.relative_path).unlink()
+    with pytest.raises(ContractError, match="registered artifact is absent"):
+        verify_workspace_storage(registered_store)
+
+
+def test_registration_rejects_noncanonical_object_paths_immediately(tmp_path: Path) -> None:
+    store = RecordStore.initialize(tmp_path / "workspace")
+    artifacts = ArtifactStore(store.paths)
+    object_ = artifacts.put_bytes(b"registered only at its digest path")
+    with pytest.raises(ContractError, match="path is not canonical"):
+        store.register_artifact(object_.content_digest, object_.size, "artifacts/misplaced")
+    with pytest.raises(ContractError, match="nonnegative integer"):
+        store.register_artifact(object_.content_digest, True, object_.relative_path)
+
+
+def test_verification_rejects_unregistered_dense_objects(tmp_path: Path) -> None:
+    store = RecordStore.initialize(tmp_path / "workspace")
+    DenseStore(store.paths).write_array(
+        "unregistered",
+        [1.0, 2.0],
+        chunks=(2,),
+        dimension_names=("sample",),
+        coordinates={"sample": [0, 1]},
+        created_at="2026-08-28T02:00:00Z",
+    )
+    with pytest.raises(ContractError, match="dense filesystem closure"):
+        verify_workspace_storage(store)
+
+
+def test_verification_rejects_invalid_stored_lineage_relation(
+    workspace: tuple[WorkspacePaths, RecordStore],
+) -> None:
+    paths, store = workspace
+    parent = _source(1)
+    child = _source(2, locator="qste://fixtures/child")
+    store.insert_record(parent)
+    store.create_descendant(parent["record_id"], child)
+    connection = sqlite3.connect(paths.database)
+    try:
+        connection.execute("DROP TRIGGER edges_no_update")
+        connection.execute("UPDATE edges SET relation = 'invented_relation'")
+        connection.execute(
+            """
+            CREATE TRIGGER edges_no_update
+            BEFORE UPDATE ON edges BEGIN SELECT RAISE(ABORT, 'edges are append-only'); END
+            """
+        )
+        connection.commit()
+    finally:
+        connection.close()
+    with pytest.raises(ContractError, match="stored lineage relation is invalid"):
+        store.verify()
+
+
+def test_verification_rejects_missing_embedded_reference_edge(
+    workspace: tuple[WorkspacePaths, RecordStore],
+) -> None:
+    paths, store = workspace
+    parent = _source(1)
+    child = _source(2, locator="qste://fixtures/child")
+    child["references"] = [
+        {
+            "record_id": parent["record_id"],
+            "record_type": "SourceRecord",
+            "relation": "derived_from",
+        }
+    ]
+    store.insert_records([parent, child])
+    connection = sqlite3.connect(paths.database)
+    try:
+        connection.execute("DROP TRIGGER edges_no_delete")
+        connection.execute("DELETE FROM edges")
+        connection.execute(
+            """
+            CREATE TRIGGER edges_no_delete
+            BEFORE DELETE ON edges BEGIN SELECT RAISE(ABORT, 'edges are append-only'); END
+            """
+        )
+        connection.commit()
+    finally:
+        connection.close()
+    with pytest.raises(ContractError, match="omits an embedded record reference"):
+        store.verify()
+
+
+def test_verification_rejects_missing_immutability_trigger(
+    workspace: tuple[WorkspacePaths, RecordStore],
+) -> None:
+    paths, store = workspace
+    connection = sqlite3.connect(paths.database)
+    try:
+        connection.execute("DROP TRIGGER records_no_update")
+        connection.commit()
+    finally:
+        connection.close()
+    with pytest.raises(ContractError, match="immutability triggers differ"):
+        store.verify()
+
+
+def test_verification_classifies_corrupt_stored_timestamps_as_conformance_failures(
+    workspace: tuple[WorkspacePaths, RecordStore],
+) -> None:
+    paths, store = workspace
+    record = _source(1)
+    store.insert_record(record)
+    store.append_event(
+        "qste:event/test-v1",
+        record["record_id"],
+        {},
+        created_at="2026-08-28T00:00:00Z",
+    )
+    connection = sqlite3.connect(paths.database)
+    try:
+        connection.execute("DROP TRIGGER events_no_update")
+        connection.execute("UPDATE events SET created_at = 'not-a-timestamp'")
+        connection.execute(
+            """
+            CREATE TRIGGER events_no_update
+            BEFORE UPDATE ON events BEGIN SELECT RAISE(ABORT, 'events are append-only'); END
+            """
+        )
+        connection.commit()
+    finally:
+        connection.close()
+    with pytest.raises(ContractError, match="stored event timestamp is invalid") as failure:
+        store.verify()
+    assert failure.value.reason_code == "conformance_failed"

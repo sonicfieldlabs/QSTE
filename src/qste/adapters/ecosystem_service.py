@@ -4,7 +4,9 @@ from __future__ import annotations
 
 import socket
 import struct
-import subprocess
+
+# B404: only the fixed packaged fixture is executable.
+import subprocess  # nosec B404
 import sys
 from collections.abc import Mapping, Sequence
 from importlib.resources import files
@@ -166,6 +168,8 @@ class EcosystemAdapterService:
         context = self.store.get_record(context_record_id).record
         self._authorize(authorization_status, f"ecosystem_{operation}", context)
         self._require_capability(target, operation, context)
+        if not isinstance(human_authorized, bool):
+            raise ContractError("invalid_input", "human authorization must be an exact boolean")
         normalized = _bounded_object(payload)
         if (
             operation == "project"
@@ -387,7 +391,8 @@ class BoundedEngineService:
         fixture_program = Path(__file__).with_name("engine_fixture.py")
         command = [sys.executable, str(fixture_program)]
         try:
-            completed = subprocess.run(
+            # B603: both the interpreter and fixture path are fixed by QSTE.
+            completed = subprocess.run(  # nosec B603
                 command,
                 input=input_bytes,
                 capture_output=True,
@@ -786,10 +791,10 @@ def _persist_failure(
         created_at=timestamp,
     )
     error = ContractError(reason, message)
-    error.receipt_id = receipt["record_id"]  # type: ignore[attr-defined]
-    error.authorization_status = effective_authorization  # type: ignore[attr-defined]
-    error.capability_status = capability_status  # type: ignore[attr-defined]
-    error.diagnostics_extra = detail  # type: ignore[attr-defined]
+    error.receipt_id = receipt["record_id"]
+    error.authorization_status = effective_authorization
+    error.capability_status = capability_status
+    error.diagnostics_extra = detail
     raise error
 
 
@@ -900,12 +905,13 @@ def _validate_cosmo(payload: Mapping[str, Any]) -> None:
     controls_by_target = {item.get("target"): item for item in controls}
     for target, value in values.items():
         control = controls_by_target.get(target)
-        if not isinstance(value, (int, float)) or control is None:
+        if not isinstance(value, (int, float)) or isinstance(value, bool) or control is None:
             raise ContractError("conformance_failed", "Cosmo value lacks a control decision")
         if control.get("status") is None or control.get("outputValue") != value:
             raise ContractError("conformance_failed", "Cosmo value and control status differ")
     for absence in absences:
-        if absence.get("target") in values or not absence.get("reason"):
+        reason = absence.get("reason")
+        if absence.get("target") in values or not isinstance(reason, str) or not reason.strip():
             raise ContractError("conformance_failed", "Cosmo absence is not explicit")
     if not attributions or not sources:
         raise ContractError("conformance_failed", "Cosmo attribution or source health is absent")
@@ -1012,17 +1018,26 @@ def _validate_process_request(request: Mapping[str, Any]) -> dict[str, Any]:
     limits = request["limits"]
     if not isinstance(parameters, Mapping) or set(parameters) != {"gain", "mode"}:
         raise ContractError("invalid_input", "engine parameters are invalid")
-    if parameters["mode"] != "scale" or not isinstance(parameters["gain"], (int, float)):
+    if (
+        parameters["mode"] != "scale"
+        or not isinstance(parameters["gain"], (int, float))
+        or isinstance(parameters["gain"], bool)
+    ):
         raise ContractError("invalid_input", "engine fixture permits only numeric scale mode")
     if (
         not isinstance(payload, list)
         or len(payload) > 4096
-        or not all(isinstance(item, (int, float)) for item in payload)
+        or not all(
+            isinstance(item, (int, float)) and not isinstance(item, bool) for item in payload
+        )
     ):
         raise ContractError("invalid_input", "engine payload is invalid")
     if not isinstance(limits, Mapping) or set(limits) != PROCESS_LIMIT_KEYS:
         raise ContractError("invalid_input", "engine limit fields are not exact")
-    if not all(isinstance(value, int) and value >= 0 for value in limits.values()):
+    if not all(
+        isinstance(value, int) and not isinstance(value, bool) and value >= 0
+        for value in limits.values()
+    ):
         raise ContractError("invalid_input", "engine limits must be nonnegative integers")
     exact_upper = {
         "maximum_input_bytes": 65_536,
@@ -1039,9 +1054,9 @@ def _validate_process_request(request: Mapping[str, Any]) -> dict[str, Any]:
         raise ContractError("invalid_input", "engine limit exceeds P11 fixture maximum")
     timeout = request["timeout_seconds"]
     delay = request["delay_ms"]
-    if not isinstance(timeout, (int, float)) or not 0 < timeout <= 5:
+    if not isinstance(timeout, (int, float)) or isinstance(timeout, bool) or not 0 < timeout <= 5:
         raise ContractError("invalid_input", "engine timeout is outside (0, 5] seconds")
-    if not isinstance(delay, int) or not 0 <= delay <= 2_000:
+    if not isinstance(delay, int) or isinstance(delay, bool) or not 0 <= delay <= 2_000:
         raise ContractError("invalid_input", "engine delay is outside fixture bounds")
     return {
         "parameters": dict(parameters),
@@ -1068,9 +1083,9 @@ def _validate_loopback_request(request: Mapping[str, Any]) -> dict[str, Any]:
         raise ContractError("invalid_input", "OSC fixture message is invalid")
     timeout = request["timeout_seconds"]
     maximum = request["maximum_packet_bytes"]
-    if not isinstance(timeout, (int, float)) or not 0 < timeout <= 2:
+    if not isinstance(timeout, (int, float)) or isinstance(timeout, bool) or not 0 < timeout <= 2:
         raise ContractError("invalid_input", "OSC timeout is outside (0, 2] seconds")
-    if not isinstance(maximum, int) or not 64 <= maximum <= 1024:
+    if not isinstance(maximum, int) or isinstance(maximum, bool) or not 64 <= maximum <= 1024:
         raise ContractError("invalid_input", "OSC packet bound is outside [64, 1024]")
     return {
         "protocol": request["protocol"],

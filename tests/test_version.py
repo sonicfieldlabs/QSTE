@@ -2,8 +2,9 @@ from __future__ import annotations
 
 import json
 import re
+from pathlib import Path
 
-from qste._version import version_info
+from qste._version import _checkout_commit, version_info
 from qste.cli import main
 
 
@@ -192,3 +193,37 @@ def test_cli_json_reports_all_identity_layers(capsys: object) -> None:
         "schema_capability_status",
         "schema_set_id",
     }
+
+
+def test_checkout_commit_is_resolved_without_invoking_git(tmp_path: Path) -> None:
+    commit = "1" * 40
+    loose = tmp_path / "loose"
+    (loose / ".git" / "refs" / "heads").mkdir(parents=True)
+    (loose / ".git" / "HEAD").write_text("ref: refs/heads/main\n")
+    (loose / ".git" / "refs" / "heads" / "main").write_text(commit + "\n")
+    assert _checkout_commit(loose) == commit
+
+    packed = tmp_path / "packed"
+    (packed / ".git").mkdir(parents=True)
+    (packed / ".git" / "HEAD").write_text("ref: refs/heads/main\n")
+    (packed / ".git" / "packed-refs").write_text(f"# pack-refs\n{commit} refs/heads/main\n")
+    assert _checkout_commit(packed) == commit
+
+    worktree = tmp_path / "worktree"
+    metadata = tmp_path / "worktree-metadata"
+    worktree.mkdir()
+    metadata.mkdir()
+    (worktree / ".git").write_text("gitdir: ../worktree-metadata\n")
+    (metadata / "HEAD").write_text(commit + "\n")
+    assert _checkout_commit(worktree) == commit
+
+    linked = tmp_path / "linked"
+    linked_metadata = tmp_path / "common" / "worktrees" / "linked"
+    common = tmp_path / "common"
+    linked.mkdir()
+    linked_metadata.mkdir(parents=True)
+    (linked / ".git").write_text("gitdir: ../common/worktrees/linked\n")
+    (linked_metadata / "HEAD").write_text("ref: refs/heads/linked\n")
+    (linked_metadata / "commondir").write_text("../..\n")
+    (common / "packed-refs").write_text(f"# pack-refs\n{commit} refs/heads/linked\n")
+    assert _checkout_commit(linked) == commit

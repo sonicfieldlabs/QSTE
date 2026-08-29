@@ -17,12 +17,14 @@ from qste.core import (
     loads_json,
     new_record_id,
     validate_reference_closure,
+    validate_utc_timestamp,
 )
 from qste.core.contracts import ContractError
 from qste.storage.artifacts import ArtifactStore
-from qste.storage.database import EventEntry, LineageEdge, RecordStore
-from qste.storage.dense import DenseStore
+from qste.storage.database import LINEAGE_RELATIONS, EventEntry, LineageEdge, RecordStore
+from qste.storage.dense import DenseStore, verify_dense_manifest_store
 from qste.storage.paths import WorkspacePaths, atomic_write
+from qste.storage.verification import verify_workspace_storage
 
 BUNDLE_FORMAT = "qste-private-bundle/0.1"
 
@@ -81,6 +83,7 @@ class BundleService:
         target = self.paths.bundles / identifier.rsplit(":", 1)[-1]
         if target.exists():
             raise ContractError("conformance_failed", f"bundle already exists: {identifier}")
+        verify_workspace_storage(self.record_store, self.artifact_store, self.dense_store)
         stage = self.paths.staging / f"bundle-{uuid.uuid4()}"
         stage.mkdir(mode=0o700, parents=True)
         try:
@@ -257,7 +260,7 @@ class BundleService:
 
     def _copy_artifacts(self, stage: Path) -> list[dict[str, Any]]:
         entries: list[dict[str, Any]] = []
-        for artifact in self.artifact_store.iter_objects():
+        for artifact in self.record_store.iter_artifact_registrations():
             data = self.artifact_store.read_bytes(artifact.content_digest)
             atomic_write(stage / artifact.relative_path, data, mode=0o400)
             entries.append(
@@ -271,7 +274,8 @@ class BundleService:
 
     def _copy_dense(self, stage: Path) -> list[dict[str, Any]]:
         entries: list[dict[str, Any]] = []
-        for dense in self.dense_store.iter_objects():
+        for registration in self.record_store.iter_dense_registrations():
+            dense = self.dense_store.verify(registration.dense_id)
             source_manifest = self.paths.root / dense.relative_path
             destination_manifest = stage / dense.relative_path
             atomic_write(destination_manifest, source_manifest.read_bytes(), mode=0o400)
@@ -312,62 +316,125 @@ class BundleReader:
         self.registry = registry or SchemaRegistry()
 
     def manifest(self) -> dict[str, Any]:
-        value = loads_json(self._file("manifest.json").read_bytes())
+        data = self._file("manifest.json").read_bytes()
+        value = loads_json(data)
         if not isinstance(value, dict):
             raise ContractError("conformance_failed", "bundle manifest is not an object")
+        if canonical_json_bytes(value) != data:
+            raise ContractError("conformance_failed", "bundle manifest is not canonical JSON")
         return cast(dict[str, Any], value)
 
     def records(self) -> tuple[dict[str, Any], ...]:
         manifest = self.manifest()
-        files = sorted(manifest["qste:recordFiles"], key=lambda item: item["path"])
+        raw_files = manifest.get("qste:recordFiles")
+        if not isinstance(raw_files, list):
+            raise ContractError("conformance_failed", "bundle record files are malformed")
+        files = [
+            _manifest_entry(
+                item,
+                {"record_id", "path", "content_digest"},
+                "record file",
+            )
+            for item in raw_files
+        ]
+        files.sort(key=lambda item: cast(str, item["path"]))
         records: list[dict[str, Any]] = []
         for entry in files:
-            value = loads_json(self._file(entry["path"]).read_bytes())
+            path = _text(entry["path"], "record file path")
+            _digest(entry["content_digest"], "record file digest")
+            _text(entry["record_id"], "record file ID")
+            data = self._file(path).read_bytes()
+            value = loads_json(data)
             if not isinstance(value, dict):
                 raise ContractError("conformance_failed", "bundle record is not an object")
+            if canonical_json_bytes(value) != data:
+                raise ContractError("conformance_failed", "bundle record is not canonical JSON")
             records.append(cast(dict[str, Any], value))
         return tuple(records)
 
     def events(self) -> tuple[dict[str, Any], ...]:
         manifest = self.manifest()
-        entries = sorted(
-            manifest["qste:eventLog"]["files"], key=lambda item: item["event_sequence"]
+        event_log = _manifest_entry(
+            manifest.get("qste:eventLog"), {"entries", "files"}, "event log"
         )
+        raw_entries = event_log["files"]
+        if not isinstance(raw_entries, list):
+            raise ContractError("conformance_failed", "bundle event files are malformed")
+        entries = [
+            _manifest_entry(
+                item,
+                {"event_sequence", "path", "content_digest"},
+                "event file",
+            )
+            for item in raw_entries
+        ]
+        entries.sort(key=lambda item: _positive_integer(item["event_sequence"], "event sequence"))
         events: list[dict[str, Any]] = []
         for entry in entries:
-            value = loads_json(self._file(entry["path"]).read_bytes())
+            path = _text(entry["path"], "event file path")
+            _digest(entry["content_digest"], "event file digest")
+            data = self._file(path).read_bytes()
+            value = loads_json(data)
             if not isinstance(value, dict):
                 raise ContractError("conformance_failed", "bundle event is not an object")
+            if canonical_json_bytes(value) != data:
+                raise ContractError("conformance_failed", "bundle event is not canonical JSON")
             events.append(cast(dict[str, Any], value))
         return tuple(events)
 
     def edges(self) -> tuple[dict[str, Any], ...]:
         manifest = self.manifest()
-        value = loads_json(self._file(manifest["qste:lineageEdges"]["path"]).read_bytes())
+        edge_manifest = _manifest_entry(
+            manifest.get("qste:lineageEdges"),
+            {"path", "content_digest", "count"},
+            "lineage manifest",
+        )
+        data = self._file(_text(edge_manifest["path"], "lineage path")).read_bytes()
+        value = loads_json(data)
         if not isinstance(value, list) or not all(isinstance(item, dict) for item in value):
             raise ContractError("conformance_failed", "bundle lineage edges are malformed")
-        return tuple(cast(list[dict[str, Any]], value))
+        if canonical_json_bytes(value) != data:
+            raise ContractError("conformance_failed", "bundle lineage is not canonical JSON")
+        entries = tuple(
+            cast(
+                dict[str, Any],
+                _manifest_entry(
+                    item,
+                    {"source_record_id", "target_record_id", "relation"},
+                    "lineage edge",
+                ),
+            )
+            for item in value
+        )
+        return entries
 
     def verify(self) -> BundleVerification:
         manifest = self.manifest()
         self.registry.validate_bundle_manifest(manifest)
+        if manifest.get("qste:bundleFormat") != BUNDLE_FORMAT:
+            raise ContractError("conformance_failed", "bundle implementation format differs")
         without_digest = {key: value for key, value in manifest.items() if key != "manifest_digest"}
         computed_manifest_digest = content_digest(canonical_json_bytes(without_digest))
         if computed_manifest_digest != manifest["manifest_digest"]:
             raise ContractError("conformance_failed", "bundle manifest digest mismatch")
         declared_paths: set[str] = set()
-        for entry in manifest["checksums"]:
-            path_text = cast(str, entry["path"])
+        for raw_entry in manifest["checksums"]:
+            entry = _manifest_entry(raw_entry, {"path", "content_digest", "size"}, "checksum")
+            path_text = _text(entry["path"], "checksum path")
+            digest = _digest(entry["content_digest"], "checksum digest")
+            size = _nonnegative_integer(entry["size"], "checksum size")
             if path_text in declared_paths:
                 raise ContractError("conformance_failed", f"duplicate bundle path: {path_text}")
             declared_paths.add(path_text)
             path = self._file(path_text)
             data = path.read_bytes()
-            if len(data) != entry["size"] or content_digest(data) != entry["content_digest"]:
+            if len(data) != size or content_digest(data) != digest:
                 raise ContractError("conformance_failed", f"bundle checksum mismatch: {path_text}")
         all_paths = tuple(self.root.rglob("*"))
         if any(path.is_symlink() for path in all_paths):
             raise ContractError("conformance_failed", "bundle cannot contain symlinks")
+        if any(not (path.is_file() or path.is_dir()) for path in all_paths):
+            raise ContractError("conformance_failed", "bundle cannot contain special files")
         manifest_path = self.root / "manifest.json"
         actual_paths = {
             path.relative_to(self.root).as_posix()
@@ -384,6 +451,17 @@ class BundleReader:
         authority = by_id.get(manifest["authority_ref"])
         if authority is None or authority["record_type"] != "AuthorityManifest":
             raise ContractError("conformance_failed", "bundle authority reference does not resolve")
+        if (
+            manifest["contract_id"] != authority["contract_id"]
+            or manifest["schema_set_id"] != authority["schema_set"]["id"]
+            or manifest["conformance_profile_id"] != authority["conformance_profile"]["id"]
+            or manifest["code"] != authority["code"]
+            or manifest["adapter_versions"] != authority["adapter_contracts"]
+            or manifest["model_versions"] != authority["model_checkpoint_manifests"]
+            or manifest["corpus_versions"] != authority["research_sources"]
+            or manifest["experiment_profiles"] != authority["experiment_profiles"]
+        ):
+            raise ContractError("conformance_failed", "bundle authority snapshot is inconsistent")
         ordered = manifest["record_manifest"]
         if [entry["sequence"] for entry in ordered] != list(range(len(ordered))):
             raise ContractError("conformance_failed", "bundle record sequence is not contiguous")
@@ -392,48 +470,143 @@ class BundleReader:
             raise ContractError("conformance_failed", "bundle record file count mismatch")
         for entry, file_entry, record in zip(ordered, record_files, records, strict=True):
             data = canonical_json_bytes(record)
+            expected_path = f"records/{entry['sequence']:08d}.json"
             if (
                 entry["record_id"] != record["record_id"]
                 or entry["record_type"] != record["record_type"]
                 or entry["digest"] != content_digest(data)
                 or file_entry["record_id"] != record["record_id"]
                 or file_entry["content_digest"] != content_digest(data)
+                or file_entry["path"] != expected_path
             ):
                 raise ContractError("conformance_failed", "bundle record manifest mismatch")
+        expected_event_manifest = [
+            entry
+            for entry in ordered
+            if entry["record_type"] in {"AcquisitionEvent", "DecisionEvent"}
+        ]
+        expected_relation_manifest = [
+            entry for entry in ordered if entry["record_type"] == "RelationAssertion"
+        ]
+        if (
+            manifest["event_manifest"] != expected_event_manifest
+            or manifest["relation_manifest"] != expected_relation_manifest
+        ):
+            raise ContractError("conformance_failed", "bundle typed record manifests differ")
         events = self.events()
+        event_keys = {
+            "event_sequence",
+            "event_id",
+            "event_type",
+            "subject_record_id",
+            "receipt_record_id",
+            "created_at",
+            "payload_digest",
+            "payload",
+        }
+        if any(set(event) != event_keys for event in events):
+            raise ContractError("conformance_failed", "bundle event fields are not exact")
         sequences = [cast(int, event["event_sequence"]) for event in events]
         if sequences != list(range(1, len(sequences) + 1)):
             raise ContractError("conformance_failed", "bundle event sequence is not monotonic")
-        event_entries = manifest["qste:eventLog"]["entries"]
-        event_files = sorted(
-            manifest["qste:eventLog"]["files"], key=lambda item: item["event_sequence"]
+        event_log = cast(Mapping[str, Any], manifest["qste:eventLog"])
+        if not isinstance(event_log["entries"], list) or not isinstance(event_log["files"], list):
+            raise ContractError("conformance_failed", "bundle event manifests are malformed")
+        event_entries = [
+            _manifest_entry(
+                item,
+                {"event_sequence", "event_id", "event_type", "content_digest"},
+                "event entry",
+            )
+            for item in event_log["entries"]
+        ]
+        event_files = [
+            _manifest_entry(
+                item,
+                {"event_sequence", "path", "content_digest"},
+                "event file",
+            )
+            for item in event_log["files"]
+        ]
+        event_files.sort(
+            key=lambda item: _positive_integer(item["event_sequence"], "event sequence")
         )
         if len(event_entries) != len(events) or len(event_files) != len(events):
             raise ContractError("conformance_failed", "bundle event manifest count mismatch")
         for entry, file_entry, event in zip(event_entries, event_files, events, strict=True):
+            sequence = _positive_integer(event["event_sequence"], "event sequence")
+            event_id = _text(event["event_id"], "event ID")
+            if not re.fullmatch(
+                r"qste:event:[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}",
+                event_id,
+            ):
+                raise ContractError("conformance_failed", "bundle event ID is not canonical")
+            if not isinstance(event["payload"], dict):
+                raise ContractError("conformance_failed", "bundle event payload is not an object")
+            receipt_record_id = event["receipt_record_id"]
             if event["subject_record_id"] not in by_id:
                 raise ContractError("conformance_failed", "bundle event subject does not resolve")
+            if receipt_record_id is not None and (
+                receipt_record_id not in by_id
+                or by_id[receipt_record_id]["record_type"] != "OperationReceipt"
+            ):
+                raise ContractError(
+                    "conformance_failed", "bundle event receipt does not resolve by type"
+                )
             event_digest = content_digest(canonical_json_bytes(event))
+            expected_path = f"events/{sequence:016d}.json"
             if (
                 content_digest(canonical_json_bytes(event["payload"])) != event["payload_digest"]
+                or not isinstance(event["event_type"], str)
+                or not event["event_type"].startswith("qste:")
+                or _timestamp(event["created_at"], "event timestamp") != event["created_at"]
                 or entry["event_sequence"] != event["event_sequence"]
                 or entry["event_id"] != event["event_id"]
                 or entry["event_type"] != event["event_type"]
                 or entry["content_digest"] != event_digest
                 or file_entry["event_sequence"] != event["event_sequence"]
                 or file_entry["content_digest"] != event_digest
+                or file_entry["path"] != expected_path
             ):
                 raise ContractError("conformance_failed", "bundle event payload digest mismatch")
         edges = self.edges()
-        edge_manifest = manifest["qste:lineageEdges"]
+        edge_manifest = cast(Mapping[str, Any], manifest["qste:lineageEdges"])
         edge_digest = content_digest(canonical_json_bytes(list(edges)))
-        if edge_manifest["count"] != len(edges) or edge_manifest["content_digest"] != edge_digest:
+        if (
+            _nonnegative_integer(edge_manifest["count"], "lineage count") != len(edges)
+            or _digest(edge_manifest["content_digest"], "lineage digest") != edge_digest
+        ):
             raise ContractError("conformance_failed", "bundle lineage manifest mismatch")
+        edge_tuples = [
+            (edge["source_record_id"], edge["target_record_id"], edge["relation"]) for edge in edges
+        ]
+        if len(edge_tuples) != len(set(edge_tuples)) or edge_tuples != sorted(edge_tuples):
+            raise ContractError("conformance_failed", "bundle lineage is duplicated or unordered")
         for edge in edges:
-            if edge["source_record_id"] not in by_id or edge["target_record_id"] not in by_id:
+            if (
+                edge["source_record_id"] not in by_id
+                or edge["target_record_id"] not in by_id
+                or edge["relation"] not in LINEAGE_RELATIONS
+            ):
                 raise ContractError("conformance_failed", "bundle lineage edge does not resolve")
-        self._verify_artifacts(manifest)
-        self._verify_dense(manifest)
+        actual_edges = {
+            (edge["source_record_id"], edge["target_record_id"], edge["relation"]) for edge in edges
+        }
+        if not _reference_edges(records).issubset(actual_edges):
+            raise ContractError(
+                "conformance_failed", "bundle lineage omits an embedded record reference"
+            )
+        semantic_paths = {
+            *(entry["path"] for entry in record_files),
+            *(entry["path"] for entry in event_files),
+            edge_manifest["path"],
+        }
+        semantic_paths.update(self._verify_artifacts(manifest))
+        semantic_paths.update(self._verify_dense(manifest))
+        if declared_paths != semantic_paths:
+            raise ContractError(
+                "conformance_failed", "bundle checksums include an undeclared semantic file"
+            )
         logical_state = {
             "records": [content_digest(canonical_json_bytes(record)) for record in records],
             "events": list(events),
@@ -460,36 +633,67 @@ class BundleReader:
             logical_state_digest=content_digest(canonical_json_bytes(logical_state)),
         )
 
-    def _verify_artifacts(self, manifest: Mapping[str, Any]) -> None:
-        for entry in manifest["artifact_manifest"]:
-            data = self._file(entry["path"]).read_bytes()
-            if len(data) != entry["size"] or content_digest(data) != entry["content_digest"]:
+    def _verify_artifacts(self, manifest: Mapping[str, Any]) -> set[str]:
+        paths: set[str] = set()
+        digests: set[str] = set()
+        for raw_entry in manifest["artifact_manifest"]:
+            entry = _manifest_entry(
+                raw_entry, {"content_digest", "path", "size"}, "artifact manifest"
+            )
+            digest = _digest(entry["content_digest"], "artifact digest")
+            path_text = _text(entry["path"], "artifact path")
+            size = _nonnegative_integer(entry["size"], "artifact size")
+            expected_path = ArtifactStore.relative_path(digest)
+            if path_text != expected_path or path_text in paths or digest in digests:
+                raise ContractError("conformance_failed", "bundle artifact path is not canonical")
+            data = self._file(path_text).read_bytes()
+            if len(data) != size or content_digest(data) != digest:
                 raise ContractError("conformance_failed", "bundle artifact identity mismatch")
+            paths.add(path_text)
+            digests.add(digest)
+        return paths
 
-    def _verify_dense(self, manifest: Mapping[str, Any]) -> None:
-        for entry in manifest["dense_manifests"]:
-            dense_manifest_value = loads_json(self._file(entry["path"]).read_bytes())
+    def _verify_dense(self, manifest: Mapping[str, Any]) -> set[str]:
+        paths: set[str] = set()
+        dense_ids: set[str] = set()
+        for raw_entry in manifest["dense_manifests"]:
+            entry = _manifest_entry(
+                raw_entry, {"dense_id", "manifest_digest", "path"}, "dense manifest"
+            )
+            dense_id = _text(entry["dense_id"], "dense ID")
+            path_text = _text(entry["path"], "dense manifest path")
+            manifest_digest = _digest(entry["manifest_digest"], "dense manifest digest")
+            expected_path = f"dense/{dense_id}.manifest.json"
+            if (
+                not re.fullmatch(r"[a-z][a-z0-9_.-]{0,63}", dense_id)
+                or path_text != expected_path
+                or path_text in paths
+                or dense_id in dense_ids
+            ):
+                raise ContractError("conformance_failed", "bundle dense path is not canonical")
+            dense_manifest_bytes = self._file(path_text).read_bytes()
+            dense_manifest_value = loads_json(dense_manifest_bytes)
             if not isinstance(dense_manifest_value, dict):
                 raise ContractError("conformance_failed", "bundle dense manifest is malformed")
             dense_manifest = cast(dict[str, Any], dense_manifest_value)
+            if canonical_json_bytes(dense_manifest) != dense_manifest_bytes:
+                raise ContractError("conformance_failed", "bundle dense manifest is not canonical")
             without_digest = {
                 key: value for key, value in dense_manifest.items() if key != "manifest_digest"
             }
             if (
-                dense_manifest.get("dense_id") != entry["dense_id"]
-                or dense_manifest.get("manifest_digest") != entry["manifest_digest"]
-                or content_digest(canonical_json_bytes(without_digest)) != entry["manifest_digest"]
+                dense_manifest.get("dense_id") != dense_id
+                or dense_manifest.get("manifest_digest") != manifest_digest
+                or content_digest(canonical_json_bytes(without_digest)) != manifest_digest
             ):
                 raise ContractError("conformance_failed", "bundle dense manifest mismatch")
-            store_root = self.root / "dense" / f"{entry['dense_id']}.zarr"
-            for file_entry in dense_manifest["files"]:
-                path = _safe_descendant(store_root, file_entry["path"])
-                data = path.read_bytes()
-                if (
-                    len(data) != file_entry["size"]
-                    or content_digest(data) != file_entry["content_digest"]
-                ):
-                    raise ContractError("conformance_failed", "bundle dense chunk mismatch")
+            store_root = self.root / "dense" / f"{dense_id}.zarr"
+            verify_dense_manifest_store(dense_id, dense_manifest, store_root)
+            for file_entry in cast(list[dict[str, Any]], dense_manifest["files"]):
+                paths.add((store_root / file_entry["path"]).relative_to(self.root).as_posix())
+            paths.add(path_text)
+            dense_ids.add(dense_id)
+        return paths
 
     def _file(self, relative: str) -> Path:
         path = _safe_descendant(self.root, relative)
@@ -501,6 +705,8 @@ class BundleReader:
 
 
 def _safe_descendant(root: Path, relative: str) -> Path:
+    if not isinstance(relative, str) or not relative:
+        raise ContractError("conformance_failed", "bundle path must be nonempty text")
     posix = PurePosixPath(relative)
     if posix.is_absolute() or ".." in posix.parts or not posix.parts:
         raise ContractError("conformance_failed", "bundle path escapes its root")
@@ -517,8 +723,72 @@ def _safe_descendant(root: Path, relative: str) -> Path:
     return path
 
 
+def _manifest_entry(value: Any, fields: set[str], label: str) -> Mapping[str, Any]:
+    if not isinstance(value, Mapping) or set(value) != fields:
+        raise ContractError("conformance_failed", f"bundle {label} fields are not exact")
+    return value
+
+
+def _text(value: Any, label: str) -> str:
+    if not isinstance(value, str) or not value:
+        raise ContractError("conformance_failed", f"bundle {label} must be nonempty text")
+    return value
+
+
+def _digest(value: Any, label: str) -> str:
+    text = _text(value, label)
+    if not re.fullmatch(r"sha256:[0-9a-f]{64}", text):
+        raise ContractError("conformance_failed", f"bundle {label} is not canonical SHA-256")
+    return text
+
+
+def _timestamp(value: Any, label: str) -> str:
+    try:
+        return validate_utc_timestamp(value)
+    except ContractError as error:
+        raise ContractError("conformance_failed", f"bundle {label} is invalid") from error
+
+
+def _nonnegative_integer(value: Any, label: str) -> int:
+    if not isinstance(value, int) or isinstance(value, bool) or value < 0:
+        raise ContractError("conformance_failed", f"bundle {label} must be nonnegative integer")
+    return value
+
+
+def _positive_integer(value: Any, label: str) -> int:
+    result = _nonnegative_integer(value, label)
+    if result < 1:
+        raise ContractError("conformance_failed", f"bundle {label} must be positive integer")
+    return result
+
+
 def _copy_tree_without_symlinks(source: Path, destination: Path) -> None:
     for path in source.rglob("*"):
         if path.is_symlink():
             raise ContractError("conformance_failed", f"cannot bundle symlink: {path}")
     shutil.copytree(source, destination, copy_function=shutil.copyfile)
+
+
+def _reference_edges(records: tuple[dict[str, Any], ...]) -> set[tuple[str, str, str]]:
+    edges: set[tuple[str, str, str]] = set()
+
+    def walk(source_record_id: str, value: Any) -> None:
+        if isinstance(value, Mapping):
+            if {"record_id", "record_type", "relation"}.issubset(value):
+                edges.add(
+                    (
+                        source_record_id,
+                        cast(str, value["record_id"]),
+                        cast(str, value["relation"]),
+                    )
+                )
+                return
+            for child in value.values():
+                walk(source_record_id, child)
+        elif isinstance(value, list):
+            for child in value:
+                walk(source_record_id, child)
+
+    for record in records:
+        walk(cast(str, record["record_id"]), record)
+    return edges

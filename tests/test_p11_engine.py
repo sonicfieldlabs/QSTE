@@ -112,3 +112,30 @@ def test_process_request_cannot_supply_an_unchecked_command(tmp_path: Path) -> N
             request=request,
         )
     assert caught.value.reason_code == "invalid_input"
+
+
+@pytest.mark.parametrize(
+    ("field", "nested_field"),
+    [
+        ("parameters", "gain"),
+        ("limits", "maximum_output_bytes"),
+        ("root", "delay_ms"),
+        ("root", "timeout_seconds"),
+    ],
+)
+def test_process_request_rejects_booleans_in_numeric_fields(
+    tmp_path: Path, field: str, nested_field: str
+) -> None:
+    p11 = build_p11_fixture(tmp_path)
+    request = fixture("engine-process-request.json")
+    if field == "root":
+        request[nested_field] = True
+    else:
+        cast(dict[str, Any], request[field])[nested_field] = True
+    with pytest.raises(ContractError) as caught:
+        p11.engine.execute(
+            target_id="qste_fixture_process",
+            context_record_id=p11.context["record_id"],
+            request=request,
+        )
+    assert caught.value.reason_code == "invalid_input"

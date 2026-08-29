@@ -134,7 +134,11 @@ def test_current_authority_semantic_key_uses_its_declared_snapshot_spec() -> Non
 
 
 def test_runtime_source_has_no_machine_specific_dependency() -> None:
-    forbidden = ("/Users/", "algoacoulogy", "/Downloads/")
+    forbidden = (
+        "/" + "Users" + "/",
+        "algo" + "acoulogy",
+        "/" + "Downloads" + "/",
+    )
     for path in (ROOT / "src").rglob("*.py"):
         text = path.read_text()
         assert not any(value in text for value in forbidden), path

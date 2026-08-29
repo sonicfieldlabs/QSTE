@@ -103,7 +103,7 @@ class QuantaService:
         try:
             _validate_task_input(specification, len(family_ids))
         except ContractError as caught:
-            caught.receipt_id = self._failure_receipt(  # type: ignore[attr-defined]
+            caught.receipt_id = self._failure_receipt(
                 "declare_task", candidate, specification, caught, authorization_status
             )
             raise
@@ -298,7 +298,7 @@ class QuantaService:
             try:
                 reference, intervened = _paired_scores(unit, repeats)
             except ContractError as caught:
-                caught.receipt_id = self._failure_receipt(  # type: ignore[attr-defined]
+                caught.receipt_id = self._failure_receipt(
                     "execute_task", task, score_evidence, caught, authorization_status
                 )
                 raise
@@ -455,7 +455,7 @@ class QuantaService:
         try:
             self._validate_assessment_links(candidate, task, run)
         except ContractError as caught:
-            caught.receipt_id = self._failure_receipt(  # type: ignore[attr-defined]
+            caught.receipt_id = self._failure_receipt(
                 "assess",
                 candidate,
                 {"task_record_id": task_record_id},
@@ -473,7 +473,7 @@ class QuantaService:
             graph = self._record(refinement_graph_record_id, "RefinementGraph")
             if graph["root_candidate_ref"]["record_id"] != candidate_record_id:
                 failure = ContractError("invalid_assessment_spec", "refinement graph root mismatch")
-                failure.receipt_id = self._failure_receipt(  # type: ignore[attr-defined]
+                failure.receipt_id = self._failure_receipt(
                     "assess", candidate, {}, failure, authorization_status
                 )
                 raise failure
@@ -483,7 +483,7 @@ class QuantaService:
             failure = ContractError(
                 "invalid_assessment_spec", "TaskSpec eligible family does not match graph closure"
             )
-            failure.receipt_id = self._failure_receipt(  # type: ignore[attr-defined]
+            failure.receipt_id = self._failure_receipt(
                 "assess", candidate, {}, failure, authorization_status
             )
             raise failure
@@ -500,7 +500,7 @@ class QuantaService:
                 "invalid_assessment_spec",
                 "candidate paired scores are required to serialize a DSQAssessment",
             )
-            failure.receipt_id = self._failure_receipt(  # type: ignore[attr-defined]
+            failure.receipt_id = self._failure_receipt(
                 "assess", candidate, {}, failure, authorization_status
             )
             raise failure
@@ -846,7 +846,7 @@ class QuantaService:
         self._authorize(authorization_status, "invalidate_dependency", assessment, evidence)
         if invalidation_reason not in INVALIDATION_REASONS:
             failure = ContractError("invalid_input", "unknown dependency invalidation reason")
-            failure.receipt_id = self._failure_receipt(  # type: ignore[attr-defined]
+            failure.receipt_id = self._failure_receipt(
                 "invalidate_dependency",
                 assessment,
                 {"invalidation_reason": invalidation_reason},
@@ -856,7 +856,7 @@ class QuantaService:
             raise failure
         if not evidence:
             failure = ContractError("invalid_input", "dependency invalidation requires evidence")
-            failure.receipt_id = self._failure_receipt(  # type: ignore[attr-defined]
+            failure.receipt_id = self._failure_receipt(
                 "invalidate_dependency",
                 assessment,
                 {"invalidation_reason": invalidation_reason},
@@ -1050,16 +1050,14 @@ class QuantaService:
         if status == "permitted":
             return
         error = ContractError("policy_refused", f"{operation} requires explicit permission")
-        error.receipt_id = self._failure_receipt(  # type: ignore[attr-defined]
-            operation, subject, parameters, error, status
-        )
+        error.receipt_id = self._failure_receipt(operation, subject, parameters, error, status)
         raise error
 
     def _invalid_task(
         self, subject: Mapping[str, Any], parameters: Mapping[str, Any], message: str
     ) -> NoReturn:
         error = ContractError("invalid_assessment_spec", message)
-        error.receipt_id = self._failure_receipt(  # type: ignore[attr-defined]
+        error.receipt_id = self._failure_receipt(
             "declare_or_execute_task", subject, parameters, error, "permitted"
         )
         raise error
@@ -1309,7 +1307,9 @@ def _finite_interval(value: Mapping[str, Any] | None) -> bool:
         isinstance(value, Mapping)
         and value.get("availability") == "known"
         and isinstance(value.get("lower"), (int, float))
+        and not isinstance(value.get("lower"), bool)
         and isinstance(value.get("upper"), (int, float))
+        and not isinstance(value.get("upper"), bool)
         and math.isfinite(cast(float, value["lower"]))
         and math.isfinite(cast(float, value["upper"]))
         and cast(float, value["lower"]) <= cast(float, value["upper"])

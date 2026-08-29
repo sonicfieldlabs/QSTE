@@ -4,7 +4,7 @@
 from __future__ import annotations
 
 import json
-import subprocess
+import subprocess  # nosec B404
 import sys
 from pathlib import Path
 
@@ -52,7 +52,9 @@ def main() -> int:
     }
     if reasons != expected:
         raise SystemExit("P6 vectors do not cover the canonical reason set")
-    result = subprocess.run([sys.executable, "-m", "pytest", "-q", *TESTS], cwd=ROOT, check=False)
+    result = subprocess.run(  # nosec B603
+        [sys.executable, "-m", "pytest", "-q", *TESTS], cwd=ROOT, check=False
+    )
     if result.returncode != 0:
         return result.returncode
     print(

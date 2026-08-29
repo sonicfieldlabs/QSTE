@@ -11,6 +11,12 @@ Run it with:
 uv run python tools/verify_storage.py
 ```
 
+The gate verifies the exact SQLite schema, foreign keys, uniqueness rules, and
+immutability triggers, then requires an exact closure between authoritative
+artifact/dense registrations and owned filesystem objects before workspace
+verification or bundle sealing succeeds. Bundle verification repeats the
+dense-manifest/Zarr semantic checks instead of trusting checksums alone.
+
 The profile proves local integrity and logical replay of the stored event and
 record state. It deliberately leaves numerical reproducibility `unavailable`:
 P3 has no representation arm, scientific operation, or numerical replay claim.

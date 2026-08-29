@@ -91,10 +91,12 @@ def test_stft_config_rejects_unfrozen_or_numerically_incoherent_values() -> None
         {"unknown": True},
         {"fft_length": 100},
         {"coefficient_dtype": "complex64"},
+        {"maximum_candidates": True},
+        {"maximum_refinement_nodes": True},
     ):
         try:
             value = stft_config_from_mapping(config)
-            if config in ({"fft_length": 100}, {"coefficient_dtype": "complex64"}):
+            if "unknown" not in config:
                 from qste.representations.stft import _validate_config
 
                 _validate_config(value, 48_000)

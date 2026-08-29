@@ -257,7 +257,7 @@ class ModelResearchService:
                 operation,
                 request,
                 "policy_refused",
-                f"P14 preparation authorization is {authorization_status}",
+                f"P14 model-research authorization is {authorization_status}",
                 authorization_status="refused",
             )
 
@@ -298,8 +298,8 @@ class ModelResearchService:
             created_at=timestamp,
         )
         error = ContractError(reason, message)
-        error.receipt_id = receipt["record_id"]  # type: ignore[attr-defined]
-        error.authorization_status = effective  # type: ignore[attr-defined]
+        error.receipt_id = receipt["record_id"]
+        error.authorization_status = effective
         raise error
 
 
@@ -372,7 +372,7 @@ def _validate_program(value: Mapping[str, Any]) -> dict[str, Any]:
     }:
         raise ContractError("invalid_input", "P14 evaluation fields are not exact")
     for key in ("analysis_tasks", "generation_tasks", "held_out_baselines"):
-        _sequence(evaluation.get(key), key)
+        _text_sequence(evaluation.get(key), key)
     if (
         evaluation.get("recursive_ontology_revision") is not False
         or evaluation.get("recursive_benchmark_revision") is not False
@@ -399,14 +399,15 @@ def _validate_program(value: Mapping[str, Any]) -> dict[str, Any]:
     if budget.get("network_access") is not False or not _text(budget.get("energy_accounting")):
         raise ContractError("policy_refused", "P14 compute budget is invalid")
     card = _mapping(value["model_card_template"], "model_card_template")
+    sections = _text_sequence(card.get("required_sections"), "model card sections")
     if (
         set(card) != {"required_sections"}
-        or set(_sequence(card.get("required_sections"), "model card sections"))
-        != MODEL_CARD_SECTIONS
+        or set(sections) != MODEL_CARD_SECTIONS
+        or len(sections) != len(MODEL_CARD_SECTIONS)
     ):
         raise ContractError("invalid_input", "P14 model card sections are incomplete")
     failure = _mapping(value["failure_analysis"], "failure_analysis")
-    _sequence(failure.get("categories"), "failure categories")
+    _text_sequence(failure.get("categories"), "failure categories")
     if (
         set(failure) != {"categories", "revoke_model_capability", "earlier_bundles_remain_readable"}
         or failure.get("revoke_model_capability") is not True
@@ -414,11 +415,11 @@ def _validate_program(value: Mapping[str, Any]) -> dict[str, Any]:
     ):
         raise ContractError("policy_refused", "P14 recovery contract is invalid")
     route = _mapping(value["custom_model_route"], "custom_model_route")
+    route_stages = _text_sequence(route.get("stages"), "route stages")
     if (
         set(route) != {"status", "stages"}
         or route.get("status") != "not_started"
-        or _sequence(route.get("stages"), "route stages")[-1]
-        != "separate_custom_model_authorization"
+        or route_stages[-1] != "separate_custom_model_authorization"
     ):
         raise ContractError("invalid_input", "P14 custom-model route is invalid")
     flags = _mapping(value["safety_flags"], "safety_flags")
@@ -470,6 +471,8 @@ def _validate_dataset(value: Mapping[str, Any]) -> dict[str, Any]:
             "not_applicable",
         }:
             raise ContractError("policy_refused", "P14 dataset item lacks rights or consent")
+        if item["source_kind"] == "human_data" and item["consent_status"] != "permitted":
+            raise ContractError("policy_refused", "P14 human data requires permitted consent")
         retention = _mapping(item["retention"], "retention")
         if (
             item["disclosure_status"] != "private"
@@ -478,7 +481,9 @@ def _validate_dataset(value: Mapping[str, Any]) -> dict[str, Any]:
             or not _text(retention["scope"])
         ):
             raise ContractError("policy_refused", "P14 dataset retention or disclosure is invalid")
-        if item["self_generated"] is True:
+        if not isinstance(item["self_generated"], bool):
+            raise ContractError("invalid_input", "P14 self-generated flag must be boolean")
+        if item["self_generated"]:
             provenance = _mapping(item["generator_provenance"], "generator provenance")
             if (
                 set(provenance) != {"generator", "version", "seed"}
@@ -490,13 +495,14 @@ def _validate_dataset(value: Mapping[str, Any]) -> dict[str, Any]:
                 raise ContractError(
                     "conformance_failed", "self-generated data lacks generator provenance"
                 )
-        if item["self_generated"] is False and item["generator_provenance"] is not None:
+        if not item["self_generated"] and item["generator_provenance"] is not None:
             raise ContractError("invalid_input", "external data has false generator provenance")
     splits = _mapping(value["splits"], "splits")
     if set(splits) != {"train", "validation", "test"}:
         raise ContractError("invalid_input", "P14 dataset splits are not exact")
     split_values = {
-        key: _sequence(splits[key], f"{key} split", maximum=MAX_DATASET_ITEMS) for key in splits
+        key: _text_sequence(splits[key], f"{key} split", maximum=MAX_DATASET_ITEMS)
+        for key in splits
     }
     split_sets = {key: set(values) for key, values in split_values.items()}
     if (
@@ -543,6 +549,16 @@ def _sequence(value: Any, label: str, *, maximum: int = 256) -> Sequence[Any]:
     ):
         raise ContractError("invalid_input", f"{label} must be a bounded nonempty array")
     return value
+
+
+def _text_sequence(value: Any, label: str, *, maximum: int = 256) -> tuple[str, ...]:
+    values = _sequence(value, label, maximum=maximum)
+    if not all(_text(item) for item in values):
+        raise ContractError("invalid_input", f"{label} must contain only bounded nonempty text")
+    texts = tuple(cast(str, item) for item in values)
+    if len(set(texts)) != len(texts):
+        raise ContractError("invalid_input", f"{label} must not contain duplicates")
+    return texts
 
 
 def _text(value: Any) -> bool:

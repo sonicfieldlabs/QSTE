@@ -85,7 +85,7 @@ class IngressService:
                 authorization_status=authorization_status,
                 error=error,
             )
-            error.receipt_id = receipt_id  # type: ignore[attr-defined]
+            error.receipt_id = receipt_id
             raise
 
     def _prepare(

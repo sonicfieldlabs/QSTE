@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from collections import Counter
 from collections.abc import Callable, Mapping
 from typing import Any
 
@@ -21,19 +20,18 @@ from qste.operations import (
 from qste.storage import RecordStore, WorkspacePaths
 
 RELATION_TYPES = frozenset({"ProjectionSpec", "ComparisonSpec", "RelationAssertion"})
-MAPPING_TYPES = frozenset({"MappingSpec", "TransductionEvent"})
+MAPPING_TYPES = frozenset({"MappingSpec"})
 CLAIM_TYPES = frozenset(
     {
         "DSQAssessment",
-        "RevisionOutcome",
         "ListeningAccount",
-        "AdjudicationDecision",
         "RelationAssertion",
+        "ClaimRecord",
     }
 )
 EVIDENCE_TYPES = frozenset(
     {
-        "Observation",
+        "ObservationRecord",
         "RunManifest",
         "TaskSpec",
         "OperationReceipt",
@@ -61,8 +59,7 @@ class InspectionWorkbench:
         self, *, record_id: str | None = None, maximum_items: int | None = None
     ) -> OperationResult:
         limit = self.policy.bounded_items(maximum_items)
-        stored = self.store.iter_records()
-        selected = stored[-limit:]
+        selected = self.store.recent_records(limit)
         groups: dict[str, list[dict[str, Any]]] = {
             "relations_and_disagreements": [],
             "mappings": [],
@@ -87,11 +84,13 @@ class InspectionWorkbench:
                 record_id,
                 direction="ancestors",
                 maximum_depth=self.policy.maximum_lineage_depth,
+                maximum_edges=limit,
             )
             descendants = self.store.trace_lineage(
                 record_id,
                 direction="descendants",
                 maximum_depth=self.policy.maximum_lineage_depth,
+                maximum_edges=limit,
             )
             focus = {
                 "record": occurrence.record,
@@ -101,7 +100,8 @@ class InspectionWorkbench:
                 "descendant_edges": [_edge(value) for value in descendants[:limit]],
             }
 
-        counts = Counter(item.record_type for item in stored)
+        counts = self.store.record_type_counts()
+        record_count = self.store.record_count()
         value = {
             "payload_schema_id": "qste-payload/0.3.0",
             "payload_type": "CapabilityAccount",
@@ -109,14 +109,14 @@ class InspectionWorkbench:
             "data": {
                 "profile": INTERFACE_PROFILE,
                 "workspace": "caller_owned_explicit_root",
-                "record_count": len(stored),
-                "record_type_counts": dict(sorted(counts.items())),
+                "record_count": record_count,
+                "record_type_counts": counts,
                 "groups": groups,
                 "focus": focus,
                 "inference_is_measurement": False,
                 "render_is_source": False,
                 "mutations_enabled": self.policy.mutations_enabled,
-                "truncated": len(stored) > limit,
+                "truncated": record_count > limit,
             },
         }
         result: OperationResult = {
@@ -156,7 +156,11 @@ class InterfaceBroker:
         return self._read(
             "qste:lineage/0.3.0",
             lambda: trace_lineage(
-                self.policy.workspace, record_id, direction=direction, maximum_depth=depth
+                self.policy.workspace,
+                record_id,
+                direction=direction,
+                maximum_depth=depth,
+                maximum_edges=self.policy.maximum_items,
             ),
         )
 
@@ -261,7 +265,7 @@ def _summary(record: Mapping[str, Any], digest: str, sequence: int) -> dict[str,
 def _evidence_class(record_type: str) -> str:
     if record_type == "ListeningAccount":
         return "human_report"
-    if record_type in {"Observation", "AcquisitionEvent"}:
+    if record_type in {"ObservationRecord", "AcquisitionEvent"}:
         return "instrument_or_imported_observation"
     if record_type in {"RunManifest", "OperationReceipt", "ArtifactRecord"}:
         return "execution_or_artifact_evidence"

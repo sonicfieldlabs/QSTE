@@ -5,7 +5,7 @@ from __future__ import annotations
 
 import hashlib
 import json
-import subprocess
+import subprocess  # nosec B404
 import sys
 from pathlib import Path
 from typing import Any
@@ -98,7 +98,9 @@ def main() -> int:
         if not isinstance(opaque, dict) or opaque.get("observability") != "captured_outputs_only":
             raise SystemExit(f"{filename} hides its opaque boundary")
 
-    result = subprocess.run([sys.executable, "-m", "pytest", "-q", *TESTS], cwd=ROOT, check=False)
+    result = subprocess.run(  # nosec B603
+        [sys.executable, "-m", "pytest", "-q", *TESTS], cwd=ROOT, check=False
+    )
     if result.returncode != 0:
         return result.returncode
     print(

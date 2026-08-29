@@ -30,6 +30,7 @@ from qste.storage import (
     DenseStore,
     RecordStore,
     WorkspacePaths,
+    verify_workspace_storage,
 )
 from qste.transduction import TransductionService
 
@@ -1343,11 +1344,17 @@ def trace_lineage(
     *,
     direction: str = "ancestors",
     maximum_depth: int = 64,
+    maximum_edges: int | None = None,
 ) -> OperationResult:
     """Traverse dependency edges from one occurrence under an explicit bound."""
 
     store = _open_store(workspace)
-    edges = store.trace_lineage(record_id, direction=direction, maximum_depth=maximum_depth)
+    edges = store.trace_lineage(
+        record_id,
+        direction=direction,
+        maximum_depth=maximum_depth,
+        maximum_edges=maximum_edges,
+    )
     value = {
         "payload_schema_id": "qste-payload/0.3.0",
         "payload_type": "TargetClosure",
@@ -1364,6 +1371,8 @@ def trace_lineage(
             "root_record_id": record_id,
             "direction": direction,
             "maximum_depth": maximum_depth,
+            "maximum_edges": maximum_edges,
+            "edge_limit_reached": maximum_edges is not None and len(edges) == maximum_edges,
         },
     }
     return _completed("qste:lineage/0.3.0", "qste-payload/0.3.0/TargetClosure", value)
@@ -1393,19 +1402,18 @@ def verify(*, workspace: Path | None = None, bundle_root: Path | None = None) ->
             },
         }
     else:
-        assert workspace is not None
+        if workspace is None:  # defensive narrowing after the exclusive-target check above
+            raise ContractError("invalid_input", "workspace target is absent")
         store = _open_store(workspace)
-        store.verify()
-        artifacts = ArtifactStore(store.paths).iter_objects()
-        dense = DenseStore(store.paths, store).iter_objects()
+        verification = verify_workspace_storage(store)
         data = {
             "target_kind": "workspace",
             "counts": {
-                "records": len(store.iter_records()),
-                "events": len(store.iter_events()),
-                "edges": len(store.iter_edges()),
-                "artifacts": len(artifacts),
-                "dense": len(dense),
+                "records": verification.record_count,
+                "events": verification.event_count,
+                "edges": verification.edge_count,
+                "artifacts": verification.artifact_count,
+                "dense": verification.dense_count,
             },
             "integrity_claim": "verified",
             "logical_replay_claim": "verified",

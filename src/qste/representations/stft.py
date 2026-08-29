@@ -281,7 +281,7 @@ class STFTService:
                 "singleton candidate has an empty proper-node set; "
                 "qualification route is indeterminate",
             )
-            error.receipt_id = self._failure_receipt(  # type: ignore[attr-defined]
+            error.receipt_id = self._failure_receipt(
                 "refine", candidate, procedure, error, authorization_status
             )
             raise error
@@ -290,7 +290,7 @@ class STFTService:
         configured = cast(int, spec["capacity"]["maximum_refinement_nodes"])
         if expected > min(budget, configured):
             error = ContractError("capability_unavailable", "refinement closure exceeds its budget")
-            error.receipt_id = self._failure_receipt(  # type: ignore[attr-defined]
+            error.receipt_id = self._failure_receipt(
                 "refine", candidate, procedure, error, authorization_status
             )
             raise error
@@ -1690,7 +1690,14 @@ def _validate_config(config: STFTConfig, sample_rate: int) -> None:
         raise ContractError("invalid_input", "hop must positively divide the FFT length")
     if config.fft_length > sample_rate * 2:
         raise ContractError("invalid_input", "FFT window exceeds the two-second P5 bound")
-    if config.maximum_candidates < 1 or config.maximum_refinement_nodes < 1:
+    if (
+        not isinstance(config.maximum_candidates, int)
+        or isinstance(config.maximum_candidates, bool)
+        or not isinstance(config.maximum_refinement_nodes, int)
+        or isinstance(config.maximum_refinement_nodes, bool)
+        or config.maximum_candidates < 1
+        or config.maximum_refinement_nodes < 1
+    ):
         raise ContractError("invalid_input", "candidate and refinement capacities must be positive")
     if not _nonnegative(config.reconstruction_atol) or not _nonnegative(config.reconstruction_rtol):
         raise ContractError("invalid_input", "reconstruction tolerances must be finite nonnegative")

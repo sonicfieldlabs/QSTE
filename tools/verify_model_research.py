@@ -5,7 +5,7 @@ from __future__ import annotations
 
 import hashlib
 import json
-import subprocess
+import subprocess  # nosec B404
 import sys
 from pathlib import Path
 from typing import Any
@@ -61,7 +61,9 @@ def main() -> int:
         if fixtures.get(key) is not False:
             raise SystemExit(f"P14 fixture boundary is false: {key}")
 
-    result = subprocess.run([sys.executable, "-m", "pytest", "-q", *TESTS], cwd=ROOT)
+    result = subprocess.run(  # nosec B603
+        [sys.executable, "-m", "pytest", "-q", *TESTS], cwd=ROOT
+    )
     if result.returncode != 0:
         return result.returncode
     print(

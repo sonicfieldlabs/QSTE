@@ -4,7 +4,7 @@
 from __future__ import annotations
 
 import json
-import subprocess
+import subprocess  # nosec B404
 import sys
 from pathlib import Path
 
@@ -33,7 +33,7 @@ def main() -> int:
         if canonical_json_text(vector["input"]) != vector["canonical_utf8"]:
             raise SystemExit("RFC 8785 canonicalization vector failed")
     SchemaRegistry()
-    result = subprocess.run(
+    result = subprocess.run(  # nosec B603
         [sys.executable, "-m", "pytest", "-q", *TESTS],
         cwd=ROOT,
         check=False,

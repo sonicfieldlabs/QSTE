@@ -11,6 +11,4 @@
 *.npz binary
 uv.lock text eol=lf
 ontology/0.3.0/QSTE_ontology.md whitespace=-trailing-space
-docs/foundation/QSTE_repo_v1.md whitespace=-trailing-space
-docs/foundation/QSTE_devplan.md whitespace=-trailing-space
 docs/foundation/transduction_framework.md whitespace=-trailing-space

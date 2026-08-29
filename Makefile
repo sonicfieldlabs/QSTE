@@ -1,4 +1,4 @@
-.PHONY: sync format lint type contracts storage-contracts ingress-contracts representation-contracts quanta-contracts relation-contracts transduction-governance-contracts external-representation-contracts agent-harness-contracts ecosystem-engine-contracts experiment-preparation-contracts interface-contracts model-research-contracts test build smoke offline-smoke verify
+.PHONY: sync format lint type contracts storage-contracts ingress-contracts representation-contracts quanta-contracts relation-contracts transduction-governance-contracts external-representation-contracts agent-harness-contracts ecosystem-engine-contracts experiment-preparation-contracts interface-contracts model-research-contracts public-repository-contracts test build package-contracts smoke offline-smoke verify
 
 sync:
 	uv sync --all-groups
@@ -7,6 +7,7 @@ format:
 	uv run ruff format .
 
 lint:
+	uv run ruff format --check .
 	uv run ruff check .
 
 type:
@@ -51,11 +52,17 @@ interface-contracts:
 model-research-contracts:
 	uv run python tools/verify_model_research.py
 
+public-repository-contracts:
+	uv run python tools/verify_public_repository.py
+
 test:
 	uv run pytest
 
 build:
 	uv build
+
+package-contracts:
+	uv run python tools/verify_package.py
 
 smoke:
 	uv run qste version --json
@@ -64,4 +71,4 @@ offline-smoke:
 	UV_OFFLINE=1 uv run --frozen --no-sync qste version --json
 	UV_OFFLINE=1 uv run --frozen --no-sync pytest tests/test_authority_files.py tests/test_contracts.py tests/test_identity.py tests/test_storage.py tests/test_dense.py tests/test_bundle.py tests/test_operations.py tests/test_p4_apparatus.py tests/test_p4_ingress.py tests/test_p4_audio_aperture.py tests/test_p4_operations.py tests/test_p5_reconstruction.py tests/test_p5_candidates_refinement.py tests/test_p5_interventions.py tests/test_p5_operations.py tests/test_p6_assessment.py tests/test_p6_indeterminate.py tests/test_p6_execution_invalidation.py tests/test_p6_operations.py tests/test_p7_projection_coverage.py tests/test_p7_outcomes.py tests/test_p7_matching.py tests/test_p7_operations.py tests/test_p8_transduction.py tests/test_p8_governance.py tests/test_p8_operations.py tests/test_p9_adapters.py tests/test_p9_operations.py tests/test_p10_harness.py tests/test_p10_treatments.py tests/test_p10_revision.py tests/test_p10_evaluation.py tests/test_p10_operations.py tests/test_p11_ecosystem.py tests/test_p11_engine.py tests/test_p11_operations.py tests/test_p12_preparation.py tests/test_p12_operations.py tests/test_p13_interfaces.py tests/test_p13_mcp.py tests/test_p13_workbench.py tests/test_p14_model_research.py tests/test_p14_operations.py tests/test_version.py
 
-verify: lint type contracts storage-contracts ingress-contracts representation-contracts quanta-contracts relation-contracts transduction-governance-contracts external-representation-contracts agent-harness-contracts ecosystem-engine-contracts experiment-preparation-contracts interface-contracts model-research-contracts test build offline-smoke
+verify: lint type contracts storage-contracts ingress-contracts representation-contracts quanta-contracts relation-contracts transduction-governance-contracts external-representation-contracts agent-harness-contracts ecosystem-engine-contracts experiment-preparation-contracts interface-contracts model-research-contracts public-repository-contracts test build package-contracts offline-smoke

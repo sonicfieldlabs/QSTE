@@ -83,7 +83,7 @@ def test_invalid_spec_fails_without_assessment_and_keeps_durable_receipt(tmp_pat
         )
     assert caught.value.reason_code == "invalid_assessment_spec"
     store = RecordStore(WorkspacePaths.open(fixture.workspace))
-    receipt = store.get_record(caught.value.receipt_id).record  # type: ignore[attr-defined]
+    receipt = store.get_record(caught.value.receipt_id).record
     assert receipt["operation_status"] == "failed"
     assert not any(item.record_type == "DSQAssessment" for item in store.iter_records())
 

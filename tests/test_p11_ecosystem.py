@@ -149,3 +149,14 @@ def test_schema_failure_is_durable_and_creates_no_derivative(tmp_path: Path) -> 
         )
     assert caught.value.reason_code == "conformance_failed"
     assert len(p11.ecosystem.store.iter_records()) == before + 1
+
+
+def test_projection_human_authorization_requires_an_exact_boolean(tmp_path: Path) -> None:
+    p11 = build_p11_fixture(tmp_path)
+    with pytest.raises(ContractError, match="exact boolean"):
+        p11.ecosystem.project_payload(
+            target_id="earworm",
+            context_record_id=p11.context["record_id"],
+            payload=fixture("earworm-akousma.json"),
+            human_authorized=cast(Any, "false"),
+        )

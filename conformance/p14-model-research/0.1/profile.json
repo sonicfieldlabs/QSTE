@@ -14,11 +14,11 @@
   ],
   "gates": [
     {"id": "P14-G01", "requirement": "The research question, justification-evidence status, falsifier, and requirement for a simpler baseline are explicit and frozen."},
-    {"id": "P14-G02", "requirement": "Every proposed dataset item requires explicit rights, consent status, attribution, retention, disclosure, and source-record provenance."},
+    {"id": "P14-G02", "requirement": "Every proposed dataset item requires explicit rights, consent status, attribution, retention, disclosure, and source-record provenance; human data requires permitted consent."},
     {"id": "P14-G03", "requirement": "Self-generated items remain identifiable and carry generator provenance; dataset manifests never imply that source bytes were verified."},
     {"id": "P14-G04", "requirement": "A DSQ-derived representation is compared with an ordinary-segment baseline under qualification and budget controls; neither is described as a universal particle system."},
     {"id": "P14-G05", "requirement": "Fine-tuning has no selected base model, remains not started, and requires separate authorization."},
-    {"id": "P14-G06", "requirement": "Analysis, generation, and held-out simpler-baseline tasks are preregistered without executing evaluation or asserting learned gains."},
+    {"id": "P14-G06", "requirement": "Analysis, generation, and held-out simpler-baseline tasks are unique bounded text arrays preregistered without executing evaluation or asserting learned gains."},
     {"id": "P14-G07", "requirement": "Recursive evaluation cannot revise the ontology or its benchmark definitions."},
     {"id": "P14-G08", "requirement": "CPU, GPU, memory, storage, energy-accounting, and offline network bounds are explicit before any separately authorized execution."},
     {"id": "P14-G09", "requirement": "The model-card template, failure categories, capability revocation, readable earlier bundles, and return to deterministic or external baselines are frozen."},

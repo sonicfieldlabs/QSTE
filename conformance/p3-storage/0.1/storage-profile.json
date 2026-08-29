@@ -14,17 +14,17 @@
     {
       "evidence": ["tests/test_storage.py"],
       "id": "STORE-01",
-      "requirement": "SQLite records, lineage edges, and events are transactional, immutable, reference-closed, ordered, and traversable."
+      "requirement": "SQLite records, lineage edges, events, artifact registrations, and dense registrations have the exact declared columns, uniqueness and foreign-key rules, and immutability triggers; their values are transactional or immutable as declared, reference-closed, canonical, ordered where applicable, and exactly matched to owned filesystem objects."
     },
     {
       "evidence": ["tests/test_dense.py"],
       "id": "DENSE-01",
-      "requirement": "Zarr v3 arrays bind coordinates and every file or chunk to a deterministic manifest; verified bounded slices reject tampering."
+      "requirement": "Zarr v3 arrays use canonical bounded dimension names and bind coordinates and every file or chunk to a deterministic manifest; manifest/store pairs and authoritative registrations form an exact closure; workspace and bundle verification repeat semantic checks, and bounded slices reject tampering."
     },
     {
       "evidence": ["tests/test_bundle.py"],
       "id": "BUNDLE-01",
-      "requirement": "Private bundles are deterministic, checksum-closed, symlink-free, relocatable, and preserve extensions and withheld states."
+      "requirement": "Private bundles include only authoritative registered objects; require exact typed manifests, canonical event and lineage closure, and semantic Zarr verification; reject symlinks and special files; and remain deterministic, checksum-closed, relocatable, and preserving of extensions and withheld states."
     },
     {
       "evidence": ["tests/test_operations.py"],

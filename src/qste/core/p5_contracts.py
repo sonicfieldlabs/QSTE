@@ -72,7 +72,8 @@ def _validate_gabor_record(record: Mapping[str, Any]) -> None:
             != "RepresentationSpec"
         ):
             raise ContractError("conformance_failed", "Gabor instance requires RepresentationSpec")
-        if not isinstance(record.get("qste:originalFrameCount"), int):
+        frame_count = record.get("qste:originalFrameCount")
+        if not isinstance(frame_count, int) or isinstance(frame_count, bool) or frame_count < 1:
             raise ContractError(
                 "conformance_failed", "Gabor instance requires original frame count"
             )

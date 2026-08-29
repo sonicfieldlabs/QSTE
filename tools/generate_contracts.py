@@ -119,13 +119,42 @@ VOCABULARIES: dict[str, list[str]] = {
         "internal_error",
         "conformance_failed",
     ],
-    "authorization_status": ["unknown", "permitted", "refused", "deferred", "revoked", "not_applicable"],
+    "authorization_status": [
+        "unknown",
+        "permitted",
+        "refused",
+        "deferred",
+        "revoked",
+        "not_applicable",
+    ],
     "capability_status": ["available", "unavailable", "degraded", "prohibited", "untested"],
     "appeal_status": ["opened", "under_review", "adjudicated", "closed"],
     "pause_status": ["not_requested", "requested", "active", "denied", "released"],
-    "adjudication_outcome": ["not_decided", "upheld", "denied", "partial", "escalated", "withdrawn"],
-    "repair_status": ["not_requested", "pending", "applied", "partially_applied", "impossible", "superseded"],
-    "repair_action": ["pause", "correct", "revoke", "delete", "restrict", "restore", "release_pause"],
+    "adjudication_outcome": [
+        "not_decided",
+        "upheld",
+        "denied",
+        "partial",
+        "escalated",
+        "withdrawn",
+    ],
+    "repair_status": [
+        "not_requested",
+        "pending",
+        "applied",
+        "partially_applied",
+        "impossible",
+        "superseded",
+    ],
+    "repair_action": [
+        "pause",
+        "correct",
+        "revoke",
+        "delete",
+        "restrict",
+        "restore",
+        "release_pause",
+    ],
     "governance_reason": [
         "standing_unverified",
         "standing_denied",
@@ -247,13 +276,19 @@ def array(sample: list[Any], *, items: Json | None = None) -> Json:
 
 
 def enum(vocabulary: str, sample: str | None = None) -> Json:
-    return field({"$ref": f"{COMMON_ID}#/$defs/{vocabulary}"}, sample or VOCABULARIES[vocabulary][0])
+    return field(
+        {"$ref": f"{COMMON_ID}#/$defs/{vocabulary}"}, sample or VOCABULARIES[vocabulary][0]
+    )
 
 
 def ref(record_type: str, seed: int = 1) -> Json:
     return field(
         {"$ref": f"{COMMON_ID}#/$defs/recordReference"},
-        {"record_id": fixture_id(record_type, seed), "record_type": record_type, "relation": "depends_on"},
+        {
+            "record_id": fixture_id(record_type, seed),
+            "record_type": record_type,
+            "relation": "depends_on",
+        },
     )
 
 
@@ -286,37 +321,481 @@ def specs() -> dict[str, Json]:
     # narrower mathematical contract in later phases remain structured, never
     # flattened to an opaque string.
     return {
-        "AcquisitionEvent": {"apparatus_ref": ref("ApparatusSpec"), "provider_or_channel": text("local_input"), "temporal_state": field({"type": "string", "enum": ["timed", "atemporal"]}, "timed"), "start_at": text("2026-08-28T00:00:00Z"), "end_at": text("2026-08-28T00:00:01Z"), "timebase": text("sample_clock"), "source_ref": ref("SourceRecord"), "result_ref": ref("ArtifactRecord"), "calibration": obj({"status": "declared"}), "route": obj({"kind": "import"}), "environment": obj({"location": "controlled"}), "limits": obj({"bandwidth_hz": [20, 20000]}), "authorization_status": enum("authorization_status", "permitted"), "receipt_ref": ref("OperationReceipt"), "lineage_relation": text("acquired_from"), "event_sequence": integer(1, minimum=1)},
-        "SourceRecord": {"attributed_origin": text("fixture source"), "locator": text("qste://fixtures/source"), "source_availability": enum("availability", "known"), "rights": obj({"use": "fixture_only"})},
-        "ArtifactRecord": {"media_type": text("application/octet-stream"), "artifact_availability": enum("availability", "known"), "byte_state": text("content_addressed")},
-        "ObservationRecord": {"variable": text("response"), "observation_state": text("value"), "value": number(0.5), "units": text("normalized_score"), "method": text("fixture_measurement"), "evidence_basis": enum("evidence_basis", "instrumentally_derived"), "acquisition_ref": ref("AcquisitionEvent")},
-        "ApparatusSpec": {"apparatus_version": text("apparatus/1"), "configuration": obj({"sample_rate_hz": 48000}), "acquisition_surface": obj({"channels": 1}), "computation_surface": obj({"dtype": "float64"}), "action_surface": obj({"network": False})},
-        "ApertureSpec": {"apparatus_ref": ref("ApparatusSpec"), "run_ref": ref("RunManifest"), "input_ref": ref("ArtifactRecord"), "policy_state": obj({"network": "prohibited"}), "accessible_ranges": obj({"frequency_hz": [20, 20000]}), "permitted_operations": array(["validate"]), "known_exclusions": array(["unobserved_history"]), "derivation": obj({"method": "bounded_intersection"})},
-        "RepresentationFamilySpec": {"family_id": text("representation-family/1"), "family_version": text("1"), "spec_refs": refs("RepresentationSpec"), "instance_refs": refs("RepresentationInstance"), "mapping_refs": refs("MappingSpec"), "permitted_refinements": array([{"order": "strict_native_subset"}])},
-        "RepresentationSpec": {"representation_id": text("representation/1"), "algorithm_or_model_digest": field({"$ref": f"{COMMON_ID}#/$defs/digest"}, digest("b")), "parameters": obj({"window": 1024}), "native_unit": text("coefficient"), "metric": obj({"name": "native_l2"}), "capacity": obj({"maximum_candidates": 1024}), "renderer_or_decoder": obj({"id": "renderer/1"})},
-        "RepresentationInstance": {"source_artifact_ref": ref("ArtifactRecord"), "representation_spec_ref": ref("RepresentationSpec"), "execution_receipt_ref": ref("OperationReceipt"), "dense_data_ref": ref("ArtifactRecord", 2), "instance_context": obj({"run": "fixture"})},
-        "CandidateUnit": {"representation_instance_ref": ref("RepresentationInstance"), "native_address": obj({"index": 0}), "candidate_rule_version": text("candidate-rule/1"), "native_support": obj({"indices": [0]})},
-        "InterventionSpec": {"operator_family": text("native_mask"), "native_operation": obj({"operation": "replace"}), "reference_distribution": obj({"kind": "zero"}), "renderer_or_decoder": obj({"id": "renderer/1"}), "controls": array(["resynthesis", "off_target", "alternate_intervention"]), "random_source": obj({"seed": 7})},
-        "TaskSpec": {"task_id": text("task/1"), "task_version": text("1"), "response_variable": text("score"), "input_refs": refs("ArtifactRecord"), "fixed_context": obj({"mode": "fixture"}), "contrast_ref": ref("InterventionSpec"), "intervention_ref": ref("InterventionSpec", 2), "expected_effect_direction": field({"type": "integer", "enum": [-1, 1]}, 1), "response_units": text("normalized_score"), "meaningful_bound": number(0.5, minimum=0), "equivalence_region": obj({"epsilon_minus": 0.1, "epsilon_plus": 0.1, "units": "normalized_score"}), "bound_validity_evidence": obj({"finite": True, "disjoint": True}), "boundary_semantics": obj({"meaningful": "closed", "equivalence": "closed"}), "estimator": obj({"name": "paired_mean"}), "repeats": integer(10, minimum=1), "seeds": array([7], items={"type": "integer"}), "uncertainty": obj({"method": "simultaneous_interval"}), "multiplicity": obj({"method": "holm"}), "stopping_rules": obj({"maximum_repeats": 10}), "selection_confirmation": obj({"split": "held_out"}), "eligible_family": array(["root_and_required_proper_nodes"]), "artifact_controls": array(["resynthesis", "off_target"]), "alternate_intervention": obj({"operator": "matched_noise"}), "compute_budget": obj({"maximum_evaluations": 100}), "success_criterion": obj({"candidate": "meaningful", "proper_nodes": "equivalent"}), "failure_reasons": array(["budget_exhausted"])},
-        "RefinementGraph": {"procedure_id": text("refinement/1"), "representation_family_ref": ref("RepresentationFamilySpec"), "intervention_ref": ref("InterventionSpec"), "root_candidate_ref": ref("CandidateUnit"), "nodes": array(["root", "proper-1"]), "edges": array([{"parent": "root", "child": "proper-1", "proper": True}]), "required_closure": array(["proper-1"]), "completion_certificate": obj({"complete": True, "terminal_rule": "finite_declared_closure"}), "closed": boolean(True)},
-        "DSQAssessment": {"assessment_identity": obj({"candidate_semantic_key": digest("c"), "task": "task/1", "procedure": "refinement/1"}), "candidate_ref": ref("CandidateUnit"), "candidate_semantic_key": field({"$ref": f"{COMMON_ID}#/$defs/semanticKey"}, digest("c")), "representation_instance_ref": ref("RepresentationInstance"), "native_address": obj({"index": 0}), "apparatus_ref": ref("ApparatusSpec"), "aperture_ref": ref("ApertureSpec"), "representation_family_ref": ref("RepresentationFamilySpec"), "intervention_ref": ref("InterventionSpec"), "task_ref": ref("TaskSpec"), "refinement_graph_ref": ref("RefinementGraph"), "raw_effects": array([0.8, 0.7], items={"type": "number"}), "oriented_effects": array([0.8, 0.7], items={"type": "number"}), "candidate_interval": obj({"lower": 0.6, "upper": 0.9, "units": "normalized_score"}), "proper_node_intervals": array([{"node": "proper-1", "lower": -0.05, "upper": 0.05, "units": "normalized_score"}]), "meaningful_bound": number(0.5, minimum=0), "equivalence_region": obj({"epsilon_minus": 0.1, "epsilon_plus": 0.1, "units": "normalized_score"}), "comparison_operators": obj({"meaningful": ">", "equivalent": "within"}), "tested_proper_nodes": array(["proper-1"]), "closure_certificate": obj({"complete": True, "nonempty": True}), "selection_evidence": obj({"held_out": True}), "multiplicity_evidence": obj({"adjusted": True}), "artifact_control_results": obj({"passed": True}), "well_formed": boolean(True), "negative_evidence_valid": boolean(True), "qualification_ready": boolean(True), "assessment_status": enum("assessment_status", "qualified"), "reason_code": enum("assessment_reason", "meaningful_closed_equivalent"), "interaction_annotations": array(["none"]), "dependency_validity": enum("dependency_validity", "valid"), "authorization_status": enum("authorization_status", "permitted"), "evidence_refs": refs("ObservationRecord"), "assessor": text("fixture-validator"), "versions": obj({"contract": CONTRACT_ID}), "receipt_refs": refs("OperationReceipt")},
-        "ProjectionSpec": {"source_arm_ref": ref("RepresentationSpec"), "comparison_substrate": obj({"id": "omega/1", "units": ["second", "hertz"]}), "measure": obj({"name": "footprint_mass"}), "footprint_method": obj({"name": "decoded_difference"}), "calibration": obj({"status": "valid"})},
-        "ComparisonSpec": {"projection_refs": refs("ProjectionSpec"), "coverage_threshold": number(0.8, minimum=0), "effect_tolerance": number(0.1, minimum=0), "capacities": obj({"left": 1, "right": 1}), "cardinalities": array(["one_to_one"]), "unmatched_penalty": number(1.0, minimum=0), "estimators": obj({"coverage": "interval", "effect": "interval"}), "primary_objective": text("minimum_cost"), "cardinality_preference": array(["one_to_one", "unmatched"]), "optimization_tolerance": number(1e-9, minimum=0), "ambiguity_rules": obj({"surviving_optima": "retain_all"}), "budget": obj({"maximum_solutions": 100})},
-        "RelationAssertion": {"source_refs": refs("CandidateUnit"), "target_refs": refs("CandidateUnit", 2), "direction": text("left_to_right"), "native_addresses": obj({"left": [{"index": 0}], "right": [{"index": 1}]}), "comparison_substrate": obj({"id": "omega/1"}), "projection_contract": obj({"id": "projection/1"}), "footprint_contract": obj({"measure": "nonnegative_mass"}), "effect_contract": obj({"units": "normalized_score"}), "coverage": obj({"left_to_right": [0.9, 1.0], "right_to_left": [0.8, 0.95]}), "effect_difference_interval": obj({"lower": -0.02, "upper": 0.03}), "effect_tolerance": number(0.1, minimum=0), "controls": obj({"fidelity": True, "consequential": True, "artifact": True}), "matching_contract": obj({"capacities": [1, 1], "cardinality": "one_to_one", "lambda": 1.0, "estimator": "interval", "objective": "minimum_cost", "tolerance": 1e-9, "solver": "fixture/1"}), "solution_evidence": obj({"primary_optimum": 0.0, "surviving_optima": 1, "diagnostic_representative": "edge-1", "components": ["edge-1"]}), "comparison_spec_ref": ref("ComparisonSpec"), "relation_type": field({"anyOf": [{"$ref": f"{COMMON_ID}#/$defs/relation_type"}, {"type": "null"}]}, "overlap"), "comparison_status": enum("comparison_status", "resolved"), "reason_code": enum("comparison_reason", "matched_overlap"), "perturbation_stability": enum("perturbation_stability", "stable"), "evidence_refs": refs("ObservationRecord")},
-        "MappingSpec": {"source_domain": obj({"name": "normalized_score"}), "target_domain": obj({"name": "amplitude"}), "variables": array(["score", "gain"]), "units": obj({"source": "normalized", "target": "linear_gain"}), "normalization": obj({"method": "minmax"}), "uncertainty": obj({"propagation": "interval"}), "missing_data_behavior": text("refuse"), "interpolation": obj({"method": "none"}), "range": obj({"minimum": 0, "maximum": 1}), "loss": obj({"declared": True}), "reversibility_claim": text("not_reversible")},
-        "ListeningHarnessSpec": {"record_refs": refs("ListeningAccount"), "routes": array(["local_fixture"]), "permissions": array(["read"]), "refusals": array(["network"]), "authority_ref": ref("AuthorityManifest"), "executor": text("local_executor"), "action_surface": obj({"write_successor_only": True})},
-        "GovernanceBoundary": {"immutable_fields": array(["record_id", "created_at"]), "mutable_successor_fields": array(["parameters"]), "authority_refs": refs("AuthorityManifest"), "permitted_actions": array(["revise", "refuse"]), "budgets": obj({"maximum_revisions": 1}), "stop_rules": obj({"on_refusal": True}), "resume_rules": obj({"requires_authority": True})},
-        "RevisionOpportunity": {"source_item_ref": ref("ArtifactRecord"), "completed_run_ref": ref("RunManifest"), "initial_successor_spec_ref": ref("SuccessorSpec"), "governance_boundary_ref": ref("GovernanceBoundary"), "matched_state_key": text("fixture-state-1"), "budget": obj({"maximum_actions": 1})},
-        "SuccessorSpec": {"predecessor_ref": ref("SuccessorSpec", 2), "completed_run_ref": ref("RunManifest"), "semantic_diff": obj({"parameters.gain": [0.5, 0.6]}), "executable_action_set": array(["set_gain"]), "capability_requirements": array(["local_write"]), "decision_event_ref": ref("DecisionEvent"), "evidence_fields": array(["candidate_interval"]), "revision_treatment": enum("revision_treatment", "authentic"), "authority_ref": ref("AuthorityManifest"), "persistence_target": text("next_run")},
-        "DecisionEvent": {"opportunity_ref": ref("RevisionOpportunity"), "revision_treatment": enum("revision_treatment", "authentic"), "alternatives": array(["revise", "no_change"]), "cited_evidence": array(["candidate_interval"]), "reason_code": text("evidence_supported_revision"), "authority_ref": ref("AuthorityManifest"), "governance_boundary_ref": ref("GovernanceBoundary"), "decision_action": enum("decision_action", "revise"), "predecessor_successor_diff": obj({"parameters.gain": [0.5, 0.6]}), "executable_consequence": obj({"operation": "set_gain"}), "next_run_ref": ref("RunManifest", 2), "budget": obj({"used": 1}), "leakage_checks": obj({"passed": True}), "receipt_ref": ref("OperationReceipt"), "event_sequence": integer(2, minimum=1)},
-        "AppealCase": {"appellant_ref": ref("SourceRecord"), "standing_basis": text("authorized_representative"), "responding_authority_ref": ref("AuthorityManifest"), "target_closure": obj({"root": fixture_id("ArtifactRecord"), "descendants": []}), "reason_code": enum("governance_reason", "standing_unverified"), "requested_action": enum("repair_action", "restrict"), "deadlines": obj({"respond_by": "2026-09-01T00:00:00Z"}), "jurisdiction": text("project"), "appeal_status": enum("appeal_status", "opened"), "pause_status": enum("pause_status", "not_requested"), "adjudication_outcome": enum("adjudication_outcome", "not_decided"), "repair_status": enum("repair_status", "not_requested"), "adjudication_evidence_refs": refs("ClaimRecord"), "decision_event_refs": refs("DecisionEvent"), "successor_case_ref": field({"anyOf": [{"$ref": f"{COMMON_ID}#/$defs/recordReference"}, {"type": "null"}]}, None)},
-        "RepairAction": {"appeal_case_ref": ref("AppealCase"), "adjudication_outcome": enum("adjudication_outcome", "upheld"), "authority_ref": ref("AuthorityManifest"), "repair_action": enum("repair_action", "restrict"), "target_closure": obj({"root": fixture_id("ArtifactRecord"), "descendants": []}), "operation_scope": obj({"future_use": True}), "predecessor_state": obj({"eligible": True}), "successor_state": obj({"eligible": False}), "authorization_status": enum("authorization_status", "permitted"), "execution_status": enum("operation_status", "completed"), "reason_code": enum("governance_reason", "requested_remedy_upheld"), "failures": array(["none"]), "receipt_ref": ref("OperationReceipt"), "propagation_requirement": obj({"dependent_claims": True}), "retention_semantics": obj({"bytes": "retained_restricted"})},
-        "RepairReceipt": {"appeal_case_ref": ref("AppealCase"), "action_refs": refs("RepairAction"), "affected_closure": obj({"descendants": [], "claims": [], "renders": [], "bundles": [], "projections": []}), "actions_applied": array(["restrict"]), "propagation_failures": array(["none"]), "external_copies": array(["none_known"]), "unresolved_limits": array(["none"]), "repair_status": enum("repair_status", "applied"), "pause_status": enum("pause_status", "not_requested"), "successor_refs": refs("ArtifactRecord"), "final_authority_ref": ref("AuthorityManifest"), "completed_at": text("2026-08-28T00:00:00Z"), "event_sequence": integer(3, minimum=1)},
-        "OperationReceipt": {"request_ref": ref("ClaimRecord"), "authorization_status": enum("authorization_status", "permitted"), "actor": text("local_executor"), "tool": obj({"id": "qste-validator", "version": VERSION}), "inputs": array([fixture_id("ClaimRecord")]), "parameters": obj({"strict": True}), "outputs": array([fixture_id("ClaimRecord", 2)]), "operation_status": enum("operation_status", "completed")},
-        "ListeningAccount": {"evaluator_ref": ref("SourceRecord"), "protocol_ref": ref("TaskSpec"), "object_ref": ref("ArtifactRecord"), "apparatus_ref": ref("ApparatusSpec"), "aperture_ref": ref("ApertureSpec"), "context": obj({"room": "fixture"}), "response_fields": obj({"detection": True, "attribution": "unknown", "preference": None, "novelty_value": None, "interpretation": "fixture report"}), "report": text("fixture listening account"), "response_units": text("categorical"), "uncertainty_or_missingness": obj({"preference": "not_applicable"}), "evidence_basis": enum("evidence_basis", "human_reported"), "consent_status": enum("consent_status", "granted"), "withdrawal_event_refs": refs("DecisionEvent"), "retention_policy": obj({"duration": "fixture_only"}), "authorization_status": enum("authorization_status", "permitted"), "collection_receipt_ref": ref("OperationReceipt"), "dependent_claim_refs": refs("ClaimRecord")},
-        "ClaimRecord": {"proposition": text("fixture proposition"), "evidence_basis": enum("evidence_basis", "instrumentally_derived"), "epistemic_status": enum("epistemic_status", "derived"), "scope": obj({"kind": "fixture_only"}), "subject_ref": ref("ArtifactRecord"), "evidence_refs": refs("ObservationRecord")},
-        "AuthorityManifest": {"manifest_profile": text("qste-authority/0.3.0"), "semantic_contract": obj({"id": CONTRACT_ID, "path": "ontology/0.3.0/QSTE_ontology.md", "sha256": "0" * 64}), "schema_set": obj({"id": SCHEMA_SET_ID, "path": "schemas/0.3.0/schema-index.json", "sha256": "1" * 64}), "conformance_profile": obj({"id": CONFORMANCE_ID, "path": "conformance/0.3.0/conformance-profile.json", "sha256": "2" * 64}), "architecture": obj({"id": "qste-architecture/private", "availability": "private_local_not_disclosed"}), "development_plan": obj({"id": "qste-development-plan/private", "availability": "private_local_not_disclosed"}), "research_sources": array([{"id": "agentic-quanta-paper-v3", "sha256": "5" * 64, "availability": "withheld", "authorized_locator": None}]), "code": obj({"version": "0.0.0", "commit": "6" * 40, "repository": "https://github.com/sonicfieldlabs/QSTE"}), "adapter_contracts": array([{"id": "none", "availability": "not_applicable"}]), "model_checkpoint_manifests": array([{"id": "none", "availability": "not_applicable"}]), "experiment_profiles": array([{"id": "none", "availability": "not_applicable"}]), "compatibility_decision": field({"const": "exact_contract_only"}, "exact_contract_only"), "approved_rfc_refs": field({"type": "array", "maxItems": 0}, [])},
-        "RunManifest": {"apparatus_ref": ref("ApparatusSpec"), "aperture_ref": ref("ApertureSpec"), "corpus_refs": refs("ArtifactRecord"), "spec_refs": refs("TaskSpec"), "budgets": obj({"compute": 100}), "seeds": array([7], items={"type": "integer"}), "event_refs": refs("AcquisitionEvent"), "artifact_refs": refs("ArtifactRecord", 2), "output_refs": refs("ClaimRecord"), "frozen_versions": obj({"contract": CONTRACT_ID, "schema": SCHEMA_SET_ID})},
+        "AcquisitionEvent": {
+            "apparatus_ref": ref("ApparatusSpec"),
+            "provider_or_channel": text("local_input"),
+            "temporal_state": field({"type": "string", "enum": ["timed", "atemporal"]}, "timed"),
+            "start_at": text("2026-08-28T00:00:00Z"),
+            "end_at": text("2026-08-28T00:00:01Z"),
+            "timebase": text("sample_clock"),
+            "source_ref": ref("SourceRecord"),
+            "result_ref": ref("ArtifactRecord"),
+            "calibration": obj({"status": "declared"}),
+            "route": obj({"kind": "import"}),
+            "environment": obj({"location": "controlled"}),
+            "limits": obj({"bandwidth_hz": [20, 20000]}),
+            "authorization_status": enum("authorization_status", "permitted"),
+            "receipt_ref": ref("OperationReceipt"),
+            "lineage_relation": text("acquired_from"),
+            "event_sequence": integer(1, minimum=1),
+        },
+        "SourceRecord": {
+            "attributed_origin": text("fixture source"),
+            "locator": text("qste://fixtures/source"),
+            "source_availability": enum("availability", "known"),
+            "rights": obj({"use": "fixture_only"}),
+        },
+        "ArtifactRecord": {
+            "media_type": text("application/octet-stream"),
+            "artifact_availability": enum("availability", "known"),
+            "byte_state": text("content_addressed"),
+        },
+        "ObservationRecord": {
+            "variable": text("response"),
+            "observation_state": text("value"),
+            "value": number(0.5),
+            "units": text("normalized_score"),
+            "method": text("fixture_measurement"),
+            "evidence_basis": enum("evidence_basis", "instrumentally_derived"),
+            "acquisition_ref": ref("AcquisitionEvent"),
+        },
+        "ApparatusSpec": {
+            "apparatus_version": text("apparatus/1"),
+            "configuration": obj({"sample_rate_hz": 48000}),
+            "acquisition_surface": obj({"channels": 1}),
+            "computation_surface": obj({"dtype": "float64"}),
+            "action_surface": obj({"network": False}),
+        },
+        "ApertureSpec": {
+            "apparatus_ref": ref("ApparatusSpec"),
+            "run_ref": ref("RunManifest"),
+            "input_ref": ref("ArtifactRecord"),
+            "policy_state": obj({"network": "prohibited"}),
+            "accessible_ranges": obj({"frequency_hz": [20, 20000]}),
+            "permitted_operations": array(["validate"]),
+            "known_exclusions": array(["unobserved_history"]),
+            "derivation": obj({"method": "bounded_intersection"}),
+        },
+        "RepresentationFamilySpec": {
+            "family_id": text("representation-family/1"),
+            "family_version": text("1"),
+            "spec_refs": refs("RepresentationSpec"),
+            "instance_refs": refs("RepresentationInstance"),
+            "mapping_refs": refs("MappingSpec"),
+            "permitted_refinements": array([{"order": "strict_native_subset"}]),
+        },
+        "RepresentationSpec": {
+            "representation_id": text("representation/1"),
+            "algorithm_or_model_digest": field({"$ref": f"{COMMON_ID}#/$defs/digest"}, digest("b")),
+            "parameters": obj({"window": 1024}),
+            "native_unit": text("coefficient"),
+            "metric": obj({"name": "native_l2"}),
+            "capacity": obj({"maximum_candidates": 1024}),
+            "renderer_or_decoder": obj({"id": "renderer/1"}),
+        },
+        "RepresentationInstance": {
+            "source_artifact_ref": ref("ArtifactRecord"),
+            "representation_spec_ref": ref("RepresentationSpec"),
+            "execution_receipt_ref": ref("OperationReceipt"),
+            "dense_data_ref": ref("ArtifactRecord", 2),
+            "instance_context": obj({"run": "fixture"}),
+        },
+        "CandidateUnit": {
+            "representation_instance_ref": ref("RepresentationInstance"),
+            "native_address": obj({"index": 0}),
+            "candidate_rule_version": text("candidate-rule/1"),
+            "native_support": obj({"indices": [0]}),
+        },
+        "InterventionSpec": {
+            "operator_family": text("native_mask"),
+            "native_operation": obj({"operation": "replace"}),
+            "reference_distribution": obj({"kind": "zero"}),
+            "renderer_or_decoder": obj({"id": "renderer/1"}),
+            "controls": array(["resynthesis", "off_target", "alternate_intervention"]),
+            "random_source": obj({"seed": 7}),
+        },
+        "TaskSpec": {
+            "task_id": text("task/1"),
+            "task_version": text("1"),
+            "response_variable": text("score"),
+            "input_refs": refs("ArtifactRecord"),
+            "fixed_context": obj({"mode": "fixture"}),
+            "contrast_ref": ref("InterventionSpec"),
+            "intervention_ref": ref("InterventionSpec", 2),
+            "expected_effect_direction": field({"type": "integer", "enum": [-1, 1]}, 1),
+            "response_units": text("normalized_score"),
+            "meaningful_bound": number(0.5, minimum=0),
+            "equivalence_region": obj(
+                {"epsilon_minus": 0.1, "epsilon_plus": 0.1, "units": "normalized_score"}
+            ),
+            "bound_validity_evidence": obj({"finite": True, "disjoint": True}),
+            "boundary_semantics": obj({"meaningful": "closed", "equivalence": "closed"}),
+            "estimator": obj({"name": "paired_mean"}),
+            "repeats": integer(10, minimum=1),
+            "seeds": array([7], items={"type": "integer"}),
+            "uncertainty": obj({"method": "simultaneous_interval"}),
+            "multiplicity": obj({"method": "holm"}),
+            "stopping_rules": obj({"maximum_repeats": 10}),
+            "selection_confirmation": obj({"split": "held_out"}),
+            "eligible_family": array(["root_and_required_proper_nodes"]),
+            "artifact_controls": array(["resynthesis", "off_target"]),
+            "alternate_intervention": obj({"operator": "matched_noise"}),
+            "compute_budget": obj({"maximum_evaluations": 100}),
+            "success_criterion": obj({"candidate": "meaningful", "proper_nodes": "equivalent"}),
+            "failure_reasons": array(["budget_exhausted"]),
+        },
+        "RefinementGraph": {
+            "procedure_id": text("refinement/1"),
+            "representation_family_ref": ref("RepresentationFamilySpec"),
+            "intervention_ref": ref("InterventionSpec"),
+            "root_candidate_ref": ref("CandidateUnit"),
+            "nodes": array(["root", "proper-1"]),
+            "edges": array([{"parent": "root", "child": "proper-1", "proper": True}]),
+            "required_closure": array(["proper-1"]),
+            "completion_certificate": obj(
+                {"complete": True, "terminal_rule": "finite_declared_closure"}
+            ),
+            "closed": boolean(True),
+        },
+        "DSQAssessment": {
+            "assessment_identity": obj(
+                {
+                    "candidate_semantic_key": digest("c"),
+                    "task": "task/1",
+                    "procedure": "refinement/1",
+                }
+            ),
+            "candidate_ref": ref("CandidateUnit"),
+            "candidate_semantic_key": field(
+                {"$ref": f"{COMMON_ID}#/$defs/semanticKey"}, digest("c")
+            ),
+            "representation_instance_ref": ref("RepresentationInstance"),
+            "native_address": obj({"index": 0}),
+            "apparatus_ref": ref("ApparatusSpec"),
+            "aperture_ref": ref("ApertureSpec"),
+            "representation_family_ref": ref("RepresentationFamilySpec"),
+            "intervention_ref": ref("InterventionSpec"),
+            "task_ref": ref("TaskSpec"),
+            "refinement_graph_ref": ref("RefinementGraph"),
+            "raw_effects": array([0.8, 0.7], items={"type": "number"}),
+            "oriented_effects": array([0.8, 0.7], items={"type": "number"}),
+            "candidate_interval": obj({"lower": 0.6, "upper": 0.9, "units": "normalized_score"}),
+            "proper_node_intervals": array(
+                [{"node": "proper-1", "lower": -0.05, "upper": 0.05, "units": "normalized_score"}]
+            ),
+            "meaningful_bound": number(0.5, minimum=0),
+            "equivalence_region": obj(
+                {"epsilon_minus": 0.1, "epsilon_plus": 0.1, "units": "normalized_score"}
+            ),
+            "comparison_operators": obj({"meaningful": ">", "equivalent": "within"}),
+            "tested_proper_nodes": array(["proper-1"]),
+            "closure_certificate": obj({"complete": True, "nonempty": True}),
+            "selection_evidence": obj({"held_out": True}),
+            "multiplicity_evidence": obj({"adjusted": True}),
+            "artifact_control_results": obj({"passed": True}),
+            "well_formed": boolean(True),
+            "negative_evidence_valid": boolean(True),
+            "qualification_ready": boolean(True),
+            "assessment_status": enum("assessment_status", "qualified"),
+            "reason_code": enum("assessment_reason", "meaningful_closed_equivalent"),
+            "interaction_annotations": array(["none"]),
+            "dependency_validity": enum("dependency_validity", "valid"),
+            "authorization_status": enum("authorization_status", "permitted"),
+            "evidence_refs": refs("ObservationRecord"),
+            "assessor": text("fixture-validator"),
+            "versions": obj({"contract": CONTRACT_ID}),
+            "receipt_refs": refs("OperationReceipt"),
+        },
+        "ProjectionSpec": {
+            "source_arm_ref": ref("RepresentationSpec"),
+            "comparison_substrate": obj({"id": "omega/1", "units": ["second", "hertz"]}),
+            "measure": obj({"name": "footprint_mass"}),
+            "footprint_method": obj({"name": "decoded_difference"}),
+            "calibration": obj({"status": "valid"}),
+        },
+        "ComparisonSpec": {
+            "projection_refs": refs("ProjectionSpec"),
+            "coverage_threshold": number(0.8, minimum=0),
+            "effect_tolerance": number(0.1, minimum=0),
+            "capacities": obj({"left": 1, "right": 1}),
+            "cardinalities": array(["one_to_one"]),
+            "unmatched_penalty": number(1.0, minimum=0),
+            "estimators": obj({"coverage": "interval", "effect": "interval"}),
+            "primary_objective": text("minimum_cost"),
+            "cardinality_preference": array(["one_to_one", "unmatched"]),
+            "optimization_tolerance": number(1e-9, minimum=0),
+            "ambiguity_rules": obj({"surviving_optima": "retain_all"}),
+            "budget": obj({"maximum_solutions": 100}),
+        },
+        "RelationAssertion": {
+            "source_refs": refs("CandidateUnit"),
+            "target_refs": refs("CandidateUnit", 2),
+            "direction": text("left_to_right"),
+            "native_addresses": obj({"left": [{"index": 0}], "right": [{"index": 1}]}),
+            "comparison_substrate": obj({"id": "omega/1"}),
+            "projection_contract": obj({"id": "projection/1"}),
+            "footprint_contract": obj({"measure": "nonnegative_mass"}),
+            "effect_contract": obj({"units": "normalized_score"}),
+            "coverage": obj({"left_to_right": [0.9, 1.0], "right_to_left": [0.8, 0.95]}),
+            "effect_difference_interval": obj({"lower": -0.02, "upper": 0.03}),
+            "effect_tolerance": number(0.1, minimum=0),
+            "controls": obj({"fidelity": True, "consequential": True, "artifact": True}),
+            "matching_contract": obj(
+                {
+                    "capacities": [1, 1],
+                    "cardinality": "one_to_one",
+                    "lambda": 1.0,
+                    "estimator": "interval",
+                    "objective": "minimum_cost",
+                    "tolerance": 1e-9,
+                    "solver": "fixture/1",
+                }
+            ),
+            "solution_evidence": obj(
+                {
+                    "primary_optimum": 0.0,
+                    "surviving_optima": 1,
+                    "diagnostic_representative": "edge-1",
+                    "components": ["edge-1"],
+                }
+            ),
+            "comparison_spec_ref": ref("ComparisonSpec"),
+            "relation_type": field(
+                {"anyOf": [{"$ref": f"{COMMON_ID}#/$defs/relation_type"}, {"type": "null"}]},
+                "overlap",
+            ),
+            "comparison_status": enum("comparison_status", "resolved"),
+            "reason_code": enum("comparison_reason", "matched_overlap"),
+            "perturbation_stability": enum("perturbation_stability", "stable"),
+            "evidence_refs": refs("ObservationRecord"),
+        },
+        "MappingSpec": {
+            "source_domain": obj({"name": "normalized_score"}),
+            "target_domain": obj({"name": "amplitude"}),
+            "variables": array(["score", "gain"]),
+            "units": obj({"source": "normalized", "target": "linear_gain"}),
+            "normalization": obj({"method": "minmax"}),
+            "uncertainty": obj({"propagation": "interval"}),
+            "missing_data_behavior": text("refuse"),
+            "interpolation": obj({"method": "none"}),
+            "range": obj({"minimum": 0, "maximum": 1}),
+            "loss": obj({"declared": True}),
+            "reversibility_claim": text("not_reversible"),
+        },
+        "ListeningHarnessSpec": {
+            "record_refs": refs("ListeningAccount"),
+            "routes": array(["local_fixture"]),
+            "permissions": array(["read"]),
+            "refusals": array(["network"]),
+            "authority_ref": ref("AuthorityManifest"),
+            "executor": text("local_executor"),
+            "action_surface": obj({"write_successor_only": True}),
+        },
+        "GovernanceBoundary": {
+            "immutable_fields": array(["record_id", "created_at"]),
+            "mutable_successor_fields": array(["parameters"]),
+            "authority_refs": refs("AuthorityManifest"),
+            "permitted_actions": array(["revise", "refuse"]),
+            "budgets": obj({"maximum_revisions": 1}),
+            "stop_rules": obj({"on_refusal": True}),
+            "resume_rules": obj({"requires_authority": True}),
+        },
+        "RevisionOpportunity": {
+            "source_item_ref": ref("ArtifactRecord"),
+            "completed_run_ref": ref("RunManifest"),
+            "initial_successor_spec_ref": ref("SuccessorSpec"),
+            "governance_boundary_ref": ref("GovernanceBoundary"),
+            "matched_state_key": text("fixture-state-1"),
+            "budget": obj({"maximum_actions": 1}),
+        },
+        "SuccessorSpec": {
+            "predecessor_ref": ref("SuccessorSpec", 2),
+            "completed_run_ref": ref("RunManifest"),
+            "semantic_diff": obj({"parameters.gain": [0.5, 0.6]}),
+            "executable_action_set": array(["set_gain"]),
+            "capability_requirements": array(["local_write"]),
+            "decision_event_ref": ref("DecisionEvent"),
+            "evidence_fields": array(["candidate_interval"]),
+            "revision_treatment": enum("revision_treatment", "authentic"),
+            "authority_ref": ref("AuthorityManifest"),
+            "persistence_target": text("next_run"),
+        },
+        "DecisionEvent": {
+            "opportunity_ref": ref("RevisionOpportunity"),
+            "revision_treatment": enum("revision_treatment", "authentic"),
+            "alternatives": array(["revise", "no_change"]),
+            "cited_evidence": array(["candidate_interval"]),
+            "reason_code": text("evidence_supported_revision"),
+            "authority_ref": ref("AuthorityManifest"),
+            "governance_boundary_ref": ref("GovernanceBoundary"),
+            "decision_action": enum("decision_action", "revise"),
+            "predecessor_successor_diff": obj({"parameters.gain": [0.5, 0.6]}),
+            "executable_consequence": obj({"operation": "set_gain"}),
+            "next_run_ref": ref("RunManifest", 2),
+            "budget": obj({"used": 1}),
+            "leakage_checks": obj({"passed": True}),
+            "receipt_ref": ref("OperationReceipt"),
+            "event_sequence": integer(2, minimum=1),
+        },
+        "AppealCase": {
+            "appellant_ref": ref("SourceRecord"),
+            "standing_basis": text("authorized_representative"),
+            "responding_authority_ref": ref("AuthorityManifest"),
+            "target_closure": obj({"root": fixture_id("ArtifactRecord"), "descendants": []}),
+            "reason_code": enum("governance_reason", "standing_unverified"),
+            "requested_action": enum("repair_action", "restrict"),
+            "deadlines": obj({"respond_by": "2026-09-01T00:00:00Z"}),
+            "jurisdiction": text("project"),
+            "appeal_status": enum("appeal_status", "opened"),
+            "pause_status": enum("pause_status", "not_requested"),
+            "adjudication_outcome": enum("adjudication_outcome", "not_decided"),
+            "repair_status": enum("repair_status", "not_requested"),
+            "adjudication_evidence_refs": refs("ClaimRecord"),
+            "decision_event_refs": refs("DecisionEvent"),
+            "successor_case_ref": field(
+                {"anyOf": [{"$ref": f"{COMMON_ID}#/$defs/recordReference"}, {"type": "null"}]}, None
+            ),
+        },
+        "RepairAction": {
+            "appeal_case_ref": ref("AppealCase"),
+            "adjudication_outcome": enum("adjudication_outcome", "upheld"),
+            "authority_ref": ref("AuthorityManifest"),
+            "repair_action": enum("repair_action", "restrict"),
+            "target_closure": obj({"root": fixture_id("ArtifactRecord"), "descendants": []}),
+            "operation_scope": obj({"future_use": True}),
+            "predecessor_state": obj({"eligible": True}),
+            "successor_state": obj({"eligible": False}),
+            "authorization_status": enum("authorization_status", "permitted"),
+            "execution_status": enum("operation_status", "completed"),
+            "reason_code": enum("governance_reason", "requested_remedy_upheld"),
+            "failures": array(["none"]),
+            "receipt_ref": ref("OperationReceipt"),
+            "propagation_requirement": obj({"dependent_claims": True}),
+            "retention_semantics": obj({"bytes": "retained_restricted"}),
+        },
+        "RepairReceipt": {
+            "appeal_case_ref": ref("AppealCase"),
+            "action_refs": refs("RepairAction"),
+            "affected_closure": obj(
+                {"descendants": [], "claims": [], "renders": [], "bundles": [], "projections": []}
+            ),
+            "actions_applied": array(["restrict"]),
+            "propagation_failures": array(["none"]),
+            "external_copies": array(["none_known"]),
+            "unresolved_limits": array(["none"]),
+            "repair_status": enum("repair_status", "applied"),
+            "pause_status": enum("pause_status", "not_requested"),
+            "successor_refs": refs("ArtifactRecord"),
+            "final_authority_ref": ref("AuthorityManifest"),
+            "completed_at": text("2026-08-28T00:00:00Z"),
+            "event_sequence": integer(3, minimum=1),
+        },
+        "OperationReceipt": {
+            "request_ref": ref("ClaimRecord"),
+            "authorization_status": enum("authorization_status", "permitted"),
+            "actor": text("local_executor"),
+            "tool": obj({"id": "qste-validator", "version": VERSION}),
+            "inputs": array([fixture_id("ClaimRecord")]),
+            "parameters": obj({"strict": True}),
+            "outputs": array([fixture_id("ClaimRecord", 2)]),
+            "operation_status": enum("operation_status", "completed"),
+        },
+        "ListeningAccount": {
+            "evaluator_ref": ref("SourceRecord"),
+            "protocol_ref": ref("TaskSpec"),
+            "object_ref": ref("ArtifactRecord"),
+            "apparatus_ref": ref("ApparatusSpec"),
+            "aperture_ref": ref("ApertureSpec"),
+            "context": obj({"room": "fixture"}),
+            "response_fields": obj(
+                {
+                    "detection": True,
+                    "attribution": "unknown",
+                    "preference": None,
+                    "novelty_value": None,
+                    "interpretation": "fixture report",
+                }
+            ),
+            "report": text("fixture listening account"),
+            "response_units": text("categorical"),
+            "uncertainty_or_missingness": obj({"preference": "not_applicable"}),
+            "evidence_basis": enum("evidence_basis", "human_reported"),
+            "consent_status": enum("consent_status", "granted"),
+            "withdrawal_event_refs": refs("DecisionEvent"),
+            "retention_policy": obj({"duration": "fixture_only"}),
+            "authorization_status": enum("authorization_status", "permitted"),
+            "collection_receipt_ref": ref("OperationReceipt"),
+            "dependent_claim_refs": refs("ClaimRecord"),
+        },
+        "ClaimRecord": {
+            "proposition": text("fixture proposition"),
+            "evidence_basis": enum("evidence_basis", "instrumentally_derived"),
+            "epistemic_status": enum("epistemic_status", "derived"),
+            "scope": obj({"kind": "fixture_only"}),
+            "subject_ref": ref("ArtifactRecord"),
+            "evidence_refs": refs("ObservationRecord"),
+        },
+        "AuthorityManifest": {
+            "manifest_profile": text("qste-authority/0.3.0"),
+            "semantic_contract": obj(
+                {"id": CONTRACT_ID, "path": "ontology/0.3.0/QSTE_ontology.md", "sha256": "0" * 64}
+            ),
+            "schema_set": obj(
+                {"id": SCHEMA_SET_ID, "path": "schemas/0.3.0/schema-index.json", "sha256": "1" * 64}
+            ),
+            "conformance_profile": obj(
+                {
+                    "id": CONFORMANCE_ID,
+                    "path": "conformance/0.3.0/conformance-profile.json",
+                    "sha256": "2" * 64,
+                }
+            ),
+            "architecture": obj(
+                {"id": "qste-architecture/private", "availability": "private_local_not_disclosed"}
+            ),
+            "development_plan": obj(
+                {
+                    "id": "qste-development-plan/private",
+                    "availability": "private_local_not_disclosed",
+                }
+            ),
+            "research_sources": array(
+                [
+                    {
+                        "id": "agentic-quanta-paper-v3",
+                        "sha256": "5" * 64,
+                        "availability": "withheld",
+                        "authorized_locator": None,
+                    }
+                ]
+            ),
+            "code": obj(
+                {
+                    "version": "0.0.0",
+                    "commit": "6" * 40,
+                    "repository": "https://github.com/sonicfieldlabs/QSTE",
+                }
+            ),
+            "adapter_contracts": array([{"id": "none", "availability": "not_applicable"}]),
+            "model_checkpoint_manifests": array([{"id": "none", "availability": "not_applicable"}]),
+            "experiment_profiles": array([{"id": "none", "availability": "not_applicable"}]),
+            "compatibility_decision": field(
+                {"const": "exact_contract_only"}, "exact_contract_only"
+            ),
+            "approved_rfc_refs": field({"type": "array", "maxItems": 0}, []),
+        },
+        "RunManifest": {
+            "apparatus_ref": ref("ApparatusSpec"),
+            "aperture_ref": ref("ApertureSpec"),
+            "corpus_refs": refs("ArtifactRecord"),
+            "spec_refs": refs("TaskSpec"),
+            "budgets": obj({"compute": 100}),
+            "seeds": array([7], items={"type": "integer"}),
+            "event_refs": refs("AcquisitionEvent"),
+            "artifact_refs": refs("ArtifactRecord", 2),
+            "output_refs": refs("ClaimRecord"),
+            "frozen_versions": obj({"contract": CONTRACT_ID, "schema": SCHEMA_SET_ID}),
+        },
     }
 
 
@@ -509,7 +988,10 @@ def operation_result_schema() -> Json:
         "type": "object",
         "properties": {
             "contract_id": {"const": CONTRACT_ID},
-            "operation": {"type": "string", "pattern": r"^qste:[a-z][a-z0-9_.-]*/[0-9]+\.[0-9]+\.[0-9]+$"},
+            "operation": {
+                "type": "string",
+                "pattern": r"^qste:[a-z][a-z0-9_.-]*/[0-9]+\.[0-9]+\.[0-9]+$",
+            },
             "value_type": {"type": "string", "enum": value_types},
             "operation_status": {"$ref": f"{COMMON_ID}#/$defs/operation_status"},
             "value": {},
@@ -533,10 +1015,32 @@ def operation_result_schema() -> Json:
             "partial_contract_id": {"type": "string", "minLength": 1},
             "cli_exit_class": {"type": "integer", "enum": [0, 2, 3, 4, 5, 6, 7, 8, 9]},
         },
-        "required": ["contract_id", "operation", "value_type", "operation_status", "value", "reason_code", "authorization_status", "capability_status", "receipt_id", "diagnostics", "cli_exit_class"],
+        "required": [
+            "contract_id",
+            "operation",
+            "value_type",
+            "operation_status",
+            "value",
+            "reason_code",
+            "authorization_status",
+            "capability_status",
+            "receipt_id",
+            "diagnostics",
+            "cli_exit_class",
+        ],
         "allOf": [
-            {"if": {"properties": {"operation_status": {"const": "partial"}}}, "then": {"required": ["unresolved_targets", "partial_contract_id"]}},
-            {"if": {"properties": {"operation_status": {"enum": ["refused", "unavailable", "failed"]}}}, "then": {"properties": {"value": {"type": "null"}}}},
+            {
+                "if": {"properties": {"operation_status": {"const": "partial"}}},
+                "then": {"required": ["unresolved_targets", "partial_contract_id"]},
+            },
+            {
+                "if": {
+                    "properties": {
+                        "operation_status": {"enum": ["refused", "unavailable", "failed"]}
+                    }
+                },
+                "then": {"properties": {"value": {"type": "null"}}},
+            },
         ],
         "additionalProperties": False,
     }
@@ -581,7 +1085,10 @@ def bundle_schema() -> Json:
         "properties": {
             "container_type": {"const": "Bundle"},
             "bundle_profile": {"enum": ["private_run_bundle", "authorized_public_projection"]},
-            "bundle_id": {"type": "string", "pattern": r"^qste:bundle:[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"},
+            "bundle_id": {
+                "type": "string",
+                "pattern": r"^qste:bundle:[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+            },
             "contract_id": {"const": CONTRACT_ID},
             "schema_set_id": {"const": SCHEMA_SET_ID},
             "conformance_profile_id": {"const": CONFORMANCE_ID},
@@ -602,12 +1109,44 @@ def bundle_schema() -> Json:
             "retention_policy": {"type": "object", "minProperties": 1},
             "allowlist": {"type": "array"},
             "omission_manifest": {"type": "array"},
-            "parent_bundle_ref": {"anyOf": [{"type": "string", "pattern": r"^qste:bundle:"}, {"type": "null"}]},
+            "parent_bundle_ref": {
+                "anyOf": [{"type": "string", "pattern": r"^qste:bundle:"}, {"type": "null"}]
+            },
             "integrity_claim": {"enum": ["unverified", "verified", "failed", "unavailable"]},
             "logical_replay_claim": {"enum": ["unverified", "verified", "failed", "unavailable"]},
-            "numerical_reproducibility_claim": {"enum": ["unverified", "verified", "failed", "unavailable"]},
+            "numerical_reproducibility_claim": {
+                "enum": ["unverified", "verified", "failed", "unavailable"]
+            },
         },
-        "required": ["container_type", "bundle_profile", "bundle_id", "contract_id", "schema_set_id", "conformance_profile_id", "authority_ref", "code", "adapter_versions", "model_versions", "corpus_versions", "experiment_profiles", "record_manifest", "event_manifest", "relation_manifest", "dense_manifests", "artifact_manifest", "checksums", "manifest_digest", "disclosure_status", "retention_policy", "allowlist", "omission_manifest", "parent_bundle_ref", "integrity_claim", "logical_replay_claim", "numerical_reproducibility_claim"],
+        "required": [
+            "container_type",
+            "bundle_profile",
+            "bundle_id",
+            "contract_id",
+            "schema_set_id",
+            "conformance_profile_id",
+            "authority_ref",
+            "code",
+            "adapter_versions",
+            "model_versions",
+            "corpus_versions",
+            "experiment_profiles",
+            "record_manifest",
+            "event_manifest",
+            "relation_manifest",
+            "dense_manifests",
+            "artifact_manifest",
+            "checksums",
+            "manifest_digest",
+            "disclosure_status",
+            "retention_policy",
+            "allowlist",
+            "omission_manifest",
+            "parent_bundle_ref",
+            "integrity_claim",
+            "logical_replay_claim",
+            "numerical_reproducibility_claim",
+        ],
         "patternProperties": {r"^[a-z][a-z0-9_-]*:[A-Za-z][A-Za-z0-9_.-]*$": {}},
         "additionalProperties": False,
     }
@@ -666,7 +1205,14 @@ def bundle_fixture() -> Json:
         "model_versions": [],
         "corpus_versions": [],
         "experiment_profiles": [],
-        "record_manifest": [{"record_id": authority_id, "record_type": "AuthorityManifest", "digest": digest("1"), "sequence": 0}],
+        "record_manifest": [
+            {
+                "record_id": authority_id,
+                "record_type": "AuthorityManifest",
+                "digest": digest("1"),
+                "sequence": 0,
+            }
+        ],
         "event_manifest": [],
         "relation_manifest": [],
         "dense_manifests": [],
@@ -744,7 +1290,11 @@ def generate() -> None:
             "minimal.valid.json": (base_fixture(name, definitions[name]), True, "valid_minimal"),
             "maximal.valid.json": (maximal_fixture(name, definitions[name]), True, "valid_maximal"),
             "withheld.valid.json": (withheld, True, "explicit_withheld"),
-            "forward-extension.valid.json": (base_fixture(name, definitions[name]) | {"ext:futureField": {"opaque": [1, 2, 3]}}, True, "namespaced_extension"),
+            "forward-extension.valid.json": (
+                base_fixture(name, definitions[name]) | {"ext:futureField": {"opaque": [1, 2, 3]}},
+                True,
+                "namespaced_extension",
+            ),
         }
         wrong = base_fixture(name, definitions[name])
         wrong[next(iter(definitions[name]))] = 7
@@ -768,51 +1318,185 @@ def generate() -> None:
     bundle = bundle_fixture()
     bundle_cases = {
         "minimal.valid.json": (bundle, True, "valid_minimal"),
-        "maximal.valid.json": (bundle | {"allowlist": ["records/*"], "omission_manifest": [{"path": "private/*", "reason": "withheld"}]}, True, "valid_maximal"),
-        "withheld.valid.json": (bundle | {"disclosure_status": "restricted", "omission_manifest": [{"path": "records/private.json", "availability": "withheld"}]}, True, "explicit_withheld"),
-        "forward-extension.valid.json": (bundle | {"ext:futureField": True}, True, "namespaced_extension"),
-        "missing-required.invalid.json": ({key: value for key, value in bundle.items() if key != "record_manifest"}, False, "required"),
+        "maximal.valid.json": (
+            bundle
+            | {
+                "allowlist": ["records/*"],
+                "omission_manifest": [{"path": "private/*", "reason": "withheld"}],
+            },
+            True,
+            "valid_maximal",
+        ),
+        "withheld.valid.json": (
+            bundle
+            | {
+                "disclosure_status": "restricted",
+                "omission_manifest": [{"path": "records/private.json", "availability": "withheld"}],
+            },
+            True,
+            "explicit_withheld",
+        ),
+        "forward-extension.valid.json": (
+            bundle | {"ext:futureField": True},
+            True,
+            "namespaced_extension",
+        ),
+        "missing-required.invalid.json": (
+            {key: value for key, value in bundle.items() if key != "record_manifest"},
+            False,
+            "required",
+        ),
         "invalid-type.invalid.json": (bundle | {"record_manifest": "not-an-array"}, False, "type"),
     }
     bundle_schema_id = f"{BASE_URI}/bundle-manifest.schema.json"
     for filename, (payload, valid, reason) in bundle_cases.items():
         path = fixture_root / "bundle" / filename
         write_json(path, payload)
-        fixture_manifest.append({"path": path.relative_to(ROOT).as_posix(), "schema_id": bundle_schema_id, "expected_valid": valid, "expected_reason": reason, "record_type": "Bundle"})
+        fixture_manifest.append(
+            {
+                "path": path.relative_to(ROOT).as_posix(),
+                "schema_id": bundle_schema_id,
+                "expected_valid": valid,
+                "expected_reason": reason,
+                "record_type": "Bundle",
+            }
+        )
 
     payload_cases = {
-        "minimal.valid.json": ({"payload_type": "CandidateSet", "payload_schema_id": "qste-payload/0.3.0", "items": []}, True, "valid_typed_payload"),
-        "unknown-type.invalid.json": ({"payload_type": "DSQ", "payload_schema_id": "qste-payload/0.3.0", "items": []}, False, "enum"),
+        "minimal.valid.json": (
+            {
+                "payload_type": "CandidateSet",
+                "payload_schema_id": "qste-payload/0.3.0",
+                "items": [],
+            },
+            True,
+            "valid_typed_payload",
+        ),
+        "unknown-type.invalid.json": (
+            {"payload_type": "DSQ", "payload_schema_id": "qste-payload/0.3.0", "items": []},
+            False,
+            "enum",
+        ),
     }
     payload_schema_id = f"{BASE_URI}/typed-payload.schema.json"
     for filename, (payload, valid, reason) in payload_cases.items():
         path = fixture_root / "typed-payload" / filename
         write_json(path, payload)
-        fixture_manifest.append({"path": path.relative_to(ROOT).as_posix(), "schema_id": payload_schema_id, "expected_valid": valid, "expected_reason": reason, "record_type": "typed_payload"})
+        fixture_manifest.append(
+            {
+                "path": path.relative_to(ROOT).as_posix(),
+                "schema_id": payload_schema_id,
+                "expected_valid": valid,
+                "expected_reason": reason,
+                "record_type": "typed_payload",
+            }
+        )
 
     operation_cases = {
-        "completed.valid.json": ({"contract_id": CONTRACT_ID, "operation": "qste:validate/0.3.0", "value_type": "qste-payload/0.3.0/CandidateSet", "operation_status": "completed", "value": {"payload_type": "CandidateSet", "payload_schema_id": "qste-payload/0.3.0", "items": []}, "reason_code": "completed", "authorization_status": "permitted", "capability_status": "available", "receipt_id": fixture_id("OperationReceipt"), "diagnostics": {}, "cli_exit_class": 0}, True, "completed"),
-        "failed-invalid-spec.valid.json": ({"contract_id": CONTRACT_ID, "operation": "qste:assess/0.3.0", "value_type": schema_id("DSQAssessment"), "operation_status": "failed", "value": None, "reason_code": "invalid_assessment_spec", "authorization_status": "permitted", "capability_status": "available", "receipt_id": fixture_id("OperationReceipt"), "diagnostics": {"field": "meaningful_bound"}, "cli_exit_class": 2}, True, "failed_without_domain_status"),
-        "partial-without-targets.invalid.json": ({"contract_id": CONTRACT_ID, "operation": "qste:repair/0.3.0", "value_type": "qste-payload/0.3.0/RepairPropagation", "operation_status": "partial", "value": {}, "reason_code": "partial_completion", "authorization_status": "permitted", "capability_status": "degraded", "receipt_id": fixture_id("OperationReceipt"), "diagnostics": {}, "cli_exit_class": 6}, False, "required"),
-        "domain-token-as-operation.invalid.json": ({"contract_id": CONTRACT_ID, "operation": "qste:assess/0.3.0", "value_type": schema_id("DSQAssessment"), "operation_status": "indeterminate", "value": None, "reason_code": "required_evidence_unavailable", "authorization_status": "permitted", "capability_status": "available", "receipt_id": fixture_id("OperationReceipt"), "diagnostics": {}, "cli_exit_class": 5}, False, "enum"),
+        "completed.valid.json": (
+            {
+                "contract_id": CONTRACT_ID,
+                "operation": "qste:validate/0.3.0",
+                "value_type": "qste-payload/0.3.0/CandidateSet",
+                "operation_status": "completed",
+                "value": {
+                    "payload_type": "CandidateSet",
+                    "payload_schema_id": "qste-payload/0.3.0",
+                    "items": [],
+                },
+                "reason_code": "completed",
+                "authorization_status": "permitted",
+                "capability_status": "available",
+                "receipt_id": fixture_id("OperationReceipt"),
+                "diagnostics": {},
+                "cli_exit_class": 0,
+            },
+            True,
+            "completed",
+        ),
+        "failed-invalid-spec.valid.json": (
+            {
+                "contract_id": CONTRACT_ID,
+                "operation": "qste:assess/0.3.0",
+                "value_type": schema_id("DSQAssessment"),
+                "operation_status": "failed",
+                "value": None,
+                "reason_code": "invalid_assessment_spec",
+                "authorization_status": "permitted",
+                "capability_status": "available",
+                "receipt_id": fixture_id("OperationReceipt"),
+                "diagnostics": {"field": "meaningful_bound"},
+                "cli_exit_class": 2,
+            },
+            True,
+            "failed_without_domain_status",
+        ),
+        "partial-without-targets.invalid.json": (
+            {
+                "contract_id": CONTRACT_ID,
+                "operation": "qste:repair/0.3.0",
+                "value_type": "qste-payload/0.3.0/RepairPropagation",
+                "operation_status": "partial",
+                "value": {},
+                "reason_code": "partial_completion",
+                "authorization_status": "permitted",
+                "capability_status": "degraded",
+                "receipt_id": fixture_id("OperationReceipt"),
+                "diagnostics": {},
+                "cli_exit_class": 6,
+            },
+            False,
+            "required",
+        ),
+        "domain-token-as-operation.invalid.json": (
+            {
+                "contract_id": CONTRACT_ID,
+                "operation": "qste:assess/0.3.0",
+                "value_type": schema_id("DSQAssessment"),
+                "operation_status": "indeterminate",
+                "value": None,
+                "reason_code": "required_evidence_unavailable",
+                "authorization_status": "permitted",
+                "capability_status": "available",
+                "receipt_id": fixture_id("OperationReceipt"),
+                "diagnostics": {},
+                "cli_exit_class": 5,
+            },
+            False,
+            "enum",
+        ),
     }
     operation_schema_id = f"{BASE_URI}/operation-result.schema.json"
     for filename, (payload, valid, reason) in operation_cases.items():
         path = fixture_root / "operation-result" / filename
         write_json(path, payload)
-        fixture_manifest.append({"path": path.relative_to(ROOT).as_posix(), "schema_id": operation_schema_id, "expected_valid": valid, "expected_reason": reason, "record_type": "OperationResult"})
+        fixture_manifest.append(
+            {
+                "path": path.relative_to(ROOT).as_posix(),
+                "schema_id": operation_schema_id,
+                "expected_valid": valid,
+                "expected_reason": reason,
+                "record_type": "OperationResult",
+            }
+        )
 
     # Cross-record fixtures deliberately use a corpus envelope, not a new QSTE record.
     source = base_fixture("SourceRecord", definitions["SourceRecord"])
     successor = base_fixture("SourceRecord", definitions["SourceRecord"])
     successor["record_id"] = fixture_id("SourceRecord", 2)
-    successor["references"] = [{"record_id": source["record_id"], "record_type": "SourceRecord", "relation": "succeeds"}]
+    successor["references"] = [
+        {"record_id": source["record_id"], "record_type": "SourceRecord", "relation": "succeeds"}
+    ]
     closed = {"objects": [source, successor]}
     missing_ref = deepcopy(closed)
     missing_ref["objects"][1]["references"][0]["record_id"] = fixture_id("SourceRecord", 99)
     wrong_type = deepcopy(closed)
     wrong_type["objects"][1]["references"][0]["record_type"] = "ArtifactRecord"
-    for filename, payload in {"closed.valid.json": closed, "missing-reference.invalid.json": missing_ref, "wrong-type.invalid.json": wrong_type}.items():
+    for filename, payload in {
+        "closed.valid.json": closed,
+        "missing-reference.invalid.json": missing_ref,
+        "wrong-type.invalid.json": wrong_type,
+    }.items():
         write_json(fixture_root / "reference-closure" / filename, payload)
 
     refinement_types = [
@@ -848,75 +1532,340 @@ def generate() -> None:
     close_fixture_references(refinement_records)
     refinement_closed = {"objects": refinement_records}
     refinement_missing_mapping = deepcopy(refinement_closed)
-    next(record for record in refinement_missing_mapping["objects"] if record["record_type"] == "RepresentationFamilySpec")["mapping_refs"] = []
+    next(
+        record
+        for record in refinement_missing_mapping["objects"]
+        if record["record_type"] == "RepresentationFamilySpec"
+    )["mapping_refs"] = []
     write_json(fixture_root / "reference-closure" / "refinement.valid.json", refinement_closed)
-    write_json(fixture_root / "reference-closure" / "refinement-mapping-missing.invalid.json", refinement_missing_mapping)
+    write_json(
+        fixture_root / "reference-closure" / "refinement-mapping-missing.invalid.json",
+        refinement_missing_mapping,
+    )
 
-    write_json(fixture_root / "fixture-manifest.json", {"schema_set_id": SCHEMA_SET_ID, "fixtures": sorted(fixture_manifest, key=lambda item: item["path"])})
+    write_json(
+        fixture_root / "fixture-manifest.json",
+        {
+            "schema_set_id": SCHEMA_SET_ID,
+            "fixtures": sorted(fixture_manifest, key=lambda item: item["path"]),
+        },
+    )
 
     schemas = [
         {"kind": "shared", "name": "common", "id": COMMON_ID, "path": "common.schema.json"},
-        {"kind": "envelope", "name": "OperationResult", "id": operation_schema_id, "path": "operation-result.schema.json"},
-        {"kind": "typed_payload", "name": "typed payload", "id": payload_schema_id, "path": "typed-payload.schema.json"},
-        {"kind": "sealed_container", "name": "Bundle", "id": bundle_schema_id, "path": "bundle-manifest.schema.json"},
-    ] + [{"kind": "serialized_record", "name": name, "id": schema_id(name), "path": f"records/{slug(name)}.schema.json"} for name in SERIALIZED_RECORDS]
+        {
+            "kind": "envelope",
+            "name": "OperationResult",
+            "id": operation_schema_id,
+            "path": "operation-result.schema.json",
+        },
+        {
+            "kind": "typed_payload",
+            "name": "typed payload",
+            "id": payload_schema_id,
+            "path": "typed-payload.schema.json",
+        },
+        {
+            "kind": "sealed_container",
+            "name": "Bundle",
+            "id": bundle_schema_id,
+            "path": "bundle-manifest.schema.json",
+        },
+    ] + [
+        {
+            "kind": "serialized_record",
+            "name": name,
+            "id": schema_id(name),
+            "path": f"records/{slug(name)}.schema.json",
+        }
+        for name in SERIALIZED_RECORDS
+    ]
     for entry in schemas:
         entry["sha256"] = file_sha256(schema_root / entry["path"])
-    write_json(schema_root / "schema-index.json", {"schema_set_id": SCHEMA_SET_ID, "contract_id": CONTRACT_ID, "json_schema_dialect": "https://json-schema.org/draft/2020-12/schema", "compatibility": "exact_only_no_legacy_reader", "schemas": schemas})
+    write_json(
+        schema_root / "schema-index.json",
+        {
+            "schema_set_id": SCHEMA_SET_ID,
+            "contract_id": CONTRACT_ID,
+            "json_schema_dialect": "https://json-schema.org/draft/2020-12/schema",
+            "compatibility": "exact_only_no_legacy_reader",
+            "schemas": schemas,
+        },
+    )
 
     behavior_phases = {
-        "AcquisitionEvent": "P4", "SourceRecord": "P4", "ArtifactRecord": "P3", "ObservationRecord": "P4", "ApparatusSpec": "P4", "ApertureSpec": "P4",
-        "RepresentationFamilySpec": "P5", "RepresentationSpec": "P5", "RepresentationInstance": "P5", "CandidateUnit": "P5", "InterventionSpec": "P5",
-        "TaskSpec": "P6", "RefinementGraph": "P6", "DSQAssessment": "P6", "ProjectionSpec": "P7", "ComparisonSpec": "P7", "RelationAssertion": "P7",
-        "MappingSpec": "P8", "ListeningHarnessSpec": "P10", "GovernanceBoundary": "P8", "RevisionOpportunity": "P10", "SuccessorSpec": "P10", "DecisionEvent": "P10",
-        "AppealCase": "P8", "RepairAction": "P8", "RepairReceipt": "P8", "OperationReceipt": "P3", "ListeningAccount": "P12h", "ClaimRecord": "P3", "AuthorityManifest": "P2", "RunManifest": "P3",
+        "AcquisitionEvent": "P4",
+        "SourceRecord": "P4",
+        "ArtifactRecord": "P3",
+        "ObservationRecord": "P4",
+        "ApparatusSpec": "P4",
+        "ApertureSpec": "P4",
+        "RepresentationFamilySpec": "P5",
+        "RepresentationSpec": "P5",
+        "RepresentationInstance": "P5",
+        "CandidateUnit": "P5",
+        "InterventionSpec": "P5",
+        "TaskSpec": "P6",
+        "RefinementGraph": "P6",
+        "DSQAssessment": "P6",
+        "ProjectionSpec": "P7",
+        "ComparisonSpec": "P7",
+        "RelationAssertion": "P7",
+        "MappingSpec": "P8",
+        "ListeningHarnessSpec": "P10",
+        "GovernanceBoundary": "P8",
+        "RevisionOpportunity": "P10",
+        "SuccessorSpec": "P10",
+        "DecisionEvent": "P10",
+        "AppealCase": "P8",
+        "RepairAction": "P8",
+        "RepairReceipt": "P8",
+        "OperationReceipt": "P3",
+        "ListeningAccount": "P12h",
+        "ClaimRecord": "P3",
+        "AuthorityManifest": "P2",
+        "RunManifest": "P3",
     }
     coverage = [
-        {"entity": "Phenomenon", "contract_form": "abstract_concept", "owner": "ontology/0.3.0/QSTE_ontology.md", "schema": None, "container": None, "first_schema_phase": "not_applicable", "first_behavior_phase": "not_applicable", "schema_availability": "not_applicable", "behavior_availability": "not_applicable"},
-        *[{"entity": name, "contract_form": "serialized_record", "owner": f"schemas/{VERSION}/records/{slug(name)}.schema.json", "schema": f"schemas/{VERSION}/records/{slug(name)}.schema.json", "container": "Bundle", "first_schema_phase": "P2", "first_behavior_phase": behavior_phases[name], "schema_availability": "available", "behavior_availability": "available" if behavior_phases[name] == "P2" else "unavailable"} for name in SERIALIZED_RECORDS],
-        *[{"entity": name, "contract_form": "typed_payload", "owner": f"schemas/{VERSION}/typed-payload.schema.json", "schema": f"schemas/{VERSION}/typed-payload.schema.json", "container": "OperationResult.value; persist via core record", "first_schema_phase": "P2", "first_behavior_phase": "operation_specific", "schema_availability": "available", "behavior_availability": "unavailable"} for name in TYPED_PAYLOADS],
-        {"entity": "Bundle", "contract_form": "sealed_container", "owner": f"schemas/{VERSION}/bundle-manifest.schema.json", "schema": f"schemas/{VERSION}/bundle-manifest.schema.json", "container": None, "first_schema_phase": "P2", "first_behavior_phase": "P3", "schema_availability": "available", "behavior_availability": "unavailable"},
-        {"entity": "OperationResult<T>", "contract_form": "operation_envelope", "owner": f"schemas/{VERSION}/operation-result.schema.json", "schema": f"schemas/{VERSION}/operation-result.schema.json", "container": "operation boundary", "first_schema_phase": "P2", "first_behavior_phase": "P2", "schema_availability": "available", "behavior_availability": "available"},
-    ]
-    write_json(conformance_root / "entity-coverage.json", {"contract_id": CONTRACT_ID, "schema_set_id": SCHEMA_SET_ID, "entities": coverage})
-    write_json(conformance_root / "controlled-vocabularies.json", {"contract_id": CONTRACT_ID, "schema_set_id": SCHEMA_SET_ID, "registries": VOCABULARIES, "legacy_aliases": {}, "writer_policy": "reject_noncanonical"})
-    write_json(conformance_root / "state-transitions.json", {
-        "contract_id": CONTRACT_ID,
-        "axes_are_independent": ["assessment_status", "dependency_validity", "authorization_status", "appeal_status", "pause_status", "adjudication_outcome", "repair_status"],
-        "operation_status": {"completed": {"exit_classes": [0, 5], "domain_status_allowed": True}, "refused": {"reason": "policy_refused", "exit_classes": [3]}, "unavailable": {"reason": "capability_unavailable", "exit_classes": [4]}, "failed": {"reasons": ["invalid_input", "invalid_assessment_spec", "invalid_comparison_spec", "execution_failed", "conformance_failed", "internal_error"], "exit_classes": [2, 7, 8, 9]}, "partial": {"reason": "partial_completion", "exit_classes": [6], "requires": ["unresolved_targets"]}},
-        "appeal_status": {"opened": ["under_review", "closed"], "under_review": ["adjudicated", "closed"], "adjudicated": ["closed"], "closed": []},
-        "pause_status": {"not_requested": ["requested"], "requested": ["active", "denied"], "active": ["released"], "denied": [], "released": []},
-        "repair_status": {"not_requested": ["pending", "impossible"], "pending": ["applied", "partially_applied", "impossible"], "applied": ["superseded"], "partially_applied": ["superseded"], "impossible": ["superseded"], "superseded": []},
-    })
-    write_json(conformance_root / "reader-writer-profile.json", {
-        "id": CONFORMANCE_ID,
-        "contract_id": CONTRACT_ID,
-        "schema_set_id": SCHEMA_SET_ID,
-        "reader": {"json": "strict_finite", "unknown_unqualified_fields": "reject", "namespaced_extensions": "preserve_verbatim", "legacy_aliases": "reject", "reference_closure": "required_for_bundle"},
-        "writer": {"json": "canonical_sorted_utf8", "nonfinite_numbers": "reject", "unknown_unqualified_fields": "reject", "namespaced_extensions": "preserve_verbatim", "canonical_tokens_only": True, "legacy_output": "prohibited"},
-        "identity": {"record_id": "random_uuid4", "semantic_key": "typed_rfc8785_compatible_sha256", "content_digest": "serialized_bytes_sha256", "substitution": "prohibited"},
-    })
-    write_json(conformance_root / "conformance-profile.json", {
-        "id": CONFORMANCE_ID,
-        "contract_id": CONTRACT_ID,
-        "schema_set_id": SCHEMA_SET_ID,
-        "phase": "P2",
-        "fixtures": "fixtures/schema/0.3.0/fixture-manifest.json",
-        "required_checks": ["schema_self_validation", "fixture_expectations", "namespaced_extension_roundtrip", "entity_coverage", "identity_non_substitution", "candidate_assessment_distinction", "state_axis_independence", "nullable_relation_type", "canonical_token_rejection", "refinement_dependency_shape", "reference_closure"],
-        "legacy_reader": None,
-        "migration_map": None,
-    })
-    future_phase = {1: "P2", 2: "P2", 3: "P2", 4: "P2", 5: "P2", 6: "P2", 7: "P2", 8: "P2", 9: "P6", 10: "P6", 11: "P6", 12: "P2", 13: "P2", 14: "P7", 15: "P2", 16: "P7", 17: "P7", 18: "P7", 19: "P10", 20: "P10", 21: "P10", 22: "P10", 23: "P8", 24: "P8", 25: "P3", 26: "P2", 27: "P2", 28: "P2"}
-    schema_enforced = {1, 2, 3, 4, 5, 6, 7, 8, 12, 13, 15, 26, 27, 28}
-    write_json(conformance_root / "obligation-coverage.json", {
-        "contract_id": CONTRACT_ID,
-        "scope": "ontology_section_17",
-        "truth_boundary": "P2 validates representational contracts; later behavioral phases remain unavailable",
-        "obligations": [
-            {"number": number, "p2_status": "schema_and_semantic_enforced" if number in schema_enforced else "schema_surface_only", "behavior_first_phase": future_phase[number], "behavior_available": future_phase[number] == "P2"}
-            for number in range(1, 29)
+        {
+            "entity": "Phenomenon",
+            "contract_form": "abstract_concept",
+            "owner": "ontology/0.3.0/QSTE_ontology.md",
+            "schema": None,
+            "container": None,
+            "first_schema_phase": "not_applicable",
+            "first_behavior_phase": "not_applicable",
+            "schema_availability": "not_applicable",
+            "behavior_availability": "not_applicable",
+        },
+        *[
+            {
+                "entity": name,
+                "contract_form": "serialized_record",
+                "owner": f"schemas/{VERSION}/records/{slug(name)}.schema.json",
+                "schema": f"schemas/{VERSION}/records/{slug(name)}.schema.json",
+                "container": "Bundle",
+                "first_schema_phase": "P2",
+                "first_behavior_phase": behavior_phases[name],
+                "schema_availability": "available",
+                "behavior_availability": "available"
+                if behavior_phases[name] == "P2"
+                else "unavailable",
+            }
+            for name in SERIALIZED_RECORDS
         ],
-    })
+        *[
+            {
+                "entity": name,
+                "contract_form": "typed_payload",
+                "owner": f"schemas/{VERSION}/typed-payload.schema.json",
+                "schema": f"schemas/{VERSION}/typed-payload.schema.json",
+                "container": "OperationResult.value; persist via core record",
+                "first_schema_phase": "P2",
+                "first_behavior_phase": "operation_specific",
+                "schema_availability": "available",
+                "behavior_availability": "unavailable",
+            }
+            for name in TYPED_PAYLOADS
+        ],
+        {
+            "entity": "Bundle",
+            "contract_form": "sealed_container",
+            "owner": f"schemas/{VERSION}/bundle-manifest.schema.json",
+            "schema": f"schemas/{VERSION}/bundle-manifest.schema.json",
+            "container": None,
+            "first_schema_phase": "P2",
+            "first_behavior_phase": "P3",
+            "schema_availability": "available",
+            "behavior_availability": "unavailable",
+        },
+        {
+            "entity": "OperationResult<T>",
+            "contract_form": "operation_envelope",
+            "owner": f"schemas/{VERSION}/operation-result.schema.json",
+            "schema": f"schemas/{VERSION}/operation-result.schema.json",
+            "container": "operation boundary",
+            "first_schema_phase": "P2",
+            "first_behavior_phase": "P2",
+            "schema_availability": "available",
+            "behavior_availability": "available",
+        },
+    ]
+    write_json(
+        conformance_root / "entity-coverage.json",
+        {"contract_id": CONTRACT_ID, "schema_set_id": SCHEMA_SET_ID, "entities": coverage},
+    )
+    write_json(
+        conformance_root / "controlled-vocabularies.json",
+        {
+            "contract_id": CONTRACT_ID,
+            "schema_set_id": SCHEMA_SET_ID,
+            "registries": VOCABULARIES,
+            "legacy_aliases": {},
+            "writer_policy": "reject_noncanonical",
+        },
+    )
+    write_json(
+        conformance_root / "state-transitions.json",
+        {
+            "contract_id": CONTRACT_ID,
+            "axes_are_independent": [
+                "assessment_status",
+                "dependency_validity",
+                "authorization_status",
+                "appeal_status",
+                "pause_status",
+                "adjudication_outcome",
+                "repair_status",
+            ],
+            "operation_status": {
+                "completed": {"exit_classes": [0, 5], "domain_status_allowed": True},
+                "refused": {"reason": "policy_refused", "exit_classes": [3]},
+                "unavailable": {"reason": "capability_unavailable", "exit_classes": [4]},
+                "failed": {
+                    "reasons": [
+                        "invalid_input",
+                        "invalid_assessment_spec",
+                        "invalid_comparison_spec",
+                        "execution_failed",
+                        "conformance_failed",
+                        "internal_error",
+                    ],
+                    "exit_classes": [2, 7, 8, 9],
+                },
+                "partial": {
+                    "reason": "partial_completion",
+                    "exit_classes": [6],
+                    "requires": ["unresolved_targets"],
+                },
+            },
+            "appeal_status": {
+                "opened": ["under_review", "closed"],
+                "under_review": ["adjudicated", "closed"],
+                "adjudicated": ["closed"],
+                "closed": [],
+            },
+            "pause_status": {
+                "not_requested": ["requested"],
+                "requested": ["active", "denied"],
+                "active": ["released"],
+                "denied": [],
+                "released": [],
+            },
+            "repair_status": {
+                "not_requested": ["pending", "impossible"],
+                "pending": ["applied", "partially_applied", "impossible"],
+                "applied": ["superseded"],
+                "partially_applied": ["superseded"],
+                "impossible": ["superseded"],
+                "superseded": [],
+            },
+        },
+    )
+    write_json(
+        conformance_root / "reader-writer-profile.json",
+        {
+            "id": CONFORMANCE_ID,
+            "contract_id": CONTRACT_ID,
+            "schema_set_id": SCHEMA_SET_ID,
+            "reader": {
+                "json": "strict_finite",
+                "unknown_unqualified_fields": "reject",
+                "namespaced_extensions": "preserve_verbatim",
+                "legacy_aliases": "reject",
+                "reference_closure": "required_for_bundle",
+            },
+            "writer": {
+                "json": "canonical_sorted_utf8",
+                "nonfinite_numbers": "reject",
+                "unknown_unqualified_fields": "reject",
+                "namespaced_extensions": "preserve_verbatim",
+                "canonical_tokens_only": True,
+                "legacy_output": "prohibited",
+            },
+            "identity": {
+                "record_id": "random_uuid4",
+                "semantic_key": "typed_rfc8785_compatible_sha256",
+                "content_digest": "serialized_bytes_sha256",
+                "substitution": "prohibited",
+            },
+        },
+    )
+    write_json(
+        conformance_root / "conformance-profile.json",
+        {
+            "id": CONFORMANCE_ID,
+            "contract_id": CONTRACT_ID,
+            "schema_set_id": SCHEMA_SET_ID,
+            "phase": "P2",
+            "fixtures": "fixtures/schema/0.3.0/fixture-manifest.json",
+            "required_checks": [
+                "schema_self_validation",
+                "fixture_expectations",
+                "namespaced_extension_roundtrip",
+                "entity_coverage",
+                "identity_non_substitution",
+                "candidate_assessment_distinction",
+                "state_axis_independence",
+                "nullable_relation_type",
+                "canonical_token_rejection",
+                "refinement_dependency_shape",
+                "reference_closure",
+            ],
+            "legacy_reader": None,
+            "migration_map": None,
+        },
+    )
+    future_phase = {
+        1: "P2",
+        2: "P2",
+        3: "P2",
+        4: "P2",
+        5: "P2",
+        6: "P2",
+        7: "P2",
+        8: "P2",
+        9: "P6",
+        10: "P6",
+        11: "P6",
+        12: "P2",
+        13: "P2",
+        14: "P7",
+        15: "P2",
+        16: "P7",
+        17: "P7",
+        18: "P7",
+        19: "P10",
+        20: "P10",
+        21: "P10",
+        22: "P10",
+        23: "P8",
+        24: "P8",
+        25: "P3",
+        26: "P2",
+        27: "P2",
+        28: "P2",
+    }
+    schema_enforced = {1, 2, 3, 4, 5, 6, 7, 8, 12, 13, 15, 26, 27, 28}
+    write_json(
+        conformance_root / "obligation-coverage.json",
+        {
+            "contract_id": CONTRACT_ID,
+            "scope": "ontology_section_17",
+            "truth_boundary": "P2 validates representational contracts; later behavioral phases remain unavailable",
+            "obligations": [
+                {
+                    "number": number,
+                    "p2_status": "schema_and_semantic_enforced"
+                    if number in schema_enforced
+                    else "schema_surface_only",
+                    "behavior_first_phase": future_phase[number],
+                    "behavior_available": future_phase[number] == "P2",
+                }
+                for number in range(1, 29)
+            ],
+        },
+    )
     conformance_paths = [
         conformance_root / "conformance-profile.json",
         conformance_root / "controlled-vocabularies.json",
@@ -926,15 +1875,18 @@ def generate() -> None:
         conformance_root / "state-transitions.json",
         fixture_root / "fixture-manifest.json",
     ]
-    write_json(conformance_root / "conformance-index.json", {
-        "id": CONFORMANCE_ID,
-        "contract_id": CONTRACT_ID,
-        "schema_set_id": SCHEMA_SET_ID,
-        "files": [
-            {"path": path.relative_to(ROOT).as_posix(), "sha256": file_sha256(path)}
-            for path in conformance_paths
-        ],
-    })
+    write_json(
+        conformance_root / "conformance-index.json",
+        {
+            "id": CONFORMANCE_ID,
+            "contract_id": CONTRACT_ID,
+            "schema_set_id": SCHEMA_SET_ID,
+            "files": [
+                {"path": path.relative_to(ROOT).as_posix(), "sha256": file_sha256(path)}
+                for path in conformance_paths
+            ],
+        },
+    )
 
 
 if __name__ == "__main__":

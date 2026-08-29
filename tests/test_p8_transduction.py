@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 
 import pytest
-from p8_helpers import artifact_parameters, build_p8_fixture
+from p8_helpers import artifact_parameters, build_p8_fixture, mapping_specification
 
 from qste.core.contracts import ContractError
 from qste.storage import RecordStore, WorkspacePaths
@@ -98,7 +98,7 @@ def test_refusal_precedes_execution_and_creates_no_authoritative_derivative(
         if value.record_type == "ArtifactRecord"
     ]
     assert after == before
-    receipt = service.store.get_record(caught.value.receipt_id).record  # type: ignore[attr-defined]
+    receipt = service.store.get_record(caught.value.receipt_id).record
     assert receipt["operation_status"] == "refused"
     assert receipt["outputs"] == [{"availability": "not_applicable", "reason": "policy_refused"}]
 
@@ -121,3 +121,26 @@ def test_cross_domain_contrast_rejects_causation_substitution(tmp_path: Path) ->
         )
     store = RecordStore(WorkspacePaths.open(fixture.workspace))
     assert store.iter_events()[-1].event_type == "qste:transduction-failed/0.1"
+
+
+def test_nonreversible_desonification_requires_exact_bounded_inference_boolean(
+    tmp_path: Path,
+) -> None:
+    fixture = build_p8_fixture(tmp_path)
+    service = TransductionService(fixture.workspace)
+    specification = mapping_specification()
+    specification["reversibility_claim"] = "untested"
+    mapping = service.declare_mapping(
+        context_record_id=fixture.artifact["record_id"], specification=specification
+    ).value
+    assert mapping is not None
+    with pytest.raises(ContractError, match="bounded inference"):
+        service.transduce(
+            mode="desonification",
+            source_record_ids=[fixture.artifact["record_id"]],
+            mapping_record_id=mapping["record_id"],
+            parameters={
+                "bounded_inference": "true",
+                "observations": [{"variable": "estimate", "units": "score", "value": 0.5}],
+            },
+        )

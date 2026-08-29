@@ -4,7 +4,7 @@
 from __future__ import annotations
 
 import json
-import subprocess
+import subprocess  # nosec B404
 import sys
 from pathlib import Path
 
@@ -78,7 +78,9 @@ def main() -> int:
         "cross_arm_disagreement_relation",
     }:
         raise SystemExit("P7 material classes are incomplete")
-    result = subprocess.run([sys.executable, "-m", "pytest", "-q", *TESTS], cwd=ROOT, check=False)
+    result = subprocess.run(  # nosec B603
+        [sys.executable, "-m", "pytest", "-q", *TESTS], cwd=ROOT, check=False
+    )
     if result.returncode != 0:
         return result.returncode
     print(

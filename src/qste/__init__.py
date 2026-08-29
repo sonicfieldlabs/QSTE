@@ -1,4 +1,4 @@
-"""Quantum Sound Transduction Engine P3 package."""
+"""Bounded Quantum Sound Transduction Engine P14 infrastructure package."""
 
 from qste._version import CONTRACT_ID, __version__, version_info
 from qste.operations import bundle, inspect, trace_lineage, verify

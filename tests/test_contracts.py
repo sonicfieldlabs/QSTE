@@ -82,6 +82,16 @@ def test_task_math_and_assessment_status_are_semantically_checked() -> None:
         registry.validate_record(task)
     assert failure.value.reason_code == "invalid_assessment_spec"
 
+    for field_path in ("meaningful_bound", "epsilon_plus", "epsilon_minus"):
+        invalid_task = deepcopy(task)
+        invalid_task["equivalence_region"]["epsilon_plus"] = 0.1
+        if field_path == "meaningful_bound":
+            invalid_task[field_path] = True
+        else:
+            invalid_task["equivalence_region"][field_path] = True
+        with pytest.raises(ContractError):
+            registry.validate_record(invalid_task)
+
     assessment = read(FIXTURES / "dsq-assessment" / "minimal.valid.json")
     assessment["closure_certificate"]["nonempty"] = False
     with pytest.raises(ContractError, match="closed, nonempty"):

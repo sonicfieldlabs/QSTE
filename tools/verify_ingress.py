@@ -4,7 +4,7 @@
 from __future__ import annotations
 
 import json
-import subprocess
+import subprocess  # nosec B404
 import sys
 from pathlib import Path
 
@@ -35,7 +35,7 @@ def main() -> int:
         path = FIXTURES.parent / name
         if not path.is_file() or path.is_symlink():
             raise SystemExit(f"missing or unsafe P4 ingress fixture: {name}")
-    result = subprocess.run(
+    result = subprocess.run(  # nosec B603
         [sys.executable, "-m", "pytest", "-q", *TESTS],
         cwd=ROOT,
         check=False,

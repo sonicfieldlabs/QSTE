@@ -4,6 +4,8 @@ from qste.storage.artifacts import ArtifactObject, ArtifactStore
 from qste.storage.bundle import BUNDLE_FORMAT, BundleReader, BundleService, BundleVerification
 from qste.storage.database import (
     DATABASE_FORMAT,
+    ArtifactRegistration,
+    DenseRegistration,
     EventEntry,
     LineageEdge,
     RecordStore,
@@ -11,6 +13,7 @@ from qste.storage.database import (
 )
 from qste.storage.dense import DENSE_FORMAT, DenseObject, DenseSlice, DenseStore
 from qste.storage.paths import WORKSPACE_FORMAT, WorkspacePaths
+from qste.storage.verification import WorkspaceVerification, verify_workspace_storage
 
 CAPABILITY_STATUS = "available"
 FIRST_PHASE = "P3"
@@ -23,11 +26,13 @@ __all__ = [
     "FIRST_PHASE",
     "WORKSPACE_FORMAT",
     "ArtifactObject",
+    "ArtifactRegistration",
     "ArtifactStore",
     "BundleReader",
     "BundleService",
     "BundleVerification",
     "DenseObject",
+    "DenseRegistration",
     "DenseSlice",
     "DenseStore",
     "EventEntry",
@@ -35,4 +40,6 @@ __all__ = [
     "RecordStore",
     "StoredRecord",
     "WorkspacePaths",
+    "WorkspaceVerification",
+    "verify_workspace_storage",
 ]

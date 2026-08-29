@@ -58,7 +58,7 @@ class TransductionService:
         try:
             normalized = _validate_mapping_input(specification)
         except ContractError as error:
-            error.receipt_id = self._failure_receipt(  # type: ignore[attr-defined]
+            error.receipt_id = self._failure_receipt(
                 "declare_mapping", context, specification, error, authorization_status
             )
             raise
@@ -164,16 +164,16 @@ class TransductionService:
         )
         if mode not in cast(Sequence[str], mapping["qste:allowedTransductionModes"]):
             error = ContractError("policy_refused", "mapping does not authorize this mode")
-            error.authorization_status = "refused"  # type: ignore[attr-defined]
-            error.receipt_id = self._failure_receipt(  # type: ignore[attr-defined]
+            error.authorization_status = "refused"
+            error.receipt_id = self._failure_receipt(
                 f"transduce_{mode}", request, parameters, error, "refused"
             )
             raise error
         for source in sources:
             if self._is_blocked(cast(str, source["record_id"])):
                 error = ContractError("policy_refused", "source authorization is revoked or paused")
-                error.authorization_status = "revoked"  # type: ignore[attr-defined]
-                error.receipt_id = self._failure_receipt(  # type: ignore[attr-defined]
+                error.authorization_status = "revoked"
+                error.receipt_id = self._failure_receipt(
                     f"transduce_{mode}", request, parameters, error, "revoked"
                 )
                 raise error
@@ -187,7 +187,7 @@ class TransductionService:
             return self._contrast(sources, mapping, parameters)
         except ContractError as error:
             if not hasattr(error, "receipt_id"):
-                error.receipt_id = self._failure_receipt(  # type: ignore[attr-defined]
+                error.receipt_id = self._failure_receipt(
                     f"transduce_{mode}", request, parameters, error, authorization_status
                 )
             raise
@@ -386,8 +386,9 @@ class TransductionService:
             raise ContractError(
                 "invalid_input", "desonification observations are missing or unbounded"
             )
-        if mapping["reversibility_claim"] in {"irreversible", "untested"} and not parameters.get(
-            "bounded_inference"
+        if (
+            mapping["reversibility_claim"] in {"irreversible", "untested"}
+            and parameters.get("bounded_inference") is not True
         ):
             raise ContractError(
                 "invalid_input",
@@ -584,8 +585,8 @@ class TransductionService:
         if authorization_status not in {"unknown", "refused", "deferred", "revoked"}:
             raise ContractError("invalid_input", "authorization status is not executable in P8")
         error = ContractError("policy_refused", f"{operation} blocked by authorization")
-        error.authorization_status = authorization_status  # type: ignore[attr-defined]
-        error.receipt_id = self._refusal_receipt(  # type: ignore[attr-defined]
+        error.authorization_status = authorization_status
+        error.receipt_id = self._refusal_receipt(
             operation,
             request,
             inputs=inputs,

@@ -57,8 +57,10 @@ read-only browser workbench. Every interface binds one existing workspace under
 explicit allowed roots. MCP uses stdio by default; optional HTTP and the
 workbench bind only to `127.0.0.1`. Relation comparison and transduction are
 disabled unless a human enables mutations at server startup and approves the
-individual call. Interface availability does not upgrade any deferred P12
-research capability or authorize playback, external execution, or publication.
+individual call; truthy strings or numbers are not authorization. Record-list
+and lineage queries are bounded before database rows are materialized.
+Interface availability does not upgrade any deferred P12 research capability
+or authorize playback, external execution, or publication.
 
 P14 adds an immutable model-research program declaration, a metadata-only
 dataset-manifest registry, exact governance requirements, paired DSQ-derived
@@ -83,7 +85,8 @@ synthetic process fixture and an ephemeral `127.0.0.1` OSC round trip. It does
 not install or run Pure Data, Max/MSP, SuperCollider, Csound, or any adjacent
 project, and it performs no playback, provider access, or external write.
 
-The installed command exposes bounded P3/P4 operations over explicit roots:
+The installed commands expose bounded P3-P14 infrastructure operations over
+explicit roots:
 
 ```sh
 uv run qste version --json
@@ -150,13 +153,21 @@ authorizes a positive claim.
 
 ## Foundation tooling
 
-QSTE targets Python 3.12 with `uv`. The initial package is one
+QSTE targets Python 3.12 and 3.13 with `uv`. The package is one
 `src/qste/` distribution.
 
 ```sh
 uv sync --all-groups
 make verify
 ```
+
+The verification target also checks current and reachable Git paths for
+private/internal material, machine-specific filesystem routes, and
+credential-shaped values; then it verifies that the wheel and source
+distribution contain the complete declared contract surface, including every
+P3-P14 conformance profile. Storage verification also checks the exact SQLite
+structure and immutability triggers and revalidates bundled Zarr semantics.
+GitHub Actions repeats the gate on Python 3.12 and 3.13.
 
 After synchronization, `make offline-smoke` runs the P2 contracts, P3 storage,
 P4 ingress, P5 representation, P6 task/assessment, P7 relation, P8
@@ -193,6 +204,7 @@ canonical_json = registry.write_record(record)
 store = RecordStore.initialize(workspace_root)
 store.insert_record(record)
 artifact = ArtifactStore(store.paths).put_bytes(source_bytes)
+store.register_artifact(artifact.content_digest, artifact.size, artifact.relative_path)
 dense = DenseStore(store.paths, store)
 ```
 
@@ -220,7 +232,9 @@ for the P11 gates, and
 [`conformance/p12-experiment-preparation/0.1/profile.json`](conformance/p12-experiment-preparation/0.1/profile.json)
 for the P12a infrastructure gates, and
 [`conformance/p13-interfaces/0.1/profile.json`](conformance/p13-interfaces/0.1/profile.json)
-for the P13 interface gates. The corresponding exact external target profile is
+for the P13 interface gates, and
+[`conformance/p14-model-research/0.1/profile.json`](conformance/p14-model-research/0.1/profile.json)
+for the P14 model-research infrastructure gates. The corresponding exact external target profile is
 [`CompatibilityTargetManifest`](profiles/adapters/ecosystem/0.1/compatibility-target-manifest.json).
 
 ## Boundaries

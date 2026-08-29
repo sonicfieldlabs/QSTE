@@ -28,6 +28,9 @@ def test_loopback_workbench_is_read_only_and_no_store(tmp_path: Path) -> None:
         with urllib.request.urlopen(origin + "/", timeout=2) as response:
             assert response.status == 200
             assert response.headers["Cache-Control"] == "no-store"
+            assert response.headers["Cross-Origin-Resource-Policy"] == "same-origin"
+            assert response.headers["X-Frame-Options"] == "DENY"
+            assert "microphone=()" in response.headers["Permissions-Policy"]
             assert b"READ ONLY" in response.read()
         url = origin + "/api/record?record_id=" + quote(str(apparatus["record_id"]), safe="")
         with urllib.request.urlopen(url, timeout=2) as response:
@@ -37,6 +40,22 @@ def test_loopback_workbench_is_read_only_and_no_store(tmp_path: Path) -> None:
         with pytest.raises(urllib.error.HTTPError) as caught:
             urllib.request.urlopen(request, timeout=2)
         assert caught.value.code == 405
+
+        hostile_host = urllib.request.Request(origin + "/", headers={"Host": "example.test"})
+        with pytest.raises(urllib.error.HTTPError) as caught:
+            urllib.request.urlopen(hostile_host, timeout=2)
+        assert caught.value.code == 421
+
+        hostile_origin = urllib.request.Request(
+            origin + "/", headers={"Origin": "https://example.test"}
+        )
+        with pytest.raises(urllib.error.HTTPError) as caught:
+            urllib.request.urlopen(hostile_origin, timeout=2)
+        assert caught.value.code == 403
+
+        same_origin = urllib.request.Request(origin + "/", headers={"Origin": origin})
+        with urllib.request.urlopen(same_origin, timeout=2) as response:
+            assert response.status == 200
     finally:
         server.shutdown()
         server.server_close()

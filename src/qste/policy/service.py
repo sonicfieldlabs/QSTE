@@ -841,6 +841,8 @@ class PolicyService:
         boundary = self._record(governance_boundary_record_id, "GovernanceBoundary")
         self._require_permitted(authorization_status, "export", target)
         self._require_action(boundary, "export", "export", target)
+        if not isinstance(human_authorized, bool):
+            raise ContractError("invalid_input", "human authorization must be an exact boolean")
         if self.current_authorization(target_record_id) in {"revoked", "refused"}:
             self._policy_refusal("export", target, "withdrawal blocks dependent export")
         if disclosure_status not in {"private", "restricted", "project_internal", "public"}:
@@ -1040,6 +1042,7 @@ class PolicyService:
         budgets = _object(value["budgets"], "budgets")
         if (
             not isinstance(budgets.get("maximum_operations"), int)
+            or isinstance(budgets.get("maximum_operations"), bool)
             or not 1 <= cast(int, budgets["maximum_operations"]) <= 100_000
         ):
             raise ContractError("invalid_input", "governance operation budget is invalid")
@@ -1102,8 +1105,8 @@ class PolicyService:
             created_at=timestamp,
         )
         error = ContractError("policy_refused", message)
-        error.authorization_status = "refused"  # type: ignore[attr-defined]
-        error.receipt_id = receipt["record_id"]  # type: ignore[attr-defined]
+        error.authorization_status = "refused"
+        error.receipt_id = receipt["record_id"]
         raise error
 
     def _governance_failure(
@@ -1143,7 +1146,7 @@ class PolicyService:
             created_at=timestamp,
         )
         error = ContractError(reason, message)
-        error.receipt_id = receipt["record_id"]  # type: ignore[attr-defined]
+        error.receipt_id = receipt["record_id"]
         raise error
 
     def _require_authority(

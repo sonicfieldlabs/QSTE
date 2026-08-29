@@ -1,10 +1,12 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 import numpy as np
 import pytest
 
+from qste.core import canonical_json_bytes, content_digest
 from qste.core.contracts import ContractError
 from qste.storage import DenseStore, RecordStore
 
@@ -83,3 +85,52 @@ def test_dense_bounds_empty_axes_and_nonfinite_counts_remain_explicit(tmp_path: 
         dense.resolve_slice("nonfinite", (slice(None),), maximum_elements=2)
     with pytest.raises(ContractError, match="unit positive"):
         dense.resolve_slice("nonfinite", (slice(None, None, 2),))
+    with pytest.raises(ContractError, match="positive integer"):
+        dense.resolve_slice("nonfinite", (slice(None),), maximum_elements=True)
+    with pytest.raises(ContractError, match="integer or slice"):
+        dense.resolve_slice("nonfinite", (True,))
+
+
+def test_dense_rejects_boolean_chunks_and_path_like_or_unbounded_dimensions(
+    tmp_path: Path,
+) -> None:
+    store = RecordStore.initialize(tmp_path / "workspace")
+    dense = DenseStore(store.paths, store)
+    for chunks, dimension in (
+        ((True,), "sample"),
+        ((1,), "../sample"),
+        ((1,), "s" * 65),
+    ):
+        with pytest.raises(ContractError):
+            dense.write_array(
+                "invalid",
+                [1.0],
+                chunks=chunks,
+                dimension_names=(dimension,),
+                coordinates={dimension: [0]},
+            )
+    assert dense.iter_objects() == ()
+
+
+def test_dense_verification_rejects_semantic_metadata_tampering(tmp_path: Path) -> None:
+    dense = _write(tmp_path / "workspace")
+    manifest_path = dense.paths.dense / "spectrogram.manifest.json"
+    manifest = json.loads(manifest_path.read_text())
+    manifest["coordinates"]["time"]["shape"] = [4]
+    without_digest = {key: value for key, value in manifest.items() if key != "manifest_digest"}
+    manifest["manifest_digest"] = content_digest(canonical_json_bytes(without_digest))
+    manifest_path.chmod(0o600)
+    manifest_path.write_bytes(canonical_json_bytes(manifest))
+    with pytest.raises(ContractError, match="coordinate metadata mismatch"):
+        dense.verify("spectrogram")
+
+
+def test_dense_verification_rejects_nested_symlink(tmp_path: Path) -> None:
+    dense = _write(tmp_path / "workspace")
+    outside = tmp_path / "outside"
+    outside.mkdir()
+    (dense.paths.dense / "spectrogram.zarr" / "redirect").symlink_to(
+        outside, target_is_directory=True
+    )
+    with pytest.raises(ContractError, match="cannot contain symlinks"):
+        dense.verify("spectrogram")

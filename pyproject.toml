@@ -14,7 +14,7 @@ keywords = ["audio", "sound", "transduction", "research", "provenance"]
 classifiers = [
   "Development Status :: 2 - Pre-Alpha",
   "License :: OSI Approved :: MIT License",
-  "Operating System :: MacOS",
+  "Operating System :: OS Independent",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
   "Topic :: Multimedia :: Sound/Audio :: Analysis",
@@ -55,6 +55,7 @@ packages = ["src/qste"]
 [tool.hatch.build.targets.wheel.force-include]
 "schemas/0.3.0" = "qste/contracts/schemas/0.3.0"
 "conformance/0.3.0" = "qste/contracts/conformance/0.3.0"
+"conformance/p3-storage/0.1" = "qste/contracts/conformance/p3-storage/0.1"
 "conformance/p4-ingress/0.1" = "qste/contracts/conformance/p4-ingress/0.1"
 "conformance/p5-stft-gabor/0.1" = "qste/contracts/conformance/p5-stft-gabor/0.1"
 "conformance/p6-dsq/0.1" = "qste/contracts/conformance/p6-dsq/0.1"

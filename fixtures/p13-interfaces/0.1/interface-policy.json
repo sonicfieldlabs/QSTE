@@ -7,6 +7,7 @@
     "default": "stdio",
     "streamable_http_host": "127.0.0.1",
     "dns_rebinding_protection": true,
+    "workbench_dns_rebinding_protection": true,
     "remote_binding": false
   },
   "tools": {

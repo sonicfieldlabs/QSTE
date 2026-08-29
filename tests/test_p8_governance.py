@@ -256,3 +256,14 @@ def test_hash_only_repair_successor_fails_semantic_conformance(tmp_path: Path) -
     invalid["semantic_diff"]["semantic_or_behavioral_difference"] = False
     with pytest.raises(ContractError, match="hash-only"):
         SchemaRegistry().validate_record(invalid)
+
+
+def test_export_human_authorization_requires_an_exact_boolean(tmp_path: Path) -> None:
+    fixture = build_p8_fixture(tmp_path)
+    with pytest.raises(ContractError, match="exact boolean"):
+        PolicyService(fixture.workspace).export_projection(
+            target_record_id=fixture.artifact["record_id"],
+            governance_boundary_record_id=fixture.boundary["record_id"],
+            disclosure_status="project_internal",
+            human_authorized=cast(Any, "false"),
+        )

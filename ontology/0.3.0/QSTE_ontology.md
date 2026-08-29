@@ -2,22 +2,22 @@
 
 ## Agent-readable normative contract v0.3.0
 
-**Status:** pre-implementation operational ontology, revised 28 August 2026  
+**Status:** normative operational ontology; implementation availability is resolved separately, revised 29 August 2026  
 **System:** Quantum Sound Transduction Engine (QSTE)  
 **Contract ID:** `qste-contract/0.3.0`  
 **Scope:** axioms, types, functions, mathematics, statuses, invariants, reason codes, and conformance rules  
 **Public implementation authority:** [QSTE authority manifest](../../authority/authority-manifest.json)
 
-This file is the sole normative semantic contract for `qste-contract/0.3.0`. Agents MUST read it before interpreting, implementing, or evaluating QSTE. Research papers provide provenance and manuscript-level claims; they do not directly define runtime behavior. This contract contains no claim that QSTE, a digital sonic quantum, agentic hearing, a creative consequence, or a reparative process has been implemented or observed.
+This file is the sole normative semantic contract for `qste-contract/0.3.0`. Agents MUST read it before interpreting, implementing, or evaluating QSTE. Research papers provide provenance and manuscript-level claims; they do not directly define runtime behavior. This contract alone makes no claim that a digital sonic quantum, agentic hearing, a creative consequence, or a reparative process has been observed; implementation availability is resolved by a version-matched authority manifest and never upgrades research evidence.
 
 ### Source snapshots
 
 | Source ID | Portable locator | SHA-256 | Role |
 | --- | --- | --- | --- |
-| `agentic-quanta-paper-v3` | [paper v3](./agentic_quanta_v3.md) | `f3494fae2662e5dc9c872939b2f6b5d88d9f16d023ac14e9cc2e04d76e0ffe49` | research and formal provenance |
-| `agentic-quanta-leonardo-final` | `agentic_quanta_leonardo_submission.docx` source snapshot | `b5c2d195e940577d400d04fd6f99273422f7273dfeb1a6028425bc827c8bbb5f` | final-submission research provenance |
+| `agentic-quanta-paper-v3` | withheld; no public locator | `f3494fae2662e5dc9c872939b2f6b5d88d9f16d023ac14e9cc2e04d76e0ffe49` | research and formal provenance |
+| `agentic-quanta-leonardo-final` | withheld; no public locator | `b5c2d195e940577d400d04fd6f99273422f7273dfeb1a6028425bc827c8bbb5f` | final-submission research provenance |
 
-The source ID and digest identify a snapshot. A machine-specific download path is not part of the contract. The future repository MUST preserve an authorized copy or external locator in an `AuthorityManifest`; absence of source bytes MUST be represented explicitly.
+The source ID and digest identify a snapshot. A machine-specific download path is not part of the contract. An `AuthorityManifest` MUST preserve an authorized public locator or an explicit withheld/unavailable state; absence of source bytes MUST be represented explicitly.
 
 ### Authority and conflict rule
 
@@ -1032,6 +1032,8 @@ Every serialized record MUST carry its schema/contract reference, random `record
 9. Dense arrays are referenced by verified manifests and coordinates, not one semantic record per sample or coefficient.
 10. Every state-changing operation has authorization, a receipt, and an append-only event.
 11. A portable bundle treats a missing required field/reference as conformance failure and distinguishes `unknown`, `unavailable`, `withheld`, `deleted`, and `not_applicable` as availability values.
+12. Boolean fields accept only the JSON values `true` and `false`; numbers and strings are not coerced into authorization, consent, execution, or capability decisions. Numeric fields reject booleans and require the declared finite bounds.
+13. Registered artifact and dense objects form an exact database/filesystem closure. Bundle verification checks typed semantic manifests, references, and dense-store meaning in addition to byte checksums; a checksum alone is not semantic conformance.
 
 Reproducibility claims MUST be labeled:
 
@@ -1393,6 +1395,8 @@ An implementation profile conforms only if fixtures demonstrate all of the follo
 26. Capability absence, policy prohibition, domain indeterminacy, partial completion, execution failure, and conformance failure have different structured outputs and CLI exit classes.
 27. Writers reject noncanonical tokens; no compatibility migration is inferred without an RFC and named source corpus.
 28. Common availability, integrity, disclosure, consent, authorization, and capability fields use their exact registries; missing required fields/references fail rather than becoming an availability value.
+29. Boolean authorization and execution gates reject strings and numbers rather than applying truth-value coercion; bounded numeric fields reject booleans.
+30. Workspace and bundle verification require exact registered-object closure and semantic dense-manifest/store agreement, not checksum agreement alone.
 
 ---
 

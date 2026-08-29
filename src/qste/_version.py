@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import os
 import re
-import subprocess
 from importlib import metadata
 from pathlib import Path
 
@@ -24,22 +23,58 @@ def _declared_commit() -> str | None:
     return value if _COMMIT_PATTERN.fullmatch(value) else None
 
 
-def _checkout_commit() -> str | None:
-    repository_root = Path(__file__).resolve().parents[2]
-    if not (repository_root / ".git").exists():
+def _checkout_commit(repository_root: Path | None = None) -> str | None:
+    """Resolve HEAD without executing a program from the caller's PATH."""
+
+    repository_root = repository_root or Path(__file__).resolve().parents[2]
+    git_entry = repository_root / ".git"
+    if not git_entry.exists():
         return None
     try:
-        result = subprocess.run(
-            ["git", "-C", str(repository_root), "rev-parse", "--verify", "HEAD"],
-            check=False,
-            capture_output=True,
-            text=True,
-            timeout=1.0,
-        )
-    except (OSError, subprocess.SubprocessError):
+        if git_entry.is_file():
+            declaration = git_entry.read_text(encoding="utf-8").strip()
+            if not declaration.startswith("gitdir: "):
+                return None
+            git_directory = (repository_root / declaration.removeprefix("gitdir: ")).resolve()
+        elif git_entry.is_dir():
+            git_directory = git_entry.resolve()
+        else:
+            return None
+        head = (git_directory / "HEAD").read_text(encoding="utf-8").strip().lower()
+        if _COMMIT_PATTERN.fullmatch(head):
+            return head
+        if not head.startswith("ref: "):
+            return None
+        reference = head.removeprefix("ref: ")
+        if not reference.startswith("refs/") or ".." in Path(reference).parts:
+            return None
+        reference_roots = [git_directory]
+        common_directory_file = git_directory / "commondir"
+        if common_directory_file.is_file():
+            common_directory = (
+                git_directory / common_directory_file.read_text(encoding="utf-8").strip()
+            ).resolve()
+            if not common_directory.is_dir():
+                return None
+            reference_roots.append(common_directory)
+        for reference_root in reference_roots:
+            loose_reference = reference_root.joinpath(*reference.split("/"))
+            if loose_reference.is_file():
+                value = loose_reference.read_text(encoding="utf-8").strip().lower()
+                return value if _COMMIT_PATTERN.fullmatch(value) else None
+        suffix = f" {reference}"
+        for reference_root in reference_roots:
+            packed_references = reference_root / "packed-refs"
+            if not packed_references.is_file():
+                continue
+            for line in packed_references.read_text(encoding="utf-8").splitlines():
+                if line.startswith(("#", "^")) or not line.endswith(suffix):
+                    continue
+                value = line.split(" ", 1)[0].lower()
+                return value if _COMMIT_PATTERN.fullmatch(value) else None
+    except (OSError, UnicodeError):
         return None
-    value = result.stdout.strip().lower()
-    return value if result.returncode == 0 and _COMMIT_PATTERN.fullmatch(value) else None
+    return None
 
 
 def git_commit() -> str:

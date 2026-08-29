@@ -55,7 +55,7 @@ def test_singleton_empty_proper_set_is_unavailable_and_receipted(tmp_path: Path)
             candidate_record_id=singleton["record_id"],
             procedure={"procedure_id": "boolean-subsets", "maximum_nodes": 10},
         )
-    receipt_id = caught.value.receipt_id  # type: ignore[attr-defined]
+    receipt_id = caught.value.receipt_id
     store = RecordStore(WorkspacePaths.open(fixture.workspace))
     receipt = store.get_record(receipt_id).record
     assert receipt["operation_status"] == "unavailable"
