@@ -1,0 +1,37 @@
+{
+  "adapter_versions": [],
+  "allowlist": [],
+  "artifact_manifest": [],
+  "authority_ref": "qste:authority-manifest:d62b8b33-6e17-49b2-a708-bb2c02f1a3f6",
+  "bundle_id": "qste:bundle:f6500b98-ede2-4a93-882e-d441f25aa291",
+  "bundle_profile": "private_run_bundle",
+  "checksums": [
+    {
+      "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "path": "records/authority.json"
+    }
+  ],
+  "code": {
+    "commit": "6666666666666666666666666666666666666666"
+  },
+  "conformance_profile_id": "qste-conformance/0.3.0",
+  "container_type": "Bundle",
+  "contract_id": "qste-contract/0.3.0",
+  "corpus_versions": [],
+  "dense_manifests": [],
+  "disclosure_status": "private",
+  "event_manifest": [],
+  "experiment_profiles": [],
+  "integrity_claim": "unverified",
+  "logical_replay_claim": "unverified",
+  "manifest_digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+  "model_versions": [],
+  "numerical_reproducibility_claim": "unavailable",
+  "omission_manifest": [],
+  "parent_bundle_ref": null,
+  "relation_manifest": [],
+  "retention_policy": {
+    "mode": "fixture"
+  },
+  "schema_set_id": "qste-schema/0.3.0"
+}

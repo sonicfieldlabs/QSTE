@@ -1,0 +1,23 @@
+{
+  "fixture_set_id": "qste-transduction-governance-fixtures/0.1",
+  "generated_test_classes": [
+    "five_mode_transduction",
+    "mapping_contract_validation",
+    "safety_descendant_lineage",
+    "refusal_before_execution",
+    "cross_domain_noncausation",
+    "standing_and_authority_failure",
+    "independent_governance_axes",
+    "authorized_adjudication",
+    "revocation_propagation",
+    "withdrawal_blocks_export",
+    "semantic_successor_change",
+    "partial_delete_limits",
+    "canonical_operation_exit_classes"
+  ],
+  "scientific_or_empirical_outcome": false,
+  "static_files": [
+    "transduction-vectors.json",
+    "governance-vectors.json"
+  ]
+}

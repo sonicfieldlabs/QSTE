@@ -1,0 +1,21 @@
+{
+  "contract": "cosmo/modulation/v0.2",
+  "contract_source_sha256": "c2a6341f78abd343e91e34b4da6e21d472cbffece50cd05184620120e9fc793c",
+  "external_schema_status": "unavailable_not_published",
+  "required_frame_fields": [
+    "contract",
+    "frameId",
+    "generatedAt",
+    "acquisitionMode",
+    "signalCatalog",
+    "signals",
+    "controls",
+    "absences",
+    "attribution",
+    "sources",
+    "values"
+  ],
+  "signal_catalog_contract": "cosmo/signal-catalog/v0.2",
+  "signal_catalog_version": "0.2.0",
+  "structural_source": "packages/core/src/modulation-frame.ts"
+}

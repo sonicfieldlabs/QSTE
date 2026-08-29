@@ -1,0 +1,146 @@
+{
+  "$schema": "https://masa.sonicfield.org/schemas/0.2.0/matter-record.schema.json",
+  "masaVersion": "0.2.0",
+  "id": "urn:uuid:00000000-0000-4000-8000-000000000001",
+  "type": "masa:MatterRecord",
+  "revision": 1,
+  "profiles": [
+    "core"
+  ],
+  "createdAt": "2026-07-27T12:00:00Z",
+  "createdBy": "urn:uuid:00000000-0000-4000-8000-000000000101",
+  "title": "Minimal local matter account",
+  "description": "A representation is registered without claiming that it is identical to a physical event or perceptual object.",
+  "actors": [
+    {
+      "id": "urn:uuid:00000000-0000-4000-8000-000000000101",
+      "type": "masa:Actor",
+      "actorKind": "human",
+      "roles": [
+        "record-creator"
+      ],
+      "name": {
+        "state": "known",
+        "value": "Local example author"
+      },
+      "disclosure": "private",
+      "extensions": {}
+    }
+  ],
+  "sources": [],
+  "representations": [
+    {
+      "id": "urn:uuid:00000000-0000-4000-8000-000000000201",
+      "type": "masa:Representation",
+      "role": "source-representation",
+      "mediaType": "application/octet-stream",
+      "format": {
+        "state": "unknown",
+        "reason": "The example does not include source bytes.",
+        "reasonCode": "not_bundled"
+      },
+      "availability": "unavailable",
+      "locator": {
+        "state": "unavailable",
+        "reason": "No asset is bundled with this minimal example.",
+        "reasonCode": "not_bundled"
+      },
+      "integrity": {
+        "state": "unknown",
+        "reason": "Integrity cannot be verified without bytes.",
+        "reasonCode": "not_bundled"
+      },
+      "policyRefs": [
+        "urn:uuid:00000000-0000-4000-8000-000000000301"
+      ],
+      "disclosure": "private",
+      "extensions": {}
+    }
+  ],
+  "encounters": [],
+  "apertures": [],
+  "listeningPasses": [],
+  "claims": [],
+  "regions": [],
+  "measurements": [],
+  "observations": [],
+  "mappings": [],
+  "relations": [],
+  "policies": [
+    {
+      "id": "urn:uuid:00000000-0000-4000-8000-000000000301",
+      "type": "masa:Policy",
+      "policyKind": "composite",
+      "issuer": "urn:uuid:00000000-0000-4000-8000-000000000101",
+      "status": "active",
+      "disclosure": "private",
+      "rules": [
+        {
+          "id": "urn:uuid:00000000-0000-4000-8000-000000000302",
+          "effect": "permission",
+          "actions": [
+            "read",
+            "validate"
+          ],
+          "targets": [
+            "urn:uuid:00000000-0000-4000-8000-000000000001"
+          ],
+          "subjects": [
+            "urn:uuid:00000000-0000-4000-8000-000000000101"
+          ],
+          "authorityBasis": {
+            "state": "known",
+            "value": "Local creator declaration for this private example"
+          },
+          "constraints": {
+            "network": "prohibited"
+          },
+          "duties": [
+            "Preserve provenance and unknown states"
+          ]
+        }
+      ],
+      "review": {
+        "contact": {
+          "state": "unknown",
+          "reason": "No external contact exists for a local fixture.",
+          "reasonCode": "local_fixture"
+        },
+        "route": {
+          "state": "known",
+          "value": "Review the record with the local MASA CLI"
+        }
+      },
+      "extensions": {}
+    }
+  ],
+  "contexts": [],
+  "agentRuns": [],
+  "capabilities": [],
+  "integrity": {
+    "state": "unknown",
+    "reason": "The standalone example is an account rather than a bundled byte artifact.",
+    "reasonCode": "not_bundled"
+  },
+  "history": {
+    "mode": "embedded",
+    "events": []
+  },
+  "disclosure": "private",
+  "registers": [
+    "digital-technical"
+  ],
+  "scales": [
+    "object-event"
+  ],
+  "extensions": {
+    "example:roundtrip": {
+      "deep": {
+        "values": [
+          "preserve",
+          "without-interpretation"
+        ]
+      }
+    }
+  }
+}

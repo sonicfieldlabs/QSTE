@@ -1,0 +1,58 @@
+{
+  "claims": [
+    "bounded_local_typed_ingress",
+    "source_byte_preservation",
+    "explicit_derivative_lineage",
+    "persisted_state_change_receipts",
+    "apparatus_aperture_nonidentity",
+    "calibration_gated_physical_claims",
+    "imported_text_is_nonexecuting_data"
+  ],
+  "contract_id": "qste-contract/0.3.0",
+  "gates": [
+    {
+      "id": "P4-G01",
+      "requirement": "Every input is explicitly typed, root-confined, symlink-rejected, and byte-bounded."
+    },
+    {
+      "id": "P4-G02",
+      "requirement": "Malformed and oversized inputs preserve the external source and create a failed receipt without source or artifact occurrence records."
+    },
+    {
+      "id": "P4-G03",
+      "requirement": "Audio decode, resampling, and normalization create immutable derivative artifacts with lineage and a receipt."
+    },
+    {
+      "id": "P4-G04",
+      "requirement": "Every ObservationRecord cites its AcquisitionEvent and portable external authority digest, with explicit units and availability."
+    },
+    {
+      "id": "P4-G05",
+      "requirement": "ApparatusSpec declares possible surfaces; ApertureSpec derives only evidenced run/input ranges and permitted-operation intersections."
+    },
+    {
+      "id": "P4-G06",
+      "requirement": "SPL and extra-human-frequency claims remain unavailable without the corresponding calibration evidence."
+    },
+    {
+      "id": "P4-G07",
+      "requirement": "Imported text remains dataOnly and cannot execute through ingress."
+    },
+    {
+      "id": "P4-G08",
+      "requirement": "Successful state changes atomically persist domain records, a durable receipt, lineage edges, and one ordered event."
+    }
+  ],
+  "profile_id": "qste-ingress-conformance/0.1",
+  "profile_status": "normative_behavioral_profile",
+  "scope": [
+    "ApparatusSpec",
+    "SourceRecord",
+    "ArtifactRecord",
+    "AcquisitionEvent",
+    "ObservationRecord",
+    "ApertureSpec",
+    "RunManifest",
+    "OperationReceipt"
+  ]
+}

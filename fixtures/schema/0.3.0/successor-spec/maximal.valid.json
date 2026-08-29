@@ -1,0 +1,57 @@
+{
+  "authority_ref": {
+    "record_id": "qste:authority-manifest:73d51c28-07e6-473b-ad2a-7cf6afa61ef8",
+    "record_type": "AuthorityManifest",
+    "relation": "depends_on"
+  },
+  "authorization_status": "permitted",
+  "availability": "known",
+  "capability_requirements": [
+    "local_write"
+  ],
+  "completed_run_ref": {
+    "record_id": "qste:run-manifest:3f3a9a00-dc54-4aba-9d29-d2d1efb84cdd",
+    "record_type": "RunManifest",
+    "relation": "depends_on"
+  },
+  "consent_status": "not_applicable",
+  "content_digest": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+  "contract_id": "qste-contract/0.3.0",
+  "created_at": "2026-08-28T00:00:00Z",
+  "decision_event_ref": {
+    "record_id": "qste:decision-event:3e20f88e-d4a5-4865-b64a-25dfcb616494",
+    "record_type": "DecisionEvent",
+    "relation": "depends_on"
+  },
+  "disclosure_status": "private",
+  "evidence_fields": [
+    "candidate_interval"
+  ],
+  "executable_action_set": [
+    "set_gain"
+  ],
+  "ext:futureField": {
+    "preserve": true,
+    "version": 1
+  },
+  "integrity_status": "unverified",
+  "persistence_target": "next_run",
+  "predecessor_ref": {
+    "record_id": "qste:successor-spec:f50ca4dc-e38e-46aa-bf5e-058693b040e2",
+    "record_type": "SuccessorSpec",
+    "relation": "depends_on"
+  },
+  "producer_role": "executor",
+  "record_id": "qste:successor-spec:83fe9a6c-0266-4e4f-a700-7c8ec89b6f6e",
+  "record_type": "SuccessorSpec",
+  "references": [],
+  "revision_treatment": "authentic",
+  "schema_id": "https://schemas.qste.invalid/0.3.0/records/successor-spec.schema.json",
+  "semantic_diff": {
+    "parameters.gain": [
+      0.5,
+      0.6
+    ]
+  },
+  "semantic_key": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+}

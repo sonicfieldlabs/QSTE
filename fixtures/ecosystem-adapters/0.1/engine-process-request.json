@@ -1,0 +1,20 @@
+{
+  "parameters": {
+    "gain": 0.5,
+    "mode": "scale"
+  },
+  "payload": [0.0, 0.5, -0.5, 1.0],
+  "delay_ms": 0,
+  "timeout_seconds": 2.0,
+  "limits": {
+    "maximum_input_bytes": 65536,
+    "maximum_output_bytes": 65536,
+    "maximum_log_bytes": 16384,
+    "maximum_memory_bytes": 67108864,
+    "maximum_disk_bytes": 0,
+    "maximum_channels": 2,
+    "maximum_sample_rate_hz": 48000,
+    "maximum_duration_seconds": 10,
+    "maximum_output_count": 1
+  }
+}

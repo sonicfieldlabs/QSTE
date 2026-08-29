@@ -1,0 +1,253 @@
+{
+  "compatibility": "exact_only_no_legacy_reader",
+  "contract_id": "qste-contract/0.3.0",
+  "json_schema_dialect": "https://json-schema.org/draft/2020-12/schema",
+  "schema_set_id": "qste-schema/0.3.0",
+  "schemas": [
+    {
+      "id": "https://schemas.qste.invalid/0.3.0/common.schema.json",
+      "kind": "shared",
+      "name": "common",
+      "path": "common.schema.json",
+      "sha256": "a4242731b9d0b7da803d65292fe07622f7ddf1ffd3694e799b154abf51b5796c"
+    },
+    {
+      "id": "https://schemas.qste.invalid/0.3.0/operation-result.schema.json",
+      "kind": "envelope",
+      "name": "OperationResult",
+      "path": "operation-result.schema.json",
+      "sha256": "8015016688d689d17f4e6290718b35308f91ba191fdf82a866ad99c8def1f44d"
+    },
+    {
+      "id": "https://schemas.qste.invalid/0.3.0/typed-payload.schema.json",
+      "kind": "typed_payload",
+      "name": "typed payload",
+      "path": "typed-payload.schema.json",
+      "sha256": "c92f9d85ddf3cda9633e647dca0762623cbf7d46b3d9980f22b75b761da6dcb6"
+    },
+    {
+      "id": "https://schemas.qste.invalid/0.3.0/bundle-manifest.schema.json",
+      "kind": "sealed_container",
+      "name": "Bundle",
+      "path": "bundle-manifest.schema.json",
+      "sha256": "f817d01ec32696a00af7f4bf3e0e7e551faf226f614f005a3e7db22904ace83d"
+    },
+    {
+      "id": "https://schemas.qste.invalid/0.3.0/records/acquisition-event.schema.json",
+      "kind": "serialized_record",
+      "name": "AcquisitionEvent",
+      "path": "records/acquisition-event.schema.json",
+      "sha256": "20edec5faaecf1bdcc2f977f837d4d605ded18de51b434407a945fb63ab8ec32"
+    },
+    {
+      "id": "https://schemas.qste.invalid/0.3.0/records/source-record.schema.json",
+      "kind": "serialized_record",
+      "name": "SourceRecord",
+      "path": "records/source-record.schema.json",
+      "sha256": "a654c938e68845f53528f2b62310fa6bf658af7f17eb4c9d416ec8e08ee26f43"
+    },
+    {
+      "id": "https://schemas.qste.invalid/0.3.0/records/artifact-record.schema.json",
+      "kind": "serialized_record",
+      "name": "ArtifactRecord",
+      "path": "records/artifact-record.schema.json",
+      "sha256": "1b7aea4938db12dd5ccf1e71dcc76bbb045c187b80054e0ac27b5831dd4422ac"
+    },
+    {
+      "id": "https://schemas.qste.invalid/0.3.0/records/observation-record.schema.json",
+      "kind": "serialized_record",
+      "name": "ObservationRecord",
+      "path": "records/observation-record.schema.json",
+      "sha256": "d1b25e3c89dae219bb007b42bf815f3666612e8eb74a1836f86bbd5f1321c5ae"
+    },
+    {
+      "id": "https://schemas.qste.invalid/0.3.0/records/apparatus-spec.schema.json",
+      "kind": "serialized_record",
+      "name": "ApparatusSpec",
+      "path": "records/apparatus-spec.schema.json",
+      "sha256": "b64f86de0bbfe25b9e5937bf63c36f5a14989a6ea5dc7a5fd2c28b6bf76f8815"
+    },
+    {
+      "id": "https://schemas.qste.invalid/0.3.0/records/aperture-spec.schema.json",
+      "kind": "serialized_record",
+      "name": "ApertureSpec",
+      "path": "records/aperture-spec.schema.json",
+      "sha256": "2c581a5bc9b2a1d3e1e3aa05c74522d2218ea44e9be999368a4257962b5b336c"
+    },
+    {
+      "id": "https://schemas.qste.invalid/0.3.0/records/representation-family-spec.schema.json",
+      "kind": "serialized_record",
+      "name": "RepresentationFamilySpec",
+      "path": "records/representation-family-spec.schema.json",
+      "sha256": "2885db41c27bcf17aad180d6ca779299902931799fafe9acec5dc9b099c04478"
+    },
+    {
+      "id": "https://schemas.qste.invalid/0.3.0/records/representation-spec.schema.json",
+      "kind": "serialized_record",
+      "name": "RepresentationSpec",
+      "path": "records/representation-spec.schema.json",
+      "sha256": "619e1750a51a1a551639e17bd4bf617ad610002c5a77419a616a695714e43af1"
+    },
+    {
+      "id": "https://schemas.qste.invalid/0.3.0/records/representation-instance.schema.json",
+      "kind": "serialized_record",
+      "name": "RepresentationInstance",
+      "path": "records/representation-instance.schema.json",
+      "sha256": "f2e3392e3c44f109be75e9d7f76f5b05353169a6ac4f8c00d96a444295a955f4"
+    },
+    {
+      "id": "https://schemas.qste.invalid/0.3.0/records/candidate-unit.schema.json",
+      "kind": "serialized_record",
+      "name": "CandidateUnit",
+      "path": "records/candidate-unit.schema.json",
+      "sha256": "865778c3bb79f270cd4432aac1bfc497b29f5c005e700d861479dbf142824d7d"
+    },
+    {
+      "id": "https://schemas.qste.invalid/0.3.0/records/intervention-spec.schema.json",
+      "kind": "serialized_record",
+      "name": "InterventionSpec",
+      "path": "records/intervention-spec.schema.json",
+      "sha256": "724007c51292e8c77266873633dfefbf1ccee38442dfc78cf0a46c30ca0357e1"
+    },
+    {
+      "id": "https://schemas.qste.invalid/0.3.0/records/task-spec.schema.json",
+      "kind": "serialized_record",
+      "name": "TaskSpec",
+      "path": "records/task-spec.schema.json",
+      "sha256": "5ee0651172fd32a2cd858e98287e9b135d48a8206274c07b6a420a693ca43109"
+    },
+    {
+      "id": "https://schemas.qste.invalid/0.3.0/records/refinement-graph.schema.json",
+      "kind": "serialized_record",
+      "name": "RefinementGraph",
+      "path": "records/refinement-graph.schema.json",
+      "sha256": "708e47cf008faf90072d3daa57cd891d054b2c05a88b9d0333f971f5b95b6973"
+    },
+    {
+      "id": "https://schemas.qste.invalid/0.3.0/records/dsq-assessment.schema.json",
+      "kind": "serialized_record",
+      "name": "DSQAssessment",
+      "path": "records/dsq-assessment.schema.json",
+      "sha256": "4efabe3cc62b8ce3845e48c327b9213bcfc5fc9346802eed3ef04405cda3a475"
+    },
+    {
+      "id": "https://schemas.qste.invalid/0.3.0/records/projection-spec.schema.json",
+      "kind": "serialized_record",
+      "name": "ProjectionSpec",
+      "path": "records/projection-spec.schema.json",
+      "sha256": "febdcb751895a2b283f5b0fc66ca014c43712cd2f17a12b2252497c30035adf0"
+    },
+    {
+      "id": "https://schemas.qste.invalid/0.3.0/records/comparison-spec.schema.json",
+      "kind": "serialized_record",
+      "name": "ComparisonSpec",
+      "path": "records/comparison-spec.schema.json",
+      "sha256": "05a68429a9dc60c90d1aabf3c61e9578286d1981d4af47863a65cd228dd19c27"
+    },
+    {
+      "id": "https://schemas.qste.invalid/0.3.0/records/relation-assertion.schema.json",
+      "kind": "serialized_record",
+      "name": "RelationAssertion",
+      "path": "records/relation-assertion.schema.json",
+      "sha256": "cfe9537a3caa1eb6f2da54381d6eb2cc3cadc51a8f63c7df377bd3a30fd87c5b"
+    },
+    {
+      "id": "https://schemas.qste.invalid/0.3.0/records/mapping-spec.schema.json",
+      "kind": "serialized_record",
+      "name": "MappingSpec",
+      "path": "records/mapping-spec.schema.json",
+      "sha256": "ad55df1e8f538cc1058d628b97d6836e970bed3c4f03b927131dc6fecae4f929"
+    },
+    {
+      "id": "https://schemas.qste.invalid/0.3.0/records/listening-harness-spec.schema.json",
+      "kind": "serialized_record",
+      "name": "ListeningHarnessSpec",
+      "path": "records/listening-harness-spec.schema.json",
+      "sha256": "978d1d314c528257f88bb44a53928283fbcf9c3ec22a3ad7179a3a1d24043962"
+    },
+    {
+      "id": "https://schemas.qste.invalid/0.3.0/records/governance-boundary.schema.json",
+      "kind": "serialized_record",
+      "name": "GovernanceBoundary",
+      "path": "records/governance-boundary.schema.json",
+      "sha256": "83355ba81544b51525a8a2a4bbef5f4396a415cad5554daddf88a644a704bc82"
+    },
+    {
+      "id": "https://schemas.qste.invalid/0.3.0/records/revision-opportunity.schema.json",
+      "kind": "serialized_record",
+      "name": "RevisionOpportunity",
+      "path": "records/revision-opportunity.schema.json",
+      "sha256": "c46b75f8d88a3d2ff66acd8158479c6fd1f4922e82c4837fe0bb5aa7e2d6166b"
+    },
+    {
+      "id": "https://schemas.qste.invalid/0.3.0/records/successor-spec.schema.json",
+      "kind": "serialized_record",
+      "name": "SuccessorSpec",
+      "path": "records/successor-spec.schema.json",
+      "sha256": "4578b645374dde95c39344ea5968d2b01ff73863fe5f45900ed1bb3e882c048a"
+    },
+    {
+      "id": "https://schemas.qste.invalid/0.3.0/records/decision-event.schema.json",
+      "kind": "serialized_record",
+      "name": "DecisionEvent",
+      "path": "records/decision-event.schema.json",
+      "sha256": "369b9aa4357243edd6da9a2090d2562380e2a17c8fcf299f1d383458eaacfaf5"
+    },
+    {
+      "id": "https://schemas.qste.invalid/0.3.0/records/appeal-case.schema.json",
+      "kind": "serialized_record",
+      "name": "AppealCase",
+      "path": "records/appeal-case.schema.json",
+      "sha256": "cea5a28528f80ce87daa001b2479a101a8db0a714c5a19e04bc07b9c71cada50"
+    },
+    {
+      "id": "https://schemas.qste.invalid/0.3.0/records/repair-action.schema.json",
+      "kind": "serialized_record",
+      "name": "RepairAction",
+      "path": "records/repair-action.schema.json",
+      "sha256": "552e1d72c985f9c10c9cfa5b60343994c969f6c2194703a9dde957ad48c40062"
+    },
+    {
+      "id": "https://schemas.qste.invalid/0.3.0/records/repair-receipt.schema.json",
+      "kind": "serialized_record",
+      "name": "RepairReceipt",
+      "path": "records/repair-receipt.schema.json",
+      "sha256": "8026779479608358a518703d68db3048fe4b3f3f8aa784762b26462cc7f37a81"
+    },
+    {
+      "id": "https://schemas.qste.invalid/0.3.0/records/operation-receipt.schema.json",
+      "kind": "serialized_record",
+      "name": "OperationReceipt",
+      "path": "records/operation-receipt.schema.json",
+      "sha256": "5eede819a281ea45304f33f9dd9ebdec34992c44fe1f7a4b0555ba6514f27c56"
+    },
+    {
+      "id": "https://schemas.qste.invalid/0.3.0/records/listening-account.schema.json",
+      "kind": "serialized_record",
+      "name": "ListeningAccount",
+      "path": "records/listening-account.schema.json",
+      "sha256": "09be1b1bbac3e82e057cd6cad8acf33727c61178b51b1c0fa0488770f295fa3a"
+    },
+    {
+      "id": "https://schemas.qste.invalid/0.3.0/records/claim-record.schema.json",
+      "kind": "serialized_record",
+      "name": "ClaimRecord",
+      "path": "records/claim-record.schema.json",
+      "sha256": "4219d0e19a5e76061f1ca4de737b62fd44b13e074d55e5d718e67cebabe99c36"
+    },
+    {
+      "id": "https://schemas.qste.invalid/0.3.0/records/authority-manifest.schema.json",
+      "kind": "serialized_record",
+      "name": "AuthorityManifest",
+      "path": "records/authority-manifest.schema.json",
+      "sha256": "7b62bb6932bfbc3bfe9def657cb502bdaaec136cf0aec5e58ca9bc6552099283"
+    },
+    {
+      "id": "https://schemas.qste.invalid/0.3.0/records/run-manifest.schema.json",
+      "kind": "serialized_record",
+      "name": "RunManifest",
+      "path": "records/run-manifest.schema.json",
+      "sha256": "0b6da22d35790bffa93e8e150dcb8394678404e8cf262453df446fe95cf3e947"
+    }
+  ]
+}

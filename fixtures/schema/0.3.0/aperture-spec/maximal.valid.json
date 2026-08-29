@@ -1,0 +1,53 @@
+{
+  "accessible_ranges": {
+    "frequency_hz": [
+      20,
+      20000
+    ]
+  },
+  "apparatus_ref": {
+    "record_id": "qste:apparatus-spec:8c1b9703-e262-46fc-b665-842aff91a5c7",
+    "record_type": "ApparatusSpec",
+    "relation": "depends_on"
+  },
+  "authorization_status": "permitted",
+  "availability": "known",
+  "consent_status": "not_applicable",
+  "content_digest": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+  "contract_id": "qste-contract/0.3.0",
+  "created_at": "2026-08-28T00:00:00Z",
+  "derivation": {
+    "method": "bounded_intersection"
+  },
+  "disclosure_status": "private",
+  "ext:futureField": {
+    "preserve": true,
+    "version": 1
+  },
+  "input_ref": {
+    "record_id": "qste:artifact-record:c4d4807b-cb54-412a-a618-70a328289480",
+    "record_type": "ArtifactRecord",
+    "relation": "depends_on"
+  },
+  "integrity_status": "unverified",
+  "known_exclusions": [
+    "unobserved_history"
+  ],
+  "permitted_operations": [
+    "validate"
+  ],
+  "policy_state": {
+    "network": "prohibited"
+  },
+  "producer_role": "executor",
+  "record_id": "qste:aperture-spec:3a9bb0a5-1055-4189-aeb3-f04e113e2e5c",
+  "record_type": "ApertureSpec",
+  "references": [],
+  "run_ref": {
+    "record_id": "qste:run-manifest:3f3a9a00-dc54-4aba-9d29-d2d1efb84cdd",
+    "record_type": "RunManifest",
+    "relation": "depends_on"
+  },
+  "schema_id": "https://schemas.qste.invalid/0.3.0/records/aperture-spec.schema.json",
+  "semantic_key": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+}

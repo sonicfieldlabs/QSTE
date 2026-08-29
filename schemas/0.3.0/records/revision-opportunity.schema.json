@@ -1,0 +1,56 @@
+{
+  "$id": "https://schemas.qste.invalid/0.3.0/records/revision-opportunity.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "allOf": [
+    {
+      "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordBase"
+    },
+    {
+      "properties": {
+        "budget": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "completed_run_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "contract_id": {
+          "const": "qste-contract/0.3.0"
+        },
+        "governance_boundary_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "initial_successor_spec_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "matched_state_key": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "record_type": {
+          "const": "RevisionOpportunity"
+        },
+        "schema_id": {
+          "const": "https://schemas.qste.invalid/0.3.0/records/revision-opportunity.schema.json"
+        },
+        "source_item_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        }
+      },
+      "required": [
+        "source_item_ref",
+        "completed_run_ref",
+        "initial_successor_spec_ref",
+        "governance_boundary_ref",
+        "matched_state_key",
+        "budget"
+      ],
+      "type": "object"
+    }
+  ],
+  "patternProperties": {
+    "^[a-z][a-z0-9_-]*:[A-Za-z][A-Za-z0-9_.-]*$": {}
+  },
+  "title": "RevisionOpportunity",
+  "unevaluatedProperties": false
+}

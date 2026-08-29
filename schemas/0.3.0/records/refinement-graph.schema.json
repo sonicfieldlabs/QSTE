@@ -1,0 +1,74 @@
+{
+  "$id": "https://schemas.qste.invalid/0.3.0/records/refinement-graph.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "allOf": [
+    {
+      "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordBase"
+    },
+    {
+      "properties": {
+        "closed": {
+          "type": "boolean"
+        },
+        "completion_certificate": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "contract_id": {
+          "const": "qste-contract/0.3.0"
+        },
+        "edges": {
+          "items": {},
+          "minItems": 1,
+          "type": "array"
+        },
+        "intervention_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "nodes": {
+          "items": {},
+          "minItems": 1,
+          "type": "array"
+        },
+        "procedure_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "record_type": {
+          "const": "RefinementGraph"
+        },
+        "representation_family_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "required_closure": {
+          "items": {},
+          "minItems": 1,
+          "type": "array"
+        },
+        "root_candidate_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "schema_id": {
+          "const": "https://schemas.qste.invalid/0.3.0/records/refinement-graph.schema.json"
+        }
+      },
+      "required": [
+        "procedure_id",
+        "representation_family_ref",
+        "intervention_ref",
+        "root_candidate_ref",
+        "nodes",
+        "edges",
+        "required_closure",
+        "completion_certificate",
+        "closed"
+      ],
+      "type": "object"
+    }
+  ],
+  "patternProperties": {
+    "^[a-z][a-z0-9_-]*:[A-Za-z][A-Za-z0-9_.-]*$": {}
+  },
+  "title": "RefinementGraph",
+  "unevaluatedProperties": false
+}

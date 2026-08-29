@@ -1,0 +1,58 @@
+{
+  "adjudication_evidence_refs": [
+    {
+      "record_id": "qste:claim-record:cde03008-cc61-4055-be49-5fab8a7c0ed3",
+      "record_type": "ClaimRecord",
+      "relation": "depends_on"
+    }
+  ],
+  "adjudication_outcome": "not_decided",
+  "appeal_status": "opened",
+  "appellant_ref": {
+    "record_id": "qste:source-record:3d44adc1-bc34-4fa7-8d85-806d9623426b",
+    "record_type": "SourceRecord",
+    "relation": "depends_on"
+  },
+  "contract_id": "qste-contract/0.3.0",
+  "created_at": "2026-08-28T00:00:00Z",
+  "deadlines": {
+    "respond_by": "2026-09-01T00:00:00Z"
+  },
+  "decision_event_refs": [
+    {
+      "record_id": "qste:decision-event:3e20f88e-d4a5-4865-b64a-25dfcb616494",
+      "record_type": "DecisionEvent",
+      "relation": "depends_on"
+    }
+  ],
+  "disclosure_status": "private",
+  "ext:futureField": {
+    "opaque": [
+      1,
+      2,
+      3
+    ]
+  },
+  "integrity_status": "unverified",
+  "jurisdiction": "project",
+  "pause_status": "not_requested",
+  "producer_role": "executor",
+  "reason_code": "standing_unverified",
+  "record_id": "qste:appeal-case:45dde094-2e97-4f0d-a900-34ec73528951",
+  "record_type": "AppealCase",
+  "references": [],
+  "repair_status": "not_requested",
+  "requested_action": "restrict",
+  "responding_authority_ref": {
+    "record_id": "qste:authority-manifest:73d51c28-07e6-473b-ad2a-7cf6afa61ef8",
+    "record_type": "AuthorityManifest",
+    "relation": "depends_on"
+  },
+  "schema_id": "https://schemas.qste.invalid/0.3.0/records/appeal-case.schema.json",
+  "standing_basis": "authorized_representative",
+  "successor_case_ref": null,
+  "target_closure": {
+    "descendants": [],
+    "root": "qste:artifact-record:50c15a45-d3e5-4c92-907a-952b2e9864c2"
+  }
+}

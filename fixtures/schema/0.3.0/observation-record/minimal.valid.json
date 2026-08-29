@@ -1,0 +1,22 @@
+{
+  "acquisition_ref": {
+    "record_id": "qste:acquisition-event:5335d038-e3f8-4539-b669-27e7e4141bd7",
+    "record_type": "AcquisitionEvent",
+    "relation": "depends_on"
+  },
+  "contract_id": "qste-contract/0.3.0",
+  "created_at": "2026-08-28T00:00:00Z",
+  "disclosure_status": "private",
+  "evidence_basis": "instrumentally_derived",
+  "integrity_status": "unverified",
+  "method": "fixture_measurement",
+  "observation_state": "value",
+  "producer_role": "executor",
+  "record_id": "qste:observation-record:962325ae-ffab-435b-81ea-bdb99bcae618",
+  "record_type": "ObservationRecord",
+  "references": [],
+  "schema_id": "https://schemas.qste.invalid/0.3.0/records/observation-record.schema.json",
+  "units": "normalized_score",
+  "value": 0.5,
+  "variable": "response"
+}

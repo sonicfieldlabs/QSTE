@@ -1,0 +1,11 @@
+{
+  "coefficient_dtype": "complex128",
+  "fft_length": 64,
+  "footprint_floor": 1e-12,
+  "hop_length": 16,
+  "maximum_candidates": 4096,
+  "maximum_refinement_nodes": 4094,
+  "reconstruction_atol": 1e-10,
+  "reconstruction_rtol": 1e-10,
+  "window_family": "hann_periodic"
+}

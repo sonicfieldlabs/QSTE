@@ -1,0 +1,142 @@
+{
+  "$id": "https://schemas.qste.invalid/0.3.0/records/acquisition-event.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "allOf": [
+    {
+      "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordBase"
+    },
+    {
+      "properties": {
+        "apparatus_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "authorization_status": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/authorization_status"
+        },
+        "calibration": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "contract_id": {
+          "const": "qste-contract/0.3.0"
+        },
+        "end_at": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "environment": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "event_sequence": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "limits": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "lineage_relation": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "provider_or_channel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "receipt_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "record_type": {
+          "const": "AcquisitionEvent"
+        },
+        "result_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "route": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "schema_id": {
+          "const": "https://schemas.qste.invalid/0.3.0/records/acquisition-event.schema.json"
+        },
+        "source_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "start_at": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "temporal_state": {
+          "enum": [
+            "timed",
+            "atemporal"
+          ],
+          "type": "string"
+        },
+        "timebase": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "apparatus_ref",
+        "provider_or_channel",
+        "temporal_state",
+        "timebase",
+        "source_ref",
+        "result_ref",
+        "calibration",
+        "route",
+        "environment",
+        "limits",
+        "authorization_status",
+        "receipt_ref",
+        "lineage_relation",
+        "event_sequence"
+      ],
+      "type": "object"
+    },
+    {
+      "oneOf": [
+        {
+          "properties": {
+            "temporal_state": {
+              "const": "timed"
+            }
+          },
+          "required": [
+            "start_at",
+            "end_at"
+          ]
+        },
+        {
+          "not": {
+            "anyOf": [
+              {
+                "required": [
+                  "start_at"
+                ]
+              },
+              {
+                "required": [
+                  "end_at"
+                ]
+              }
+            ]
+          },
+          "properties": {
+            "temporal_state": {
+              "const": "atemporal"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "patternProperties": {
+    "^[a-z][a-z0-9_-]*:[A-Za-z][A-Za-z0-9_.-]*$": {}
+  },
+  "title": "AcquisitionEvent",
+  "unevaluatedProperties": false
+}

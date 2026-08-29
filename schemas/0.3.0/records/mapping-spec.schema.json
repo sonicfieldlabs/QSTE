@@ -1,0 +1,86 @@
+{
+  "$id": "https://schemas.qste.invalid/0.3.0/records/mapping-spec.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "allOf": [
+    {
+      "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordBase"
+    },
+    {
+      "properties": {
+        "contract_id": {
+          "const": "qste-contract/0.3.0"
+        },
+        "interpolation": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "loss": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "missing_data_behavior": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "normalization": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "range": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "record_type": {
+          "const": "MappingSpec"
+        },
+        "reversibility_claim": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "schema_id": {
+          "const": "https://schemas.qste.invalid/0.3.0/records/mapping-spec.schema.json"
+        },
+        "source_domain": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "target_domain": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "uncertainty": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "units": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "variables": {
+          "items": {},
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "required": [
+        "source_domain",
+        "target_domain",
+        "variables",
+        "units",
+        "normalization",
+        "uncertainty",
+        "missing_data_behavior",
+        "interpolation",
+        "range",
+        "loss",
+        "reversibility_claim"
+      ],
+      "type": "object"
+    }
+  ],
+  "patternProperties": {
+    "^[a-z][a-z0-9_-]*:[A-Za-z][A-Za-z0-9_.-]*$": {}
+  },
+  "title": "MappingSpec",
+  "unevaluatedProperties": false
+}

@@ -1,0 +1,19 @@
+{
+  "adapter_id": "samplebrain",
+  "artifact_controls": {"decoder_only_control": true, "off_target_control": true, "source_alignment": "exact_fixture"},
+  "candidates": [
+    {"addressable": true, "native_address": {"block_index": 0, "brain_session": "fixture-A"}, "native_support": {"method": "synthetic_exact_fixture_support", "source_frame_range": [0, 24], "time_seconds": [0.0, 0.0005]}}
+  ],
+  "configuration": {"block_or_frame_configuration": {"size": 32, "stride": 32}, "profile": "samplebrain-synthetic-contract-fixture/0.1", "target_revision": "bc8002a9f0931f24b8078a956a9b73f09300f566"},
+  "decoded_waveform": [[0.0], [0.01]],
+  "evidence_class": "synthetic_non_model_fixture",
+  "execution_mode": "synthetic_contract_fixture",
+  "execution_status": "completed",
+  "native_values": [[0.1, 0.2, 0.3]],
+  "opaque_boundary": {"observability": "captured_outputs_only", "opaque_fields": ["internal_search_state", "hidden_encoder_activations"], "visible_fields": ["native_values", "candidate_catalog", "decoded_waveform"]},
+  "profile_id": "qste-external-representation-capture/0.1",
+  "refinement": {"graph_created": false, "reason": "block_size_change_not_a_refinement_certificate", "status": "unavailable"},
+  "resampling": {"applied": false, "method": "none", "source_hz": 48000, "target_hz": 48000},
+  "source": {"channel_count": 1, "content_digest": "sha256:ae49cb81774734986fb6fca90226634ffdcc995191c11738011db8a95e160b42", "sample_rate_hz": 48000},
+  "target_id": "samplebrain/v0.18.5_release"
+}

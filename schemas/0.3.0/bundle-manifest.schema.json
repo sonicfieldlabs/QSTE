@@ -1,0 +1,327 @@
+{
+  "$id": "https://schemas.qste.invalid/0.3.0/bundle-manifest.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "patternProperties": {
+    "^[a-z][a-z0-9_-]*:[A-Za-z][A-Za-z0-9_.-]*$": {}
+  },
+  "properties": {
+    "adapter_versions": {
+      "type": "array"
+    },
+    "allowlist": {
+      "type": "array"
+    },
+    "artifact_manifest": {
+      "type": "array"
+    },
+    "authority_ref": {
+      "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordId"
+    },
+    "bundle_id": {
+      "pattern": "^qste:bundle:[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+      "type": "string"
+    },
+    "bundle_profile": {
+      "enum": [
+        "private_run_bundle",
+        "authorized_public_projection"
+      ]
+    },
+    "checksums": {
+      "minItems": 1,
+      "type": "array"
+    },
+    "code": {
+      "minProperties": 1,
+      "type": "object"
+    },
+    "conformance_profile_id": {
+      "const": "qste-conformance/0.3.0"
+    },
+    "container_type": {
+      "const": "Bundle"
+    },
+    "contract_id": {
+      "const": "qste-contract/0.3.0"
+    },
+    "corpus_versions": {
+      "type": "array"
+    },
+    "dense_manifests": {
+      "type": "array"
+    },
+    "disclosure_status": {
+      "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/disclosure_status"
+    },
+    "event_manifest": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "digest": {
+            "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/digest"
+          },
+          "record_id": {
+            "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordId"
+          },
+          "record_type": {
+            "enum": [
+              "AcquisitionEvent",
+              "SourceRecord",
+              "ArtifactRecord",
+              "ObservationRecord",
+              "ApparatusSpec",
+              "ApertureSpec",
+              "RepresentationFamilySpec",
+              "RepresentationSpec",
+              "RepresentationInstance",
+              "CandidateUnit",
+              "InterventionSpec",
+              "TaskSpec",
+              "RefinementGraph",
+              "DSQAssessment",
+              "ProjectionSpec",
+              "ComparisonSpec",
+              "RelationAssertion",
+              "MappingSpec",
+              "ListeningHarnessSpec",
+              "GovernanceBoundary",
+              "RevisionOpportunity",
+              "SuccessorSpec",
+              "DecisionEvent",
+              "AppealCase",
+              "RepairAction",
+              "RepairReceipt",
+              "OperationReceipt",
+              "ListeningAccount",
+              "ClaimRecord",
+              "AuthorityManifest",
+              "RunManifest"
+            ],
+            "type": "string"
+          },
+          "sequence": {
+            "minimum": 0,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "record_id",
+          "record_type",
+          "digest",
+          "sequence"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "experiment_profiles": {
+      "type": "array"
+    },
+    "integrity_claim": {
+      "enum": [
+        "unverified",
+        "verified",
+        "failed",
+        "unavailable"
+      ]
+    },
+    "logical_replay_claim": {
+      "enum": [
+        "unverified",
+        "verified",
+        "failed",
+        "unavailable"
+      ]
+    },
+    "manifest_digest": {
+      "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/digest"
+    },
+    "model_versions": {
+      "type": "array"
+    },
+    "numerical_reproducibility_claim": {
+      "enum": [
+        "unverified",
+        "verified",
+        "failed",
+        "unavailable"
+      ]
+    },
+    "omission_manifest": {
+      "type": "array"
+    },
+    "parent_bundle_ref": {
+      "anyOf": [
+        {
+          "pattern": "^qste:bundle:",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "record_manifest": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "digest": {
+            "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/digest"
+          },
+          "record_id": {
+            "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordId"
+          },
+          "record_type": {
+            "enum": [
+              "AcquisitionEvent",
+              "SourceRecord",
+              "ArtifactRecord",
+              "ObservationRecord",
+              "ApparatusSpec",
+              "ApertureSpec",
+              "RepresentationFamilySpec",
+              "RepresentationSpec",
+              "RepresentationInstance",
+              "CandidateUnit",
+              "InterventionSpec",
+              "TaskSpec",
+              "RefinementGraph",
+              "DSQAssessment",
+              "ProjectionSpec",
+              "ComparisonSpec",
+              "RelationAssertion",
+              "MappingSpec",
+              "ListeningHarnessSpec",
+              "GovernanceBoundary",
+              "RevisionOpportunity",
+              "SuccessorSpec",
+              "DecisionEvent",
+              "AppealCase",
+              "RepairAction",
+              "RepairReceipt",
+              "OperationReceipt",
+              "ListeningAccount",
+              "ClaimRecord",
+              "AuthorityManifest",
+              "RunManifest"
+            ],
+            "type": "string"
+          },
+          "sequence": {
+            "minimum": 0,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "record_id",
+          "record_type",
+          "digest",
+          "sequence"
+        ],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "relation_manifest": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "digest": {
+            "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/digest"
+          },
+          "record_id": {
+            "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordId"
+          },
+          "record_type": {
+            "enum": [
+              "AcquisitionEvent",
+              "SourceRecord",
+              "ArtifactRecord",
+              "ObservationRecord",
+              "ApparatusSpec",
+              "ApertureSpec",
+              "RepresentationFamilySpec",
+              "RepresentationSpec",
+              "RepresentationInstance",
+              "CandidateUnit",
+              "InterventionSpec",
+              "TaskSpec",
+              "RefinementGraph",
+              "DSQAssessment",
+              "ProjectionSpec",
+              "ComparisonSpec",
+              "RelationAssertion",
+              "MappingSpec",
+              "ListeningHarnessSpec",
+              "GovernanceBoundary",
+              "RevisionOpportunity",
+              "SuccessorSpec",
+              "DecisionEvent",
+              "AppealCase",
+              "RepairAction",
+              "RepairReceipt",
+              "OperationReceipt",
+              "ListeningAccount",
+              "ClaimRecord",
+              "AuthorityManifest",
+              "RunManifest"
+            ],
+            "type": "string"
+          },
+          "sequence": {
+            "minimum": 0,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "record_id",
+          "record_type",
+          "digest",
+          "sequence"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "retention_policy": {
+      "minProperties": 1,
+      "type": "object"
+    },
+    "schema_set_id": {
+      "const": "qste-schema/0.3.0"
+    }
+  },
+  "required": [
+    "container_type",
+    "bundle_profile",
+    "bundle_id",
+    "contract_id",
+    "schema_set_id",
+    "conformance_profile_id",
+    "authority_ref",
+    "code",
+    "adapter_versions",
+    "model_versions",
+    "corpus_versions",
+    "experiment_profiles",
+    "record_manifest",
+    "event_manifest",
+    "relation_manifest",
+    "dense_manifests",
+    "artifact_manifest",
+    "checksums",
+    "manifest_digest",
+    "disclosure_status",
+    "retention_policy",
+    "allowlist",
+    "omission_manifest",
+    "parent_bundle_ref",
+    "integrity_claim",
+    "logical_replay_claim",
+    "numerical_reproducibility_claim"
+  ],
+  "title": "Bundle sealed-container manifest",
+  "type": "object"
+}

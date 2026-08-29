@@ -1,0 +1,12 @@
+{
+  "evidence_status": "known_parameter_conformance_fixture",
+  "fixture_id": "qste-p7-mock-material-classes/0.1",
+  "materials": [
+    {"class": "attributed_source", "role": "source"},
+    {"class": "arm_specific_reconstruction", "role": "reconstruction"},
+    {"alignment": "shared_source_sample_clock", "class": "arm_specific_residual", "role": "residual"},
+    {"class": "cross_arm_disagreement_relation", "role": "disagreement"}
+  ],
+  "native_metric_cross_arm_use": "prohibited",
+  "scientific_or_empirical_outcome": false
+}

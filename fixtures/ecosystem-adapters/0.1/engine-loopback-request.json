@@ -1,0 +1,7 @@
+{
+  "protocol": "osc_fixture_v0.1",
+  "address": "/qste/fixture",
+  "message": "p11-loopback",
+  "timeout_seconds": 1.0,
+  "maximum_packet_bytes": 1024
+}

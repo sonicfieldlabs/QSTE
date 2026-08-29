@@ -1,0 +1,12 @@
+{
+  "availability": "unavailable",
+  "checkpoint_id": "facebook/encodec_24khz:model.safetensors",
+  "checkpoint_license": "not_declared_by_checkpoint_repository",
+  "content_digest": "sha256:37a7cb100f71a29e6c1d815aca8666a1d7ea8885ebe44c306c751a5103559d57",
+  "download_authorized": false,
+  "execution_authorized": false,
+  "model_loaded": false,
+  "repository": "https://huggingface.co/facebook/encodec_24khz",
+  "revision": "c1dbe2ae3f1de713481a3b3e7c47f357092ee040",
+  "size_bytes": 93119608
+}

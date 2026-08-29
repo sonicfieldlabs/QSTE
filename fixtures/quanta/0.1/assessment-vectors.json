@@ -1,0 +1,17 @@
+{
+  "profile_id": "qste-dsq-assessment/v0.1",
+  "vectors": [
+    {"reason": "meaningful_closed_equivalent", "status": "qualified"},
+    {"reason": "candidate_nonmeaningful", "status": "rejected"},
+    {"reason": "proper_node_nonequivalent", "status": "rejected"},
+    {"reason": "candidate_boundary_crossing", "status": "indeterminate"},
+    {"reason": "proper_node_boundary_crossing", "status": "indeterminate"},
+    {"reason": "closure_unavailable", "status": "indeterminate"},
+    {"reason": "empty_proper_set", "status": "indeterminate"},
+    {"reason": "uncertainty_contract_missing", "status": "indeterminate"},
+    {"reason": "budget_exhausted", "status": "indeterminate"},
+    {"reason": "calibration_unavailable", "status": "indeterminate"},
+    {"reason": "artifact_control_failed", "status": "indeterminate"},
+    {"reason": "required_evidence_unavailable", "status": "indeterminate"}
+  ]
+}

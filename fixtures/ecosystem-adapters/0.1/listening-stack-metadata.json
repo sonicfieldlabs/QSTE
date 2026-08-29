@@ -1,0 +1,21 @@
+{
+  "profile_id": "qste-listening-stack-read-only-snapshot/0.1",
+  "installer_version": "0.4.1",
+  "source_commit": "c0b91588c8fb7da0becf16a32809af9024fefb77",
+  "role": "compatibility_metadata_only",
+  "interoperability_claim": false,
+  "installation_performed": false,
+  "components": {
+    "akouo": "0.9.2",
+    "akousmata": "0.7.0",
+    "earworm": "0.7.0",
+    "oida": "0.10.0"
+  },
+  "contracts": {
+    "akousma_schema": "1.6",
+    "akouo": "akouo/v0.9",
+    "auditum": "earworm/auditum/v2",
+    "listening_event": "oida/listening-event/v0.3",
+    "route_outcome": "oida/route-outcome/v0.1"
+  }
+}

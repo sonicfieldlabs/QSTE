@@ -1,0 +1,253 @@
+{
+  "contract_id": "qste-contract/0.3.0",
+  "legacy_aliases": {},
+  "registries": {
+    "adjudication_outcome": [
+      "not_decided",
+      "upheld",
+      "denied",
+      "partial",
+      "escalated",
+      "withdrawn"
+    ],
+    "appeal_status": [
+      "opened",
+      "under_review",
+      "adjudicated",
+      "closed"
+    ],
+    "assessment_reason": [
+      "meaningful_closed_equivalent",
+      "candidate_nonmeaningful",
+      "proper_node_nonequivalent",
+      "candidate_boundary_crossing",
+      "proper_node_boundary_crossing",
+      "closure_unavailable",
+      "empty_proper_set",
+      "uncertainty_contract_missing",
+      "budget_exhausted",
+      "calibration_unavailable",
+      "artifact_control_failed",
+      "required_evidence_unavailable"
+    ],
+    "assessment_status": [
+      "qualified",
+      "rejected",
+      "indeterminate"
+    ],
+    "authorization_status": [
+      "unknown",
+      "permitted",
+      "refused",
+      "deferred",
+      "revoked",
+      "not_applicable"
+    ],
+    "availability": [
+      "known",
+      "unknown",
+      "unavailable",
+      "withheld",
+      "deleted",
+      "not_applicable"
+    ],
+    "capability_status": [
+      "available",
+      "unavailable",
+      "degraded",
+      "prohibited",
+      "untested"
+    ],
+    "comparison_reason": [
+      "matched_overlap",
+      "matched_split",
+      "matched_merge",
+      "projection_invalid",
+      "target_address_absent",
+      "fidelity_failed",
+      "zero_footprint_undefined",
+      "coverage_failed",
+      "effect_incompatible",
+      "unmatched_by_spec",
+      "coverage_boundary_crossing",
+      "effect_boundary_crossing",
+      "structural_matching_ambiguity",
+      "decomposition_ambiguity",
+      "eligible_evidence_incomplete",
+      "matching_budget_exhausted",
+      "comparison_capability_unavailable"
+    ],
+    "comparison_status": [
+      "resolved",
+      "indeterminate"
+    ],
+    "consent_status": [
+      "not_applicable",
+      "pending",
+      "granted",
+      "declined",
+      "withdrawn",
+      "expired"
+    ],
+    "decision_action": [
+      "execute",
+      "revise",
+      "refuse",
+      "escalate",
+      "pause",
+      "resume",
+      "no_change"
+    ],
+    "dependency_validity": [
+      "valid",
+      "invalidated"
+    ],
+    "disclosure_status": [
+      "private",
+      "restricted",
+      "project_internal",
+      "public"
+    ],
+    "effect_compatibility": [
+      "compatible",
+      "incompatible",
+      "indeterminate"
+    ],
+    "epistemic_status": [
+      "measured",
+      "derived",
+      "model_inferred",
+      "human_heard",
+      "interpreted",
+      "speculative",
+      "undetermined"
+    ],
+    "evidence_basis": [
+      "directly_recorded",
+      "calibrated_measurement",
+      "instrumentally_derived",
+      "model_inferred",
+      "human_reported",
+      "theoretically_reconstructed"
+    ],
+    "governance_reason": [
+      "standing_unverified",
+      "standing_denied",
+      "authority_unresolved",
+      "jurisdiction_declined",
+      "pause_risk_threshold_met",
+      "pause_risk_threshold_not_met",
+      "appeal_withdrawn",
+      "requested_remedy_upheld",
+      "requested_remedy_denied",
+      "requested_remedy_partial",
+      "repair_completed",
+      "repair_partially_completed",
+      "repair_not_feasible",
+      "retention_duty_blocks_deletion",
+      "external_copy_out_of_scope",
+      "superseded_by_successor_case"
+    ],
+    "integrity_status": [
+      "unverified",
+      "verified",
+      "failed",
+      "unavailable"
+    ],
+    "invalidation_reason": [
+      "source_integrity_defect",
+      "acquisition_or_calibration_defect",
+      "representation_defect",
+      "intervention_defect",
+      "task_or_estimator_defect",
+      "uncertainty_or_multiplicity_defect",
+      "implementation_defect",
+      "upstream_dependency_invalidated"
+    ],
+    "operation_reason": [
+      "completed",
+      "invalid_input",
+      "invalid_assessment_spec",
+      "invalid_comparison_spec",
+      "policy_refused",
+      "capability_unavailable",
+      "execution_failed",
+      "partial_completion",
+      "internal_error",
+      "conformance_failed"
+    ],
+    "operation_status": [
+      "completed",
+      "refused",
+      "unavailable",
+      "failed",
+      "partial"
+    ],
+    "pause_status": [
+      "not_requested",
+      "requested",
+      "active",
+      "denied",
+      "released"
+    ],
+    "perturbation_stability": [
+      "stable",
+      "unstable",
+      "indeterminate",
+      "not_tested"
+    ],
+    "producer_role": [
+      "instrument",
+      "model",
+      "executor",
+      "human",
+      "external_service",
+      "hybrid_procedure"
+    ],
+    "record_level": [
+      "ordinary",
+      "formation_only",
+      "full_assessment"
+    ],
+    "relation_type": [
+      "overlap",
+      "split",
+      "merge",
+      "omission",
+      "loss",
+      "incomparable"
+    ],
+    "repair_action": [
+      "pause",
+      "correct",
+      "revoke",
+      "delete",
+      "restrict",
+      "restore",
+      "release_pause"
+    ],
+    "repair_status": [
+      "not_requested",
+      "pending",
+      "applied",
+      "partially_applied",
+      "impossible",
+      "superseded"
+    ],
+    "revision_treatment": [
+      "authentic",
+      "absent",
+      "placebo",
+      "permuted"
+    ],
+    "transduction_mode": [
+      "sonification",
+      "desonification",
+      "resonification",
+      "sonic_transformation",
+      "cross_domain_contrast"
+    ]
+  },
+  "schema_set_id": "qste-schema/0.3.0",
+  "writer_policy": "reject_noncanonical"
+}

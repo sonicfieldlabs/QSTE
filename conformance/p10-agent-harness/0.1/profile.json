@@ -1,0 +1,39 @@
+{
+  "action_registry": "qste-agent-action-registry/v0.1",
+  "claims": [
+    "bounded_harness_and_executor_surface",
+    "completed_run_immutability",
+    "semantic_or_behavioral_successor_comparator",
+    "successor_persistence_into_next_opportunity",
+    "authority_external_to_executor",
+    "four_matched_revision_treatments",
+    "three_invariant_core_information_levels",
+    "refusal_changes_next_action_set",
+    "shadow_mode_preserves_source_permission",
+    "study_divergence_requires_no_leakage",
+    "utility_cost_separate_from_evidence_dependence",
+    "creative_consequence_not_inferred"
+  ],
+  "executor_fixture_profile": "qste-agent-executor-fixtures/0.1",
+  "gates": [
+    {"id": "P10-G01", "requirement": "The harness freezes apparatus, aperture, records, lineage, governance, executor class, action surface, evaluation controls, and exact memory, action, information, time, and resource limits."},
+    {"id": "P10-G02", "requirement": "A completed run remains immutable; a permitted semantic or behavioral successor preserves its predecessor and persists into a scheduled but unexecuted next run and RevisionOpportunity."},
+    {"id": "P10-G03", "requirement": "Identifiers, hashes, timestamps, serialization, prompt text, and prose-only explanations cannot satisfy the successor comparator."},
+    {"id": "P10-G04", "requirement": "Human, frozen, adaptive, symbolic, learned-interface, revising, and hybrid fixtures have the same authority boundary; implementer class is nondecisive."},
+    {"id": "P10-G05", "requirement": "Authentic, absent, byte/schema/timing/access-matched placebo, and payload-preserving permuted treatments retain allocation and matching records and never override source permission."},
+    {"id": "P10-G06", "requirement": "Ordinary, formation-only, and full-assessment payloads share one invariant outcome-core digest; payload level alone never creates a DSQ label."},
+    {"id": "P10-G07", "requirement": "Study support requires preregistered authentic divergence from all three controls with matching complete and leakage absent; synthetic conformance is not an empirical causal result."},
+    {"id": "P10-G08", "requirement": "Refusal creates no successor, changes the next eligible action set, and records resumption or escalation conditions."},
+    {"id": "P10-G09", "requirement": "Shadow mode records would-have-blocked policy only on synthetic or fully authorized fixtures and cannot bypass the governance boundary or source authorization."},
+    {"id": "P10-G10", "requirement": "Plans and prompts remain inert records; every selected action is independently checked against registry, budget, source authorization, authority identity, governance action set, and mutable fields."},
+    {"id": "P10-G11", "requirement": "Held-out utility and declared costs remain separate from evidence dependence, revision rate, and creative consequence."},
+    {"id": "P10-G12", "requirement": "P10 fixtures perform no external write, network access, model execution, playback, participant interaction, or creativity attribution."}
+  ],
+  "harness_profile": "qste-listening-harness/v0.1",
+  "information_payload_profile": "qste-dsq-information-payload/v0.1",
+  "profile_id": "qste-agent-harness-conformance/0.1",
+  "revision_profile": "qste-evidence-dependent-revision/v0.1",
+  "study_profile": "qste-revision-comparative-baseline/v0.1",
+  "treatment_profile": "qste-revision-treatment/v0.1",
+  "utility_profile": "qste-held-out-utility-cost/v0.1"
+}

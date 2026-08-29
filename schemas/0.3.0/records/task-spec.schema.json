@@ -1,0 +1,170 @@
+{
+  "$id": "https://schemas.qste.invalid/0.3.0/records/task-spec.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "allOf": [
+    {
+      "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordBase"
+    },
+    {
+      "properties": {
+        "alternate_intervention": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "artifact_controls": {
+          "items": {},
+          "minItems": 1,
+          "type": "array"
+        },
+        "bound_validity_evidence": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "boundary_semantics": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "compute_budget": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "contract_id": {
+          "const": "qste-contract/0.3.0"
+        },
+        "contrast_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "eligible_family": {
+          "items": {},
+          "minItems": 1,
+          "type": "array"
+        },
+        "equivalence_region": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "estimator": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "expected_effect_direction": {
+          "enum": [
+            -1,
+            1
+          ],
+          "type": "integer"
+        },
+        "failure_reasons": {
+          "items": {},
+          "minItems": 1,
+          "type": "array"
+        },
+        "fixed_context": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "input_refs": {
+          "items": {
+            "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "intervention_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "meaningful_bound": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "multiplicity": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "record_type": {
+          "const": "TaskSpec"
+        },
+        "repeats": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "response_units": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "response_variable": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "schema_id": {
+          "const": "https://schemas.qste.invalid/0.3.0/records/task-spec.schema.json"
+        },
+        "seeds": {
+          "items": {
+            "type": "integer"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "selection_confirmation": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "stopping_rules": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "success_criterion": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "task_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "task_version": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "uncertainty": {
+          "minProperties": 1,
+          "type": "object"
+        }
+      },
+      "required": [
+        "task_id",
+        "task_version",
+        "response_variable",
+        "input_refs",
+        "fixed_context",
+        "contrast_ref",
+        "intervention_ref",
+        "expected_effect_direction",
+        "response_units",
+        "meaningful_bound",
+        "equivalence_region",
+        "bound_validity_evidence",
+        "boundary_semantics",
+        "estimator",
+        "repeats",
+        "seeds",
+        "uncertainty",
+        "multiplicity",
+        "stopping_rules",
+        "selection_confirmation",
+        "eligible_family",
+        "artifact_controls",
+        "alternate_intervention",
+        "compute_budget",
+        "success_criterion",
+        "failure_reasons"
+      ],
+      "type": "object"
+    }
+  ],
+  "patternProperties": {
+    "^[a-z][a-z0-9_-]*:[A-Za-z][A-Za-z0-9_.-]*$": {}
+  },
+  "title": "TaskSpec",
+  "unevaluatedProperties": false
+}

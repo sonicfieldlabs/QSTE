@@ -1,0 +1,60 @@
+{
+  "axes": {
+    "adjudication_outcome": [
+      "not_decided",
+      "upheld",
+      "denied",
+      "partial",
+      "escalated",
+      "withdrawn"
+    ],
+    "appeal_status": [
+      "opened",
+      "under_review",
+      "adjudicated",
+      "closed"
+    ],
+    "pause_status": [
+      "not_requested",
+      "requested",
+      "active",
+      "denied",
+      "released"
+    ],
+    "repair_status": [
+      "not_requested",
+      "pending",
+      "applied",
+      "partially_applied",
+      "impossible",
+      "superseded"
+    ]
+  },
+  "governance_reasons": [
+    "standing_unverified",
+    "standing_denied",
+    "authority_unresolved",
+    "jurisdiction_declined",
+    "pause_risk_threshold_met",
+    "pause_risk_threshold_not_met",
+    "appeal_withdrawn",
+    "requested_remedy_upheld",
+    "requested_remedy_denied",
+    "requested_remedy_partial",
+    "repair_completed",
+    "repair_partially_completed",
+    "repair_not_feasible",
+    "retention_duty_blocks_deletion",
+    "external_copy_out_of_scope",
+    "superseded_by_successor_case"
+  ],
+  "repair_actions": [
+    "pause",
+    "correct",
+    "revoke",
+    "delete",
+    "restrict",
+    "restore",
+    "release_pause"
+  ]
+}

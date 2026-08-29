@@ -1,0 +1,68 @@
+{
+  "adapter_contracts": [
+    {
+      "availability": "not_applicable",
+      "id": "none"
+    }
+  ],
+  "approved_rfc_refs": [],
+  "architecture": {
+    "availability": "private_local_not_disclosed",
+    "id": "qste-architecture/private"
+  },
+  "code": {
+    "commit": "6666666666666666666666666666666666666666",
+    "repository": "https://github.com/sonicfieldlabs/QSTE",
+    "version": "0.0.0"
+  },
+  "compatibility_decision": "exact_contract_only",
+  "conformance_profile": {
+    "id": "qste-conformance/0.3.0",
+    "path": "conformance/0.3.0/conformance-profile.json",
+    "sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+  },
+  "contract_id": "qste-contract/0.3.0",
+  "created_at": "2026-08-28T00:00:00Z",
+  "development_plan": {
+    "availability": "private_local_not_disclosed",
+    "id": "qste-development-plan/private"
+  },
+  "disclosure_status": "private",
+  "experiment_profiles": [
+    {
+      "availability": "not_applicable",
+      "id": "none"
+    }
+  ],
+  "integrity_status": "unverified",
+  "manifest_profile": "qste-authority/0.3.0",
+  "model_checkpoint_manifests": [
+    {
+      "availability": "not_applicable",
+      "id": "none"
+    }
+  ],
+  "producer_role": "executor",
+  "record_id": "qste:authority-manifest:d62b8b33-6e17-49b2-a708-bb2c02f1a3f6",
+  "record_type": "AuthorityManifest",
+  "references": [],
+  "research_sources": [
+    {
+      "authorized_locator": null,
+      "availability": "withheld",
+      "id": "agentic-quanta-paper-v3",
+      "sha256": "5555555555555555555555555555555555555555555555555555555555555555"
+    }
+  ],
+  "schema_id": "https://schemas.qste.invalid/0.3.0/records/authority-manifest.schema.json",
+  "schema_set": {
+    "id": "qste-schema/0.3.0",
+    "path": "schemas/0.3.0/schema-index.json",
+    "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+  },
+  "semantic_contract": {
+    "id": "qste-contract/0.3.0",
+    "path": "ontology/0.3.0/QSTE_ontology.md",
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  }
+}

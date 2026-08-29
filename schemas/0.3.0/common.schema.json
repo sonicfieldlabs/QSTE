@@ -1,0 +1,541 @@
+{
+  "$defs": {
+    "adjudication_outcome": {
+      "enum": [
+        "not_decided",
+        "upheld",
+        "denied",
+        "partial",
+        "escalated",
+        "withdrawn"
+      ],
+      "type": "string"
+    },
+    "appeal_status": {
+      "enum": [
+        "opened",
+        "under_review",
+        "adjudicated",
+        "closed"
+      ],
+      "type": "string"
+    },
+    "assessment_reason": {
+      "enum": [
+        "meaningful_closed_equivalent",
+        "candidate_nonmeaningful",
+        "proper_node_nonequivalent",
+        "candidate_boundary_crossing",
+        "proper_node_boundary_crossing",
+        "closure_unavailable",
+        "empty_proper_set",
+        "uncertainty_contract_missing",
+        "budget_exhausted",
+        "calibration_unavailable",
+        "artifact_control_failed",
+        "required_evidence_unavailable"
+      ],
+      "type": "string"
+    },
+    "assessment_status": {
+      "enum": [
+        "qualified",
+        "rejected",
+        "indeterminate"
+      ],
+      "type": "string"
+    },
+    "authorization_status": {
+      "enum": [
+        "unknown",
+        "permitted",
+        "refused",
+        "deferred",
+        "revoked",
+        "not_applicable"
+      ],
+      "type": "string"
+    },
+    "availability": {
+      "enum": [
+        "known",
+        "unknown",
+        "unavailable",
+        "withheld",
+        "deleted",
+        "not_applicable"
+      ],
+      "type": "string"
+    },
+    "capability_status": {
+      "enum": [
+        "available",
+        "unavailable",
+        "degraded",
+        "prohibited",
+        "untested"
+      ],
+      "type": "string"
+    },
+    "comparison_reason": {
+      "enum": [
+        "matched_overlap",
+        "matched_split",
+        "matched_merge",
+        "projection_invalid",
+        "target_address_absent",
+        "fidelity_failed",
+        "zero_footprint_undefined",
+        "coverage_failed",
+        "effect_incompatible",
+        "unmatched_by_spec",
+        "coverage_boundary_crossing",
+        "effect_boundary_crossing",
+        "structural_matching_ambiguity",
+        "decomposition_ambiguity",
+        "eligible_evidence_incomplete",
+        "matching_budget_exhausted",
+        "comparison_capability_unavailable"
+      ],
+      "type": "string"
+    },
+    "comparison_status": {
+      "enum": [
+        "resolved",
+        "indeterminate"
+      ],
+      "type": "string"
+    },
+    "consent_status": {
+      "enum": [
+        "not_applicable",
+        "pending",
+        "granted",
+        "declined",
+        "withdrawn",
+        "expired"
+      ],
+      "type": "string"
+    },
+    "decision_action": {
+      "enum": [
+        "execute",
+        "revise",
+        "refuse",
+        "escalate",
+        "pause",
+        "resume",
+        "no_change"
+      ],
+      "type": "string"
+    },
+    "dependency_validity": {
+      "enum": [
+        "valid",
+        "invalidated"
+      ],
+      "type": "string"
+    },
+    "digest": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "disclosure_status": {
+      "enum": [
+        "private",
+        "restricted",
+        "project_internal",
+        "public"
+      ],
+      "type": "string"
+    },
+    "effect_compatibility": {
+      "enum": [
+        "compatible",
+        "incompatible",
+        "indeterminate"
+      ],
+      "type": "string"
+    },
+    "epistemic_status": {
+      "enum": [
+        "measured",
+        "derived",
+        "model_inferred",
+        "human_heard",
+        "interpreted",
+        "speculative",
+        "undetermined"
+      ],
+      "type": "string"
+    },
+    "evidence_basis": {
+      "enum": [
+        "directly_recorded",
+        "calibrated_measurement",
+        "instrumentally_derived",
+        "model_inferred",
+        "human_reported",
+        "theoretically_reconstructed"
+      ],
+      "type": "string"
+    },
+    "externalReference": {
+      "additionalProperties": false,
+      "properties": {
+        "authority_ref": {
+          "$ref": "#/$defs/recordId"
+        },
+        "external_uri": {
+          "format": "uri",
+          "type": "string"
+        },
+        "record_type": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "relation": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "external_uri",
+        "record_type",
+        "relation",
+        "authority_ref"
+      ],
+      "type": "object"
+    },
+    "governance_reason": {
+      "enum": [
+        "standing_unverified",
+        "standing_denied",
+        "authority_unresolved",
+        "jurisdiction_declined",
+        "pause_risk_threshold_met",
+        "pause_risk_threshold_not_met",
+        "appeal_withdrawn",
+        "requested_remedy_upheld",
+        "requested_remedy_denied",
+        "requested_remedy_partial",
+        "repair_completed",
+        "repair_partially_completed",
+        "repair_not_feasible",
+        "retention_duty_blocks_deletion",
+        "external_copy_out_of_scope",
+        "superseded_by_successor_case"
+      ],
+      "type": "string"
+    },
+    "integrity_status": {
+      "enum": [
+        "unverified",
+        "verified",
+        "failed",
+        "unavailable"
+      ],
+      "type": "string"
+    },
+    "invalidation_reason": {
+      "enum": [
+        "source_integrity_defect",
+        "acquisition_or_calibration_defect",
+        "representation_defect",
+        "intervention_defect",
+        "task_or_estimator_defect",
+        "uncertainty_or_multiplicity_defect",
+        "implementation_defect",
+        "upstream_dependency_invalidated"
+      ],
+      "type": "string"
+    },
+    "operation_reason": {
+      "enum": [
+        "completed",
+        "invalid_input",
+        "invalid_assessment_spec",
+        "invalid_comparison_spec",
+        "policy_refused",
+        "capability_unavailable",
+        "execution_failed",
+        "partial_completion",
+        "internal_error",
+        "conformance_failed"
+      ],
+      "type": "string"
+    },
+    "operation_status": {
+      "enum": [
+        "completed",
+        "refused",
+        "unavailable",
+        "failed",
+        "partial"
+      ],
+      "type": "string"
+    },
+    "pause_status": {
+      "enum": [
+        "not_requested",
+        "requested",
+        "active",
+        "denied",
+        "released"
+      ],
+      "type": "string"
+    },
+    "perturbation_stability": {
+      "enum": [
+        "stable",
+        "unstable",
+        "indeterminate",
+        "not_tested"
+      ],
+      "type": "string"
+    },
+    "producer_role": {
+      "enum": [
+        "instrument",
+        "model",
+        "executor",
+        "human",
+        "external_service",
+        "hybrid_procedure"
+      ],
+      "type": "string"
+    },
+    "recordBase": {
+      "properties": {
+        "authorization_status": {
+          "$ref": "#/$defs/authorization_status"
+        },
+        "availability": {
+          "$ref": "#/$defs/availability"
+        },
+        "consent_status": {
+          "$ref": "#/$defs/consent_status"
+        },
+        "content_digest": {
+          "$ref": "#/$defs/digest"
+        },
+        "contract_id": {
+          "const": "qste-contract/0.3.0"
+        },
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "disclosure_status": {
+          "$ref": "#/$defs/disclosure_status"
+        },
+        "integrity_status": {
+          "$ref": "#/$defs/integrity_status"
+        },
+        "producer_role": {
+          "$ref": "#/$defs/producer_role"
+        },
+        "record_id": {
+          "$ref": "#/$defs/recordId"
+        },
+        "record_type": {
+          "enum": [
+            "AcquisitionEvent",
+            "SourceRecord",
+            "ArtifactRecord",
+            "ObservationRecord",
+            "ApparatusSpec",
+            "ApertureSpec",
+            "RepresentationFamilySpec",
+            "RepresentationSpec",
+            "RepresentationInstance",
+            "CandidateUnit",
+            "InterventionSpec",
+            "TaskSpec",
+            "RefinementGraph",
+            "DSQAssessment",
+            "ProjectionSpec",
+            "ComparisonSpec",
+            "RelationAssertion",
+            "MappingSpec",
+            "ListeningHarnessSpec",
+            "GovernanceBoundary",
+            "RevisionOpportunity",
+            "SuccessorSpec",
+            "DecisionEvent",
+            "AppealCase",
+            "RepairAction",
+            "RepairReceipt",
+            "OperationReceipt",
+            "ListeningAccount",
+            "ClaimRecord",
+            "AuthorityManifest",
+            "RunManifest"
+          ],
+          "type": "string"
+        },
+        "references": {
+          "items": {
+            "$ref": "#/$defs/typedReference"
+          },
+          "type": "array"
+        },
+        "schema_id": {
+          "format": "uri",
+          "type": "string"
+        },
+        "semantic_key": {
+          "$ref": "#/$defs/semanticKey"
+        }
+      },
+      "required": [
+        "record_type",
+        "schema_id",
+        "contract_id",
+        "record_id",
+        "created_at",
+        "producer_role",
+        "integrity_status",
+        "disclosure_status",
+        "references"
+      ],
+      "type": "object"
+    },
+    "recordId": {
+      "pattern": "^qste:[a-z][a-z0-9-]*:[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+      "type": "string"
+    },
+    "recordReference": {
+      "additionalProperties": false,
+      "properties": {
+        "record_id": {
+          "$ref": "#/$defs/recordId"
+        },
+        "record_type": {
+          "enum": [
+            "AcquisitionEvent",
+            "SourceRecord",
+            "ArtifactRecord",
+            "ObservationRecord",
+            "ApparatusSpec",
+            "ApertureSpec",
+            "RepresentationFamilySpec",
+            "RepresentationSpec",
+            "RepresentationInstance",
+            "CandidateUnit",
+            "InterventionSpec",
+            "TaskSpec",
+            "RefinementGraph",
+            "DSQAssessment",
+            "ProjectionSpec",
+            "ComparisonSpec",
+            "RelationAssertion",
+            "MappingSpec",
+            "ListeningHarnessSpec",
+            "GovernanceBoundary",
+            "RevisionOpportunity",
+            "SuccessorSpec",
+            "DecisionEvent",
+            "AppealCase",
+            "RepairAction",
+            "RepairReceipt",
+            "OperationReceipt",
+            "ListeningAccount",
+            "ClaimRecord",
+            "AuthorityManifest",
+            "RunManifest"
+          ],
+          "type": "string"
+        },
+        "relation": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "record_id",
+        "record_type",
+        "relation"
+      ],
+      "type": "object"
+    },
+    "record_level": {
+      "enum": [
+        "ordinary",
+        "formation_only",
+        "full_assessment"
+      ],
+      "type": "string"
+    },
+    "relation_type": {
+      "enum": [
+        "overlap",
+        "split",
+        "merge",
+        "omission",
+        "loss",
+        "incomparable"
+      ],
+      "type": "string"
+    },
+    "repair_action": {
+      "enum": [
+        "pause",
+        "correct",
+        "revoke",
+        "delete",
+        "restrict",
+        "restore",
+        "release_pause"
+      ],
+      "type": "string"
+    },
+    "repair_status": {
+      "enum": [
+        "not_requested",
+        "pending",
+        "applied",
+        "partially_applied",
+        "impossible",
+        "superseded"
+      ],
+      "type": "string"
+    },
+    "revision_treatment": {
+      "enum": [
+        "authentic",
+        "absent",
+        "placebo",
+        "permuted"
+      ],
+      "type": "string"
+    },
+    "semanticKey": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "transduction_mode": {
+      "enum": [
+        "sonification",
+        "desonification",
+        "resonification",
+        "sonic_transformation",
+        "cross_domain_contrast"
+      ],
+      "type": "string"
+    },
+    "typedReference": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/recordReference"
+        },
+        {
+          "$ref": "#/$defs/externalReference"
+        }
+      ]
+    }
+  },
+  "$id": "https://schemas.qste.invalid/0.3.0/common.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "QSTE 0.3.0 common contracts and exact registries"
+}

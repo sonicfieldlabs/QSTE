@@ -1,0 +1,60 @@
+{
+  "$id": "https://schemas.qste.invalid/0.3.0/records/claim-record.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "allOf": [
+    {
+      "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordBase"
+    },
+    {
+      "properties": {
+        "contract_id": {
+          "const": "qste-contract/0.3.0"
+        },
+        "epistemic_status": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/epistemic_status"
+        },
+        "evidence_basis": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/evidence_basis"
+        },
+        "evidence_refs": {
+          "items": {
+            "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "proposition": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "record_type": {
+          "const": "ClaimRecord"
+        },
+        "schema_id": {
+          "const": "https://schemas.qste.invalid/0.3.0/records/claim-record.schema.json"
+        },
+        "scope": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "subject_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        }
+      },
+      "required": [
+        "proposition",
+        "evidence_basis",
+        "epistemic_status",
+        "scope",
+        "subject_ref",
+        "evidence_refs"
+      ],
+      "type": "object"
+    }
+  ],
+  "patternProperties": {
+    "^[a-z][a-z0-9_-]*:[A-Za-z][A-Za-z0-9_.-]*$": {}
+  },
+  "title": "ClaimRecord",
+  "unevaluatedProperties": false
+}

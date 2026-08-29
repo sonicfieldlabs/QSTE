@@ -1,0 +1,45 @@
+{
+  "ambiguity_rules": {
+    "surviving_optima": "retain_all"
+  },
+  "availability": "withheld",
+  "budget": {
+    "maximum_solutions": 100
+  },
+  "capacities": {
+    "left": 1,
+    "right": 1
+  },
+  "cardinalities": [
+    "one_to_one"
+  ],
+  "cardinality_preference": [
+    "one_to_one",
+    "unmatched"
+  ],
+  "contract_id": "qste-contract/0.3.0",
+  "coverage_threshold": 0.8,
+  "created_at": "2026-08-28T00:00:00Z",
+  "disclosure_status": "private",
+  "effect_tolerance": 0.1,
+  "estimators": {
+    "coverage": "interval",
+    "effect": "interval"
+  },
+  "integrity_status": "unverified",
+  "optimization_tolerance": 1e-09,
+  "primary_objective": "minimum_cost",
+  "producer_role": "executor",
+  "projection_refs": [
+    {
+      "record_id": "qste:projection-spec:44753334-05a5-43e7-a70a-053f452f50d9",
+      "record_type": "ProjectionSpec",
+      "relation": "depends_on"
+    }
+  ],
+  "record_id": "qste:comparison-spec:e59d28d8-b0b1-481b-a996-3afc0f762fef",
+  "record_type": "ComparisonSpec",
+  "references": [],
+  "schema_id": "https://schemas.qste.invalid/0.3.0/records/comparison-spec.schema.json",
+  "unmatched_penalty": 1.0
+}

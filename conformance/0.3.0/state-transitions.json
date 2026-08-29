@@ -1,0 +1,107 @@
+{
+  "appeal_status": {
+    "adjudicated": [
+      "closed"
+    ],
+    "closed": [],
+    "opened": [
+      "under_review",
+      "closed"
+    ],
+    "under_review": [
+      "adjudicated",
+      "closed"
+    ]
+  },
+  "axes_are_independent": [
+    "assessment_status",
+    "dependency_validity",
+    "authorization_status",
+    "appeal_status",
+    "pause_status",
+    "adjudication_outcome",
+    "repair_status"
+  ],
+  "contract_id": "qste-contract/0.3.0",
+  "operation_status": {
+    "completed": {
+      "domain_status_allowed": true,
+      "exit_classes": [
+        0,
+        5
+      ]
+    },
+    "failed": {
+      "exit_classes": [
+        2,
+        7,
+        8,
+        9
+      ],
+      "reasons": [
+        "invalid_input",
+        "invalid_assessment_spec",
+        "invalid_comparison_spec",
+        "execution_failed",
+        "conformance_failed",
+        "internal_error"
+      ]
+    },
+    "partial": {
+      "exit_classes": [
+        6
+      ],
+      "reason": "partial_completion",
+      "requires": [
+        "unresolved_targets"
+      ]
+    },
+    "refused": {
+      "exit_classes": [
+        3
+      ],
+      "reason": "policy_refused"
+    },
+    "unavailable": {
+      "exit_classes": [
+        4
+      ],
+      "reason": "capability_unavailable"
+    }
+  },
+  "pause_status": {
+    "active": [
+      "released"
+    ],
+    "denied": [],
+    "not_requested": [
+      "requested"
+    ],
+    "released": [],
+    "requested": [
+      "active",
+      "denied"
+    ]
+  },
+  "repair_status": {
+    "applied": [
+      "superseded"
+    ],
+    "impossible": [
+      "superseded"
+    ],
+    "not_requested": [
+      "pending",
+      "impossible"
+    ],
+    "partially_applied": [
+      "superseded"
+    ],
+    "pending": [
+      "applied",
+      "partially_applied",
+      "impossible"
+    ],
+    "superseded": []
+  }
+}

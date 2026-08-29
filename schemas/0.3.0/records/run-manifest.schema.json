@@ -1,0 +1,96 @@
+{
+  "$id": "https://schemas.qste.invalid/0.3.0/records/run-manifest.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "allOf": [
+    {
+      "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordBase"
+    },
+    {
+      "properties": {
+        "aperture_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "apparatus_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "artifact_refs": {
+          "items": {
+            "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "budgets": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "contract_id": {
+          "const": "qste-contract/0.3.0"
+        },
+        "corpus_refs": {
+          "items": {
+            "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "event_refs": {
+          "items": {
+            "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "frozen_versions": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "output_refs": {
+          "items": {
+            "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "record_type": {
+          "const": "RunManifest"
+        },
+        "schema_id": {
+          "const": "https://schemas.qste.invalid/0.3.0/records/run-manifest.schema.json"
+        },
+        "seeds": {
+          "items": {
+            "type": "integer"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "spec_refs": {
+          "items": {
+            "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+          },
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "required": [
+        "apparatus_ref",
+        "aperture_ref",
+        "corpus_refs",
+        "spec_refs",
+        "budgets",
+        "seeds",
+        "event_refs",
+        "artifact_refs",
+        "output_refs",
+        "frozen_versions"
+      ],
+      "type": "object"
+    }
+  ],
+  "patternProperties": {
+    "^[a-z][a-z0-9_-]*:[A-Za-z][A-Za-z0-9_.-]*$": {}
+  },
+  "title": "RunManifest",
+  "unevaluatedProperties": false
+}

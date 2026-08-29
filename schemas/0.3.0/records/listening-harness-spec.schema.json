@@ -1,0 +1,70 @@
+{
+  "$id": "https://schemas.qste.invalid/0.3.0/records/listening-harness-spec.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "allOf": [
+    {
+      "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordBase"
+    },
+    {
+      "properties": {
+        "action_surface": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "authority_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "contract_id": {
+          "const": "qste-contract/0.3.0"
+        },
+        "executor": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "permissions": {
+          "items": {},
+          "minItems": 1,
+          "type": "array"
+        },
+        "record_refs": {
+          "items": {
+            "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "record_type": {
+          "const": "ListeningHarnessSpec"
+        },
+        "refusals": {
+          "items": {},
+          "minItems": 1,
+          "type": "array"
+        },
+        "routes": {
+          "items": {},
+          "minItems": 1,
+          "type": "array"
+        },
+        "schema_id": {
+          "const": "https://schemas.qste.invalid/0.3.0/records/listening-harness-spec.schema.json"
+        }
+      },
+      "required": [
+        "record_refs",
+        "routes",
+        "permissions",
+        "refusals",
+        "authority_ref",
+        "executor",
+        "action_surface"
+      ],
+      "type": "object"
+    }
+  ],
+  "patternProperties": {
+    "^[a-z][a-z0-9_-]*:[A-Za-z][A-Za-z0-9_.-]*$": {}
+  },
+  "title": "ListeningHarnessSpec",
+  "unevaluatedProperties": false
+}

@@ -1,0 +1,11 @@
+{
+  "creative_consequence": "not_assessed",
+  "empirical_or_causal_research_outcome": false,
+  "external_execution": false,
+  "fixture_set_id": "qste-agent-harness-fixtures/0.1",
+  "model_execution": false,
+  "payload_levels": ["ordinary", "formation_only", "full_assessment"],
+  "playback": false,
+  "shadow_fixture_authorization": ["synthetic", "fully_authorized"],
+  "treatments": ["authentic", "absent", "placebo", "permuted"]
+}

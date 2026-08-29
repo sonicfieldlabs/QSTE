@@ -1,0 +1,32 @@
+{
+  "actor": "local_executor",
+  "authorization_status": "permitted",
+  "contract_id": "qste-contract/0.3.0",
+  "created_at": "2026-08-28T00:00:00Z",
+  "disclosure_status": "private",
+  "inputs": [
+    "qste:claim-record:d9511bf4-6cc7-497b-bf40-e1200ee1de86"
+  ],
+  "integrity_status": "unverified",
+  "operation_status": "completed",
+  "outputs": [
+    "qste:claim-record:2749e163-23bb-4ec7-b32b-6f7c31974d53"
+  ],
+  "parameters": {
+    "strict": true
+  },
+  "producer_role": "executor",
+  "record_id": "qste:operation-receipt:bfc5c3be-3139-4404-afb8-f69aab7306b6",
+  "record_type": "OperationReceipt",
+  "references": [],
+  "request_ref": {
+    "record_id": "qste:claim-record:cde03008-cc61-4055-be49-5fab8a7c0ed3",
+    "record_type": "ClaimRecord",
+    "relation": "depends_on"
+  },
+  "schema_id": "https://schemas.qste.invalid/0.3.0/records/operation-receipt.schema.json",
+  "tool": {
+    "id": "qste-validator",
+    "version": "0.3.0"
+  }
+}

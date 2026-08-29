@@ -1,0 +1,22 @@
+{
+  "fixture_set_id": "qste-dsq-fixtures/0.1",
+  "generated_test_classes": [
+    "qualified",
+    "candidate_rejected",
+    "proper_node_rejected",
+    "candidate_boundary",
+    "proper_node_boundary",
+    "closure_unavailable",
+    "empty_proper_set",
+    "uncertainty_unavailable",
+    "budget_exhausted",
+    "calibration_unavailable",
+    "artifact_control_failed",
+    "required_evidence_unavailable",
+    "dependency_invalid",
+    "nonmonotone_and_synergy",
+    "stochastic_replay",
+    "invalid_specification"
+  ],
+  "static_files": ["assessment-vectors.json"]
+}

@@ -1,0 +1,30 @@
+{
+  "availability": "withheld",
+  "contract_id": "qste-contract/0.3.0",
+  "created_at": "2026-08-28T00:00:00Z",
+  "disclosure_status": "private",
+  "epistemic_status": "derived",
+  "evidence_basis": "instrumentally_derived",
+  "evidence_refs": [
+    {
+      "record_id": "qste:observation-record:0dfee0ae-3717-45e4-bdb1-3127965b6218",
+      "record_type": "ObservationRecord",
+      "relation": "depends_on"
+    }
+  ],
+  "integrity_status": "unverified",
+  "producer_role": "executor",
+  "proposition": "fixture proposition",
+  "record_id": "qste:claim-record:d9511bf4-6cc7-497b-bf40-e1200ee1de86",
+  "record_type": "ClaimRecord",
+  "references": [],
+  "schema_id": "https://schemas.qste.invalid/0.3.0/records/claim-record.schema.json",
+  "scope": {
+    "kind": "fixture_only"
+  },
+  "subject_ref": {
+    "record_id": "qste:artifact-record:c4d4807b-cb54-412a-a618-70a328289480",
+    "record_type": "ArtifactRecord",
+    "relation": "depends_on"
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "aperture_ref": {
+    "record_id": "qste:aperture-spec:29cdffc6-5b8c-4beb-b297-4d6c9602a739",
+    "record_type": "ApertureSpec",
+    "relation": "depends_on"
+  },
+  "apparatus_ref": {
+    "record_id": "qste:apparatus-spec:8c1b9703-e262-46fc-b665-842aff91a5c7",
+    "record_type": "ApparatusSpec",
+    "relation": "depends_on"
+  },
+  "artifact_control_results": {
+    "passed": true
+  },
+  "assessment_identity": {
+    "candidate_semantic_key": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "procedure": "refinement/1",
+    "task": "task/1"
+  },
+  "assessment_status": "qualified",
+  "assessor": "fixture-validator",
+  "authorization_status": "permitted",
+  "candidate_interval": {
+    "lower": 0.6,
+    "units": "normalized_score",
+    "upper": 0.9
+  },
+  "candidate_ref": {
+    "record_id": "qste:candidate-unit:d8c6c391-0c75-46ac-8c22-35273073bd8f",
+    "record_type": "CandidateUnit",
+    "relation": "depends_on"
+  },
+  "candidate_semantic_key": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "closure_certificate": {
+    "complete": true,
+    "nonempty": true
+  },
+  "comparison_operators": {
+    "equivalent": "within",
+    "meaningful": ">"
+  },
+  "contract_id": "qste-contract/0.3.0",
+  "created_at": "2026-08-28T00:00:00Z",
+  "dependency_validity": "valid",
+  "disclosure_status": "private",
+  "equivalence_region": {
+    "epsilon_minus": 0.1,
+    "epsilon_plus": 0.1,
+    "units": "normalized_score"
+  },
+  "evidence_refs": [
+    {
+      "record_id": "qste:observation-record:0dfee0ae-3717-45e4-bdb1-3127965b6218",
+      "record_type": "ObservationRecord",
+      "relation": "depends_on"
+    }
+  ],
+  "integrity_status": "unverified",
+  "interaction_annotations": [
+    "none"
+  ],
+  "intervention_ref": {
+    "record_id": "qste:intervention-spec:75bd02f6-c6dd-461c-9e66-a0fe18ed8aac",
+    "record_type": "InterventionSpec",
+    "relation": "depends_on"
+  },
+  "meaningful_bound": 0.5,
+  "multiplicity_evidence": {
+    "adjusted": true
+  },
+  "native_address": {
+    "index": 0
+  },
+  "negative_evidence_valid": true,
+  "oriented_effects": [
+    0.8,
+    0.7
+  ],
+  "producer_role": "executor",
+  "proper_node_intervals": [
+    {
+      "lower": -0.05,
+      "node": "proper-1",
+      "units": "normalized_score",
+      "upper": 0.05
+    }
+  ],
+  "qualification_ready": true,
+  "raw_effects": [
+    0.8,
+    0.7
+  ],
+  "reason_code": "meaningful_closed_equivalent",
+  "receipt_refs": [
+    {
+      "record_id": "qste:operation-receipt:79f3bda9-21d1-4293-84bd-fb8f053c31ab",
+      "record_type": "OperationReceipt",
+      "relation": "depends_on"
+    }
+  ],
+  "record_id": "qste:dsq-assessment:e6b10086-7b8b-4eb2-9174-f31a7a6134b8",
+  "record_type": "DSQAssessment",
+  "references": [],
+  "refinement_graph_ref": {
+    "record_id": "qste:refinement-graph:eca66868-5890-4162-bfd3-26f917d72bfa",
+    "record_type": "RefinementGraph",
+    "relation": "depends_on"
+  },
+  "representation_family_ref": {
+    "record_id": "qste:representation-family-spec:c687f0d7-7e0e-416a-96d1-4ed7e0b90797",
+    "record_type": "RepresentationFamilySpec",
+    "relation": "depends_on"
+  },
+  "representation_instance_ref": {
+    "record_id": "qste:representation-instance:1b6cb0c6-d9af-4c79-aecf-e1e331f119a6",
+    "record_type": "RepresentationInstance",
+    "relation": "depends_on"
+  },
+  "schema_id": "https://schemas.qste.invalid/0.3.0/records/dsq-assessment.schema.json",
+  "selection_evidence": {
+    "held_out": true
+  },
+  "semantic_key": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+  "task_ref": {
+    "record_id": "qste:task-spec:3ec84c42-b04b-4fc7-acec-e3354639b563",
+    "record_type": "TaskSpec",
+    "relation": "depends_on"
+  },
+  "tested_proper_nodes": [
+    "proper-1"
+  ],
+  "versions": {
+    "contract": "qste-contract/0.3.0"
+  },
+  "well_formed": true
+}

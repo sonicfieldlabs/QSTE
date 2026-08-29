@@ -1,0 +1,19 @@
+{
+  "execution_boundary": {
+    "external_execution": false,
+    "model_execution": false,
+    "prompt_authority": false,
+    "research_outcome": false
+  },
+  "fixture_profile": "qste-agent-executor-fixtures/0.1",
+  "fixtures": [
+    {"executor_class": "human", "implementation_status": "human_fixture"},
+    {"executor_class": "frozen_algorithm", "implementation_status": "deterministic_fixture"},
+    {"executor_class": "adaptive_algorithm", "implementation_status": "deterministic_fixture"},
+    {"executor_class": "symbolic_controller", "implementation_status": "deterministic_fixture"},
+    {"executor_class": "learned_controller", "implementation_status": "interface_fixture_no_model"},
+    {"executor_class": "revising_controller", "implementation_status": "deterministic_fixture"},
+    {"executor_class": "hybrid_procedure", "implementation_status": "deterministic_fixture"}
+  ],
+  "implementer_class_decisive": false
+}

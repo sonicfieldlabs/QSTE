@@ -1,0 +1,235 @@
+{
+  "$id": "https://schemas.qste.invalid/0.3.0/operation-result.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "operation_status": {
+            "const": "partial"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "unresolved_targets",
+          "partial_contract_id"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "operation_status": {
+            "enum": [
+              "refused",
+              "unavailable",
+              "failed"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "value": {
+            "type": "null"
+          }
+        }
+      }
+    }
+  ],
+  "properties": {
+    "authorization_status": {
+      "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/authorization_status"
+    },
+    "capability_status": {
+      "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/capability_status"
+    },
+    "cli_exit_class": {
+      "enum": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "type": "integer"
+    },
+    "contract_id": {
+      "const": "qste-contract/0.3.0"
+    },
+    "diagnostics": {
+      "maxProperties": 32,
+      "type": "object"
+    },
+    "domain_status": {
+      "additionalProperties": false,
+      "maxProperties": 1,
+      "minProperties": 1,
+      "properties": {
+        "assessment_status": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/assessment_status"
+        },
+        "comparison_status": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/comparison_status"
+        },
+        "repair_status": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/repair_status"
+        }
+      },
+      "type": "object"
+    },
+    "operation": {
+      "pattern": "^qste:[a-z][a-z0-9_.-]*/[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "type": "string"
+    },
+    "operation_status": {
+      "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/operation_status"
+    },
+    "partial_contract_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "reason_code": {
+      "enum": [
+        "appeal_withdrawn",
+        "artifact_control_failed",
+        "authority_unresolved",
+        "budget_exhausted",
+        "calibration_unavailable",
+        "candidate_boundary_crossing",
+        "candidate_nonmeaningful",
+        "capability_unavailable",
+        "closure_unavailable",
+        "comparison_capability_unavailable",
+        "completed",
+        "conformance_failed",
+        "coverage_boundary_crossing",
+        "coverage_failed",
+        "decomposition_ambiguity",
+        "effect_boundary_crossing",
+        "effect_incompatible",
+        "eligible_evidence_incomplete",
+        "empty_proper_set",
+        "execution_failed",
+        "external_copy_out_of_scope",
+        "fidelity_failed",
+        "internal_error",
+        "invalid_assessment_spec",
+        "invalid_comparison_spec",
+        "invalid_input",
+        "jurisdiction_declined",
+        "matched_merge",
+        "matched_overlap",
+        "matched_split",
+        "matching_budget_exhausted",
+        "meaningful_closed_equivalent",
+        "partial_completion",
+        "pause_risk_threshold_met",
+        "pause_risk_threshold_not_met",
+        "policy_refused",
+        "projection_invalid",
+        "proper_node_boundary_crossing",
+        "proper_node_nonequivalent",
+        "repair_completed",
+        "repair_not_feasible",
+        "repair_partially_completed",
+        "requested_remedy_denied",
+        "requested_remedy_partial",
+        "requested_remedy_upheld",
+        "required_evidence_unavailable",
+        "retention_duty_blocks_deletion",
+        "standing_denied",
+        "standing_unverified",
+        "structural_matching_ambiguity",
+        "superseded_by_successor_case",
+        "target_address_absent",
+        "uncertainty_contract_missing",
+        "unmatched_by_spec",
+        "zero_footprint_undefined"
+      ],
+      "type": "string"
+    },
+    "receipt_id": {
+      "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordId"
+    },
+    "unresolved_targets": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "value": {},
+    "value_type": {
+      "enum": [
+        "https://schemas.qste.invalid/0.3.0/records/acquisition-event.schema.json",
+        "https://schemas.qste.invalid/0.3.0/records/source-record.schema.json",
+        "https://schemas.qste.invalid/0.3.0/records/artifact-record.schema.json",
+        "https://schemas.qste.invalid/0.3.0/records/observation-record.schema.json",
+        "https://schemas.qste.invalid/0.3.0/records/apparatus-spec.schema.json",
+        "https://schemas.qste.invalid/0.3.0/records/aperture-spec.schema.json",
+        "https://schemas.qste.invalid/0.3.0/records/representation-family-spec.schema.json",
+        "https://schemas.qste.invalid/0.3.0/records/representation-spec.schema.json",
+        "https://schemas.qste.invalid/0.3.0/records/representation-instance.schema.json",
+        "https://schemas.qste.invalid/0.3.0/records/candidate-unit.schema.json",
+        "https://schemas.qste.invalid/0.3.0/records/intervention-spec.schema.json",
+        "https://schemas.qste.invalid/0.3.0/records/task-spec.schema.json",
+        "https://schemas.qste.invalid/0.3.0/records/refinement-graph.schema.json",
+        "https://schemas.qste.invalid/0.3.0/records/dsq-assessment.schema.json",
+        "https://schemas.qste.invalid/0.3.0/records/projection-spec.schema.json",
+        "https://schemas.qste.invalid/0.3.0/records/comparison-spec.schema.json",
+        "https://schemas.qste.invalid/0.3.0/records/relation-assertion.schema.json",
+        "https://schemas.qste.invalid/0.3.0/records/mapping-spec.schema.json",
+        "https://schemas.qste.invalid/0.3.0/records/listening-harness-spec.schema.json",
+        "https://schemas.qste.invalid/0.3.0/records/governance-boundary.schema.json",
+        "https://schemas.qste.invalid/0.3.0/records/revision-opportunity.schema.json",
+        "https://schemas.qste.invalid/0.3.0/records/successor-spec.schema.json",
+        "https://schemas.qste.invalid/0.3.0/records/decision-event.schema.json",
+        "https://schemas.qste.invalid/0.3.0/records/appeal-case.schema.json",
+        "https://schemas.qste.invalid/0.3.0/records/repair-action.schema.json",
+        "https://schemas.qste.invalid/0.3.0/records/repair-receipt.schema.json",
+        "https://schemas.qste.invalid/0.3.0/records/operation-receipt.schema.json",
+        "https://schemas.qste.invalid/0.3.0/records/listening-account.schema.json",
+        "https://schemas.qste.invalid/0.3.0/records/claim-record.schema.json",
+        "https://schemas.qste.invalid/0.3.0/records/authority-manifest.schema.json",
+        "https://schemas.qste.invalid/0.3.0/records/run-manifest.schema.json",
+        "qste-payload/0.3.0/AddressabilityResult",
+        "qste-payload/0.3.0/AdjudicationDecision",
+        "qste-payload/0.3.0/CandidateSet",
+        "qste-payload/0.3.0/CapabilityAccount",
+        "qste-payload/0.3.0/IntervenedState",
+        "qste-payload/0.3.0/NativeMeasure",
+        "qste-payload/0.3.0/ObservationSet",
+        "qste-payload/0.3.0/ProjectedFootprint",
+        "qste-payload/0.3.0/RelationSet",
+        "qste-payload/0.3.0/RepairPropagation",
+        "qste-payload/0.3.0/RevisionOutcome",
+        "qste-payload/0.3.0/SupportEstimate",
+        "qste-payload/0.3.0/TargetClosure",
+        "https://schemas.qste.invalid/0.3.0/bundle-manifest.schema.json"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "contract_id",
+    "operation",
+    "value_type",
+    "operation_status",
+    "value",
+    "reason_code",
+    "authorization_status",
+    "capability_status",
+    "receipt_id",
+    "diagnostics",
+    "cli_exit_class"
+  ],
+  "title": "OperationResult<T>",
+  "type": "object"
+}

@@ -1,0 +1,129 @@
+{
+  "profile_id": "qste-compatibility-target-manifest/0.1",
+  "profile_name": "CompatibilityTargetManifest",
+  "core_record_type": "AuthorityManifest",
+  "created_at": "2026-08-29T00:30:00Z",
+  "platform": {
+    "operating_system": "macOS 26.5.2",
+    "architecture": "arm64",
+    "python": "3.12.13"
+  },
+  "adapter_commit": "ff4f483fa391dc647db788019d834a0e4fee3e4a",
+  "adapter_profile": "qste-ecosystem-adapter/v0.1",
+  "engine_profile": "qste-bounded-engine-adapter/v0.1",
+  "passed_profile": "qste-ecosystem-engine-conformance/0.1",
+  "targets": [
+    {
+      "target_id": "masa",
+      "name": "MASA",
+      "version": "0.2.0",
+      "revision": "a967339d77cb7adfb977061e6f3299ff27e55619",
+      "license": "MIT",
+      "contracts": ["https://masa.sonicfield.org/schemas/0.2.0/matter-record.schema.json"],
+      "fixture_path": "fixtures/ecosystem-adapters/0.1/masa-record.json",
+      "fixture_sha256": "34614caa7e9486433412fd5d89cca3d70174df9fe2980f442ac0e124d324e001",
+      "schema_paths": [
+        "profiles/adapters/ecosystem/0.1/frozen-schemas/masa-matter-record.schema.json",
+        "profiles/adapters/ecosystem/0.1/frozen-schemas/masa-definitions.schema.json",
+        "profiles/adapters/ecosystem/0.1/frozen-schemas/masa-capability.schema.json"
+      ],
+      "schema_sha256": [
+        "6d6d0e7fbd76f5171400f4cd6e91a468fb06e1f60d295e5aa2ee9ac6f84c3cb1",
+        "ff86332f09e8f687214fab83d20c18741a1b585ab11dc5928ba64bbe550afded",
+        "68971c285bff1fc08cb2b661b98d3630dfb39a4f0c4bfb60bdfee9985295972a"
+      ],
+      "capabilities": {"import": "available", "project": "available", "inspect": "available", "live_loopback": "untested"}
+    },
+    {
+      "target_id": "cosmoaudition",
+      "name": "Cosmoaudition",
+      "version": "0.2.0",
+      "revision": "d56e76a2be7b3385fc3b0ce5a9f3b307f502b4f6",
+      "license": "MIT",
+      "contracts": ["cosmo/modulation/v0.2", "cosmo/signal-catalog/v0.2"],
+      "fixture_path": "fixtures/ecosystem-adapters/0.1/cosmo-frame.json",
+      "fixture_sha256": "fda7e5cb88a914445058e1d53e022cb6d6958939b2e9ad3f2927a461511fb172",
+      "schema_paths": ["profiles/adapters/ecosystem/0.1/frozen-schemas/cosmo-modulation-contract.json"],
+      "schema_sha256": ["4897ea65497c1918f4e18448bf772a9654555840ab9726ea260042111e176686"],
+      "capabilities": {"import": "available", "project": "unavailable", "inspect": "available", "live_loopback": "untested"}
+    },
+    {
+      "target_id": "akouo",
+      "name": "AKOÚŌ",
+      "version": "0.9.2",
+      "revision": "d3c0405279ae00e3b6e1ebc46136aefa0889ab7a",
+      "license": "MIT",
+      "contracts": ["https://akouo.dev/schemas/route-decision.schema.json", "akouo/v0.9"],
+      "fixture_path": "fixtures/ecosystem-adapters/0.1/akouo-route-decision.json",
+      "fixture_sha256": "3862a948454ee92c8e6608f82c1d7aed9c3a9fc6a9d839c677b285fa803836e3",
+      "schema_paths": ["profiles/adapters/ecosystem/0.1/frozen-schemas/akouo-route-decision.schema.json"],
+      "schema_sha256": ["8db3525aec171b178067cee8b7b0d5da401ce609632e85e88bba6191f08f2ed5"],
+      "capabilities": {"import": "available", "project": "unavailable", "inspect": "available", "live_loopback": "untested"}
+    },
+    {
+      "target_id": "oida",
+      "name": "Oída",
+      "version": "0.10.0",
+      "revision": "c595c22e373589c6d0ef244f7d8f38af6b2c30dd",
+      "license": "Apache-2.0",
+      "contracts": ["https://oida.local/schemas/perception-report.schema.json"],
+      "fixture_path": "fixtures/ecosystem-adapters/0.1/oida-perception-report.json",
+      "fixture_sha256": "c2a1f74ac23e86a790b65924f75189876dee835f7de63390edbe1c0aa2a05989",
+      "schema_paths": ["profiles/adapters/ecosystem/0.1/frozen-schemas/oida-perception-report.schema.json"],
+      "schema_sha256": ["82cb0d941ba2be2da3042a7f8116a17cf07139eabcba8bb4fdd435da505536f8"],
+      "capabilities": {"import": "available", "project": "unavailable", "inspect": "available", "live_loopback": "untested"}
+    },
+    {
+      "target_id": "earworm",
+      "name": "Earworm",
+      "version": "0.7.0",
+      "revision": "c130fa61423517a0cc2ca8071124537978fad825",
+      "license": "MPL-2.0",
+      "contracts": ["https://earworm.dev/schemas/akousma.schema.json", "earworm/auditum/v2"],
+      "fixture_path": "fixtures/ecosystem-adapters/0.1/earworm-akousma.json",
+      "fixture_sha256": "5eee758d0bddac1c60528487915436fb05e22a70501a89533dbc579464077aa9",
+      "schema_paths": ["profiles/adapters/ecosystem/0.1/frozen-schemas/earworm-akousma.schema.json"],
+      "schema_sha256": ["51995523590ec5a30161e4dc55b9a45a5c863aff2c8b6da000dd631ccd57f46f"],
+      "capabilities": {"import": "available", "project": "available", "inspect": "available", "live_loopback": "untested"}
+    },
+    {
+      "target_id": "akousmata",
+      "name": "Akousmata",
+      "version": "0.7.0",
+      "revision": "838029d80360e04a01149437f30610503fd66794",
+      "license": "MIT",
+      "contracts": ["akousmata/v0.7", "https://earworm.dev/schemas/akousma.schema.json"],
+      "fixture_path": "fixtures/ecosystem-adapters/0.1/earworm-akousma.json",
+      "fixture_sha256": "5eee758d0bddac1c60528487915436fb05e22a70501a89533dbc579464077aa9",
+      "schema_paths": ["profiles/adapters/ecosystem/0.1/frozen-schemas/earworm-akousma.schema.json"],
+      "schema_sha256": ["51995523590ec5a30161e4dc55b9a45a5c863aff2c8b6da000dd631ccd57f46f"],
+      "capabilities": {"import": "unavailable", "project": "unavailable", "inspect": "available", "live_loopback": "untested"}
+    },
+    {
+      "target_id": "listening_stack",
+      "name": "Listening Stack",
+      "version": "0.4.1",
+      "revision": "c0b91588c8fb7da0becf16a32809af9024fefb77",
+      "license": "Apache-2.0",
+      "contracts": ["qste-listening-stack-read-only-snapshot/0.1"],
+      "fixture_path": "fixtures/ecosystem-adapters/0.1/listening-stack-metadata.json",
+      "fixture_sha256": "16bb8fa57e519b2fb1ee71a42e857443849041fb82e7b60f96a901c98bf6408f",
+      "schema_paths": [],
+      "schema_sha256": [],
+      "capabilities": {"import": "unavailable", "project": "unavailable", "inspect": "available", "live_loopback": "untested"}
+    }
+  ],
+  "engine_targets": [
+    {"target_id": "pure_data", "probe": "pd", "version": null, "capability_status": "unavailable", "reason": "not_installed"},
+    {"target_id": "max_msp", "probe": "/Applications/Max.app", "version": null, "capability_status": "unavailable", "reason": "not_installed"},
+    {"target_id": "supercollider", "probe": "scsynth", "version": null, "capability_status": "unavailable", "reason": "not_installed"},
+    {"target_id": "csound", "probe": "csound", "version": null, "capability_status": "unavailable", "reason": "not_installed"},
+    {"target_id": "qste_fixture_process", "probe": "packaged_fixture_program", "version": "0.1", "capability_status": "available", "reason": "synthetic_conformance_only"},
+    {"target_id": "qste_fixture_osc_loopback", "probe": "127.0.0.1_ephemeral_udp", "version": "0.1", "capability_status": "available", "reason": "synthetic_conformance_only"},
+    {"target_id": "required_untested_fixture", "probe": "none", "version": null, "capability_status": "untested", "reason": "conformance_status_fixture"},
+    {"target_id": "prohibited_fixture", "probe": "none", "version": null, "capability_status": "prohibited", "reason": "conformance_status_fixture"}
+  ],
+  "live_external_execution": false,
+  "adjacent_checkout_write": false,
+  "structural_validity_is_interoperability": false
+}

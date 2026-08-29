@@ -1,0 +1,36 @@
+{
+  "contract_id": "qste-contract/0.3.0",
+  "controls": [
+    "resynthesis",
+    "off_target",
+    "alternate_intervention"
+  ],
+  "created_at": "2026-08-28T00:00:00Z",
+  "disclosure_status": "private",
+  "ext:futureField": {
+    "opaque": [
+      1,
+      2,
+      3
+    ]
+  },
+  "integrity_status": "unverified",
+  "native_operation": {
+    "operation": "replace"
+  },
+  "operator_family": "native_mask",
+  "producer_role": "executor",
+  "random_source": {
+    "seed": 7
+  },
+  "record_id": "qste:intervention-spec:a11069a2-596c-4003-b4e3-97bbce79dc14",
+  "record_type": "InterventionSpec",
+  "reference_distribution": {
+    "kind": "zero"
+  },
+  "references": [],
+  "renderer_or_decoder": {
+    "id": "renderer/1"
+  },
+  "schema_id": "https://schemas.qste.invalid/0.3.0/records/intervention-spec.schema.json"
+}

@@ -1,0 +1,20 @@
+{
+  "fixture_set_id": "qste-ecosystem-engine-fixtures/0.1",
+  "compatibility_profile": "qste-compatibility-target-manifest/0.1",
+  "fixtures": [
+    {"path": "akouo-route-decision.json", "sha256": "3862a948454ee92c8e6608f82c1d7aed9c3a9fc6a9d839c677b285fa803836e3"},
+    {"path": "cosmo-frame.json", "sha256": "fda7e5cb88a914445058e1d53e022cb6d6958939b2e9ad3f2927a461511fb172"},
+    {"path": "earworm-akousma.json", "sha256": "5eee758d0bddac1c60528487915436fb05e22a70501a89533dbc579464077aa9"},
+    {"path": "engine-loopback-request.json", "sha256": "461dc50901438544d69745ddd90166757e0d462af9d65d25af3a4efcb1ccc3af"},
+    {"path": "engine-process-request.json", "sha256": "359d3a3810763edcd42eaae163370613e61190bc59162a6301a31584d08ccd5f"},
+    {"path": "listening-stack-metadata.json", "sha256": "16bb8fa57e519b2fb1ee71a42e857443849041fb82e7b60f96a901c98bf6408f"},
+    {"path": "masa-record.json", "sha256": "34614caa7e9486433412fd5d89cca3d70174df9fe2980f442ac0e124d324e001"},
+    {"path": "oida-perception-report.json", "sha256": "c2a1f74ac23e86a790b65924f75189876dee835f7de63390edbe1c0aa2a05989"}
+  ],
+  "external_execution": false,
+  "external_network": false,
+  "adjacent_checkout_write": false,
+  "playback": false,
+  "model_execution": false,
+  "human_data": false
+}

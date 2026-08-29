@@ -1,0 +1,14 @@
+{
+  "audio_fixture": {
+    "generation": "mono sine, 1000 Hz, 4800 frames, 48000 Hz, PCM_16",
+    "materialization": "generated in a temporary directory by test_p4_audio_aperture.py"
+  },
+  "fixture_set_id": "qste-ingress-fixtures/0.1",
+  "files": [
+    "numerical-observations.valid.json",
+    "numerical-observations.valid.csv",
+    "model-observations.valid.json",
+    "hostile-text.valid.txt"
+  ],
+  "network_required": false
+}

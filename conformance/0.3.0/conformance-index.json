@@ -1,0 +1,35 @@
+{
+  "contract_id": "qste-contract/0.3.0",
+  "files": [
+    {
+      "path": "conformance/0.3.0/conformance-profile.json",
+      "sha256": "673d72ad11867fd3e0ffe20241f43c01fd4506b6f7a50c2682318ae17ad20175"
+    },
+    {
+      "path": "conformance/0.3.0/controlled-vocabularies.json",
+      "sha256": "c218cfc650bc46643ae48ee2d4ba554c74e5af327d6e798cb7100302a79a99d9"
+    },
+    {
+      "path": "conformance/0.3.0/entity-coverage.json",
+      "sha256": "b877913491c8c224d1e04b1f2157758ef14284d3d1b7966f819e152d44628767"
+    },
+    {
+      "path": "conformance/0.3.0/obligation-coverage.json",
+      "sha256": "3d8a29d91e774fc29e265c8513ef028ef2b4de81dbaf5636f4063300a916e973"
+    },
+    {
+      "path": "conformance/0.3.0/reader-writer-profile.json",
+      "sha256": "9f555125ed1dbafc15a5b66b0ae4e52f79ec4438a82e368fa53b298808ece8f4"
+    },
+    {
+      "path": "conformance/0.3.0/state-transitions.json",
+      "sha256": "869063c56b92f40476703b0d21ddd4c565fafce3905133b5033b5537adfe227b"
+    },
+    {
+      "path": "fixtures/schema/0.3.0/fixture-manifest.json",
+      "sha256": "0b44c717087d3d176a08654d1edb990b7600a893889d0f4fba3a9102f8e3a2fc"
+    }
+  ],
+  "id": "qste-conformance/0.3.0",
+  "schema_set_id": "qste-schema/0.3.0"
+}

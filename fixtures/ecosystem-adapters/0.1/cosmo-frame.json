@@ -1,0 +1,80 @@
+{
+  "contract": "cosmo/modulation/v0.2",
+  "frameId": "cosmo-frame-qste-p11-fixture",
+  "generatedAt": "2026-08-28T12:00:00Z",
+  "acquisitionMode": "fixture",
+  "signalCatalog": {
+    "contract": "cosmo/signal-catalog/v0.2",
+    "version": "0.2.0",
+    "href": "/api/signals"
+  },
+  "signals": [
+    {
+      "id": "carbon_intensity_actual",
+      "label": "Carbon intensity actual",
+      "layer": "earth",
+      "unit": "gCO2/kWh",
+      "value": 150.0,
+      "normalized": 0.3,
+      "timestamp": "2026-08-28T12:00:00Z",
+      "sourceId": "carbon_intensity_gb",
+      "confidence": "high",
+      "staleAfterSeconds": 600,
+      "sphere": "earth",
+      "epistemicStatus": "reported",
+      "temporalCharacter": "observation",
+      "signalKind": "observation",
+      "normalization": {
+        "method": "linear",
+        "inputRange": [0, 500],
+        "outputRange": [0, 1],
+        "clipping": "clamp",
+        "basis": "Authored operational envelope; not a physical bound."
+      }
+    }
+  ],
+  "controls": [
+    {
+      "mappingId": "carbon-intensity-to-filter-cutoff",
+      "signalId": "carbon_intensity_actual",
+      "target": "carbon_drone_filter_cutoff_hz",
+      "layer": "earth",
+      "status": "applied",
+      "reason": "fixture_mapping_applied",
+      "inputValue": 150.0,
+      "normalizedInput": 0.3,
+      "rawNormalizedInput": 0.3,
+      "mappingAmount": 1.0,
+      "outputValue": 790.0,
+      "outputRange": [400, 1700],
+      "curve": "linear",
+      "smoothingMs": 250,
+      "missingData": "skip",
+      "confidence": "high",
+      "epistemicNote": "A scheduled control is not evidence that sound was produced or heard."
+    }
+  ],
+  "absences": [],
+  "attribution": [
+    {
+      "sourceId": "carbon_intensity_gb",
+      "label": "Carbon intensity GB",
+      "provider": "National Grid ESO",
+      "licenseNote": "Fixture attribution retained from the frozen contract target.",
+      "limitation": "Fixture values do not establish current provider state.",
+      "originalAcquisitionMode": "fixture"
+    }
+  ],
+  "sources": [
+    {
+      "sourceId": "carbon_intensity_gb",
+      "status": "ready",
+      "confidence": "high",
+      "fetchedAt": "2026-08-28T12:00:00Z",
+      "staleAfterSeconds": 600
+    }
+  ],
+  "values": {
+    "carbon_drone_filter_cutoff_hz": 790.0
+  }
+}

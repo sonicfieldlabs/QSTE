@@ -1,0 +1,175 @@
+{
+  "contract_id": "qste-contract/0.3.0",
+  "obligations": [
+    {
+      "behavior_available": true,
+      "behavior_first_phase": "P2",
+      "number": 1,
+      "p2_status": "schema_and_semantic_enforced"
+    },
+    {
+      "behavior_available": true,
+      "behavior_first_phase": "P2",
+      "number": 2,
+      "p2_status": "schema_and_semantic_enforced"
+    },
+    {
+      "behavior_available": true,
+      "behavior_first_phase": "P2",
+      "number": 3,
+      "p2_status": "schema_and_semantic_enforced"
+    },
+    {
+      "behavior_available": true,
+      "behavior_first_phase": "P2",
+      "number": 4,
+      "p2_status": "schema_and_semantic_enforced"
+    },
+    {
+      "behavior_available": true,
+      "behavior_first_phase": "P2",
+      "number": 5,
+      "p2_status": "schema_and_semantic_enforced"
+    },
+    {
+      "behavior_available": true,
+      "behavior_first_phase": "P2",
+      "number": 6,
+      "p2_status": "schema_and_semantic_enforced"
+    },
+    {
+      "behavior_available": true,
+      "behavior_first_phase": "P2",
+      "number": 7,
+      "p2_status": "schema_and_semantic_enforced"
+    },
+    {
+      "behavior_available": true,
+      "behavior_first_phase": "P2",
+      "number": 8,
+      "p2_status": "schema_and_semantic_enforced"
+    },
+    {
+      "behavior_available": false,
+      "behavior_first_phase": "P6",
+      "number": 9,
+      "p2_status": "schema_surface_only"
+    },
+    {
+      "behavior_available": false,
+      "behavior_first_phase": "P6",
+      "number": 10,
+      "p2_status": "schema_surface_only"
+    },
+    {
+      "behavior_available": false,
+      "behavior_first_phase": "P6",
+      "number": 11,
+      "p2_status": "schema_surface_only"
+    },
+    {
+      "behavior_available": true,
+      "behavior_first_phase": "P2",
+      "number": 12,
+      "p2_status": "schema_and_semantic_enforced"
+    },
+    {
+      "behavior_available": true,
+      "behavior_first_phase": "P2",
+      "number": 13,
+      "p2_status": "schema_and_semantic_enforced"
+    },
+    {
+      "behavior_available": false,
+      "behavior_first_phase": "P7",
+      "number": 14,
+      "p2_status": "schema_surface_only"
+    },
+    {
+      "behavior_available": true,
+      "behavior_first_phase": "P2",
+      "number": 15,
+      "p2_status": "schema_and_semantic_enforced"
+    },
+    {
+      "behavior_available": false,
+      "behavior_first_phase": "P7",
+      "number": 16,
+      "p2_status": "schema_surface_only"
+    },
+    {
+      "behavior_available": false,
+      "behavior_first_phase": "P7",
+      "number": 17,
+      "p2_status": "schema_surface_only"
+    },
+    {
+      "behavior_available": false,
+      "behavior_first_phase": "P7",
+      "number": 18,
+      "p2_status": "schema_surface_only"
+    },
+    {
+      "behavior_available": false,
+      "behavior_first_phase": "P10",
+      "number": 19,
+      "p2_status": "schema_surface_only"
+    },
+    {
+      "behavior_available": false,
+      "behavior_first_phase": "P10",
+      "number": 20,
+      "p2_status": "schema_surface_only"
+    },
+    {
+      "behavior_available": false,
+      "behavior_first_phase": "P10",
+      "number": 21,
+      "p2_status": "schema_surface_only"
+    },
+    {
+      "behavior_available": false,
+      "behavior_first_phase": "P10",
+      "number": 22,
+      "p2_status": "schema_surface_only"
+    },
+    {
+      "behavior_available": false,
+      "behavior_first_phase": "P8",
+      "number": 23,
+      "p2_status": "schema_surface_only"
+    },
+    {
+      "behavior_available": false,
+      "behavior_first_phase": "P8",
+      "number": 24,
+      "p2_status": "schema_surface_only"
+    },
+    {
+      "behavior_available": false,
+      "behavior_first_phase": "P3",
+      "number": 25,
+      "p2_status": "schema_surface_only"
+    },
+    {
+      "behavior_available": true,
+      "behavior_first_phase": "P2",
+      "number": 26,
+      "p2_status": "schema_and_semantic_enforced"
+    },
+    {
+      "behavior_available": true,
+      "behavior_first_phase": "P2",
+      "number": 27,
+      "p2_status": "schema_and_semantic_enforced"
+    },
+    {
+      "behavior_available": true,
+      "behavior_first_phase": "P2",
+      "number": 28,
+      "p2_status": "schema_and_semantic_enforced"
+    }
+  ],
+  "scope": "ontology_section_17",
+  "truth_boundary": "P2 validates representational contracts; later behavioral phases remain unavailable"
+}

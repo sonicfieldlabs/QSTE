@@ -1,0 +1,109 @@
+{
+  "$id": "https://schemas.qste.invalid/0.3.0/records/appeal-case.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "allOf": [
+    {
+      "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordBase"
+    },
+    {
+      "properties": {
+        "adjudication_evidence_refs": {
+          "items": {
+            "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "adjudication_outcome": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/adjudication_outcome"
+        },
+        "appeal_status": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/appeal_status"
+        },
+        "appellant_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "contract_id": {
+          "const": "qste-contract/0.3.0"
+        },
+        "deadlines": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "decision_event_refs": {
+          "items": {
+            "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "jurisdiction": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "pause_status": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/pause_status"
+        },
+        "reason_code": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/governance_reason"
+        },
+        "record_type": {
+          "const": "AppealCase"
+        },
+        "repair_status": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/repair_status"
+        },
+        "requested_action": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/repair_action"
+        },
+        "responding_authority_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "schema_id": {
+          "const": "https://schemas.qste.invalid/0.3.0/records/appeal-case.schema.json"
+        },
+        "standing_basis": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "successor_case_ref": {
+          "anyOf": [
+            {
+              "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "target_closure": {
+          "minProperties": 1,
+          "type": "object"
+        }
+      },
+      "required": [
+        "appellant_ref",
+        "standing_basis",
+        "responding_authority_ref",
+        "target_closure",
+        "reason_code",
+        "requested_action",
+        "deadlines",
+        "jurisdiction",
+        "appeal_status",
+        "pause_status",
+        "adjudication_outcome",
+        "repair_status",
+        "adjudication_evidence_refs",
+        "decision_event_refs",
+        "successor_case_ref"
+      ],
+      "type": "object"
+    }
+  ],
+  "patternProperties": {
+    "^[a-z][a-z0-9_-]*:[A-Za-z][A-Za-z0-9_.-]*$": {}
+  },
+  "title": "AppealCase",
+  "unevaluatedProperties": false
+}

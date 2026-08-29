@@ -1,0 +1,98 @@
+{
+  "$id": "https://schemas.qste.invalid/0.3.0/records/repair-action.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "allOf": [
+    {
+      "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordBase"
+    },
+    {
+      "properties": {
+        "adjudication_outcome": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/adjudication_outcome"
+        },
+        "appeal_case_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "authority_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "authorization_status": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/authorization_status"
+        },
+        "contract_id": {
+          "const": "qste-contract/0.3.0"
+        },
+        "execution_status": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/operation_status"
+        },
+        "failures": {
+          "items": {},
+          "minItems": 1,
+          "type": "array"
+        },
+        "operation_scope": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "predecessor_state": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "propagation_requirement": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "reason_code": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/governance_reason"
+        },
+        "receipt_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "record_type": {
+          "const": "RepairAction"
+        },
+        "repair_action": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/repair_action"
+        },
+        "retention_semantics": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "schema_id": {
+          "const": "https://schemas.qste.invalid/0.3.0/records/repair-action.schema.json"
+        },
+        "successor_state": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "target_closure": {
+          "minProperties": 1,
+          "type": "object"
+        }
+      },
+      "required": [
+        "appeal_case_ref",
+        "adjudication_outcome",
+        "authority_ref",
+        "repair_action",
+        "target_closure",
+        "operation_scope",
+        "predecessor_state",
+        "successor_state",
+        "authorization_status",
+        "execution_status",
+        "reason_code",
+        "failures",
+        "receipt_ref",
+        "propagation_requirement",
+        "retention_semantics"
+      ],
+      "type": "object"
+    }
+  ],
+  "patternProperties": {
+    "^[a-z][a-z0-9_-]*:[A-Za-z][A-Za-z0-9_.-]*$": {}
+  },
+  "title": "RepairAction",
+  "unevaluatedProperties": false
+}

@@ -1,0 +1,70 @@
+{
+  "$id": "https://schemas.qste.invalid/0.3.0/records/representation-family-spec.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "allOf": [
+    {
+      "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordBase"
+    },
+    {
+      "properties": {
+        "contract_id": {
+          "const": "qste-contract/0.3.0"
+        },
+        "family_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "family_version": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "instance_refs": {
+          "items": {
+            "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "mapping_refs": {
+          "items": {
+            "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "permitted_refinements": {
+          "items": {},
+          "minItems": 1,
+          "type": "array"
+        },
+        "record_type": {
+          "const": "RepresentationFamilySpec"
+        },
+        "schema_id": {
+          "const": "https://schemas.qste.invalid/0.3.0/records/representation-family-spec.schema.json"
+        },
+        "spec_refs": {
+          "items": {
+            "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+          },
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "required": [
+        "family_id",
+        "family_version",
+        "spec_refs",
+        "instance_refs",
+        "mapping_refs",
+        "permitted_refinements"
+      ],
+      "type": "object"
+    }
+  ],
+  "patternProperties": {
+    "^[a-z][a-z0-9_-]*:[A-Za-z][A-Za-z0-9_.-]*$": {}
+  },
+  "title": "RepresentationFamilySpec",
+  "unevaluatedProperties": false
+}

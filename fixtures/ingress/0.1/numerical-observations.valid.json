@@ -1,0 +1,20 @@
+{
+  "profile_id": "qste-numerical-observations/0.1",
+  "observations": [
+    {
+      "variable": "spectral_centroid",
+      "observation_state": "value",
+      "value": 1200.0,
+      "units": "Hz",
+      "method": "external-fixture/1",
+      "evidence_basis": "instrumentally_derived"
+    },
+    {
+      "variable": "sound_pressure_level",
+      "observation_state": "absent",
+      "units": "dB_SPL",
+      "method": "external-fixture/1",
+      "evidence_basis": "instrumentally_derived"
+    }
+  ]
+}

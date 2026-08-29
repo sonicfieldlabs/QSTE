@@ -1,0 +1,53 @@
+{
+  "$id": "https://schemas.qste.invalid/0.3.0/typed-payload.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "anyOf": [
+    {
+      "required": [
+        "items"
+      ]
+    },
+    {
+      "required": [
+        "data"
+      ]
+    }
+  ],
+  "description": "A non-record payload. Durable identity/evidence must be embedded in or referenced by a core record and OperationReceipt.",
+  "properties": {
+    "data": {
+      "type": "object"
+    },
+    "items": {
+      "type": "array"
+    },
+    "payload_schema_id": {
+      "const": "qste-payload/0.3.0"
+    },
+    "payload_type": {
+      "enum": [
+        "AddressabilityResult",
+        "AdjudicationDecision",
+        "CandidateSet",
+        "CapabilityAccount",
+        "IntervenedState",
+        "NativeMeasure",
+        "ObservationSet",
+        "ProjectedFootprint",
+        "RelationSet",
+        "RepairPropagation",
+        "RevisionOutcome",
+        "SupportEstimate",
+        "TargetClosure"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "payload_type",
+    "payload_schema_id"
+  ],
+  "title": "QSTE typed operation payload",
+  "type": "object"
+}

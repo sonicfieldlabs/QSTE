@@ -1,0 +1,69 @@
+{
+  "$id": "https://schemas.qste.invalid/0.3.0/records/operation-receipt.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "allOf": [
+    {
+      "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordBase"
+    },
+    {
+      "properties": {
+        "actor": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "authorization_status": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/authorization_status"
+        },
+        "contract_id": {
+          "const": "qste-contract/0.3.0"
+        },
+        "inputs": {
+          "items": {},
+          "minItems": 1,
+          "type": "array"
+        },
+        "operation_status": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/operation_status"
+        },
+        "outputs": {
+          "items": {},
+          "minItems": 1,
+          "type": "array"
+        },
+        "parameters": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "record_type": {
+          "const": "OperationReceipt"
+        },
+        "request_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "schema_id": {
+          "const": "https://schemas.qste.invalid/0.3.0/records/operation-receipt.schema.json"
+        },
+        "tool": {
+          "minProperties": 1,
+          "type": "object"
+        }
+      },
+      "required": [
+        "request_ref",
+        "authorization_status",
+        "actor",
+        "tool",
+        "inputs",
+        "parameters",
+        "outputs",
+        "operation_status"
+      ],
+      "type": "object"
+    }
+  ],
+  "patternProperties": {
+    "^[a-z][a-z0-9_-]*:[A-Za-z][A-Za-z0-9_.-]*$": {}
+  },
+  "title": "OperationReceipt",
+  "unevaluatedProperties": false
+}

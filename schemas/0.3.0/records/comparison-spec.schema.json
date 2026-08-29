@@ -1,0 +1,95 @@
+{
+  "$id": "https://schemas.qste.invalid/0.3.0/records/comparison-spec.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "allOf": [
+    {
+      "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordBase"
+    },
+    {
+      "properties": {
+        "ambiguity_rules": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "budget": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "capacities": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "cardinalities": {
+          "items": {},
+          "minItems": 1,
+          "type": "array"
+        },
+        "cardinality_preference": {
+          "items": {},
+          "minItems": 1,
+          "type": "array"
+        },
+        "contract_id": {
+          "const": "qste-contract/0.3.0"
+        },
+        "coverage_threshold": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "effect_tolerance": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "estimators": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "optimization_tolerance": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "primary_objective": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "projection_refs": {
+          "items": {
+            "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "record_type": {
+          "const": "ComparisonSpec"
+        },
+        "schema_id": {
+          "const": "https://schemas.qste.invalid/0.3.0/records/comparison-spec.schema.json"
+        },
+        "unmatched_penalty": {
+          "minimum": 0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "projection_refs",
+        "coverage_threshold",
+        "effect_tolerance",
+        "capacities",
+        "cardinalities",
+        "unmatched_penalty",
+        "estimators",
+        "primary_objective",
+        "cardinality_preference",
+        "optimization_tolerance",
+        "ambiguity_rules",
+        "budget"
+      ],
+      "type": "object"
+    }
+  ],
+  "patternProperties": {
+    "^[a-z][a-z0-9_-]*:[A-Za-z][A-Za-z0-9_.-]*$": {}
+  },
+  "title": "ComparisonSpec",
+  "unevaluatedProperties": false
+}

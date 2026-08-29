@@ -1,0 +1,35 @@
+{
+  "availability": "withheld",
+  "contract_id": "qste-contract/0.3.0",
+  "created_at": "2026-08-28T00:00:00Z",
+  "dense_data_ref": {
+    "record_id": "qste:artifact-record:1a983fc8-597b-4552-8e31-833f2b466e74",
+    "record_type": "ArtifactRecord",
+    "relation": "depends_on"
+  },
+  "disclosure_status": "private",
+  "execution_receipt_ref": {
+    "record_id": "qste:operation-receipt:79f3bda9-21d1-4293-84bd-fb8f053c31ab",
+    "record_type": "OperationReceipt",
+    "relation": "depends_on"
+  },
+  "instance_context": {
+    "run": "fixture"
+  },
+  "integrity_status": "unverified",
+  "producer_role": "executor",
+  "record_id": "qste:representation-instance:2f654b42-cdcf-48f3-bc82-3a21b3be37f7",
+  "record_type": "RepresentationInstance",
+  "references": [],
+  "representation_spec_ref": {
+    "record_id": "qste:representation-spec:564d59b0-230e-4879-a4fc-480383b9ed2e",
+    "record_type": "RepresentationSpec",
+    "relation": "depends_on"
+  },
+  "schema_id": "https://schemas.qste.invalid/0.3.0/records/representation-instance.schema.json",
+  "source_artifact_ref": {
+    "record_id": "qste:artifact-record:c4d4807b-cb54-412a-a618-70a328289480",
+    "record_type": "ArtifactRecord",
+    "relation": "depends_on"
+  }
+}

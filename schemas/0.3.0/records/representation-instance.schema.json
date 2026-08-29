@@ -1,0 +1,51 @@
+{
+  "$id": "https://schemas.qste.invalid/0.3.0/records/representation-instance.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "allOf": [
+    {
+      "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordBase"
+    },
+    {
+      "properties": {
+        "contract_id": {
+          "const": "qste-contract/0.3.0"
+        },
+        "dense_data_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "execution_receipt_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "instance_context": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "record_type": {
+          "const": "RepresentationInstance"
+        },
+        "representation_spec_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "schema_id": {
+          "const": "https://schemas.qste.invalid/0.3.0/records/representation-instance.schema.json"
+        },
+        "source_artifact_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        }
+      },
+      "required": [
+        "source_artifact_ref",
+        "representation_spec_ref",
+        "execution_receipt_ref",
+        "dense_data_ref",
+        "instance_context"
+      ],
+      "type": "object"
+    }
+  ],
+  "patternProperties": {
+    "^[a-z][a-z0-9_-]*:[A-Za-z][A-Za-z0-9_.-]*$": {}
+  },
+  "title": "RepresentationInstance",
+  "unevaluatedProperties": false
+}

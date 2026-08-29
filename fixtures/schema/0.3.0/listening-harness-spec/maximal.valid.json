@@ -1,0 +1,45 @@
+{
+  "action_surface": {
+    "write_successor_only": true
+  },
+  "authority_ref": {
+    "record_id": "qste:authority-manifest:73d51c28-07e6-473b-ad2a-7cf6afa61ef8",
+    "record_type": "AuthorityManifest",
+    "relation": "depends_on"
+  },
+  "authorization_status": "permitted",
+  "availability": "known",
+  "consent_status": "not_applicable",
+  "content_digest": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+  "contract_id": "qste-contract/0.3.0",
+  "created_at": "2026-08-28T00:00:00Z",
+  "disclosure_status": "private",
+  "executor": "local_executor",
+  "ext:futureField": {
+    "preserve": true,
+    "version": 1
+  },
+  "integrity_status": "unverified",
+  "permissions": [
+    "read"
+  ],
+  "producer_role": "executor",
+  "record_id": "qste:listening-harness-spec:8ce62554-80de-4b0a-bea9-fa1e8b727f36",
+  "record_refs": [
+    {
+      "record_id": "qste:listening-account:7641911a-3c83-49fa-813b-9d549e037116",
+      "record_type": "ListeningAccount",
+      "relation": "depends_on"
+    }
+  ],
+  "record_type": "ListeningHarnessSpec",
+  "references": [],
+  "refusals": [
+    "network"
+  ],
+  "routes": [
+    "local_fixture"
+  ],
+  "schema_id": "https://schemas.qste.invalid/0.3.0/records/listening-harness-spec.schema.json",
+  "semantic_key": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+}

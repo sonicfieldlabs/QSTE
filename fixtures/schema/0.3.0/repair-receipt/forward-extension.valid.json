@@ -1,0 +1,65 @@
+{
+  "action_refs": [
+    {
+      "record_id": "qste:repair-action:04583700-02d4-47a3-8ecf-7c6a1812fb41",
+      "record_type": "RepairAction",
+      "relation": "depends_on"
+    }
+  ],
+  "actions_applied": [
+    "restrict"
+  ],
+  "affected_closure": {
+    "bundles": [],
+    "claims": [],
+    "descendants": [],
+    "projections": [],
+    "renders": []
+  },
+  "appeal_case_ref": {
+    "record_id": "qste:appeal-case:0a1a3ec9-1d4e-403a-a77e-7a59048578c3",
+    "record_type": "AppealCase",
+    "relation": "depends_on"
+  },
+  "completed_at": "2026-08-28T00:00:00Z",
+  "contract_id": "qste-contract/0.3.0",
+  "created_at": "2026-08-28T00:00:00Z",
+  "disclosure_status": "private",
+  "event_sequence": 3,
+  "ext:futureField": {
+    "opaque": [
+      1,
+      2,
+      3
+    ]
+  },
+  "external_copies": [
+    "none_known"
+  ],
+  "final_authority_ref": {
+    "record_id": "qste:authority-manifest:73d51c28-07e6-473b-ad2a-7cf6afa61ef8",
+    "record_type": "AuthorityManifest",
+    "relation": "depends_on"
+  },
+  "integrity_status": "unverified",
+  "pause_status": "not_requested",
+  "producer_role": "executor",
+  "propagation_failures": [
+    "none"
+  ],
+  "record_id": "qste:repair-receipt:22545fc2-bf56-4240-95f1-9107f6570c4e",
+  "record_type": "RepairReceipt",
+  "references": [],
+  "repair_status": "applied",
+  "schema_id": "https://schemas.qste.invalid/0.3.0/records/repair-receipt.schema.json",
+  "successor_refs": [
+    {
+      "record_id": "qste:artifact-record:c4d4807b-cb54-412a-a618-70a328289480",
+      "record_type": "ArtifactRecord",
+      "relation": "depends_on"
+    }
+  ],
+  "unresolved_limits": [
+    "none"
+  ]
+}

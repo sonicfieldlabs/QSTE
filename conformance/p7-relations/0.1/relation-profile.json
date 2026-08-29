@@ -1,0 +1,79 @@
+{
+  "claims": [
+    "calibrated_mock_comparison_substrate",
+    "energy_and_probability_footprint_contracts",
+    "directional_interval_coverage",
+    "exact_or_explicit_effect_comparability",
+    "projection_address_fidelity_precedence",
+    "bounded_exact_b_matching",
+    "solver_independent_matching_certificate",
+    "capacity_cardinality_penalty_accounting",
+    "ambiguity_before_lexicographic_replay",
+    "canonical_typed_relations",
+    "resolved_null_and_indeterminate_nonidentity",
+    "zero_footprint_indeterminacy",
+    "native_identity_preservation",
+    "mock_material_and_disagreement_classes",
+    "append_only_relation_invalidation"
+  ],
+  "comparison_profile": "qste-cross-arm-comparison/v0.1",
+  "contract_id": "qste-contract/0.3.0",
+  "gates": [
+    {
+      "id": "P7-G01",
+      "requirement": "Invalid substrates, footprint contracts, effect estimands, thresholds, capacities, cardinalities, penalties, ambiguity rules, or budgets fail with invalid_comparison_spec and no comparison status."
+    },
+    {
+      "id": "P7-G02",
+      "requirement": "Expected-energy footprints normalize to unit integral and have symmetric point coverage; probability footprints remain unnormalized and may be asymmetric."
+    },
+    {
+      "id": "P7-G03",
+      "requirement": "Coverage and effect intervals decide eligibility and conclusive failure; point estimates rank only already eligible edges."
+    },
+    {
+      "id": "P7-G04",
+      "requirement": "Invalid projection, target-address absence, and fidelity or consequentiality failure resolve as incomparable, omission, and loss in that precedence order."
+    },
+    {
+      "id": "P7-G05",
+      "requirement": "Coverage failure, effect incompatibility, and unique unmatched outcomes are resolved null relations rather than indeterminate or omission."
+    },
+    {
+      "id": "P7-G06",
+      "requirement": "Zero footprint, boundary crossing, incomplete evidence, unavailable capability, ambiguity, and budget exhaustion remain indeterminate."
+    },
+    {
+      "id": "P7-G07",
+      "requirement": "The exact matcher and independently recomputed certificate encode both unmatched-indicator directions and honor capacities, cardinalities, maximum n, lambda, objective tolerance, and cardinality preference."
+    },
+    {
+      "id": "P7-G08",
+      "requirement": "Structural ambiguity is evaluated before lexicographic replay, whose representative remains diagnostic only."
+    },
+    {
+      "id": "P7-G09",
+      "requirement": "Resolved 1:1, 1:n, and n:1 components emit overlap, split, and merge; many-to-many ambiguity is never forced into a relation."
+    },
+    {
+      "id": "P7-G10",
+      "requirement": "Every source and target unit receives a persisted relation outcome, canonical reason, exact contracts, solution evidence, and receipt."
+    },
+    {
+      "id": "P7-G11",
+      "requirement": "Native addresses, representation IDs, metrics, and semantic identities remain separate from cross-arm relation evidence."
+    },
+    {
+      "id": "P7-G12",
+      "requirement": "Mock alternate-arm, source, reconstruction, residual, and disagreement fixtures remain known-parameter conformance data rather than empirical evidence."
+    },
+    {
+      "id": "P7-G13",
+      "requirement": "A relation-method defect appends canonical invalidation evidence and queues descendant review without rewriting frozen relation bytes."
+    }
+  ],
+  "profile_id": "qste-relation-conformance/0.1",
+  "projection_profile": "qste-cross-arm-projection/v0.1",
+  "relation_profile": "qste-cross-arm-relation/v0.1",
+  "solver_profile": "qste-bounded-exact-b-matching/v0.1"
+}

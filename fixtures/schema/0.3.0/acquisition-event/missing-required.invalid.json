@@ -1,0 +1,49 @@
+{
+  "authorization_status": "permitted",
+  "calibration": {
+    "status": "declared"
+  },
+  "contract_id": "qste-contract/0.3.0",
+  "created_at": "2026-08-28T00:00:00Z",
+  "disclosure_status": "private",
+  "end_at": "2026-08-28T00:00:01Z",
+  "environment": {
+    "location": "controlled"
+  },
+  "event_sequence": 1,
+  "integrity_status": "unverified",
+  "limits": {
+    "bandwidth_hz": [
+      20,
+      20000
+    ]
+  },
+  "lineage_relation": "acquired_from",
+  "producer_role": "executor",
+  "provider_or_channel": "local_input",
+  "receipt_ref": {
+    "record_id": "qste:operation-receipt:79f3bda9-21d1-4293-84bd-fb8f053c31ab",
+    "record_type": "OperationReceipt",
+    "relation": "depends_on"
+  },
+  "record_id": "qste:acquisition-event:a2235226-6409-4e33-ac3a-64506ae6f653",
+  "record_type": "AcquisitionEvent",
+  "references": [],
+  "result_ref": {
+    "record_id": "qste:artifact-record:c4d4807b-cb54-412a-a618-70a328289480",
+    "record_type": "ArtifactRecord",
+    "relation": "depends_on"
+  },
+  "route": {
+    "kind": "import"
+  },
+  "schema_id": "https://schemas.qste.invalid/0.3.0/records/acquisition-event.schema.json",
+  "source_ref": {
+    "record_id": "qste:source-record:3d44adc1-bc34-4fa7-8d85-806d9623426b",
+    "record_type": "SourceRecord",
+    "relation": "depends_on"
+  },
+  "start_at": "2026-08-28T00:00:00Z",
+  "temporal_state": "timed",
+  "timebase": "sample_clock"
+}

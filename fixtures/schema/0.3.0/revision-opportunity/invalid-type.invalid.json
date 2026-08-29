@@ -1,0 +1,31 @@
+{
+  "budget": {
+    "maximum_actions": 1
+  },
+  "completed_run_ref": {
+    "record_id": "qste:run-manifest:3f3a9a00-dc54-4aba-9d29-d2d1efb84cdd",
+    "record_type": "RunManifest",
+    "relation": "depends_on"
+  },
+  "contract_id": "qste-contract/0.3.0",
+  "created_at": "2026-08-28T00:00:00Z",
+  "disclosure_status": "private",
+  "governance_boundary_ref": {
+    "record_id": "qste:governance-boundary:70554c9b-4700-403c-bd79-b38e831a0e7c",
+    "record_type": "GovernanceBoundary",
+    "relation": "depends_on"
+  },
+  "initial_successor_spec_ref": {
+    "record_id": "qste:successor-spec:1c08d26a-f67d-49d1-9c0c-832b8abe85b3",
+    "record_type": "SuccessorSpec",
+    "relation": "depends_on"
+  },
+  "integrity_status": "unverified",
+  "matched_state_key": "fixture-state-1",
+  "producer_role": "executor",
+  "record_id": "qste:revision-opportunity:a8b09d5a-77a6-4cf3-869d-cda941968399",
+  "record_type": "RevisionOpportunity",
+  "references": [],
+  "schema_id": "https://schemas.qste.invalid/0.3.0/records/revision-opportunity.schema.json",
+  "source_item_ref": 7
+}

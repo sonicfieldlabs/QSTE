@@ -1,0 +1,43 @@
+{
+  "contract_id": "qste-contract/0.3.0",
+  "created_at": "2026-08-28T00:00:00Z",
+  "disclosure_status": "private",
+  "integrity_status": "unverified",
+  "interpolation": {
+    "method": "none"
+  },
+  "loss": {
+    "declared": true
+  },
+  "missing_data_behavior": "refuse",
+  "normalization": {
+    "method": "minmax"
+  },
+  "producer_role": "executor",
+  "range": {
+    "maximum": 1,
+    "minimum": 0
+  },
+  "record_id": "qste:mapping-spec:85d5a418-af25-44f8-ad59-cc130945bc21",
+  "record_type": "MappingSpec",
+  "references": [],
+  "reversibility_claim": "not_reversible",
+  "schema_id": "https://schemas.qste.invalid/0.3.0/records/mapping-spec.schema.json",
+  "source_domain": {
+    "name": "normalized_score"
+  },
+  "target_domain": {
+    "name": "amplitude"
+  },
+  "uncertainty": {
+    "propagation": "interval"
+  },
+  "units": {
+    "source": "normalized",
+    "target": "linear_gain"
+  },
+  "variables": [
+    "score",
+    "gain"
+  ]
+}

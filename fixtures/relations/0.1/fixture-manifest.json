@@ -1,0 +1,21 @@
+{
+  "fixture_set_id": "qste-relation-fixtures/0.1",
+  "generated_test_classes": [
+    "energy_coverage_symmetry",
+    "probability_coverage_asymmetry",
+    "projection_precedence",
+    "resolved_nulls",
+    "boundary_indeterminacy",
+    "zero_footprint",
+    "overlap_split_merge",
+    "unique_unmatched",
+    "structural_ambiguity",
+    "decomposition_ambiguity",
+    "budget_exhaustion",
+    "capability_unavailable",
+    "invalid_comparison_spec",
+    "native_identity_preservation",
+    "append_only_relation_invalidation"
+  ],
+  "static_files": ["relation-vectors.json", "material-classes.json"]
+}

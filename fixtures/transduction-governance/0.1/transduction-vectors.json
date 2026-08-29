@@ -1,0 +1,36 @@
+{
+  "modes": [
+    {
+      "mode": "sonification",
+      "required_output": "ArtifactRecord",
+      "claim_limit": "analytical_fixture_not_heard_output"
+    },
+    {
+      "mode": "desonification",
+      "required_output": "ObservationSet",
+      "claim_limit": "bounded_observation_not_complete_cause_or_meaning"
+    },
+    {
+      "mode": "resonification",
+      "required_output": "ArtifactRecord",
+      "claim_limit": "descendant_retains_prior_route"
+    },
+    {
+      "mode": "sonic_transformation",
+      "required_output": "ArtifactRecord",
+      "claim_limit": "new_identity_required"
+    },
+    {
+      "mode": "cross_domain_contrast",
+      "required_output": "RelationSet",
+      "claim_limit": "mapping_does_not_imply_causation"
+    }
+  ],
+  "output_safety": {
+    "analytical_original_mutated": false,
+    "heard_output_produced": false,
+    "network_used": false,
+    "playback_used": false,
+    "safety_copy_relation": "descendant_of"
+  }
+}

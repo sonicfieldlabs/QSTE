@@ -1,0 +1,1391 @@
+{
+  "fixtures": [
+    {
+      "expected_reason": "namespaced_extension",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/acquisition-event/forward-extension.valid.json",
+      "record_type": "AcquisitionEvent",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/acquisition-event.schema.json"
+    },
+    {
+      "expected_reason": "type",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/acquisition-event/invalid-type.invalid.json",
+      "record_type": "AcquisitionEvent",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/acquisition-event.schema.json"
+    },
+    {
+      "expected_reason": "valid_maximal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/acquisition-event/maximal.valid.json",
+      "record_type": "AcquisitionEvent",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/acquisition-event.schema.json"
+    },
+    {
+      "expected_reason": "valid_minimal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/acquisition-event/minimal.valid.json",
+      "record_type": "AcquisitionEvent",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/acquisition-event.schema.json"
+    },
+    {
+      "expected_reason": "required",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/acquisition-event/missing-required.invalid.json",
+      "record_type": "AcquisitionEvent",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/acquisition-event.schema.json"
+    },
+    {
+      "expected_reason": "explicit_withheld",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/acquisition-event/withheld.valid.json",
+      "record_type": "AcquisitionEvent",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/acquisition-event.schema.json"
+    },
+    {
+      "expected_reason": "namespaced_extension",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/aperture-spec/forward-extension.valid.json",
+      "record_type": "ApertureSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/aperture-spec.schema.json"
+    },
+    {
+      "expected_reason": "type",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/aperture-spec/invalid-type.invalid.json",
+      "record_type": "ApertureSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/aperture-spec.schema.json"
+    },
+    {
+      "expected_reason": "valid_maximal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/aperture-spec/maximal.valid.json",
+      "record_type": "ApertureSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/aperture-spec.schema.json"
+    },
+    {
+      "expected_reason": "valid_minimal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/aperture-spec/minimal.valid.json",
+      "record_type": "ApertureSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/aperture-spec.schema.json"
+    },
+    {
+      "expected_reason": "required",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/aperture-spec/missing-required.invalid.json",
+      "record_type": "ApertureSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/aperture-spec.schema.json"
+    },
+    {
+      "expected_reason": "explicit_withheld",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/aperture-spec/withheld.valid.json",
+      "record_type": "ApertureSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/aperture-spec.schema.json"
+    },
+    {
+      "expected_reason": "namespaced_extension",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/apparatus-spec/forward-extension.valid.json",
+      "record_type": "ApparatusSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/apparatus-spec.schema.json"
+    },
+    {
+      "expected_reason": "type",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/apparatus-spec/invalid-type.invalid.json",
+      "record_type": "ApparatusSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/apparatus-spec.schema.json"
+    },
+    {
+      "expected_reason": "valid_maximal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/apparatus-spec/maximal.valid.json",
+      "record_type": "ApparatusSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/apparatus-spec.schema.json"
+    },
+    {
+      "expected_reason": "valid_minimal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/apparatus-spec/minimal.valid.json",
+      "record_type": "ApparatusSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/apparatus-spec.schema.json"
+    },
+    {
+      "expected_reason": "required",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/apparatus-spec/missing-required.invalid.json",
+      "record_type": "ApparatusSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/apparatus-spec.schema.json"
+    },
+    {
+      "expected_reason": "explicit_withheld",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/apparatus-spec/withheld.valid.json",
+      "record_type": "ApparatusSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/apparatus-spec.schema.json"
+    },
+    {
+      "expected_reason": "namespaced_extension",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/appeal-case/forward-extension.valid.json",
+      "record_type": "AppealCase",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/appeal-case.schema.json"
+    },
+    {
+      "expected_reason": "type",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/appeal-case/invalid-type.invalid.json",
+      "record_type": "AppealCase",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/appeal-case.schema.json"
+    },
+    {
+      "expected_reason": "valid_maximal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/appeal-case/maximal.valid.json",
+      "record_type": "AppealCase",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/appeal-case.schema.json"
+    },
+    {
+      "expected_reason": "valid_minimal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/appeal-case/minimal.valid.json",
+      "record_type": "AppealCase",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/appeal-case.schema.json"
+    },
+    {
+      "expected_reason": "required",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/appeal-case/missing-required.invalid.json",
+      "record_type": "AppealCase",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/appeal-case.schema.json"
+    },
+    {
+      "expected_reason": "explicit_withheld",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/appeal-case/withheld.valid.json",
+      "record_type": "AppealCase",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/appeal-case.schema.json"
+    },
+    {
+      "expected_reason": "namespaced_extension",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/artifact-record/forward-extension.valid.json",
+      "record_type": "ArtifactRecord",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/artifact-record.schema.json"
+    },
+    {
+      "expected_reason": "type",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/artifact-record/invalid-type.invalid.json",
+      "record_type": "ArtifactRecord",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/artifact-record.schema.json"
+    },
+    {
+      "expected_reason": "valid_maximal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/artifact-record/maximal.valid.json",
+      "record_type": "ArtifactRecord",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/artifact-record.schema.json"
+    },
+    {
+      "expected_reason": "valid_minimal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/artifact-record/minimal.valid.json",
+      "record_type": "ArtifactRecord",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/artifact-record.schema.json"
+    },
+    {
+      "expected_reason": "required",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/artifact-record/missing-required.invalid.json",
+      "record_type": "ArtifactRecord",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/artifact-record.schema.json"
+    },
+    {
+      "expected_reason": "explicit_withheld",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/artifact-record/withheld.valid.json",
+      "record_type": "ArtifactRecord",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/artifact-record.schema.json"
+    },
+    {
+      "expected_reason": "namespaced_extension",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/authority-manifest/forward-extension.valid.json",
+      "record_type": "AuthorityManifest",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/authority-manifest.schema.json"
+    },
+    {
+      "expected_reason": "type",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/authority-manifest/invalid-type.invalid.json",
+      "record_type": "AuthorityManifest",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/authority-manifest.schema.json"
+    },
+    {
+      "expected_reason": "valid_maximal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/authority-manifest/maximal.valid.json",
+      "record_type": "AuthorityManifest",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/authority-manifest.schema.json"
+    },
+    {
+      "expected_reason": "valid_minimal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/authority-manifest/minimal.valid.json",
+      "record_type": "AuthorityManifest",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/authority-manifest.schema.json"
+    },
+    {
+      "expected_reason": "required",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/authority-manifest/missing-required.invalid.json",
+      "record_type": "AuthorityManifest",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/authority-manifest.schema.json"
+    },
+    {
+      "expected_reason": "explicit_withheld",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/authority-manifest/withheld.valid.json",
+      "record_type": "AuthorityManifest",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/authority-manifest.schema.json"
+    },
+    {
+      "expected_reason": "namespaced_extension",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/bundle/forward-extension.valid.json",
+      "record_type": "Bundle",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/bundle-manifest.schema.json"
+    },
+    {
+      "expected_reason": "type",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/bundle/invalid-type.invalid.json",
+      "record_type": "Bundle",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/bundle-manifest.schema.json"
+    },
+    {
+      "expected_reason": "valid_maximal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/bundle/maximal.valid.json",
+      "record_type": "Bundle",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/bundle-manifest.schema.json"
+    },
+    {
+      "expected_reason": "valid_minimal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/bundle/minimal.valid.json",
+      "record_type": "Bundle",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/bundle-manifest.schema.json"
+    },
+    {
+      "expected_reason": "required",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/bundle/missing-required.invalid.json",
+      "record_type": "Bundle",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/bundle-manifest.schema.json"
+    },
+    {
+      "expected_reason": "explicit_withheld",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/bundle/withheld.valid.json",
+      "record_type": "Bundle",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/bundle-manifest.schema.json"
+    },
+    {
+      "expected_reason": "namespaced_extension",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/candidate-unit/forward-extension.valid.json",
+      "record_type": "CandidateUnit",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/candidate-unit.schema.json"
+    },
+    {
+      "expected_reason": "type",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/candidate-unit/invalid-type.invalid.json",
+      "record_type": "CandidateUnit",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/candidate-unit.schema.json"
+    },
+    {
+      "expected_reason": "valid_maximal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/candidate-unit/maximal.valid.json",
+      "record_type": "CandidateUnit",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/candidate-unit.schema.json"
+    },
+    {
+      "expected_reason": "valid_minimal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/candidate-unit/minimal.valid.json",
+      "record_type": "CandidateUnit",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/candidate-unit.schema.json"
+    },
+    {
+      "expected_reason": "required",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/candidate-unit/missing-required.invalid.json",
+      "record_type": "CandidateUnit",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/candidate-unit.schema.json"
+    },
+    {
+      "expected_reason": "explicit_withheld",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/candidate-unit/withheld.valid.json",
+      "record_type": "CandidateUnit",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/candidate-unit.schema.json"
+    },
+    {
+      "expected_reason": "namespaced_extension",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/claim-record/forward-extension.valid.json",
+      "record_type": "ClaimRecord",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/claim-record.schema.json"
+    },
+    {
+      "expected_reason": "type",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/claim-record/invalid-type.invalid.json",
+      "record_type": "ClaimRecord",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/claim-record.schema.json"
+    },
+    {
+      "expected_reason": "valid_maximal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/claim-record/maximal.valid.json",
+      "record_type": "ClaimRecord",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/claim-record.schema.json"
+    },
+    {
+      "expected_reason": "valid_minimal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/claim-record/minimal.valid.json",
+      "record_type": "ClaimRecord",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/claim-record.schema.json"
+    },
+    {
+      "expected_reason": "required",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/claim-record/missing-required.invalid.json",
+      "record_type": "ClaimRecord",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/claim-record.schema.json"
+    },
+    {
+      "expected_reason": "explicit_withheld",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/claim-record/withheld.valid.json",
+      "record_type": "ClaimRecord",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/claim-record.schema.json"
+    },
+    {
+      "expected_reason": "namespaced_extension",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/comparison-spec/forward-extension.valid.json",
+      "record_type": "ComparisonSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/comparison-spec.schema.json"
+    },
+    {
+      "expected_reason": "type",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/comparison-spec/invalid-type.invalid.json",
+      "record_type": "ComparisonSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/comparison-spec.schema.json"
+    },
+    {
+      "expected_reason": "valid_maximal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/comparison-spec/maximal.valid.json",
+      "record_type": "ComparisonSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/comparison-spec.schema.json"
+    },
+    {
+      "expected_reason": "valid_minimal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/comparison-spec/minimal.valid.json",
+      "record_type": "ComparisonSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/comparison-spec.schema.json"
+    },
+    {
+      "expected_reason": "required",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/comparison-spec/missing-required.invalid.json",
+      "record_type": "ComparisonSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/comparison-spec.schema.json"
+    },
+    {
+      "expected_reason": "explicit_withheld",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/comparison-spec/withheld.valid.json",
+      "record_type": "ComparisonSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/comparison-spec.schema.json"
+    },
+    {
+      "expected_reason": "namespaced_extension",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/decision-event/forward-extension.valid.json",
+      "record_type": "DecisionEvent",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/decision-event.schema.json"
+    },
+    {
+      "expected_reason": "type",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/decision-event/invalid-type.invalid.json",
+      "record_type": "DecisionEvent",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/decision-event.schema.json"
+    },
+    {
+      "expected_reason": "valid_maximal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/decision-event/maximal.valid.json",
+      "record_type": "DecisionEvent",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/decision-event.schema.json"
+    },
+    {
+      "expected_reason": "valid_minimal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/decision-event/minimal.valid.json",
+      "record_type": "DecisionEvent",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/decision-event.schema.json"
+    },
+    {
+      "expected_reason": "required",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/decision-event/missing-required.invalid.json",
+      "record_type": "DecisionEvent",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/decision-event.schema.json"
+    },
+    {
+      "expected_reason": "explicit_withheld",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/decision-event/withheld.valid.json",
+      "record_type": "DecisionEvent",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/decision-event.schema.json"
+    },
+    {
+      "expected_reason": "namespaced_extension",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/dsq-assessment/forward-extension.valid.json",
+      "record_type": "DSQAssessment",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/dsq-assessment.schema.json"
+    },
+    {
+      "expected_reason": "type",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/dsq-assessment/invalid-type.invalid.json",
+      "record_type": "DSQAssessment",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/dsq-assessment.schema.json"
+    },
+    {
+      "expected_reason": "valid_maximal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/dsq-assessment/maximal.valid.json",
+      "record_type": "DSQAssessment",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/dsq-assessment.schema.json"
+    },
+    {
+      "expected_reason": "valid_minimal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/dsq-assessment/minimal.valid.json",
+      "record_type": "DSQAssessment",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/dsq-assessment.schema.json"
+    },
+    {
+      "expected_reason": "required",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/dsq-assessment/missing-required.invalid.json",
+      "record_type": "DSQAssessment",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/dsq-assessment.schema.json"
+    },
+    {
+      "expected_reason": "explicit_withheld",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/dsq-assessment/withheld.valid.json",
+      "record_type": "DSQAssessment",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/dsq-assessment.schema.json"
+    },
+    {
+      "expected_reason": "namespaced_extension",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/governance-boundary/forward-extension.valid.json",
+      "record_type": "GovernanceBoundary",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/governance-boundary.schema.json"
+    },
+    {
+      "expected_reason": "type",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/governance-boundary/invalid-type.invalid.json",
+      "record_type": "GovernanceBoundary",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/governance-boundary.schema.json"
+    },
+    {
+      "expected_reason": "valid_maximal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/governance-boundary/maximal.valid.json",
+      "record_type": "GovernanceBoundary",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/governance-boundary.schema.json"
+    },
+    {
+      "expected_reason": "valid_minimal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/governance-boundary/minimal.valid.json",
+      "record_type": "GovernanceBoundary",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/governance-boundary.schema.json"
+    },
+    {
+      "expected_reason": "required",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/governance-boundary/missing-required.invalid.json",
+      "record_type": "GovernanceBoundary",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/governance-boundary.schema.json"
+    },
+    {
+      "expected_reason": "explicit_withheld",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/governance-boundary/withheld.valid.json",
+      "record_type": "GovernanceBoundary",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/governance-boundary.schema.json"
+    },
+    {
+      "expected_reason": "namespaced_extension",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/intervention-spec/forward-extension.valid.json",
+      "record_type": "InterventionSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/intervention-spec.schema.json"
+    },
+    {
+      "expected_reason": "type",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/intervention-spec/invalid-type.invalid.json",
+      "record_type": "InterventionSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/intervention-spec.schema.json"
+    },
+    {
+      "expected_reason": "valid_maximal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/intervention-spec/maximal.valid.json",
+      "record_type": "InterventionSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/intervention-spec.schema.json"
+    },
+    {
+      "expected_reason": "valid_minimal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/intervention-spec/minimal.valid.json",
+      "record_type": "InterventionSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/intervention-spec.schema.json"
+    },
+    {
+      "expected_reason": "required",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/intervention-spec/missing-required.invalid.json",
+      "record_type": "InterventionSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/intervention-spec.schema.json"
+    },
+    {
+      "expected_reason": "explicit_withheld",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/intervention-spec/withheld.valid.json",
+      "record_type": "InterventionSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/intervention-spec.schema.json"
+    },
+    {
+      "expected_reason": "namespaced_extension",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/listening-account/forward-extension.valid.json",
+      "record_type": "ListeningAccount",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/listening-account.schema.json"
+    },
+    {
+      "expected_reason": "type",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/listening-account/invalid-type.invalid.json",
+      "record_type": "ListeningAccount",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/listening-account.schema.json"
+    },
+    {
+      "expected_reason": "valid_maximal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/listening-account/maximal.valid.json",
+      "record_type": "ListeningAccount",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/listening-account.schema.json"
+    },
+    {
+      "expected_reason": "valid_minimal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/listening-account/minimal.valid.json",
+      "record_type": "ListeningAccount",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/listening-account.schema.json"
+    },
+    {
+      "expected_reason": "required",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/listening-account/missing-required.invalid.json",
+      "record_type": "ListeningAccount",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/listening-account.schema.json"
+    },
+    {
+      "expected_reason": "explicit_withheld",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/listening-account/withheld.valid.json",
+      "record_type": "ListeningAccount",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/listening-account.schema.json"
+    },
+    {
+      "expected_reason": "namespaced_extension",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/listening-harness-spec/forward-extension.valid.json",
+      "record_type": "ListeningHarnessSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/listening-harness-spec.schema.json"
+    },
+    {
+      "expected_reason": "type",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/listening-harness-spec/invalid-type.invalid.json",
+      "record_type": "ListeningHarnessSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/listening-harness-spec.schema.json"
+    },
+    {
+      "expected_reason": "valid_maximal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/listening-harness-spec/maximal.valid.json",
+      "record_type": "ListeningHarnessSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/listening-harness-spec.schema.json"
+    },
+    {
+      "expected_reason": "valid_minimal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/listening-harness-spec/minimal.valid.json",
+      "record_type": "ListeningHarnessSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/listening-harness-spec.schema.json"
+    },
+    {
+      "expected_reason": "required",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/listening-harness-spec/missing-required.invalid.json",
+      "record_type": "ListeningHarnessSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/listening-harness-spec.schema.json"
+    },
+    {
+      "expected_reason": "explicit_withheld",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/listening-harness-spec/withheld.valid.json",
+      "record_type": "ListeningHarnessSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/listening-harness-spec.schema.json"
+    },
+    {
+      "expected_reason": "namespaced_extension",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/mapping-spec/forward-extension.valid.json",
+      "record_type": "MappingSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/mapping-spec.schema.json"
+    },
+    {
+      "expected_reason": "type",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/mapping-spec/invalid-type.invalid.json",
+      "record_type": "MappingSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/mapping-spec.schema.json"
+    },
+    {
+      "expected_reason": "valid_maximal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/mapping-spec/maximal.valid.json",
+      "record_type": "MappingSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/mapping-spec.schema.json"
+    },
+    {
+      "expected_reason": "valid_minimal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/mapping-spec/minimal.valid.json",
+      "record_type": "MappingSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/mapping-spec.schema.json"
+    },
+    {
+      "expected_reason": "required",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/mapping-spec/missing-required.invalid.json",
+      "record_type": "MappingSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/mapping-spec.schema.json"
+    },
+    {
+      "expected_reason": "explicit_withheld",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/mapping-spec/withheld.valid.json",
+      "record_type": "MappingSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/mapping-spec.schema.json"
+    },
+    {
+      "expected_reason": "namespaced_extension",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/observation-record/forward-extension.valid.json",
+      "record_type": "ObservationRecord",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/observation-record.schema.json"
+    },
+    {
+      "expected_reason": "type",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/observation-record/invalid-type.invalid.json",
+      "record_type": "ObservationRecord",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/observation-record.schema.json"
+    },
+    {
+      "expected_reason": "valid_maximal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/observation-record/maximal.valid.json",
+      "record_type": "ObservationRecord",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/observation-record.schema.json"
+    },
+    {
+      "expected_reason": "valid_minimal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/observation-record/minimal.valid.json",
+      "record_type": "ObservationRecord",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/observation-record.schema.json"
+    },
+    {
+      "expected_reason": "required",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/observation-record/missing-required.invalid.json",
+      "record_type": "ObservationRecord",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/observation-record.schema.json"
+    },
+    {
+      "expected_reason": "explicit_withheld",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/observation-record/withheld.valid.json",
+      "record_type": "ObservationRecord",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/observation-record.schema.json"
+    },
+    {
+      "expected_reason": "namespaced_extension",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/operation-receipt/forward-extension.valid.json",
+      "record_type": "OperationReceipt",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/operation-receipt.schema.json"
+    },
+    {
+      "expected_reason": "type",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/operation-receipt/invalid-type.invalid.json",
+      "record_type": "OperationReceipt",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/operation-receipt.schema.json"
+    },
+    {
+      "expected_reason": "valid_maximal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/operation-receipt/maximal.valid.json",
+      "record_type": "OperationReceipt",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/operation-receipt.schema.json"
+    },
+    {
+      "expected_reason": "valid_minimal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/operation-receipt/minimal.valid.json",
+      "record_type": "OperationReceipt",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/operation-receipt.schema.json"
+    },
+    {
+      "expected_reason": "required",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/operation-receipt/missing-required.invalid.json",
+      "record_type": "OperationReceipt",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/operation-receipt.schema.json"
+    },
+    {
+      "expected_reason": "explicit_withheld",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/operation-receipt/withheld.valid.json",
+      "record_type": "OperationReceipt",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/operation-receipt.schema.json"
+    },
+    {
+      "expected_reason": "completed",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/operation-result/completed.valid.json",
+      "record_type": "OperationResult",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/operation-result.schema.json"
+    },
+    {
+      "expected_reason": "enum",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/operation-result/domain-token-as-operation.invalid.json",
+      "record_type": "OperationResult",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/operation-result.schema.json"
+    },
+    {
+      "expected_reason": "failed_without_domain_status",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/operation-result/failed-invalid-spec.valid.json",
+      "record_type": "OperationResult",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/operation-result.schema.json"
+    },
+    {
+      "expected_reason": "required",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/operation-result/partial-without-targets.invalid.json",
+      "record_type": "OperationResult",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/operation-result.schema.json"
+    },
+    {
+      "expected_reason": "namespaced_extension",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/projection-spec/forward-extension.valid.json",
+      "record_type": "ProjectionSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/projection-spec.schema.json"
+    },
+    {
+      "expected_reason": "type",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/projection-spec/invalid-type.invalid.json",
+      "record_type": "ProjectionSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/projection-spec.schema.json"
+    },
+    {
+      "expected_reason": "valid_maximal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/projection-spec/maximal.valid.json",
+      "record_type": "ProjectionSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/projection-spec.schema.json"
+    },
+    {
+      "expected_reason": "valid_minimal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/projection-spec/minimal.valid.json",
+      "record_type": "ProjectionSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/projection-spec.schema.json"
+    },
+    {
+      "expected_reason": "required",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/projection-spec/missing-required.invalid.json",
+      "record_type": "ProjectionSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/projection-spec.schema.json"
+    },
+    {
+      "expected_reason": "explicit_withheld",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/projection-spec/withheld.valid.json",
+      "record_type": "ProjectionSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/projection-spec.schema.json"
+    },
+    {
+      "expected_reason": "namespaced_extension",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/refinement-graph/forward-extension.valid.json",
+      "record_type": "RefinementGraph",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/refinement-graph.schema.json"
+    },
+    {
+      "expected_reason": "type",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/refinement-graph/invalid-type.invalid.json",
+      "record_type": "RefinementGraph",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/refinement-graph.schema.json"
+    },
+    {
+      "expected_reason": "valid_maximal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/refinement-graph/maximal.valid.json",
+      "record_type": "RefinementGraph",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/refinement-graph.schema.json"
+    },
+    {
+      "expected_reason": "valid_minimal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/refinement-graph/minimal.valid.json",
+      "record_type": "RefinementGraph",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/refinement-graph.schema.json"
+    },
+    {
+      "expected_reason": "required",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/refinement-graph/missing-required.invalid.json",
+      "record_type": "RefinementGraph",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/refinement-graph.schema.json"
+    },
+    {
+      "expected_reason": "explicit_withheld",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/refinement-graph/withheld.valid.json",
+      "record_type": "RefinementGraph",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/refinement-graph.schema.json"
+    },
+    {
+      "expected_reason": "namespaced_extension",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/relation-assertion/forward-extension.valid.json",
+      "record_type": "RelationAssertion",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/relation-assertion.schema.json"
+    },
+    {
+      "expected_reason": "type",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/relation-assertion/invalid-type.invalid.json",
+      "record_type": "RelationAssertion",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/relation-assertion.schema.json"
+    },
+    {
+      "expected_reason": "valid_maximal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/relation-assertion/maximal.valid.json",
+      "record_type": "RelationAssertion",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/relation-assertion.schema.json"
+    },
+    {
+      "expected_reason": "valid_minimal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/relation-assertion/minimal.valid.json",
+      "record_type": "RelationAssertion",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/relation-assertion.schema.json"
+    },
+    {
+      "expected_reason": "required",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/relation-assertion/missing-required.invalid.json",
+      "record_type": "RelationAssertion",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/relation-assertion.schema.json"
+    },
+    {
+      "expected_reason": "explicit_withheld",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/relation-assertion/withheld.valid.json",
+      "record_type": "RelationAssertion",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/relation-assertion.schema.json"
+    },
+    {
+      "expected_reason": "namespaced_extension",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/repair-action/forward-extension.valid.json",
+      "record_type": "RepairAction",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/repair-action.schema.json"
+    },
+    {
+      "expected_reason": "type",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/repair-action/invalid-type.invalid.json",
+      "record_type": "RepairAction",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/repair-action.schema.json"
+    },
+    {
+      "expected_reason": "valid_maximal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/repair-action/maximal.valid.json",
+      "record_type": "RepairAction",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/repair-action.schema.json"
+    },
+    {
+      "expected_reason": "valid_minimal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/repair-action/minimal.valid.json",
+      "record_type": "RepairAction",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/repair-action.schema.json"
+    },
+    {
+      "expected_reason": "required",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/repair-action/missing-required.invalid.json",
+      "record_type": "RepairAction",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/repair-action.schema.json"
+    },
+    {
+      "expected_reason": "explicit_withheld",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/repair-action/withheld.valid.json",
+      "record_type": "RepairAction",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/repair-action.schema.json"
+    },
+    {
+      "expected_reason": "namespaced_extension",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/repair-receipt/forward-extension.valid.json",
+      "record_type": "RepairReceipt",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/repair-receipt.schema.json"
+    },
+    {
+      "expected_reason": "type",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/repair-receipt/invalid-type.invalid.json",
+      "record_type": "RepairReceipt",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/repair-receipt.schema.json"
+    },
+    {
+      "expected_reason": "valid_maximal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/repair-receipt/maximal.valid.json",
+      "record_type": "RepairReceipt",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/repair-receipt.schema.json"
+    },
+    {
+      "expected_reason": "valid_minimal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/repair-receipt/minimal.valid.json",
+      "record_type": "RepairReceipt",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/repair-receipt.schema.json"
+    },
+    {
+      "expected_reason": "required",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/repair-receipt/missing-required.invalid.json",
+      "record_type": "RepairReceipt",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/repair-receipt.schema.json"
+    },
+    {
+      "expected_reason": "explicit_withheld",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/repair-receipt/withheld.valid.json",
+      "record_type": "RepairReceipt",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/repair-receipt.schema.json"
+    },
+    {
+      "expected_reason": "namespaced_extension",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/representation-family-spec/forward-extension.valid.json",
+      "record_type": "RepresentationFamilySpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/representation-family-spec.schema.json"
+    },
+    {
+      "expected_reason": "type",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/representation-family-spec/invalid-type.invalid.json",
+      "record_type": "RepresentationFamilySpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/representation-family-spec.schema.json"
+    },
+    {
+      "expected_reason": "valid_maximal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/representation-family-spec/maximal.valid.json",
+      "record_type": "RepresentationFamilySpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/representation-family-spec.schema.json"
+    },
+    {
+      "expected_reason": "valid_minimal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/representation-family-spec/minimal.valid.json",
+      "record_type": "RepresentationFamilySpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/representation-family-spec.schema.json"
+    },
+    {
+      "expected_reason": "required",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/representation-family-spec/missing-required.invalid.json",
+      "record_type": "RepresentationFamilySpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/representation-family-spec.schema.json"
+    },
+    {
+      "expected_reason": "explicit_withheld",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/representation-family-spec/withheld.valid.json",
+      "record_type": "RepresentationFamilySpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/representation-family-spec.schema.json"
+    },
+    {
+      "expected_reason": "namespaced_extension",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/representation-instance/forward-extension.valid.json",
+      "record_type": "RepresentationInstance",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/representation-instance.schema.json"
+    },
+    {
+      "expected_reason": "type",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/representation-instance/invalid-type.invalid.json",
+      "record_type": "RepresentationInstance",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/representation-instance.schema.json"
+    },
+    {
+      "expected_reason": "valid_maximal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/representation-instance/maximal.valid.json",
+      "record_type": "RepresentationInstance",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/representation-instance.schema.json"
+    },
+    {
+      "expected_reason": "valid_minimal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/representation-instance/minimal.valid.json",
+      "record_type": "RepresentationInstance",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/representation-instance.schema.json"
+    },
+    {
+      "expected_reason": "required",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/representation-instance/missing-required.invalid.json",
+      "record_type": "RepresentationInstance",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/representation-instance.schema.json"
+    },
+    {
+      "expected_reason": "explicit_withheld",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/representation-instance/withheld.valid.json",
+      "record_type": "RepresentationInstance",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/representation-instance.schema.json"
+    },
+    {
+      "expected_reason": "namespaced_extension",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/representation-spec/forward-extension.valid.json",
+      "record_type": "RepresentationSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/representation-spec.schema.json"
+    },
+    {
+      "expected_reason": "type",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/representation-spec/invalid-type.invalid.json",
+      "record_type": "RepresentationSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/representation-spec.schema.json"
+    },
+    {
+      "expected_reason": "valid_maximal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/representation-spec/maximal.valid.json",
+      "record_type": "RepresentationSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/representation-spec.schema.json"
+    },
+    {
+      "expected_reason": "valid_minimal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/representation-spec/minimal.valid.json",
+      "record_type": "RepresentationSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/representation-spec.schema.json"
+    },
+    {
+      "expected_reason": "required",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/representation-spec/missing-required.invalid.json",
+      "record_type": "RepresentationSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/representation-spec.schema.json"
+    },
+    {
+      "expected_reason": "explicit_withheld",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/representation-spec/withheld.valid.json",
+      "record_type": "RepresentationSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/representation-spec.schema.json"
+    },
+    {
+      "expected_reason": "namespaced_extension",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/revision-opportunity/forward-extension.valid.json",
+      "record_type": "RevisionOpportunity",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/revision-opportunity.schema.json"
+    },
+    {
+      "expected_reason": "type",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/revision-opportunity/invalid-type.invalid.json",
+      "record_type": "RevisionOpportunity",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/revision-opportunity.schema.json"
+    },
+    {
+      "expected_reason": "valid_maximal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/revision-opportunity/maximal.valid.json",
+      "record_type": "RevisionOpportunity",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/revision-opportunity.schema.json"
+    },
+    {
+      "expected_reason": "valid_minimal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/revision-opportunity/minimal.valid.json",
+      "record_type": "RevisionOpportunity",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/revision-opportunity.schema.json"
+    },
+    {
+      "expected_reason": "required",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/revision-opportunity/missing-required.invalid.json",
+      "record_type": "RevisionOpportunity",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/revision-opportunity.schema.json"
+    },
+    {
+      "expected_reason": "explicit_withheld",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/revision-opportunity/withheld.valid.json",
+      "record_type": "RevisionOpportunity",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/revision-opportunity.schema.json"
+    },
+    {
+      "expected_reason": "namespaced_extension",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/run-manifest/forward-extension.valid.json",
+      "record_type": "RunManifest",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/run-manifest.schema.json"
+    },
+    {
+      "expected_reason": "type",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/run-manifest/invalid-type.invalid.json",
+      "record_type": "RunManifest",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/run-manifest.schema.json"
+    },
+    {
+      "expected_reason": "valid_maximal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/run-manifest/maximal.valid.json",
+      "record_type": "RunManifest",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/run-manifest.schema.json"
+    },
+    {
+      "expected_reason": "valid_minimal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/run-manifest/minimal.valid.json",
+      "record_type": "RunManifest",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/run-manifest.schema.json"
+    },
+    {
+      "expected_reason": "required",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/run-manifest/missing-required.invalid.json",
+      "record_type": "RunManifest",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/run-manifest.schema.json"
+    },
+    {
+      "expected_reason": "explicit_withheld",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/run-manifest/withheld.valid.json",
+      "record_type": "RunManifest",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/run-manifest.schema.json"
+    },
+    {
+      "expected_reason": "namespaced_extension",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/source-record/forward-extension.valid.json",
+      "record_type": "SourceRecord",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/source-record.schema.json"
+    },
+    {
+      "expected_reason": "type",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/source-record/invalid-type.invalid.json",
+      "record_type": "SourceRecord",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/source-record.schema.json"
+    },
+    {
+      "expected_reason": "valid_maximal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/source-record/maximal.valid.json",
+      "record_type": "SourceRecord",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/source-record.schema.json"
+    },
+    {
+      "expected_reason": "valid_minimal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/source-record/minimal.valid.json",
+      "record_type": "SourceRecord",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/source-record.schema.json"
+    },
+    {
+      "expected_reason": "required",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/source-record/missing-required.invalid.json",
+      "record_type": "SourceRecord",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/source-record.schema.json"
+    },
+    {
+      "expected_reason": "explicit_withheld",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/source-record/withheld.valid.json",
+      "record_type": "SourceRecord",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/source-record.schema.json"
+    },
+    {
+      "expected_reason": "namespaced_extension",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/successor-spec/forward-extension.valid.json",
+      "record_type": "SuccessorSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/successor-spec.schema.json"
+    },
+    {
+      "expected_reason": "type",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/successor-spec/invalid-type.invalid.json",
+      "record_type": "SuccessorSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/successor-spec.schema.json"
+    },
+    {
+      "expected_reason": "valid_maximal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/successor-spec/maximal.valid.json",
+      "record_type": "SuccessorSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/successor-spec.schema.json"
+    },
+    {
+      "expected_reason": "valid_minimal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/successor-spec/minimal.valid.json",
+      "record_type": "SuccessorSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/successor-spec.schema.json"
+    },
+    {
+      "expected_reason": "required",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/successor-spec/missing-required.invalid.json",
+      "record_type": "SuccessorSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/successor-spec.schema.json"
+    },
+    {
+      "expected_reason": "explicit_withheld",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/successor-spec/withheld.valid.json",
+      "record_type": "SuccessorSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/successor-spec.schema.json"
+    },
+    {
+      "expected_reason": "namespaced_extension",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/task-spec/forward-extension.valid.json",
+      "record_type": "TaskSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/task-spec.schema.json"
+    },
+    {
+      "expected_reason": "type",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/task-spec/invalid-type.invalid.json",
+      "record_type": "TaskSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/task-spec.schema.json"
+    },
+    {
+      "expected_reason": "valid_maximal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/task-spec/maximal.valid.json",
+      "record_type": "TaskSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/task-spec.schema.json"
+    },
+    {
+      "expected_reason": "valid_minimal",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/task-spec/minimal.valid.json",
+      "record_type": "TaskSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/task-spec.schema.json"
+    },
+    {
+      "expected_reason": "required",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/task-spec/missing-required.invalid.json",
+      "record_type": "TaskSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/task-spec.schema.json"
+    },
+    {
+      "expected_reason": "explicit_withheld",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/task-spec/withheld.valid.json",
+      "record_type": "TaskSpec",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/task-spec.schema.json"
+    },
+    {
+      "expected_reason": "valid_typed_payload",
+      "expected_valid": true,
+      "path": "fixtures/schema/0.3.0/typed-payload/minimal.valid.json",
+      "record_type": "typed_payload",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/typed-payload.schema.json"
+    },
+    {
+      "expected_reason": "enum",
+      "expected_valid": false,
+      "path": "fixtures/schema/0.3.0/typed-payload/unknown-type.invalid.json",
+      "record_type": "typed_payload",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/typed-payload.schema.json"
+    }
+  ],
+  "schema_set_id": "qste-schema/0.3.0"
+}

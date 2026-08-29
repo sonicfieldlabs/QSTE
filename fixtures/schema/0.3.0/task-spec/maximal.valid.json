@@ -1,0 +1,98 @@
+{
+  "alternate_intervention": {
+    "operator": "matched_noise"
+  },
+  "artifact_controls": [
+    "resynthesis",
+    "off_target"
+  ],
+  "authorization_status": "permitted",
+  "availability": "known",
+  "bound_validity_evidence": {
+    "disjoint": true,
+    "finite": true
+  },
+  "boundary_semantics": {
+    "equivalence": "closed",
+    "meaningful": "closed"
+  },
+  "compute_budget": {
+    "maximum_evaluations": 100
+  },
+  "consent_status": "not_applicable",
+  "content_digest": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+  "contract_id": "qste-contract/0.3.0",
+  "contrast_ref": {
+    "record_id": "qste:intervention-spec:75bd02f6-c6dd-461c-9e66-a0fe18ed8aac",
+    "record_type": "InterventionSpec",
+    "relation": "depends_on"
+  },
+  "created_at": "2026-08-28T00:00:00Z",
+  "disclosure_status": "private",
+  "eligible_family": [
+    "root_and_required_proper_nodes"
+  ],
+  "equivalence_region": {
+    "epsilon_minus": 0.1,
+    "epsilon_plus": 0.1,
+    "units": "normalized_score"
+  },
+  "estimator": {
+    "name": "paired_mean"
+  },
+  "expected_effect_direction": 1,
+  "ext:futureField": {
+    "preserve": true,
+    "version": 1
+  },
+  "failure_reasons": [
+    "budget_exhausted"
+  ],
+  "fixed_context": {
+    "mode": "fixture"
+  },
+  "input_refs": [
+    {
+      "record_id": "qste:artifact-record:c4d4807b-cb54-412a-a618-70a328289480",
+      "record_type": "ArtifactRecord",
+      "relation": "depends_on"
+    }
+  ],
+  "integrity_status": "unverified",
+  "intervention_ref": {
+    "record_id": "qste:intervention-spec:3c4ae437-277c-4e8f-8f1f-59652c4c044b",
+    "record_type": "InterventionSpec",
+    "relation": "depends_on"
+  },
+  "meaningful_bound": 0.5,
+  "multiplicity": {
+    "method": "holm"
+  },
+  "producer_role": "executor",
+  "record_id": "qste:task-spec:1d2c574e-acae-4469-904f-a761fe3ba177",
+  "record_type": "TaskSpec",
+  "references": [],
+  "repeats": 10,
+  "response_units": "normalized_score",
+  "response_variable": "score",
+  "schema_id": "https://schemas.qste.invalid/0.3.0/records/task-spec.schema.json",
+  "seeds": [
+    7
+  ],
+  "selection_confirmation": {
+    "split": "held_out"
+  },
+  "semantic_key": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+  "stopping_rules": {
+    "maximum_repeats": 10
+  },
+  "success_criterion": {
+    "candidate": "meaningful",
+    "proper_nodes": "equivalent"
+  },
+  "task_id": "task/1",
+  "task_version": "1",
+  "uncertainty": {
+    "method": "simultaneous_interval"
+  }
+}

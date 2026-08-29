@@ -1,0 +1,22 @@
+{
+  "contract_id": "qste-contract/0.3.0",
+  "fixtures": "fixtures/schema/0.3.0/fixture-manifest.json",
+  "id": "qste-conformance/0.3.0",
+  "legacy_reader": null,
+  "migration_map": null,
+  "phase": "P2",
+  "required_checks": [
+    "schema_self_validation",
+    "fixture_expectations",
+    "namespaced_extension_roundtrip",
+    "entity_coverage",
+    "identity_non_substitution",
+    "candidate_assessment_distinction",
+    "state_axis_independence",
+    "nullable_relation_type",
+    "canonical_token_rejection",
+    "refinement_dependency_shape",
+    "reference_closure"
+  ],
+  "schema_set_id": "qste-schema/0.3.0"
+}

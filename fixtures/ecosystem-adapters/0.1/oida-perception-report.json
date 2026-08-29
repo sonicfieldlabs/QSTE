@@ -1,0 +1,56 @@
+{
+  "version": "0.1",
+  "source": {
+    "path": "fixture://withheld-audio",
+    "duration_s": null,
+    "sr_native": null,
+    "channels": null,
+    "sha256": null
+  },
+  "engine": {
+    "daemon": "oida/0.10.0",
+    "model": "unavailable",
+    "profile": "fixture-no-model",
+    "params": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "top_k": 1
+    },
+    "thinking_budget": null,
+    "chunks": [],
+    "wall_ms": 0,
+    "unavailable_reason": "No model was executed for this boundary fixture."
+  },
+  "dsp": {
+    "status": "unavailable",
+    "attributed_to": "qste-p11-fixture"
+  },
+  "transcript": {
+    "present": false,
+    "language": null,
+    "segments": [],
+    "notes": ["No audio or transcript was supplied."]
+  },
+  "events": [],
+  "caption": {
+    "dense": null,
+    "brief": null
+  },
+  "speech": {
+    "present": false,
+    "dimensions": {},
+    "identity_caution": true,
+    "notes": []
+  },
+  "music": {
+    "present": false,
+    "description": null,
+    "tempo_feel": null,
+    "dsp_bpm_candidate": null,
+    "moss_bpm_candidate": null,
+    "notes": []
+  },
+  "qa": [],
+  "model_uncertainty_notes": ["Provider output is absent; no inference is synthesized."],
+  "forbidden_topics_triggered": []
+}

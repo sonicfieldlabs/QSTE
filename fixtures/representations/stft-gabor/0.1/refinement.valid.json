@@ -1,0 +1,4 @@
+{
+  "maximum_nodes": 20,
+  "procedure_id": "strict_nonempty_mask_subset"
+}

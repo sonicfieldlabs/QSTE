@@ -1,0 +1,26 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# QSTE-local runtime material; none belongs in source control by default.
+/.qste/
+/artifacts/
+/bundles/
+/checkpoints/
+/models/
+/runs/
+/*.db
+/*.sqlite
+/*.sqlite-*

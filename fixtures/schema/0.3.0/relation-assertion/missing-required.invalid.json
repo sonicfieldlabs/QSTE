@@ -1,0 +1,99 @@
+{
+  "comparison_spec_ref": {
+    "record_id": "qste:comparison-spec:22aecc42-06a3-41d9-acf2-4fa86dc1d7fb",
+    "record_type": "ComparisonSpec",
+    "relation": "depends_on"
+  },
+  "comparison_status": "resolved",
+  "comparison_substrate": {
+    "id": "omega/1"
+  },
+  "contract_id": "qste-contract/0.3.0",
+  "controls": {
+    "artifact": true,
+    "consequential": true,
+    "fidelity": true
+  },
+  "coverage": {
+    "left_to_right": [
+      0.9,
+      1.0
+    ],
+    "right_to_left": [
+      0.8,
+      0.95
+    ]
+  },
+  "created_at": "2026-08-28T00:00:00Z",
+  "direction": "left_to_right",
+  "disclosure_status": "private",
+  "effect_contract": {
+    "units": "normalized_score"
+  },
+  "effect_difference_interval": {
+    "lower": -0.02,
+    "upper": 0.03
+  },
+  "effect_tolerance": 0.1,
+  "evidence_refs": [
+    {
+      "record_id": "qste:observation-record:0dfee0ae-3717-45e4-bdb1-3127965b6218",
+      "record_type": "ObservationRecord",
+      "relation": "depends_on"
+    }
+  ],
+  "footprint_contract": {
+    "measure": "nonnegative_mass"
+  },
+  "integrity_status": "unverified",
+  "matching_contract": {
+    "capacities": [
+      1,
+      1
+    ],
+    "cardinality": "one_to_one",
+    "estimator": "interval",
+    "lambda": 1.0,
+    "objective": "minimum_cost",
+    "solver": "fixture/1",
+    "tolerance": 1e-09
+  },
+  "native_addresses": {
+    "left": [
+      {
+        "index": 0
+      }
+    ],
+    "right": [
+      {
+        "index": 1
+      }
+    ]
+  },
+  "perturbation_stability": "stable",
+  "producer_role": "executor",
+  "projection_contract": {
+    "id": "projection/1"
+  },
+  "reason_code": "matched_overlap",
+  "record_id": "qste:relation-assertion:4b4d0c38-baf4-4dba-b4fd-cda2c61309ea",
+  "record_type": "RelationAssertion",
+  "references": [],
+  "relation_type": "overlap",
+  "schema_id": "https://schemas.qste.invalid/0.3.0/records/relation-assertion.schema.json",
+  "solution_evidence": {
+    "components": [
+      "edge-1"
+    ],
+    "diagnostic_representative": "edge-1",
+    "primary_optimum": 0.0,
+    "surviving_optima": 1
+  },
+  "target_refs": [
+    {
+      "record_id": "qste:candidate-unit:65056092-8947-4352-9875-67b29395419b",
+      "record_type": "CandidateUnit",
+      "relation": "depends_on"
+    }
+  ]
+}

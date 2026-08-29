@@ -1,0 +1,809 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://earworm.dev/schemas/akousma.schema.json",
+  "title": "Akousma",
+  "type": "object",
+  "required": [
+    "akousma_id",
+    "schema_version",
+    "created_at",
+    "provenance",
+    "lineage"
+  ],
+  "additionalProperties": true,
+  "description": "Spec v1.6: the record is open at the top level — unknown top-level fields MUST be preserved by stores and MAY be ignored by consumers. A record normally carries audio. A decision-only auditum may instead carry a subject plus an earworm/auditum/v2 route decision when listening was refused before capture; a listening-only auditum may carry a subject, attributable listenings, and an honest absence for unavailable or unretained raw audio. The auditum preserves attributable listening, disagreement, coded silence, scoped authority, and revision.",
+  "anyOf": [
+    { "required": ["audio"] },
+    {
+      "required": ["subject", "auditum"],
+      "properties": {
+        "auditum": {
+          "type": "object",
+          "required": ["contract", "listenings", "route_decisions"],
+          "properties": {
+            "contract": { "const": "earworm/auditum/v2" },
+            "listenings": {
+              "type": "array",
+              "maxItems": 0
+            },
+            "route_decisions": {
+              "type": "array",
+              "minItems": 1,
+              "contains": {
+                "type": "object",
+                "required": ["gate", "outcome"],
+                "properties": {
+                  "gate": { "type": "string", "enum": ["input", "capture"] },
+                  "outcome": { "type": "string", "enum": ["pause", "defer", "abstain", "refuse", "withhold"] }
+                }
+              }
+            },
+            "honest_absences": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "kind": { "type": "string", "enum": ["unavailable", "withheld", "refused", "not_retained", "forgotten"] }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "required": ["subject", "auditum"],
+      "properties": {
+        "auditum": {
+          "type": "object",
+          "required": ["contract", "listenings", "honest_absences"],
+          "properties": {
+            "contract": { "const": "earworm/auditum/v2" },
+            "listenings": {
+              "type": "array",
+              "minItems": 1
+            },
+            "honest_absences": {
+              "type": "array",
+              "contains": {
+                "type": "object",
+                "required": ["kind", "subject"],
+                "properties": {
+                  "kind": { "type": "string", "enum": ["unavailable", "not_retained"] },
+                  "subject": { "const": "raw audio" }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "properties": {
+    "akousma_id": {
+      "type": "string"
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "session_id": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S",
+      "description": "Category-level object of a listening or attempted listening when no audio asset exists. Never contains withheld content."
+    },
+    "audio": {
+      "type": "object",
+      "required": [
+        "asset_id"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "asset_id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "uri": {
+          "type": "string"
+        },
+        "content_hash": {
+          "type": "string"
+        },
+        "duration_seconds": {
+          "type": "number",
+          "minimum": 0
+        },
+        "sample_rate": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "channels": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "provenance_id": {
+          "type": "string"
+        },
+        "media": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "container": {
+              "type": "string"
+            },
+            "codec": {
+              "type": "string"
+            },
+            "bit_depth": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "codec_history": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Known encode/transcode steps, oldest first."
+            }
+          }
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "source_type",
+        "origin",
+        "originating_app"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "provenance_id": {
+          "type": "string"
+        },
+        "source_type": {
+          "type": "string",
+          "enum": [
+            "generated",
+            "recorded",
+            "imported",
+            "cloned",
+            "designed",
+            "unknown"
+          ]
+        },
+        "origin": {
+          "type": "string",
+          "enum": [
+            "live-input",
+            "system-output",
+            "file",
+            "generated",
+            "unknown"
+          ]
+        },
+        "originating_app": {
+          "type": "string"
+        },
+        "device": {
+          "type": "string"
+        },
+        "provider": {
+          "type": "string"
+        },
+        "model_id": {
+          "type": "string"
+        },
+        "seed": {
+          "type": "integer"
+        },
+        "consent_status": {
+          "type": "string",
+          "enum": [
+            "owned",
+            "licensed",
+            "public_domain",
+            "unknown",
+            "restricted"
+          ]
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "capture_conditions": {
+          "type": "string",
+          "description": "Conditions of capture that travel with the sound: who recorded whom, where, under what agreement."
+        },
+        "rights_note": {
+          "type": "string",
+          "description": "Free-text rights/consent nuance beyond consent_status."
+        },
+        "pipeline_effects": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "capture",
+              "telephony",
+              "acousmatization",
+              "amplification",
+              "phonofixation",
+              "phonogeneration",
+              "reshaping"
+            ]
+          },
+          "description": "Which of the seven technological effects (after Chion) the sound has passed through, oldest first."
+        }
+      }
+    },
+    "listening": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "lineage": {
+      "type": "object",
+      "required": [
+        "parent_akousma_ids"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "parent_akousma_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "operation": {
+          "type": "string"
+        },
+        "prompt": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "params": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "event_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "relations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "type",
+              "target_akousma_id"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "variant_of",
+                  "response_to",
+                  "same_source_as",
+                  "recurrence_of",
+                  "series_with",
+                  "compares_with",
+                  "replaces",
+                  "other"
+                ]
+              },
+              "target_akousma_id": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string"
+              }
+            }
+          },
+          "description": "Typed curatorial links between records. Parents are causal genealogy; relations are kinship: variants, responses, recurrences, series."
+        }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "annotations": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "extensions": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "summary": {
+      "type": "string",
+      "description": "One-line human-readable account of the sound for skimming and search; the record stays the source of truth."
+    },
+    "location": {
+      "type": "object",
+      "required": [
+        "lat",
+        "lon"
+      ],
+      "additionalProperties": true,
+      "description": "Where the sound was heard (v1.2). Optional and consent-scoped: producers attach it only when the listener granted it; navigators may add or correct it afterwards. Stripped from open-research exports.",
+      "properties": {
+        "lat": {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90
+        },
+        "lon": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180
+        },
+        "accuracy_m": {
+          "type": "number",
+          "minimum": 0
+        },
+        "altitude_m": {
+          "type": "number"
+        },
+        "label": {
+          "type": "string",
+          "description": "Human place name that travels with the sound."
+        },
+        "source": {
+          "type": "string",
+          "enum": [
+            "gps",
+            "network",
+            "manual",
+            "config",
+            "inferred"
+          ]
+        },
+        "captured_at": {
+          "type": "string"
+        }
+      }
+    },
+    "capture": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "How the listening was triggered (v1.2): temporal direction relative to the trigger and the window length. Device and format detail stay in provenance/audio.",
+      "properties": {
+        "direction": {
+          "type": "string",
+          "enum": [
+            "past",
+            "future",
+            "live"
+          ],
+          "description": "past = the seconds already in the ring buffer when the trigger fired; future = the seconds recorded after it; live = an open-ended or manual session."
+        },
+        "seconds": {
+          "type": "number",
+          "minimum": 0
+        },
+        "trigger": {
+          "type": "string",
+          "description": "What initiated the listen: hotkey, remote-ear, mcp, dashboard, watcher, schedule…"
+        },
+        "armed_at": {
+          "type": "string"
+        },
+        "triggered_at": {
+          "type": "string"
+        }
+      }
+    },
+    "covenant": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "additionalProperties": true,
+      "description": "Under which ethics this was listened (v1.3). The listening covenant's identity plus honest absence: what was withheld under its rules, counted and attributed, never described. The covenant's full text stays with its author — records carry identity and hash, so exports stay safe by construction.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The covenant's stable slug, optionally versioned: 'river-covenant/2'."
+        },
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "contract": {
+          "type": "string",
+          "description": "The AKOÚŌ contract the covenant was parsed under, e.g. 'akouo/v0.7'."
+        },
+        "sha256": {
+          "type": "string",
+          "description": "SHA-256 of the covenant's source text: identity without content."
+        },
+        "extends": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The covenant's declared lineage (manifestos, community protocols, parent covenants)."
+        },
+        "rules_applied": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The covenant rules that acted on this hearing, as normalized rule lines."
+        },
+        "withheld": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+              "rule": {
+                "type": "string"
+              },
+              "subject": {
+                "type": "string"
+              },
+              "count": {
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          },
+          "description": "Honest absence: what was withheld, named at category level and attributed to its rule."
+        },
+        "commitments": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "How many non-executable commitments the covenant carries."
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    },
+    "auditum": {
+      "$ref": "#/$defs/auditum",
+      "description": "The addressable listening record around this sound, listening-only account, or pre-capture decision (v1.6). 'Tokenized' means structured, attributable, versioned, and referenceable; it does not mean a financial token."
+    }
+  },
+  "$defs": {
+    "auditum": {
+      "type": "object",
+      "required": [
+        "contract",
+        "listenings",
+        "disagreements",
+        "honest_absences",
+        "actions"
+      ],
+      "additionalProperties": false,
+      "anyOf": [
+        {
+          "required": ["contract", "listenings"],
+          "properties": {
+            "contract": { "const": "earworm/auditum/v1" },
+            "listenings": { "type": "array", "minItems": 1 }
+          }
+        },
+        {
+          "required": ["contract", "route_decisions"],
+          "properties": {
+            "contract": { "const": "earworm/auditum/v2" },
+            "route_decisions": { "type": "array", "minItems": 1 },
+            "honest_absences": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "kind": { "type": "string", "enum": ["unavailable", "withheld", "refused", "not_retained", "forgotten"] }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "properties": {
+        "contract": {
+          "type": "string",
+          "enum": ["earworm/auditum/v1", "earworm/auditum/v2"]
+        },
+        "listenings": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "type": "object",
+            "required": [
+              "listening_id",
+              "listener_id",
+              "listener_type",
+              "created_at",
+              "report_namespace",
+              "contract"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "listening_id": { "type": "string", "minLength": 1 },
+              "listener_id": { "type": "string", "minLength": 1 },
+              "listener_type": {
+                "type": "string",
+                "enum": ["human", "agent", "hybrid", "community", "institution", "sensor", "habitat", "other_animal", "ensemble", "other"]
+              },
+              "created_at": { "type": "string", "minLength": 1 },
+              "report_namespace": { "type": "string", "minLength": 1 },
+              "contract": { "type": "string", "minLength": 1 },
+              "context_ref": { "type": ["string", "null"] },
+              "apparatus_ref": { "type": ["string", "null"] },
+              "claim_set_ref": { "type": ["string", "null"] },
+              "covenant_ref": { "type": ["string", "null"] },
+              "route": {
+                "type": "array",
+                "items": { "type": "string", "minLength": 1 }
+              },
+              "listening_pass_ref": { "type": ["string", "null"] },
+              "listening_provenance_ref": { "type": ["string", "null"] },
+              "route_decision_refs": {
+                "type": "array",
+                "items": { "type": "string", "minLength": 1 },
+                "uniqueItems": true
+              },
+              "influenced_by": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["listening_id", "effect"],
+                  "additionalProperties": false,
+                  "properties": {
+                    "listening_id": { "type": "string", "minLength": 1 },
+                    "effect": { "type": "string", "minLength": 1 }
+                  }
+                }
+              },
+              "note": { "type": ["string", "null"] }
+            }
+          },
+          "description": "Attributable hearings. An ear swarm is plural only when each listener and route remains distinct."
+        },
+        "disagreements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "subject", "listening_ids", "positions", "status"],
+            "additionalProperties": false,
+            "allOf": [
+              {
+                "if": {
+                  "type": "object",
+                  "required": ["status"],
+                  "properties": { "status": { "const": "resolved" } }
+                },
+                "then": {
+                  "type": "object",
+                  "required": ["resolution_note"],
+                  "properties": { "resolution_note": { "type": "string", "minLength": 1 } }
+                }
+              }
+            ],
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "subject": { "type": "string", "minLength": 1 },
+              "listening_ids": {
+                "type": "array",
+                "minItems": 2,
+                "uniqueItems": true,
+                "items": { "type": "string", "minLength": 1 }
+              },
+              "positions": {
+                "type": "array",
+                "minItems": 2,
+                "items": {
+                  "type": "object",
+                  "required": ["listening_id", "statement"],
+                  "additionalProperties": false,
+                  "properties": {
+                    "listening_id": { "type": "string", "minLength": 1 },
+                    "statement": { "type": "string", "minLength": 1 },
+                    "claim_category": {
+                      "type": "string",
+                      "enum": ["heard", "measured", "inferred", "interpreted", "speculative", "undetermined"]
+                    }
+                  }
+                }
+              },
+              "status": {
+                "type": "string",
+                "enum": ["preserved", "resolved", "undetermined"]
+              },
+              "resolution_note": { "type": ["string", "null"] }
+            }
+          },
+          "description": "Differences between attributable listenings. Consumers preserve positions and must not manufacture consensus; a resolved disagreement requires a non-empty attributable resolution note."
+        },
+        "honest_absences": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "kind", "subject", "attributed_to"],
+            "additionalProperties": false,
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "kind": {
+                "type": "string",
+                "enum": ["unavailable", "withheld", "refused", "not_retained", "forgotten", "undetermined"]
+              },
+              "subject": { "type": "string", "minLength": 1 },
+              "attributed_to": { "type": "string", "minLength": 1 },
+              "listening_id": { "type": ["string", "null"] },
+              "rule": { "type": ["string", "null"] },
+              "count": { "type": ["integer", "null"], "minimum": 0 },
+              "note": { "type": ["string", "null"] }
+            }
+          }
+        },
+        "actions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["action_id", "proposal", "status", "authority"],
+            "additionalProperties": false,
+            "properties": {
+              "action_id": { "type": "string", "minLength": 1 },
+              "proposal": { "type": "string", "minLength": 1 },
+              "status": {
+                "type": "string",
+                "enum": ["proposed", "authorized", "refused", "executed", "failed", "reverted"]
+              },
+              "authority": {
+                "type": "object",
+                "required": ["mode", "scopes", "requires_confirmation"],
+                "additionalProperties": false,
+                "properties": {
+                  "mode": {
+                    "type": "string",
+                    "enum": ["observe_only", "recommend", "request", "execute_scoped"]
+                  },
+                  "scopes": {
+                    "type": "array",
+                    "items": { "type": "string", "minLength": 1 }
+                  },
+                  "granted_by": { "type": ["string", "null"] },
+                  "expires_at": { "type": ["string", "null"] },
+                  "requires_confirmation": { "type": "boolean" },
+                  "reversible": { "type": ["boolean", "null"] }
+                }
+              },
+              "receipt": {
+                "type": "object",
+                "required": ["created_at", "actor"],
+                "additionalProperties": false,
+                "properties": {
+                  "created_at": { "type": "string", "minLength": 1 },
+                  "actor": { "type": "string", "minLength": 1 },
+                  "result": { "type": ["string", "null"] },
+                  "recovery": { "type": ["string", "null"] }
+                }
+              }
+            }
+          },
+          "description": "Action proposals and receipts. Perceptual or technical capability is not authority."
+        },
+        "route_decisions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["decision_id", "gate", "outcome", "subject", "reason", "decided_at", "authority"],
+            "additionalProperties": false,
+            "properties": {
+              "decision_id": { "type": "string", "minLength": 1 },
+              "gate": { "type": "string", "enum": ["input", "capture", "inference", "memory", "output", "disclosure", "retention", "action"] },
+              "outcome": { "type": "string", "enum": ["proceed", "pause", "defer", "abstain", "refuse", "withhold", "forget", "do_not_act"] },
+              "subject": { "type": "string", "minLength": 1 },
+              "reason": { "type": "string", "minLength": 1 },
+              "decided_at": { "type": "string", "minLength": 1 },
+              "listening_id": { "type": ["string", "null"] },
+              "producer_contract": { "type": ["string", "null"] },
+              "producer_decision_ref": { "type": ["string", "null"] },
+              "authority": {
+                "type": "object",
+                "required": ["mode", "actor", "requires_confirmation", "reversible"],
+                "additionalProperties": false,
+                "properties": {
+                  "mode": { "type": "string", "enum": ["observe_only", "recommend", "request", "execute_scoped"] },
+                  "actor": { "type": "string", "minLength": 1 },
+                  "covenant_ref": { "type": ["string", "null"] },
+                  "granted_by": { "type": ["string", "null"] },
+                  "requires_confirmation": { "type": "boolean" },
+                  "reversible": { "type": "boolean" }
+                }
+              },
+              "receipt": {
+                "type": "object",
+                "required": ["created_at", "actor"],
+                "additionalProperties": false,
+                "properties": {
+                  "created_at": { "type": "string", "minLength": 1 },
+                  "actor": { "type": "string", "minLength": 1 },
+                  "result": { "type": ["string", "null"] },
+                  "recovery": { "type": ["string", "null"] }
+                }
+              },
+              "note": { "type": ["string", "null"] }
+            }
+          },
+          "description": "Addressable gate outcomes. Refusal or withholding is a complete record, not a missing listening."
+        },
+        "ensemble": {
+          "type": "object",
+          "required": ["id", "kind", "listening_ids", "influence_edges", "permissions_preserved", "disagreements_preserved", "dissolution_rule"],
+          "additionalProperties": false,
+          "anyOf": [
+            { "required": ["kind"], "properties": { "kind": { "const": "plural_listening" } } },
+            {
+              "required": ["kind", "influence_edges", "permissions_preserved", "disagreements_preserved"],
+              "properties": {
+                "kind": { "const": "ear_swarm" },
+                "influence_edges": { "type": "array", "minItems": 1 },
+                "permissions_preserved": { "const": true },
+                "disagreements_preserved": { "const": true }
+              }
+            }
+          ],
+          "properties": {
+            "id": { "type": "string", "minLength": 1 },
+            "kind": { "type": "string", "enum": ["plural_listening", "ear_swarm"] },
+            "listening_ids": { "type": "array", "minItems": 2, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+            "influence_edges": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["from_listening_id", "to_listening_id", "effect"],
+                "additionalProperties": false,
+                "properties": {
+                  "from_listening_id": { "type": "string", "minLength": 1 },
+                  "to_listening_id": { "type": "string", "minLength": 1 },
+                  "effect": { "type": "string", "minLength": 1 }
+                }
+              }
+            },
+            "permissions_preserved": { "type": "boolean" },
+            "disagreements_preserved": { "type": "boolean" },
+            "dissolution_rule": { "type": "string", "minLength": 1 }
+          }
+        },
+        "revision": {
+          "type": "object",
+          "required": ["revision_id", "revises_akousma_id", "reason", "changes", "created_at"],
+          "additionalProperties": false,
+          "properties": {
+            "revision_id": { "type": "string", "minLength": 1 },
+            "revises_akousma_id": { "type": "string", "minLength": 1 },
+            "reason": { "type": "string", "minLength": 1 },
+            "changes": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "type": "string", "minLength": 1 }
+            },
+            "created_at": { "type": "string", "minLength": 1 }
+          },
+          "description": "A re-listening is a new, attributable revision. The earlier auditum remains intact."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "$id": "https://schemas.qste.invalid/0.3.0/records/listening-account.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "allOf": [
+    {
+      "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordBase"
+    },
+    {
+      "properties": {
+        "aperture_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "apparatus_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "authorization_status": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/authorization_status"
+        },
+        "collection_receipt_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "consent_status": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/consent_status"
+        },
+        "context": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "contract_id": {
+          "const": "qste-contract/0.3.0"
+        },
+        "dependent_claim_refs": {
+          "items": {
+            "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "evaluator_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "evidence_basis": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/evidence_basis"
+        },
+        "object_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "protocol_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "record_type": {
+          "const": "ListeningAccount"
+        },
+        "report": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "response_fields": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "response_units": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "retention_policy": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "schema_id": {
+          "const": "https://schemas.qste.invalid/0.3.0/records/listening-account.schema.json"
+        },
+        "uncertainty_or_missingness": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "withdrawal_event_refs": {
+          "items": {
+            "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+          },
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "required": [
+        "evaluator_ref",
+        "protocol_ref",
+        "object_ref",
+        "apparatus_ref",
+        "aperture_ref",
+        "context",
+        "response_fields",
+        "report",
+        "response_units",
+        "uncertainty_or_missingness",
+        "evidence_basis",
+        "consent_status",
+        "withdrawal_event_refs",
+        "retention_policy",
+        "authorization_status",
+        "collection_receipt_ref",
+        "dependent_claim_refs"
+      ],
+      "type": "object"
+    }
+  ],
+  "patternProperties": {
+    "^[a-z][a-z0-9_-]*:[A-Za-z][A-Za-z0-9_.-]*$": {}
+  },
+  "title": "ListeningAccount",
+  "unevaluatedProperties": false
+}

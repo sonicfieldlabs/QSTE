@@ -1,0 +1,19 @@
+{
+  "id": "decision-qste-p11-fixture",
+  "gate": "disclosure",
+  "outcome": "withhold",
+  "subject": "undisclosed source material",
+  "reason": "The fixture carries no authority for disclosure.",
+  "decided_at": "2026-08-28T12:00:00Z",
+  "authority": {
+    "mode": "observe_only",
+    "actor": "qste-p11-fixture",
+    "covenant_ref": null,
+    "granted_by": null,
+    "requires_confirmation": true,
+    "reversible": true
+  },
+  "receipt_ref": null,
+  "count": null,
+  "note": "A route decision is not a signal measurement."
+}

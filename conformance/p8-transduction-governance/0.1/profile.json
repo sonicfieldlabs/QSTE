@@ -1,0 +1,76 @@
+{
+  "appeal_profile": "qste-appeal-case/v0.1",
+  "claims": [
+    "five_exact_transduction_modes",
+    "explicit_mapping_units_ranges_missing_data_interpolation_reversibility",
+    "bounded_local_nonplaying_outputs",
+    "control_analytical_safety_and_heard_output_nonidentity",
+    "safety_output_descendant_lineage",
+    "authorization_before_execution",
+    "withdrawal_blocks_export",
+    "dependency_closure_propagation",
+    "standing_and_named_authority_validation",
+    "independent_appeal_pause_adjudication_repair_axes",
+    "event_sourced_governance_transitions",
+    "typed_behavior_changing_repair_successors",
+    "partial_and_impossible_repair_limit_reporting",
+    "immutable_scientific_and_governance_history",
+    "distinct_policy_partial_failure_exit_classes"
+  ],
+  "contract_id": "qste-contract/0.3.0",
+  "gates": [
+    {
+      "id": "P8-G01",
+      "requirement": "Mappings declare exact source and target variables, units, ranges, missing-data behavior, interpolation, normalization, uncertainty, loss, reversibility, and allowed canonical modes."
+    },
+    {
+      "id": "P8-G02",
+      "requirement": "Sonification, desonification, resonification, sonic transformation, and cross-domain contrast remain separately typed bounded operations."
+    },
+    {
+      "id": "P8-G03",
+      "requirement": "Controls, analytical outputs, safety descendants, optional render state, and heard outputs cannot populate one another; P8 fixtures never play audio."
+    },
+    {
+      "id": "P8-G04",
+      "requirement": "Authorization is evaluated before execution; refusal emits a durable receipt and changes the eligible operation without producing an authoritative derivative."
+    },
+    {
+      "id": "P8-G05",
+      "requirement": "Revocation and pause propagate through the bounded dependency closure and block later transduction or export until an authorized successor releases them."
+    },
+    {
+      "id": "P8-G06",
+      "requirement": "Appeal intake requires explicit standing evidence, duty to respond, a named in-bound authority, jurisdiction, deadline, target closure, and typed requested action."
+    },
+    {
+      "id": "P8-G07",
+      "requirement": "Appeal, pause, adjudication, and repair statuses follow their own event-sourced axes and are never inferred from scientific assessment or one another."
+    },
+    {
+      "id": "P8-G08",
+      "requirement": "Adjudication outcomes are frozen; denied, withdrawn, escalated, or jurisdictionally declined requests create no RepairAction."
+    },
+    {
+      "id": "P8-G09",
+      "requirement": "Repair requires favorable adjudication, permitted authority, exact action, target closure, predecessor and successor behavior, retention semantics, propagation requirement, and receipts."
+    },
+    {
+      "id": "P8-G10",
+      "requirement": "Hash-only, UUID-only, timestamp-only, serialization-only, or explanation-only successor changes fail the semantic and behavioral comparator."
+    },
+    {
+      "id": "P8-G11",
+      "requirement": "Partial or impossible repair exposes unresolved external copies, retention conflicts, propagation failures, and technical limits without claiming deletion or rewriting history."
+    },
+    {
+      "id": "P8-G12",
+      "requirement": "Every operation uses OperationResult with policy refusal at exit 3, unavailable capability at 4, partial or impossible repair at 6, execution failure at 7, conformance failure at 8, and internal failure at 9."
+    }
+  ],
+  "governance_profile": "qste-governance-boundary/v0.1",
+  "mapping_profile": "qste-transduction-mapping/v0.1",
+  "profile_id": "qste-transduction-governance-conformance/0.1",
+  "repair_profile": "qste-repair-chain/v0.1",
+  "transduction_profile": "qste-bounded-transduction/v0.1"
+}

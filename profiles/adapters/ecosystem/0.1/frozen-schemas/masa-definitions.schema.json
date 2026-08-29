@@ -1,0 +1,854 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://masa.sonicfield.org/schemas/0.2.0/definitions.schema.json",
+  "title": "MASA 0.2.0 shared definitions",
+  "$defs": {
+    "Id": {
+      "type": "string",
+      "format": "uri",
+      "minLength": 5,
+      "maxLength": 2048
+    },
+    "Timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "JsonValue": {
+      "type": ["array", "boolean", "number", "object", "string", "null"]
+    },
+    "NonNullJsonValue": {
+      "type": ["array", "boolean", "number", "object", "string"]
+    },
+    "Disclosure": {
+      "type": "string",
+      "enum": ["public", "private", "restricted", "withheld", "redacted"]
+    },
+    "QualifiedValue": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["state", "value"],
+          "properties": {
+            "state": { "const": "known" },
+            "value": { "$ref": "#/$defs/NonNullJsonValue" },
+            "provenanceRefs": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/Id" },
+              "uniqueItems": true,
+              "default": []
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["state", "reason"],
+          "properties": {
+            "state": { "const": "unknown" },
+            "reason": { "type": "string", "minLength": 1, "maxLength": 2048 },
+            "reasonCode": { "type": "string", "pattern": "^[a-z][a-z0-9_-]*$" }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["state", "reason", "receiptRefs"],
+          "properties": {
+            "state": { "const": "deleted" },
+            "reason": { "type": "string", "minLength": 1, "maxLength": 2048 },
+            "receiptRefs": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/Id" },
+              "minItems": 1,
+              "uniqueItems": true
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["state", "reason", "policyRefs"],
+          "properties": {
+            "state": { "const": "withheld" },
+            "reason": { "type": "string", "minLength": 1, "maxLength": 2048 },
+            "policyRefs": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/Id" },
+              "minItems": 1,
+              "uniqueItems": true
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["state", "reason"],
+          "properties": {
+            "state": { "const": "unavailable" },
+            "reason": { "type": "string", "minLength": 1, "maxLength": 2048 },
+            "reasonCode": { "type": "string", "pattern": "^[a-z][a-z0-9_-]*$" }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["state"],
+          "properties": {
+            "state": { "const": "not_applicable" }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "ExtensionBag": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9-]*:[A-Za-z][A-Za-z0-9._-]*$"
+      },
+      "additionalProperties": true
+    },
+    "Confidence": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["status"],
+          "properties": {
+            "status": { "const": "not_assessed" }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["status", "method", "expression", "scale"],
+          "properties": {
+            "status": { "const": "assessed" },
+            "method": { "type": "string", "minLength": 1, "maxLength": 512 },
+            "expression": {
+              "oneOf": [
+                { "type": "number" },
+                { "type": "string", "minLength": 1, "maxLength": 256 },
+                {
+                  "type": "array",
+                  "prefixItems": [{ "type": "number" }, { "type": "number" }],
+                  "items": false,
+                  "minItems": 2,
+                  "maxItems": 2
+                }
+              ]
+            },
+            "scale": { "type": "string", "minLength": 1, "maxLength": 256 },
+            "calibration": { "type": "string", "minLength": 1, "maxLength": 2048 }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "SourceHealth": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": { "type": "string", "enum": ["healthy", "degraded", "unavailable", "error", "unknown"] },
+        "checkedAt": { "$ref": "#/$defs/Timestamp" },
+        "reason": { "type": "string", "minLength": 1, "maxLength": 2048 }
+      },
+      "additionalProperties": false
+    },
+    "Freshness": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": { "type": "string", "enum": ["current", "stale", "expired", "unknown"] },
+        "observedAt": { "$ref": "#/$defs/Timestamp" },
+        "retrievedAt": { "$ref": "#/$defs/Timestamp" },
+        "expiresAt": { "$ref": "#/$defs/Timestamp" },
+        "ageSeconds": { "type": "number", "minimum": 0 },
+        "reason": { "type": "string", "minLength": 1, "maxLength": 2048 }
+      },
+      "additionalProperties": false
+    },
+    "Method": {
+      "type": "object",
+      "required": ["name", "version", "parameters"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "maxLength": 512 },
+        "version": { "$ref": "#/$defs/QualifiedValue" },
+        "parameters": { "type": "object", "additionalProperties": true },
+        "apparatusRefs": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Id" },
+          "uniqueItems": true,
+          "default": []
+        }
+      },
+      "additionalProperties": false
+    },
+    "Window": {
+      "type": "object",
+      "required": ["kind", "unit", "start", "end"],
+      "properties": {
+        "kind": { "type": "string", "enum": ["temporal", "spectral", "spatial", "record", "custom"] },
+        "unit": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "start": { "type": "number" },
+        "end": { "type": "number" },
+        "resolution": { "type": "number", "exclusiveMinimum": 0 },
+        "description": { "type": "string", "maxLength": 2048 }
+      },
+      "additionalProperties": false
+    },
+    "Integrity": {
+      "type": "object",
+      "required": ["algorithm", "digest", "byteLength", "status"],
+      "properties": {
+        "algorithm": { "type": "string", "enum": ["sha-256", "sha-512", "blake3", "other"] },
+        "digest": { "type": "string", "pattern": "^[A-Fa-f0-9]{32,128}$" },
+        "byteLength": { "type": "integer", "minimum": 0 },
+        "status": { "type": "string", "enum": ["verified", "unverified", "mismatch", "unknown", "withheld"] },
+        "verifiedAt": { "$ref": "#/$defs/Timestamp" },
+        "verifiedBy": { "$ref": "#/$defs/Id" }
+      },
+      "additionalProperties": false
+    },
+    "Actor": {
+      "type": "object",
+      "required": ["id", "type", "actorKind", "roles", "disclosure", "extensions"],
+      "properties": {
+        "id": { "$ref": "#/$defs/Id" },
+        "type": { "const": "masa:Actor" },
+        "actorKind": { "type": "string", "enum": ["human", "community", "organization", "software", "agent", "model", "instrument"] },
+        "roles": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1, "maxLength": 256 },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "name": { "$ref": "#/$defs/QualifiedValue" },
+        "authorityRefs": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Id" },
+          "uniqueItems": true,
+          "default": []
+        },
+        "attribution": { "type": "string", "minLength": 1, "maxLength": 2048 },
+        "disclosure": { "$ref": "#/$defs/Disclosure" },
+        "extensions": { "$ref": "#/$defs/ExtensionBag" }
+      },
+      "additionalProperties": false
+    },
+    "Source": {
+      "type": "object",
+      "required": ["id", "type", "sourceKind", "identification", "locator", "authority", "rights", "health", "freshness", "policyRefs", "disclosure", "extensions"],
+      "properties": {
+        "id": { "$ref": "#/$defs/Id" },
+        "type": { "const": "masa:Source" },
+        "sourceKind": { "type": "string", "minLength": 1, "maxLength": 256 },
+        "identification": { "$ref": "#/$defs/QualifiedValue" },
+        "locator": { "$ref": "#/$defs/QualifiedValue" },
+        "authority": { "$ref": "#/$defs/QualifiedValue" },
+        "rights": { "$ref": "#/$defs/QualifiedValue" },
+        "coverage": { "$ref": "#/$defs/QualifiedValue" },
+        "health": { "$ref": "#/$defs/SourceHealth" },
+        "freshness": { "$ref": "#/$defs/Freshness" },
+        "causalClaimRefs": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Id" },
+          "uniqueItems": true,
+          "default": []
+        },
+        "policyRefs": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Id" },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "disclosure": { "$ref": "#/$defs/Disclosure" },
+        "extensions": { "$ref": "#/$defs/ExtensionBag" }
+      },
+      "additionalProperties": false
+    },
+    "AudioTechnical": {
+      "type": "object",
+      "required": ["durationSeconds", "channels", "sampleRateHz", "encoding", "spatialFormat", "levelContext"],
+      "properties": {
+        "durationSeconds": { "$ref": "#/$defs/QualifiedValue" },
+        "channels": { "$ref": "#/$defs/QualifiedValue" },
+        "sampleRateHz": { "$ref": "#/$defs/QualifiedValue" },
+        "bitDepth": { "$ref": "#/$defs/QualifiedValue" },
+        "encoding": { "$ref": "#/$defs/QualifiedValue" },
+        "spatialFormat": { "$ref": "#/$defs/QualifiedValue" },
+        "levelContext": { "$ref": "#/$defs/QualifiedValue" }
+      },
+      "additionalProperties": false
+    },
+    "Threshold": {
+      "type": "object",
+      "required": ["name", "comparison", "value", "unit", "method", "uncertainty"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "maxLength": 512 },
+        "comparison": { "type": "string", "enum": ["greater-than", "greater-than-or-equal", "less-than", "less-than-or-equal", "inside-range", "outside-range", "custom"] },
+        "value": { "$ref": "#/$defs/NonNullJsonValue" },
+        "unit": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "method": { "$ref": "#/$defs/Method" },
+        "uncertainty": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 2048 } }
+      },
+      "additionalProperties": false
+    },
+    "Representation": {
+      "type": "object",
+      "required": ["id", "type", "role", "mediaType", "availability", "locator", "integrity", "policyRefs", "disclosure", "extensions"],
+      "properties": {
+        "id": { "$ref": "#/$defs/Id" },
+        "type": { "const": "masa:Representation" },
+        "role": { "type": "string", "enum": ["source-representation", "derivative", "preview", "render", "data", "prompt", "score", "model-output", "performance-capture", "tombstone", "other"] },
+        "mediaType": { "type": "string", "pattern": "^[A-Za-z0-9!#$&^_.+-]+/[A-Za-z0-9!#$&^_.+-]+$" },
+        "format": { "$ref": "#/$defs/QualifiedValue" },
+        "availability": { "type": "string", "enum": ["available", "partial", "unavailable", "withheld", "deleted"] },
+        "locator": { "$ref": "#/$defs/QualifiedValue" },
+        "extent": { "$ref": "#/$defs/QualifiedValue" },
+        "audio": { "$ref": "#/$defs/AudioTechnical" },
+        "integrity": { "$ref": "#/$defs/QualifiedValue" },
+        "policyRefs": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Id" },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "disclosure": { "$ref": "#/$defs/Disclosure" },
+        "extensions": { "$ref": "#/$defs/ExtensionBag" }
+      },
+      "additionalProperties": false
+    },
+    "Encounter": {
+      "type": "object",
+      "required": ["id", "type", "occurredAt", "actors", "question", "position", "accessConditions", "contextRefs", "extensions"],
+      "properties": {
+        "id": { "$ref": "#/$defs/Id" },
+        "type": { "const": "masa:Encounter" },
+        "occurredAt": { "$ref": "#/$defs/Timestamp" },
+        "actors": { "type": "array", "items": { "$ref": "#/$defs/Id" }, "minItems": 1, "uniqueItems": true },
+        "question": { "type": "string", "minLength": 1, "maxLength": 4096 },
+        "position": { "$ref": "#/$defs/QualifiedValue" },
+        "accessConditions": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 2048 } },
+        "contextRefs": { "type": "array", "items": { "$ref": "#/$defs/Id" }, "uniqueItems": true },
+        "extensions": { "$ref": "#/$defs/ExtensionBag" }
+      },
+      "additionalProperties": false
+    },
+    "Aperture": {
+      "type": "object",
+      "required": ["id", "type", "description", "channels", "ranges", "windows", "preprocessing", "exclusions", "blindSpots", "extensions"],
+      "properties": {
+        "id": { "$ref": "#/$defs/Id" },
+        "type": { "const": "masa:Aperture" },
+        "description": { "type": "string", "minLength": 1, "maxLength": 4096 },
+        "channels": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 256 } },
+        "ranges": { "type": "array", "items": { "$ref": "#/$defs/Window" } },
+        "windows": { "type": "array", "items": { "$ref": "#/$defs/Window" } },
+        "thresholds": { "type": "array", "items": { "$ref": "#/$defs/Threshold" } },
+        "preprocessing": { "type": "array", "items": { "$ref": "#/$defs/Method" } },
+        "exclusions": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 2048 } },
+        "blindSpots": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 2048 } },
+        "extensions": { "$ref": "#/$defs/ExtensionBag" }
+      },
+      "additionalProperties": false
+    },
+    "EvidenceReference": {
+      "type": "object",
+      "required": ["ref", "role"],
+      "properties": {
+        "ref": { "$ref": "#/$defs/Id" },
+        "role": { "type": "string", "enum": ["source", "representation", "claim", "measurement", "observation", "context", "operation", "external"] },
+        "locator": { "type": "string", "minLength": 1, "maxLength": 2048 }
+      },
+      "additionalProperties": false
+    },
+    "Claim": {
+      "type": "object",
+      "required": ["id", "type", "kind", "about", "basis", "actor", "createdAt", "method", "confidence", "uncertainty", "disclosure", "extensions"],
+      "properties": {
+        "id": { "$ref": "#/$defs/Id" },
+        "type": { "const": "masa:Claim" },
+        "kind": { "type": "string", "enum": ["heard", "measured", "inferred", "interpreted", "speculative", "undetermined"] },
+        "about": { "type": "array", "items": { "$ref": "#/$defs/Id" }, "minItems": 1, "uniqueItems": true },
+        "basis": { "type": "array", "items": { "$ref": "#/$defs/EvidenceReference" }, "minItems": 1 },
+        "actor": { "$ref": "#/$defs/Id" },
+        "createdAt": { "$ref": "#/$defs/Timestamp" },
+        "content": { "$ref": "#/$defs/NonNullJsonValue" },
+        "value": { "$ref": "#/$defs/NonNullJsonValue" },
+        "unit": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "window": { "$ref": "#/$defs/Window" },
+        "method": { "$ref": "#/$defs/Method" },
+        "position": { "$ref": "#/$defs/QualifiedValue" },
+        "listeningPassRef": { "$ref": "#/$defs/Id" },
+        "boundary": { "type": "string", "minLength": 1, "maxLength": 4096 },
+        "confidence": { "$ref": "#/$defs/Confidence" },
+        "uncertainty": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 2048 } },
+        "alternativeClaimRefs": { "type": "array", "items": { "$ref": "#/$defs/Id" }, "uniqueItems": true },
+        "disclosure": { "$ref": "#/$defs/Disclosure" },
+        "extensions": { "$ref": "#/$defs/ExtensionBag" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "kind": { "const": "heard" } }, "required": ["kind"] },
+          "then": { "required": ["content", "listeningPassRef"] }
+        },
+        {
+          "if": { "properties": { "kind": { "const": "measured" } }, "required": ["kind"] },
+          "then": { "required": ["value", "unit", "window"] }
+        },
+      {
+        "if": { "properties": { "kind": { "const": "inferred" } }, "required": ["kind"] },
+        "then": {
+          "anyOf": [
+            { "required": ["content"] },
+            { "required": ["value"] }
+          ]
+        }
+      },
+      {
+        "if": { "properties": { "kind": { "const": "interpreted" } }, "required": ["kind"] },
+          "then": { "required": ["content", "position"] }
+        },
+        {
+          "if": { "properties": { "kind": { "const": "speculative" } }, "required": ["kind"] },
+          "then": { "required": ["content", "boundary"] }
+        },
+        {
+          "if": { "properties": { "kind": { "const": "undetermined" } }, "required": ["kind"] },
+          "then": { "properties": { "uncertainty": { "minItems": 1 } } }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "ListeningPass": {
+      "type": "object",
+      "required": ["id", "type", "actors", "representations", "encounterRef", "apertureRef", "modes", "createdAt", "outcome", "claimRefs", "disclosure", "extensions"],
+      "properties": {
+        "id": { "$ref": "#/$defs/Id" },
+        "type": { "const": "masa:ListeningPass" },
+        "actors": { "type": "array", "items": { "$ref": "#/$defs/Id" }, "minItems": 1, "uniqueItems": true },
+        "representations": { "type": "array", "items": { "$ref": "#/$defs/Id" }, "minItems": 1, "uniqueItems": true },
+        "encounterRef": { "$ref": "#/$defs/Id" },
+        "apertureRef": { "$ref": "#/$defs/Id" },
+        "modes": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 256 }, "minItems": 1, "uniqueItems": true },
+        "createdAt": { "$ref": "#/$defs/Timestamp" },
+        "outcome": { "type": "string", "enum": ["claims", "wait", "withhold", "refuse", "undetermined"] },
+        "claimRefs": { "type": "array", "items": { "$ref": "#/$defs/Id" }, "uniqueItems": true },
+        "notes": { "type": "string", "maxLength": 16384 },
+        "disclosure": { "$ref": "#/$defs/Disclosure" },
+        "extensions": { "$ref": "#/$defs/ExtensionBag" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "outcome": { "const": "claims" } }, "required": ["outcome"] },
+          "then": { "properties": { "claimRefs": { "minItems": 1 } } }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "Region": {
+      "type": "object",
+      "required": ["id", "type", "representationRef", "basis", "bounds", "createdBy", "createdAt", "uncertainty", "extensions"],
+      "properties": {
+        "id": { "$ref": "#/$defs/Id" },
+        "type": { "const": "masa:Region" },
+        "representationRef": { "$ref": "#/$defs/Id" },
+        "basis": { "type": "string", "enum": ["temporal", "spectral", "spatial", "semantic", "causal", "morphological", "custom"] },
+        "bounds": { "type": "object", "minProperties": 1, "additionalProperties": { "$ref": "#/$defs/JsonValue" } },
+        "createdBy": { "$ref": "#/$defs/Id" },
+        "createdAt": { "$ref": "#/$defs/Timestamp" },
+        "method": { "$ref": "#/$defs/Method" },
+        "uncertainty": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 2048 } },
+        "extensions": { "$ref": "#/$defs/ExtensionBag" }
+      },
+      "additionalProperties": false
+    },
+    "Measurement": {
+      "type": "object",
+      "required": ["id", "type", "about", "metric", "value", "unit", "method", "window", "actor", "createdAt", "uncertainty", "extensions"],
+      "properties": {
+        "id": { "$ref": "#/$defs/Id" },
+        "type": { "const": "masa:Measurement" },
+        "about": { "$ref": "#/$defs/Id" },
+        "metric": { "type": "string", "minLength": 1, "maxLength": 512 },
+        "value": { "$ref": "#/$defs/NonNullJsonValue" },
+        "unit": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "method": { "$ref": "#/$defs/Method" },
+        "window": { "$ref": "#/$defs/Window" },
+        "actor": { "$ref": "#/$defs/Id" },
+        "createdAt": { "$ref": "#/$defs/Timestamp" },
+        "uncertainty": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 2048 } },
+        "claimRef": { "$ref": "#/$defs/Id" },
+        "extensions": { "$ref": "#/$defs/ExtensionBag" }
+      },
+      "additionalProperties": false
+    },
+    "Observation": {
+      "type": "object",
+      "required": ["id", "type", "sourceRef", "field", "observedAt", "scope", "value", "unit", "method", "health", "freshness", "disclosure", "extensions"],
+      "properties": {
+        "id": { "$ref": "#/$defs/Id" },
+        "type": { "const": "masa:Observation" },
+        "sourceRef": { "$ref": "#/$defs/Id" },
+        "field": { "type": "string", "minLength": 1, "maxLength": 512 },
+        "observedAt": { "$ref": "#/$defs/Timestamp" },
+        "scope": { "$ref": "#/$defs/QualifiedValue" },
+        "value": { "$ref": "#/$defs/QualifiedValue" },
+        "unit": { "$ref": "#/$defs/QualifiedValue" },
+        "method": { "$ref": "#/$defs/Method" },
+        "health": { "$ref": "#/$defs/SourceHealth" },
+        "freshness": { "$ref": "#/$defs/Freshness" },
+        "epistemicStatus": {
+          "type": "string",
+          "enum": ["measured", "reported", "derived", "inferred", "interpreted", "speculative", "undetermined"]
+        },
+        "temporalCharacter": {
+          "type": "string",
+          "enum": ["event", "stream", "forecast", "aggregate", "context", "local"]
+        },
+        "signalKind": {
+          "type": "string",
+          "enum": ["observation", "derived", "generator"]
+        },
+        "claimRef": { "$ref": "#/$defs/Id" },
+        "disclosure": { "$ref": "#/$defs/Disclosure" },
+        "extensions": { "$ref": "#/$defs/ExtensionBag" }
+      },
+      "additionalProperties": false
+    },
+    "Mapping": {
+      "type": "object",
+      "required": ["id", "type", "sourceObservationRefs", "sourceField", "sourceUnit", "inputRange", "normalization", "target", "outputRange", "curve", "smoothingMs", "cadence", "missingData", "epistemicNote", "actors", "createdAt", "extensions"],
+      "properties": {
+        "id": { "$ref": "#/$defs/Id" },
+        "type": { "const": "masa:Mapping" },
+        "sourceObservationRefs": { "type": "array", "items": { "$ref": "#/$defs/Id" }, "minItems": 1, "uniqueItems": true },
+        "sourceField": { "type": "string", "minLength": 1, "maxLength": 512 },
+        "sourceUnit": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "inputRange": { "type": "array", "prefixItems": [{ "type": "number" }, { "type": "number" }], "items": false, "minItems": 2, "maxItems": 2 },
+        "normalization": {
+          "type": "object",
+          "required": ["method", "clipping", "parameters"],
+          "properties": {
+            "method": { "type": "string", "enum": ["linear", "log", "exponential", "quantized", "categorical", "custom"] },
+            "clipping": { "type": "string", "enum": ["clamp", "wrap", "reject", "custom"] },
+            "parameters": { "type": "object", "additionalProperties": true }
+          },
+          "additionalProperties": false
+        },
+        "target": { "type": "string", "minLength": 1, "maxLength": 512 },
+        "outputRange": { "type": "array", "prefixItems": [{ "type": "number" }, { "type": "number" }], "items": false, "minItems": 2, "maxItems": 2 },
+        "curve": { "type": "string", "enum": ["linear", "log", "exponential", "quantized", "categorical", "custom"] },
+        "smoothingMs": { "type": "number", "minimum": 0 },
+        "cadence": { "type": "string", "minLength": 1, "maxLength": 256 },
+        "missingData": { "type": "string", "enum": ["skip", "hold-explicitly", "interpolate-explicitly", "map-uncertainty", "refuse"] },
+        "epistemicNote": { "type": "string", "minLength": 1, "maxLength": 4096 },
+        "actors": { "type": "array", "items": { "$ref": "#/$defs/Id" }, "minItems": 1, "uniqueItems": true },
+        "createdAt": { "$ref": "#/$defs/Timestamp" },
+        "extensions": { "$ref": "#/$defs/ExtensionBag" }
+      },
+      "additionalProperties": false
+    },
+    "PolicyRule": {
+      "type": "object",
+      "required": ["id", "effect", "actions", "targets", "subjects", "authorityBasis", "constraints", "duties"],
+      "properties": {
+        "id": { "$ref": "#/$defs/Id" },
+        "effect": { "type": "string", "enum": ["permission", "prohibition", "duty", "unknown"] },
+        "actions": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 256 }, "minItems": 1, "uniqueItems": true },
+        "targets": { "type": "array", "items": { "$ref": "#/$defs/Id" }, "minItems": 1, "uniqueItems": true },
+        "subjects": { "type": "array", "items": { "$ref": "#/$defs/Id" }, "uniqueItems": true },
+        "authorityBasis": { "$ref": "#/$defs/QualifiedValue" },
+        "constraints": { "type": "object", "additionalProperties": true },
+        "duties": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 2048 } }
+      },
+      "additionalProperties": false
+    },
+    "PolicyEvaluation": {
+      "type": "object",
+      "required": ["action", "targets", "policyRefs", "result", "evaluatedAt", "evaluator", "authorityRefs", "reasons"],
+      "properties": {
+        "action": { "type": "string", "minLength": 1, "maxLength": 256 },
+        "targets": { "type": "array", "items": { "$ref": "#/$defs/Id" }, "minItems": 1, "uniqueItems": true },
+        "policyRefs": { "type": "array", "items": { "$ref": "#/$defs/Id" }, "minItems": 1, "uniqueItems": true },
+        "result": { "type": "string", "enum": ["permitted", "prohibited", "required", "unknown", "refused", "under_review"] },
+        "evaluatedAt": { "$ref": "#/$defs/Timestamp" },
+        "evaluator": { "$ref": "#/$defs/Id" },
+        "authorityRefs": { "type": "array", "items": { "$ref": "#/$defs/Id" }, "uniqueItems": true },
+        "reasons": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 2048 }, "minItems": 1 }
+      },
+      "additionalProperties": false
+    },
+    "Policy": {
+      "type": "object",
+      "required": ["id", "type", "policyKind", "issuer", "status", "disclosure", "rules", "review", "extensions"],
+      "properties": {
+        "id": { "$ref": "#/$defs/Id" },
+        "type": { "const": "masa:Policy" },
+        "policyKind": { "type": "string", "enum": ["license", "consent", "jurisdiction", "covenant", "provider-terms", "retention", "publication", "composite"] },
+        "issuer": { "$ref": "#/$defs/Id" },
+        "status": { "type": "string", "enum": ["active", "expired", "revoked", "under_review", "unknown"] },
+        "validFrom": { "$ref": "#/$defs/Timestamp" },
+        "validUntil": { "$ref": "#/$defs/Timestamp" },
+        "disclosure": { "$ref": "#/$defs/Disclosure" },
+        "rules": { "type": "array", "items": { "$ref": "#/$defs/PolicyRule" }, "minItems": 1 },
+        "review": {
+          "type": "object",
+          "required": ["contact", "route"],
+          "properties": {
+            "contact": { "$ref": "#/$defs/QualifiedValue" },
+            "route": { "$ref": "#/$defs/QualifiedValue" }
+          },
+          "additionalProperties": false
+        },
+        "extensions": { "$ref": "#/$defs/ExtensionBag" }
+      },
+      "additionalProperties": false
+    },
+    "Tool": {
+      "type": "object",
+      "required": ["id", "name", "version", "kind"],
+      "properties": {
+        "id": { "$ref": "#/$defs/Id" },
+        "name": { "type": "string", "minLength": 1, "maxLength": 512 },
+        "version": { "$ref": "#/$defs/QualifiedValue" },
+        "kind": { "type": "string", "enum": ["software", "script", "model", "instrument", "human-procedure", "service", "other"] },
+        "provider": { "$ref": "#/$defs/QualifiedValue" },
+        "adapter": { "$ref": "#/$defs/QualifiedValue" }
+      },
+      "additionalProperties": false
+    },
+    "ToolState": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["state", "value"],
+          "properties": {
+            "state": { "const": "known" },
+            "value": { "$ref": "#/$defs/Tool" }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["state", "reason"],
+          "properties": {
+            "state": { "enum": ["unknown", "unavailable"] },
+            "reason": { "type": "string", "minLength": 1, "maxLength": 2048 }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["state", "reason", "policyRefs"],
+          "properties": {
+            "state": { "const": "withheld" },
+            "reason": { "type": "string", "minLength": 1, "maxLength": 2048 },
+            "policyRefs": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/Id" },
+              "minItems": 1,
+              "uniqueItems": true
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["state", "reason", "receiptRefs"],
+          "properties": {
+            "state": { "const": "deleted" },
+            "reason": { "type": "string", "minLength": 1, "maxLength": 2048 },
+            "receiptRefs": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/Id" },
+              "minItems": 1,
+              "uniqueItems": true
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["state"],
+          "properties": { "state": { "const": "not_applicable" } },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "OperationReceipt": {
+      "type": "object",
+      "required": ["id", "type", "recordId", "sequence", "operationType", "effectClass", "finalStatus", "startedAt", "endedAt", "actors", "inputs", "outputs", "tool", "parameters", "policyEvaluation", "reversibility", "determinism", "warnings", "errors", "claimRefs", "extensions"],
+      "properties": {
+        "id": { "$ref": "#/$defs/Id" },
+        "type": { "const": "masa:OperationReceipt" },
+        "recordId": { "$ref": "#/$defs/Id" },
+        "sequence": { "type": "integer", "minimum": 0 },
+        "operationType": { "type": "string", "pattern": "^(matter\\.[a-z][a-z0-9_-]*|[a-z][a-z0-9-]*:[a-z][a-z0-9_-]*)$" },
+        "effectClass": { "type": "string", "enum": ["read", "derive", "transform", "generate", "map", "render", "perform", "remember", "withhold", "expire", "delete", "publish", "external-action", "none"] },
+        "finalStatus": { "type": "string", "enum": ["completed", "partial", "failed", "refused", "cancelled", "not_performed", "undetermined"] },
+        "startedAt": { "$ref": "#/$defs/Timestamp" },
+        "endedAt": { "$ref": "#/$defs/Timestamp" },
+        "actors": { "type": "array", "items": { "$ref": "#/$defs/Id" }, "minItems": 1, "uniqueItems": true },
+        "inputs": { "type": "array", "items": { "$ref": "#/$defs/Id" }, "uniqueItems": true },
+        "outputs": { "type": "array", "items": { "$ref": "#/$defs/Id" }, "uniqueItems": true },
+        "tool": { "$ref": "#/$defs/ToolState" },
+        "parameters": { "type": "object", "additionalProperties": true },
+        "environment": { "type": "object", "additionalProperties": true },
+        "policyEvaluation": { "$ref": "#/$defs/PolicyEvaluation" },
+        "reversibility": { "type": "string", "enum": ["reversible", "interface_reversible", "compensatable", "irreversible", "undetermined"] },
+        "determinism": {
+          "type": "object",
+          "required": ["state"],
+          "properties": {
+            "state": { "type": "string", "enum": ["deterministic", "seeded", "nondeterministic", "undetermined"] },
+            "seed": { "$ref": "#/$defs/NonNullJsonValue" },
+            "note": { "type": "string", "maxLength": 2048 }
+          },
+          "allOf": [
+            {
+              "if": { "properties": { "state": { "const": "seeded" } }, "required": ["state"] },
+              "then": { "required": ["seed"] }
+            }
+          ],
+          "additionalProperties": false
+        },
+        "warnings": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 2048 } },
+        "errors": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 2048 } },
+        "claimRefs": { "type": "array", "items": { "$ref": "#/$defs/Id" }, "uniqueItems": true },
+        "extensions": { "$ref": "#/$defs/ExtensionBag" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "finalStatus": { "enum": ["failed", "refused", "cancelled", "not_performed"] } }, "required": ["finalStatus"] },
+          "then": { "properties": { "outputs": { "maxItems": 0 } } }
+        },
+        {
+          "if": { "properties": { "effectClass": { "enum": ["delete", "publish"] } }, "required": ["effectClass"] },
+          "then": { "properties": { "reversibility": { "const": "irreversible" } } }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "Relation": {
+      "type": "object",
+      "required": ["id", "type", "subject", "predicate", "object", "assertedBy", "createdAt", "basis", "extensions"],
+      "properties": {
+        "id": { "$ref": "#/$defs/Id" },
+        "type": { "const": "masa:Relation" },
+        "subject": { "$ref": "#/$defs/Id" },
+        "predicate": { "type": "string", "pattern": "^[a-z][a-z0-9-]*:[a-z][a-z0-9_-]*$" },
+        "object": { "$ref": "#/$defs/Id" },
+        "assertedBy": { "$ref": "#/$defs/Id" },
+        "createdAt": { "$ref": "#/$defs/Timestamp" },
+        "basis": { "type": "array", "items": { "$ref": "#/$defs/EvidenceReference" }, "minItems": 1 },
+        "operationRef": { "$ref": "#/$defs/Id" },
+        "extensions": { "$ref": "#/$defs/ExtensionBag" }
+      },
+      "additionalProperties": false
+    },
+    "Context": {
+      "type": "object",
+      "required": ["id", "type", "contextKind", "provenance", "applicability", "position", "claimStatus", "disclosure", "extensions"],
+      "properties": {
+        "id": { "$ref": "#/$defs/Id" },
+        "type": { "const": "masa:Context" },
+        "contextKind": { "type": "string", "enum": ["historical", "territorial", "ecological", "institutional", "compositional", "cosmological", "technical", "custom"] },
+        "content": { "$ref": "#/$defs/NonNullJsonValue" },
+        "reference": { "$ref": "#/$defs/QualifiedValue" },
+        "provenance": { "$ref": "#/$defs/QualifiedValue" },
+        "applicability": { "type": "string", "minLength": 1, "maxLength": 4096 },
+        "position": { "$ref": "#/$defs/QualifiedValue" },
+        "claimStatus": { "type": "string", "enum": ["measured", "inferred", "interpreted", "speculative", "undetermined", "not_a_claim"] },
+        "disclosure": { "$ref": "#/$defs/Disclosure" },
+        "extensions": { "$ref": "#/$defs/ExtensionBag" }
+      },
+      "anyOf": [{ "required": ["content"] }, { "required": ["reference"] }],
+      "additionalProperties": false
+    },
+    "AgentRun": {
+      "type": "object",
+      "required": ["id", "type", "actorRef", "plan", "capabilityRefs", "memoryRefs", "authorityRefs", "budget", "stopConditions", "operationRefs", "review", "outcome", "extensions"],
+      "properties": {
+        "id": { "$ref": "#/$defs/Id" },
+        "type": { "const": "masa:AgentRun" },
+        "actorRef": { "$ref": "#/$defs/Id" },
+        "plan": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 4096 }, "minItems": 1 },
+        "capabilityRefs": { "type": "array", "items": { "$ref": "#/$defs/Id" }, "minItems": 1, "uniqueItems": true },
+        "memoryRefs": { "type": "array", "items": { "$ref": "#/$defs/Id" }, "uniqueItems": true },
+        "authorityRefs": { "type": "array", "items": { "$ref": "#/$defs/Id" }, "uniqueItems": true },
+        "budget": { "type": "object", "minProperties": 1, "additionalProperties": { "$ref": "#/$defs/JsonValue" } },
+        "stopConditions": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 2048 }, "minItems": 1 },
+        "operationRefs": { "type": "array", "items": { "$ref": "#/$defs/Id" }, "uniqueItems": true },
+        "review": { "$ref": "#/$defs/QualifiedValue" },
+        "outcome": { "type": "string", "enum": ["completed", "partial", "failed", "refused", "cancelled", "not_performed", "undetermined"] },
+        "extensions": { "$ref": "#/$defs/ExtensionBag" }
+      },
+      "additionalProperties": false
+    },
+    "Publication": {
+      "type": "object",
+      "required": ["publicRecordId", "approvedAt", "approvedBy", "policyEvaluation", "omissions", "redactions", "attribution", "license", "retention", "correctionUrl", "revocationUrl", "approvedExtensionNamespaces"],
+      "properties": {
+        "publicRecordId": { "$ref": "#/$defs/Id" },
+        "approvedAt": { "$ref": "#/$defs/Timestamp" },
+        "approvedBy": { "$ref": "#/$defs/Id" },
+        "policyEvaluation": { "$ref": "#/$defs/PolicyEvaluation" },
+        "omissions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["pointer", "category", "reason"],
+            "properties": {
+              "pointer": { "type": "string", "pattern": "^/" },
+              "category": { "type": "string", "minLength": 1, "maxLength": 256 },
+              "reason": { "type": "string", "minLength": 1, "maxLength": 2048 }
+            },
+            "additionalProperties": false
+          }
+        },
+        "redactions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["pointer", "category"],
+            "properties": {
+              "pointer": { "type": "string", "pattern": "^/" },
+              "category": { "type": "string", "minLength": 1, "maxLength": 256 }
+            },
+            "additionalProperties": false
+          }
+        },
+        "attribution": { "$ref": "#/$defs/QualifiedValue" },
+        "license": { "$ref": "#/$defs/QualifiedValue" },
+        "retention": { "$ref": "#/$defs/QualifiedValue" },
+        "correctionUrl": { "type": "string", "format": "uri", "pattern": "^https://" },
+        "revocationUrl": { "type": "string", "format": "uri", "pattern": "^https://" },
+        "approvedExtensionNamespaces": { "type": "array", "items": { "type": "string", "pattern": "^[a-z][a-z0-9-]*:$" }, "uniqueItems": true }
+      },
+      "additionalProperties": false
+    },
+    "History": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["mode", "events"],
+          "properties": {
+            "mode": { "const": "embedded" },
+            "events": { "type": "array", "items": { "$ref": "#/$defs/OperationReceipt" } }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["mode", "href", "eventIds"],
+          "properties": {
+            "mode": { "const": "external" },
+            "href": { "type": "string", "pattern": "^(?!/)(?!.*\\\\)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9._/-]+$" },
+            "eventIds": { "type": "array", "items": { "$ref": "#/$defs/Id" }, "uniqueItems": true }
+          },
+          "additionalProperties": false
+        }
+      ]
+    }
+  }
+}

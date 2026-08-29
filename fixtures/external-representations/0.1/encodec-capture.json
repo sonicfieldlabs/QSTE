@@ -1,0 +1,19 @@
+{
+  "adapter_id": "encodec",
+  "artifact_controls": {"decoder_only_control": true, "off_target_control": true, "source_alignment": "exact_fixture"},
+  "candidates": [
+    {"addressable": true, "native_address": {"codebook_indices": [0, 1], "frame_index": 0, "token_values": [12, 34]}, "native_support": {"method": "synthetic_exact_fixture_support", "source_frame_range": [0, 24], "time_seconds": [0.0, 0.0005]}}
+  ],
+  "configuration": {"block_or_frame_configuration": {"size": 32, "stride": 32}, "profile": "encodec-synthetic-contract-fixture/0.1", "target_revision": "f1479a65a75c0e49e7e5d85bb1418fd57e6a9d62"},
+  "decoded_waveform": [[0.0], [0.01]],
+  "evidence_class": "synthetic_non_model_fixture",
+  "execution_mode": "synthetic_contract_fixture",
+  "execution_status": "completed",
+  "native_values": [[12.0, 34.0]],
+  "opaque_boundary": {"observability": "captured_outputs_only", "opaque_fields": ["internal_search_state", "hidden_encoder_activations"], "visible_fields": ["native_values", "candidate_catalog", "decoded_waveform"]},
+  "profile_id": "qste-external-representation-capture/0.1",
+  "refinement": {"graph_created": false, "reason": "codebook_prefix_mapping_and_decoder_intervention_not_verified", "status": "unavailable"},
+  "resampling": {"applied": false, "method": "none", "source_hz": 48000, "target_hz": 48000},
+  "source": {"channel_count": 1, "content_digest": "sha256:ae49cb81774734986fb6fca90226634ffdcc995191c11738011db8a95e160b42", "sample_rate_hz": 48000},
+  "target_id": "encodec/v0.1.1+facebook-encodec-24khz"
+}

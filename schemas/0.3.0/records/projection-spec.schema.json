@@ -1,0 +1,54 @@
+{
+  "$id": "https://schemas.qste.invalid/0.3.0/records/projection-spec.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "allOf": [
+    {
+      "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordBase"
+    },
+    {
+      "properties": {
+        "calibration": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "comparison_substrate": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "contract_id": {
+          "const": "qste-contract/0.3.0"
+        },
+        "footprint_method": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "measure": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "record_type": {
+          "const": "ProjectionSpec"
+        },
+        "schema_id": {
+          "const": "https://schemas.qste.invalid/0.3.0/records/projection-spec.schema.json"
+        },
+        "source_arm_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        }
+      },
+      "required": [
+        "source_arm_ref",
+        "comparison_substrate",
+        "measure",
+        "footprint_method",
+        "calibration"
+      ],
+      "type": "object"
+    }
+  ],
+  "patternProperties": {
+    "^[a-z][a-z0-9_-]*:[A-Za-z][A-Za-z0-9_.-]*$": {}
+  },
+  "title": "ProjectionSpec",
+  "unevaluatedProperties": false
+}

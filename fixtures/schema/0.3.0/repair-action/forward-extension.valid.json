@@ -1,0 +1,60 @@
+{
+  "adjudication_outcome": "upheld",
+  "appeal_case_ref": {
+    "record_id": "qste:appeal-case:0a1a3ec9-1d4e-403a-a77e-7a59048578c3",
+    "record_type": "AppealCase",
+    "relation": "depends_on"
+  },
+  "authority_ref": {
+    "record_id": "qste:authority-manifest:73d51c28-07e6-473b-ad2a-7cf6afa61ef8",
+    "record_type": "AuthorityManifest",
+    "relation": "depends_on"
+  },
+  "authorization_status": "permitted",
+  "contract_id": "qste-contract/0.3.0",
+  "created_at": "2026-08-28T00:00:00Z",
+  "disclosure_status": "private",
+  "execution_status": "completed",
+  "ext:futureField": {
+    "opaque": [
+      1,
+      2,
+      3
+    ]
+  },
+  "failures": [
+    "none"
+  ],
+  "integrity_status": "unverified",
+  "operation_scope": {
+    "future_use": true
+  },
+  "predecessor_state": {
+    "eligible": true
+  },
+  "producer_role": "executor",
+  "propagation_requirement": {
+    "dependent_claims": true
+  },
+  "reason_code": "requested_remedy_upheld",
+  "receipt_ref": {
+    "record_id": "qste:operation-receipt:79f3bda9-21d1-4293-84bd-fb8f053c31ab",
+    "record_type": "OperationReceipt",
+    "relation": "depends_on"
+  },
+  "record_id": "qste:repair-action:9753bdf6-973e-4bab-8477-e20119ed550a",
+  "record_type": "RepairAction",
+  "references": [],
+  "repair_action": "restrict",
+  "retention_semantics": {
+    "bytes": "retained_restricted"
+  },
+  "schema_id": "https://schemas.qste.invalid/0.3.0/records/repair-action.schema.json",
+  "successor_state": {
+    "eligible": false
+  },
+  "target_closure": {
+    "descendants": [],
+    "root": "qste:artifact-record:50c15a45-d3e5-4c92-907a-952b2e9864c2"
+  }
+}

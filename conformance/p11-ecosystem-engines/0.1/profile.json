@@ -1,0 +1,31 @@
+{
+  "profile_id": "qste-ecosystem-engine-conformance/0.1",
+  "compatibility_profile": "qste-compatibility-target-manifest/0.1",
+  "ecosystem_profile": "qste-ecosystem-adapter/v0.1",
+  "engine_profile": "qste-bounded-engine-adapter/v0.1",
+  "claims": [
+    "exact_frozen_external_target_identity",
+    "native_identity_status_attribution_uncertainty_unit_time_transport",
+    "frozen_external_schema_validation",
+    "structural_and_interoperability_result_separation",
+    "explicit_unavailable_untested_prohibited_capabilities",
+    "bounded_synthetic_process_execution",
+    "authorized_loopback_only_osc_demonstration",
+    "durable_success_failure_and_refusal_receipts",
+    "no_adjacent_checkout_write"
+  ],
+  "gates": [
+    {"id": "P11-G01", "requirement": "CompatibilityTargetManifest pins every ecosystem target by native name, version, revision, contracts, fixture digest, platform, adapter commit, and passed profile."},
+    {"id": "P11-G02", "requirement": "Imported and projected artifacts retain native identifiers, contract versions, statuses, attribution, uncertainty, units, and times without converting them into QSTE identity."},
+    {"id": "P11-G03", "requirement": "MASA and Earworm projections validate against byte-frozen external JSON Schemas; a schema rejection creates no derivative."},
+    {"id": "P11-G04", "requirement": "Cosmoaudition structural validation records that no external JSON Schema is published, and structural validity never silently becomes live interoperability."},
+    {"id": "P11-G05", "requirement": "Akousmata and Listening Stack remain read-only inspection or metadata routes and make no interoperability claim by association."},
+    {"id": "P11-G06", "requirement": "Unavailable and required-but-untested capabilities return unavailable/capability_unavailable with unavailable or untested capability status; prohibited targets return refused/policy_refused/prohibited."},
+    {"id": "P11-G07", "requirement": "Every completed engine fixture records parameters, bounded logs, output digests, return state, and timeout state."},
+    {"id": "P11-G08", "requirement": "The process demonstration invokes only the packaged QSTE fixture module through an argument array; payload or prompt content cannot provide a command, executable, patch, DSP graph, or network target."},
+    {"id": "P11-G09", "requirement": "The OSC demonstration binds an ephemeral receiver to 127.0.0.1, preserves sent and received packet digests, and invokes no external engine."},
+    {"id": "P11-G10", "requirement": "Pure Data, Max/MSP, SuperCollider, and Csound stay unavailable when absent; synthetic fixtures do not upgrade their capability or interoperability status."},
+    {"id": "P11-G11", "requirement": "Import, projection, inspection, process, loopback, failure, unavailable, and refusal paths produce durable operation receipts and immutable events."},
+    {"id": "P11-G12", "requirement": "P11 tests and runtime write only inside the caller-owned QSTE workspace and perform no playback, model execution, provider access, public release, participant interaction, or adjacent-checkout mutation."}
+  ]
+}

@@ -1,0 +1,214 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://masa.sonicfield.org/schemas/0.2.0/matter-record.schema.json",
+  "title": "MASA 0.2.0 MatterRecord",
+  "description": "The normative MASA Core record envelope. Cross-reference, lineage, policy, and profile invariants require semantic validation after JSON Schema validation.",
+  "type": "object",
+  "required": [
+    "$schema",
+    "masaVersion",
+    "id",
+    "type",
+    "revision",
+    "profiles",
+    "createdAt",
+    "createdBy",
+    "disclosure",
+    "registers",
+    "scales",
+    "actors",
+    "sources",
+    "representations",
+    "encounters",
+    "apertures",
+    "listeningPasses",
+    "claims",
+    "measurements",
+    "regions",
+    "observations",
+    "mappings",
+    "relations",
+    "policies",
+    "contexts",
+    "agentRuns",
+    "capabilities",
+    "integrity",
+    "history",
+    "extensions"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "const": "https://masa.sonicfield.org/schemas/0.2.0/matter-record.schema.json"
+    },
+    "@context": {
+      "oneOf": [
+        {
+          "type": "string",
+          "const": "https://masa.sonicfield.org/contexts/0.2.0/masa.jsonld"
+        },
+        {
+          "type": "array",
+          "items": { "type": ["string", "object"] },
+          "minItems": 1
+        }
+      ]
+    },
+    "masaVersion": { "const": "0.2.0" },
+    "id": { "$ref": "definitions.schema.json#/$defs/Id" },
+    "type": { "const": "masa:MatterRecord" },
+    "revision": { "type": "integer", "minimum": 1 },
+    "supersedes": { "$ref": "definitions.schema.json#/$defs/Id" },
+    "profiles": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "core",
+          "audio",
+          "listening",
+          "analysis",
+          "transformation",
+          "generation",
+          "processing",
+          "observation",
+          "mapping",
+          "agent",
+          "publication"
+        ]
+      },
+      "minItems": 1,
+      "uniqueItems": true,
+      "contains": { "const": "core" }
+    },
+    "createdAt": { "$ref": "definitions.schema.json#/$defs/Timestamp" },
+    "createdBy": { "$ref": "definitions.schema.json#/$defs/Id" },
+    "title": { "type": "string", "minLength": 1, "maxLength": 1024 },
+    "description": { "type": "string", "minLength": 1, "maxLength": 16384 },
+    "disclosure": { "$ref": "definitions.schema.json#/$defs/Disclosure" },
+    "registers": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "string",
+            "enum": [
+              "physical-event",
+              "perceptual-acoulogical",
+              "compositional-transformational",
+              "digital-technical",
+              "ecological-territorial",
+              "historical-political",
+              "cosmological-speculative"
+            ]
+          },
+          {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*:[a-z][a-z0-9_-]*$"
+          }
+        ]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "scales": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "string",
+            "enum": [
+              "microtemporal",
+              "spectral-stratal",
+              "object-event",
+              "meso-form",
+              "environmental",
+              "corpus-lineage",
+              "infrastructural",
+              "planetary",
+              "cosmic"
+            ]
+          },
+          {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*:[a-z][a-z0-9_-]*$"
+          }
+        ]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "actors": {
+      "type": "array",
+      "items": { "$ref": "definitions.schema.json#/$defs/Actor" },
+      "minItems": 1
+    },
+    "sources": {
+      "type": "array",
+      "items": { "$ref": "definitions.schema.json#/$defs/Source" }
+    },
+    "representations": {
+      "type": "array",
+      "items": { "$ref": "definitions.schema.json#/$defs/Representation" },
+      "minItems": 1
+    },
+    "encounters": {
+      "type": "array",
+      "items": { "$ref": "definitions.schema.json#/$defs/Encounter" }
+    },
+    "apertures": {
+      "type": "array",
+      "items": { "$ref": "definitions.schema.json#/$defs/Aperture" }
+    },
+    "listeningPasses": {
+      "type": "array",
+      "items": { "$ref": "definitions.schema.json#/$defs/ListeningPass" }
+    },
+    "claims": {
+      "type": "array",
+      "items": { "$ref": "definitions.schema.json#/$defs/Claim" }
+    },
+    "measurements": {
+      "type": "array",
+      "items": { "$ref": "definitions.schema.json#/$defs/Measurement" }
+    },
+    "regions": {
+      "type": "array",
+      "items": { "$ref": "definitions.schema.json#/$defs/Region" }
+    },
+    "observations": {
+      "type": "array",
+      "items": { "$ref": "definitions.schema.json#/$defs/Observation" }
+    },
+    "mappings": {
+      "type": "array",
+      "items": { "$ref": "definitions.schema.json#/$defs/Mapping" }
+    },
+    "relations": {
+      "type": "array",
+      "items": { "$ref": "definitions.schema.json#/$defs/Relation" }
+    },
+    "policies": {
+      "type": "array",
+      "items": { "$ref": "definitions.schema.json#/$defs/Policy" },
+      "minItems": 1
+    },
+    "contexts": {
+      "type": "array",
+      "items": { "$ref": "definitions.schema.json#/$defs/Context" }
+    },
+    "agentRuns": {
+      "type": "array",
+      "items": { "$ref": "definitions.schema.json#/$defs/AgentRun" }
+    },
+    "capabilities": {
+      "type": "array",
+      "items": { "$ref": "capability.schema.json" }
+    },
+    "publication": { "$ref": "definitions.schema.json#/$defs/Publication" },
+    "integrity": { "$ref": "definitions.schema.json#/$defs/QualifiedValue" },
+    "history": { "$ref": "definitions.schema.json#/$defs/History" },
+    "extensions": { "$ref": "definitions.schema.json#/$defs/ExtensionBag" }
+  },
+  "additionalProperties": false
+}

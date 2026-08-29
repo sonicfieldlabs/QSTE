@@ -1,0 +1,21 @@
+{
+  "profile_id": "qste-storage-conformance/0.1",
+  "vectors": [
+    {
+      "canonical_utf8": "{\"a\":\"é\",\"z\":1}",
+      "input": {
+        "a": "é",
+        "z": 1.0
+      }
+    },
+    {
+      "canonical_utf8": "{\"rights\":{\"retain\":true,\"use\":\"fixture\"}}",
+      "input": {
+        "rights": {
+          "retain": true,
+          "use": "fixture"
+        }
+      }
+    }
+  ]
+}

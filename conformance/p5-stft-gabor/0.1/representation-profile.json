@@ -1,0 +1,71 @@
+{
+  "claims": [
+    "deterministic_stft_encoding",
+    "phase_preserving_inverse_reconstruction",
+    "explicit_gabor_atom_and_lattice_separation",
+    "bounded_native_candidate_formation",
+    "closed_nonempty_mask_refinement",
+    "replayable_native_intervention_controls",
+    "effective_support_accounting",
+    "calibrated_mock_footprint_projection",
+    "native_only_measurement",
+    "immutable_representation_perturbation",
+    "explicit_capability_account"
+  ],
+  "contract_id": "qste-contract/0.3.0",
+  "gates": [
+    {
+      "id": "P5-G01",
+      "requirement": "Impulse, tone, chirp, silence, deterministic noise, boundary, multichannel, and numerical-stability fixtures reconstruct within declared tolerances."
+    },
+    {
+      "id": "P5-G02",
+      "requirement": "Coordinates match the pinned centered zero-padding convention and dense coefficient manifests verify."
+    },
+    {
+      "id": "P5-G03",
+      "requirement": "The theoretical Gabor constant, realized spreads/product, lattice, candidate support, intervention support, projection, and refinement graph remain independent fields."
+    },
+    {
+      "id": "P5-G04",
+      "requirement": "Changing hop density changes lattice density and redundancy but not the theoretical atom bound or realized window spread."
+    },
+    {
+      "id": "P5-G05",
+      "requirement": "Sparse native candidates retain random occurrence IDs, deterministic semantic keys, native addresses, and candidate-only status."
+    },
+    {
+      "id": "P5-G06",
+      "requirement": "Refinement constructs every nonempty proper subset before effects, terminates, certifies closure, and rejects an empty proper-node route as unavailable rather than qualification."
+    },
+    {
+      "id": "P5-G07",
+      "requirement": "Mask, isolate, phase-coherent replacement, resynthesis-only, off-target, and alternate controls are deterministic, receipted, and replayable."
+    },
+    {
+      "id": "P5-G08",
+      "requirement": "Native support and effective resynthesized support remain separate, and boundary effects are explicit."
+    },
+    {
+      "id": "P5-G09",
+      "requirement": "Mock footprints prohibit physical claims, native measures prohibit cross-arm scale claims, and unsupported routes fail explicitly."
+    },
+    {
+      "id": "P5-G10",
+      "requirement": "Every callable representation route returns OperationResult or a typed service outcome with a durable receipt; no route emits a DSQAssessment."
+    }
+  ],
+  "profile_id": "qste-stft-gabor-conformance/0.1",
+  "representation_profile": "qste-stft-gabor/v0.1",
+  "scope": [
+    "RepresentationSpec",
+    "RepresentationFamilySpec",
+    "RepresentationInstance",
+    "CandidateUnit",
+    "InterventionSpec",
+    "RefinementGraph",
+    "ProjectionSpec",
+    "OperationReceipt",
+    "dense coefficient and waveform artifacts"
+  ]
+}

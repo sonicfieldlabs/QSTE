@@ -1,0 +1,71 @@
+{
+  "$id": "https://schemas.qste.invalid/0.3.0/records/governance-boundary.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "allOf": [
+    {
+      "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordBase"
+    },
+    {
+      "properties": {
+        "authority_refs": {
+          "items": {
+            "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "budgets": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "contract_id": {
+          "const": "qste-contract/0.3.0"
+        },
+        "immutable_fields": {
+          "items": {},
+          "minItems": 1,
+          "type": "array"
+        },
+        "mutable_successor_fields": {
+          "items": {},
+          "minItems": 1,
+          "type": "array"
+        },
+        "permitted_actions": {
+          "items": {},
+          "minItems": 1,
+          "type": "array"
+        },
+        "record_type": {
+          "const": "GovernanceBoundary"
+        },
+        "resume_rules": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "schema_id": {
+          "const": "https://schemas.qste.invalid/0.3.0/records/governance-boundary.schema.json"
+        },
+        "stop_rules": {
+          "minProperties": 1,
+          "type": "object"
+        }
+      },
+      "required": [
+        "immutable_fields",
+        "mutable_successor_fields",
+        "authority_refs",
+        "permitted_actions",
+        "budgets",
+        "stop_rules",
+        "resume_rules"
+      ],
+      "type": "object"
+    }
+  ],
+  "patternProperties": {
+    "^[a-z][a-z0-9_-]*:[A-Za-z][A-Za-z0-9_.-]*$": {}
+  },
+  "title": "GovernanceBoundary",
+  "unevaluatedProperties": false
+}

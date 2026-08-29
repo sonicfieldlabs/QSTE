@@ -1,0 +1,72 @@
+{
+  "aperture_ref": {
+    "record_id": "qste:aperture-spec:29cdffc6-5b8c-4beb-b297-4d6c9602a739",
+    "record_type": "ApertureSpec",
+    "relation": "depends_on"
+  },
+  "apparatus_ref": {
+    "record_id": "qste:apparatus-spec:8c1b9703-e262-46fc-b665-842aff91a5c7",
+    "record_type": "ApparatusSpec",
+    "relation": "depends_on"
+  },
+  "authorization_status": "permitted",
+  "collection_receipt_ref": {
+    "record_id": "qste:operation-receipt:79f3bda9-21d1-4293-84bd-fb8f053c31ab",
+    "record_type": "OperationReceipt",
+    "relation": "depends_on"
+  },
+  "consent_status": "granted",
+  "context": {
+    "room": "fixture"
+  },
+  "contract_id": "qste-contract/0.3.0",
+  "created_at": "2026-08-28T00:00:00Z",
+  "dependent_claim_refs": [
+    {
+      "record_id": "qste:claim-record:cde03008-cc61-4055-be49-5fab8a7c0ed3",
+      "record_type": "ClaimRecord",
+      "relation": "depends_on"
+    }
+  ],
+  "disclosure_status": "private",
+  "evaluator_ref": 7,
+  "evidence_basis": "human_reported",
+  "integrity_status": "unverified",
+  "object_ref": {
+    "record_id": "qste:artifact-record:c4d4807b-cb54-412a-a618-70a328289480",
+    "record_type": "ArtifactRecord",
+    "relation": "depends_on"
+  },
+  "producer_role": "executor",
+  "protocol_ref": {
+    "record_id": "qste:task-spec:3ec84c42-b04b-4fc7-acec-e3354639b563",
+    "record_type": "TaskSpec",
+    "relation": "depends_on"
+  },
+  "record_id": "qste:listening-account:e50f1e62-aaf8-498b-b53d-4352d97e7d0d",
+  "record_type": "ListeningAccount",
+  "references": [],
+  "report": "fixture listening account",
+  "response_fields": {
+    "attribution": "unknown",
+    "detection": true,
+    "interpretation": "fixture report",
+    "novelty_value": null,
+    "preference": null
+  },
+  "response_units": "categorical",
+  "retention_policy": {
+    "duration": "fixture_only"
+  },
+  "schema_id": "https://schemas.qste.invalid/0.3.0/records/listening-account.schema.json",
+  "uncertainty_or_missingness": {
+    "preference": "not_applicable"
+  },
+  "withdrawal_event_refs": [
+    {
+      "record_id": "qste:decision-event:3e20f88e-d4a5-4865-b64a-25dfcb616494",
+      "record_type": "DecisionEvent",
+      "relation": "depends_on"
+    }
+  ]
+}

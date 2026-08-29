@@ -1,0 +1,33 @@
+{
+  "acquisition_surface": {
+    "channels": 1
+  },
+  "action_surface": {
+    "network": false
+  },
+  "apparatus_version": "apparatus/1",
+  "authorization_status": "permitted",
+  "availability": "known",
+  "computation_surface": {
+    "dtype": "float64"
+  },
+  "configuration": {
+    "sample_rate_hz": 48000
+  },
+  "consent_status": "not_applicable",
+  "content_digest": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+  "contract_id": "qste-contract/0.3.0",
+  "created_at": "2026-08-28T00:00:00Z",
+  "disclosure_status": "private",
+  "ext:futureField": {
+    "preserve": true,
+    "version": 1
+  },
+  "integrity_status": "unverified",
+  "producer_role": "executor",
+  "record_id": "qste:apparatus-spec:14e1d808-8ddb-4531-a7a9-b767cc286758",
+  "record_type": "ApparatusSpec",
+  "references": [],
+  "schema_id": "https://schemas.qste.invalid/0.3.0/records/apparatus-spec.schema.json",
+  "semantic_key": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+}

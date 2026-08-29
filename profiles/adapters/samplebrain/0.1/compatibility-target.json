@@ -1,0 +1,18 @@
+{
+  "adapter_id": "samplebrain",
+  "compatibility_profile": "qste-external-representation-adapter/v0.1",
+  "digest_method": "sha256_of_utf8_target_tuple",
+  "execution_mode": "supervised_capture",
+  "implementation_ref": "https://gitlab.com/then-try-this/samplebrain",
+  "implementation_revision": "bc8002a9f0931f24b8078a956a9b73f09300f566",
+  "license": {
+    "license_file_sha256": "783e10cd4cef432d8fc1409b8412f440c1848e7cf12dbc8da7827353960cb8ea",
+    "spdx_expression": "GPL-2.0-only",
+    "status": "verified"
+  },
+  "native_metric": "captured_samplebrain_similarity_distance",
+  "native_unit": "samplebrain_native_block",
+  "package_digest": "sha256:a39ce6065b5ab6761c25fdde08c6991538c2b4d335cbc2e7dc0e8e3d444718ad",
+  "release": "v0.18.5_release",
+  "target_id": "samplebrain/v0.18.5_release"
+}

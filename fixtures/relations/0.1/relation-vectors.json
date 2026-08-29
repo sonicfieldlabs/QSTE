@@ -1,0 +1,22 @@
+{
+  "fixture_set_id": "qste-relation-fixtures/0.1",
+  "vectors": [
+    {"comparison_status": "resolved", "reason": "matched_overlap", "relation_type": "overlap"},
+    {"comparison_status": "resolved", "reason": "matched_split", "relation_type": "split"},
+    {"comparison_status": "resolved", "reason": "matched_merge", "relation_type": "merge"},
+    {"comparison_status": "resolved", "reason": "projection_invalid", "relation_type": "incomparable"},
+    {"comparison_status": "resolved", "reason": "target_address_absent", "relation_type": "omission"},
+    {"comparison_status": "resolved", "reason": "fidelity_failed", "relation_type": "loss"},
+    {"comparison_status": "indeterminate", "reason": "zero_footprint_undefined", "relation_type": null},
+    {"comparison_status": "resolved", "reason": "coverage_failed", "relation_type": null},
+    {"comparison_status": "resolved", "reason": "effect_incompatible", "relation_type": null},
+    {"comparison_status": "resolved", "reason": "unmatched_by_spec", "relation_type": null},
+    {"comparison_status": "indeterminate", "reason": "coverage_boundary_crossing", "relation_type": null},
+    {"comparison_status": "indeterminate", "reason": "effect_boundary_crossing", "relation_type": null},
+    {"comparison_status": "indeterminate", "reason": "structural_matching_ambiguity", "relation_type": null},
+    {"comparison_status": "indeterminate", "reason": "decomposition_ambiguity", "relation_type": null},
+    {"comparison_status": "indeterminate", "reason": "eligible_evidence_incomplete", "relation_type": null},
+    {"comparison_status": "indeterminate", "reason": "matching_budget_exhausted", "relation_type": null},
+    {"comparison_status": "indeterminate", "reason": "comparison_capability_unavailable", "relation_type": null}
+  ]
+}

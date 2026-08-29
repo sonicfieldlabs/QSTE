@@ -1,0 +1,67 @@
+{
+  "aperture_ref": {
+    "record_id": "qste:aperture-spec:29cdffc6-5b8c-4beb-b297-4d6c9602a739",
+    "record_type": "ApertureSpec",
+    "relation": "depends_on"
+  },
+  "apparatus_ref": {
+    "record_id": "qste:apparatus-spec:8c1b9703-e262-46fc-b665-842aff91a5c7",
+    "record_type": "ApparatusSpec",
+    "relation": "depends_on"
+  },
+  "artifact_refs": [
+    {
+      "record_id": "qste:artifact-record:1a983fc8-597b-4552-8e31-833f2b466e74",
+      "record_type": "ArtifactRecord",
+      "relation": "depends_on"
+    }
+  ],
+  "availability": "withheld",
+  "budgets": {
+    "compute": 100
+  },
+  "contract_id": "qste-contract/0.3.0",
+  "corpus_refs": [
+    {
+      "record_id": "qste:artifact-record:c4d4807b-cb54-412a-a618-70a328289480",
+      "record_type": "ArtifactRecord",
+      "relation": "depends_on"
+    }
+  ],
+  "created_at": "2026-08-28T00:00:00Z",
+  "disclosure_status": "private",
+  "event_refs": [
+    {
+      "record_id": "qste:acquisition-event:5335d038-e3f8-4539-b669-27e7e4141bd7",
+      "record_type": "AcquisitionEvent",
+      "relation": "depends_on"
+    }
+  ],
+  "frozen_versions": {
+    "contract": "qste-contract/0.3.0",
+    "schema": "qste-schema/0.3.0"
+  },
+  "integrity_status": "unverified",
+  "output_refs": [
+    {
+      "record_id": "qste:claim-record:cde03008-cc61-4055-be49-5fab8a7c0ed3",
+      "record_type": "ClaimRecord",
+      "relation": "depends_on"
+    }
+  ],
+  "producer_role": "executor",
+  "record_id": "qste:run-manifest:4183a218-fa9f-4b7e-8154-48f4dfca36b6",
+  "record_type": "RunManifest",
+  "references": [],
+  "schema_id": "https://schemas.qste.invalid/0.3.0/records/run-manifest.schema.json",
+  "seeds": [
+    7
+  ],
+  "spec_refs": [
+    {
+      "record_id": "qste:task-spec:3ec84c42-b04b-4fc7-acec-e3354639b563",
+      "record_type": "TaskSpec",
+      "relation": "depends_on"
+    }
+  ]
+}

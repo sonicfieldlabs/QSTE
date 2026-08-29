@@ -1,0 +1,440 @@
+{
+  "objects": [
+    {
+      "closed": true,
+      "completion_certificate": {
+        "complete": true,
+        "terminal_rule": "finite_declared_closure"
+      },
+      "contract_id": "qste-contract/0.3.0",
+      "created_at": "2026-08-28T00:00:00Z",
+      "disclosure_status": "private",
+      "edges": [
+        {
+          "child": "proper-1",
+          "parent": "root",
+          "proper": true
+        }
+      ],
+      "integrity_status": "unverified",
+      "intervention_ref": {
+        "record_id": "qste:intervention-spec:a11069a2-596c-4003-b4e3-97bbce79dc14",
+        "record_type": "InterventionSpec",
+        "relation": "depends_on"
+      },
+      "nodes": [
+        "root",
+        "proper-1"
+      ],
+      "procedure_id": "refinement/1",
+      "producer_role": "executor",
+      "record_id": "qste:refinement-graph:4f0ed832-5673-4bac-a45c-4601f2d71cb7",
+      "record_type": "RefinementGraph",
+      "references": [],
+      "representation_family_ref": {
+        "record_id": "qste:representation-family-spec:46323914-40c5-40bf-aa66-12576b394c64",
+        "record_type": "RepresentationFamilySpec",
+        "relation": "depends_on"
+      },
+      "required_closure": [
+        "proper-1"
+      ],
+      "root_candidate_ref": {
+        "record_id": "qste:candidate-unit:d313db08-1650-485f-a6a7-5fb6f726482f",
+        "record_type": "CandidateUnit",
+        "relation": "depends_on"
+      },
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/refinement-graph.schema.json"
+    },
+    {
+      "contract_id": "qste-contract/0.3.0",
+      "created_at": "2026-08-28T00:00:00Z",
+      "disclosure_status": "private",
+      "family_id": "representation-family/1",
+      "family_version": "1",
+      "instance_refs": [
+        {
+          "record_id": "qste:representation-instance:2f654b42-cdcf-48f3-bc82-3a21b3be37f7",
+          "record_type": "RepresentationInstance",
+          "relation": "depends_on"
+        }
+      ],
+      "integrity_status": "unverified",
+      "mapping_refs": [
+        {
+          "record_id": "qste:mapping-spec:85d5a418-af25-44f8-ad59-cc130945bc21",
+          "record_type": "MappingSpec",
+          "relation": "depends_on"
+        }
+      ],
+      "permitted_refinements": [
+        {
+          "order": "strict_native_subset"
+        }
+      ],
+      "producer_role": "executor",
+      "record_id": "qste:representation-family-spec:46323914-40c5-40bf-aa66-12576b394c64",
+      "record_type": "RepresentationFamilySpec",
+      "references": [],
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/representation-family-spec.schema.json",
+      "spec_refs": [
+        {
+          "record_id": "qste:representation-spec:13d75e30-ecfe-49f2-8ec8-11ba60c5b4fa",
+          "record_type": "RepresentationSpec",
+          "relation": "depends_on"
+        }
+      ]
+    },
+    {
+      "contract_id": "qste-contract/0.3.0",
+      "controls": [
+        "resynthesis",
+        "off_target",
+        "alternate_intervention"
+      ],
+      "created_at": "2026-08-28T00:00:00Z",
+      "disclosure_status": "private",
+      "integrity_status": "unverified",
+      "native_operation": {
+        "operation": "replace"
+      },
+      "operator_family": "native_mask",
+      "producer_role": "executor",
+      "random_source": {
+        "seed": 7
+      },
+      "record_id": "qste:intervention-spec:a11069a2-596c-4003-b4e3-97bbce79dc14",
+      "record_type": "InterventionSpec",
+      "reference_distribution": {
+        "kind": "zero"
+      },
+      "references": [],
+      "renderer_or_decoder": {
+        "id": "renderer/1"
+      },
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/intervention-spec.schema.json"
+    },
+    {
+      "candidate_rule_version": "candidate-rule/1",
+      "contract_id": "qste-contract/0.3.0",
+      "created_at": "2026-08-28T00:00:00Z",
+      "disclosure_status": "private",
+      "integrity_status": "unverified",
+      "native_address": {
+        "index": 0
+      },
+      "native_support": {
+        "indices": [
+          0
+        ]
+      },
+      "producer_role": "executor",
+      "record_id": "qste:candidate-unit:d313db08-1650-485f-a6a7-5fb6f726482f",
+      "record_type": "CandidateUnit",
+      "references": [],
+      "representation_instance_ref": {
+        "record_id": "qste:representation-instance:2f654b42-cdcf-48f3-bc82-3a21b3be37f7",
+        "record_type": "RepresentationInstance",
+        "relation": "depends_on"
+      },
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/candidate-unit.schema.json",
+      "semantic_key": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+    },
+    {
+      "algorithm_or_model_digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "capacity": {
+        "maximum_candidates": 1024
+      },
+      "contract_id": "qste-contract/0.3.0",
+      "created_at": "2026-08-28T00:00:00Z",
+      "disclosure_status": "private",
+      "integrity_status": "unverified",
+      "metric": {
+        "name": "native_l2"
+      },
+      "native_unit": "coefficient",
+      "parameters": {
+        "window": 1024
+      },
+      "producer_role": "executor",
+      "record_id": "qste:representation-spec:13d75e30-ecfe-49f2-8ec8-11ba60c5b4fa",
+      "record_type": "RepresentationSpec",
+      "references": [],
+      "renderer_or_decoder": {
+        "id": "renderer/1"
+      },
+      "representation_id": "representation/1",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/representation-spec.schema.json"
+    },
+    {
+      "contract_id": "qste-contract/0.3.0",
+      "created_at": "2026-08-28T00:00:00Z",
+      "dense_data_ref": {
+        "record_id": "qste:artifact-record:50c15a45-d3e5-4c92-907a-952b2e9864c2",
+        "record_type": "ArtifactRecord",
+        "relation": "depends_on"
+      },
+      "disclosure_status": "private",
+      "execution_receipt_ref": {
+        "record_id": "qste:operation-receipt:bfc5c3be-3139-4404-afb8-f69aab7306b6",
+        "record_type": "OperationReceipt",
+        "relation": "depends_on"
+      },
+      "instance_context": {
+        "run": "fixture"
+      },
+      "integrity_status": "unverified",
+      "producer_role": "executor",
+      "record_id": "qste:representation-instance:2f654b42-cdcf-48f3-bc82-3a21b3be37f7",
+      "record_type": "RepresentationInstance",
+      "references": [],
+      "representation_spec_ref": {
+        "record_id": "qste:representation-spec:13d75e30-ecfe-49f2-8ec8-11ba60c5b4fa",
+        "record_type": "RepresentationSpec",
+        "relation": "depends_on"
+      },
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/representation-instance.schema.json",
+      "source_artifact_ref": {
+        "record_id": "qste:artifact-record:50c15a45-d3e5-4c92-907a-952b2e9864c2",
+        "record_type": "ArtifactRecord",
+        "relation": "depends_on"
+      }
+    },
+    {
+      "contract_id": "qste-contract/0.3.0",
+      "created_at": "2026-08-28T00:00:00Z",
+      "disclosure_status": "private",
+      "integrity_status": "unverified",
+      "interpolation": {
+        "method": "none"
+      },
+      "loss": {
+        "declared": true
+      },
+      "missing_data_behavior": "refuse",
+      "normalization": {
+        "method": "minmax"
+      },
+      "producer_role": "executor",
+      "range": {
+        "maximum": 1,
+        "minimum": 0
+      },
+      "record_id": "qste:mapping-spec:85d5a418-af25-44f8-ad59-cc130945bc21",
+      "record_type": "MappingSpec",
+      "references": [],
+      "reversibility_claim": "not_reversible",
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/mapping-spec.schema.json",
+      "source_domain": {
+        "name": "normalized_score"
+      },
+      "target_domain": {
+        "name": "amplitude"
+      },
+      "uncertainty": {
+        "propagation": "interval"
+      },
+      "units": {
+        "source": "normalized",
+        "target": "linear_gain"
+      },
+      "variables": [
+        "score",
+        "gain"
+      ]
+    },
+    {
+      "artifact_availability": "known",
+      "byte_state": "content_addressed",
+      "content_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "contract_id": "qste-contract/0.3.0",
+      "created_at": "2026-08-28T00:00:00Z",
+      "disclosure_status": "private",
+      "integrity_status": "unverified",
+      "media_type": "application/octet-stream",
+      "producer_role": "executor",
+      "record_id": "qste:artifact-record:50c15a45-d3e5-4c92-907a-952b2e9864c2",
+      "record_type": "ArtifactRecord",
+      "references": [],
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/artifact-record.schema.json"
+    },
+    {
+      "actor": "local_executor",
+      "authorization_status": "permitted",
+      "contract_id": "qste-contract/0.3.0",
+      "created_at": "2026-08-28T00:00:00Z",
+      "disclosure_status": "private",
+      "inputs": [
+        "qste:claim-record:d9511bf4-6cc7-497b-bf40-e1200ee1de86"
+      ],
+      "integrity_status": "unverified",
+      "operation_status": "completed",
+      "outputs": [
+        "qste:claim-record:2749e163-23bb-4ec7-b32b-6f7c31974d53"
+      ],
+      "parameters": {
+        "strict": true
+      },
+      "producer_role": "executor",
+      "record_id": "qste:operation-receipt:bfc5c3be-3139-4404-afb8-f69aab7306b6",
+      "record_type": "OperationReceipt",
+      "references": [],
+      "request_ref": {
+        "record_id": "qste:claim-record:d9511bf4-6cc7-497b-bf40-e1200ee1de86",
+        "record_type": "ClaimRecord",
+        "relation": "depends_on"
+      },
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/operation-receipt.schema.json",
+      "tool": {
+        "id": "qste-validator",
+        "version": "0.3.0"
+      }
+    },
+    {
+      "contract_id": "qste-contract/0.3.0",
+      "created_at": "2026-08-28T00:00:00Z",
+      "disclosure_status": "private",
+      "epistemic_status": "derived",
+      "evidence_basis": "instrumentally_derived",
+      "evidence_refs": [
+        {
+          "record_id": "qste:observation-record:962325ae-ffab-435b-81ea-bdb99bcae618",
+          "record_type": "ObservationRecord",
+          "relation": "depends_on"
+        }
+      ],
+      "integrity_status": "unverified",
+      "producer_role": "executor",
+      "proposition": "fixture proposition",
+      "record_id": "qste:claim-record:d9511bf4-6cc7-497b-bf40-e1200ee1de86",
+      "record_type": "ClaimRecord",
+      "references": [],
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/claim-record.schema.json",
+      "scope": {
+        "kind": "fixture_only"
+      },
+      "subject_ref": {
+        "record_id": "qste:artifact-record:50c15a45-d3e5-4c92-907a-952b2e9864c2",
+        "record_type": "ArtifactRecord",
+        "relation": "depends_on"
+      }
+    },
+    {
+      "acquisition_ref": {
+        "record_id": "qste:acquisition-event:a2235226-6409-4e33-ac3a-64506ae6f653",
+        "record_type": "AcquisitionEvent",
+        "relation": "depends_on"
+      },
+      "contract_id": "qste-contract/0.3.0",
+      "created_at": "2026-08-28T00:00:00Z",
+      "disclosure_status": "private",
+      "evidence_basis": "instrumentally_derived",
+      "integrity_status": "unverified",
+      "method": "fixture_measurement",
+      "observation_state": "value",
+      "producer_role": "executor",
+      "record_id": "qste:observation-record:962325ae-ffab-435b-81ea-bdb99bcae618",
+      "record_type": "ObservationRecord",
+      "references": [],
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/observation-record.schema.json",
+      "units": "normalized_score",
+      "value": 0.5,
+      "variable": "response"
+    },
+    {
+      "apparatus_ref": {
+        "record_id": "qste:apparatus-spec:14e1d808-8ddb-4531-a7a9-b767cc286758",
+        "record_type": "ApparatusSpec",
+        "relation": "depends_on"
+      },
+      "authorization_status": "permitted",
+      "calibration": {
+        "status": "declared"
+      },
+      "contract_id": "qste-contract/0.3.0",
+      "created_at": "2026-08-28T00:00:00Z",
+      "disclosure_status": "private",
+      "end_at": "2026-08-28T00:00:01Z",
+      "environment": {
+        "location": "controlled"
+      },
+      "event_sequence": 1,
+      "integrity_status": "unverified",
+      "limits": {
+        "bandwidth_hz": [
+          20,
+          20000
+        ]
+      },
+      "lineage_relation": "acquired_from",
+      "producer_role": "executor",
+      "provider_or_channel": "local_input",
+      "receipt_ref": {
+        "record_id": "qste:operation-receipt:bfc5c3be-3139-4404-afb8-f69aab7306b6",
+        "record_type": "OperationReceipt",
+        "relation": "depends_on"
+      },
+      "record_id": "qste:acquisition-event:a2235226-6409-4e33-ac3a-64506ae6f653",
+      "record_type": "AcquisitionEvent",
+      "references": [],
+      "result_ref": {
+        "record_id": "qste:artifact-record:50c15a45-d3e5-4c92-907a-952b2e9864c2",
+        "record_type": "ArtifactRecord",
+        "relation": "depends_on"
+      },
+      "route": {
+        "kind": "import"
+      },
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/acquisition-event.schema.json",
+      "source_ref": {
+        "record_id": "qste:source-record:3838a66c-8cec-47db-a77e-e887184042d9",
+        "record_type": "SourceRecord",
+        "relation": "depends_on"
+      },
+      "start_at": "2026-08-28T00:00:00Z",
+      "temporal_state": "timed",
+      "timebase": "sample_clock"
+    },
+    {
+      "acquisition_surface": {
+        "channels": 1
+      },
+      "action_surface": {
+        "network": false
+      },
+      "apparatus_version": "apparatus/1",
+      "computation_surface": {
+        "dtype": "float64"
+      },
+      "configuration": {
+        "sample_rate_hz": 48000
+      },
+      "contract_id": "qste-contract/0.3.0",
+      "created_at": "2026-08-28T00:00:00Z",
+      "disclosure_status": "private",
+      "integrity_status": "unverified",
+      "producer_role": "executor",
+      "record_id": "qste:apparatus-spec:14e1d808-8ddb-4531-a7a9-b767cc286758",
+      "record_type": "ApparatusSpec",
+      "references": [],
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/apparatus-spec.schema.json"
+    },
+    {
+      "attributed_origin": "fixture source",
+      "contract_id": "qste-contract/0.3.0",
+      "created_at": "2026-08-28T00:00:00Z",
+      "disclosure_status": "private",
+      "integrity_status": "unverified",
+      "locator": "qste://fixtures/source",
+      "producer_role": "executor",
+      "record_id": "qste:source-record:3838a66c-8cec-47db-a77e-e887184042d9",
+      "record_type": "SourceRecord",
+      "references": [],
+      "rights": {
+        "use": "fixture_only"
+      },
+      "schema_id": "https://schemas.qste.invalid/0.3.0/records/source-record.schema.json",
+      "source_availability": "known"
+    }
+  ]
+}

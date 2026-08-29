@@ -1,0 +1,2 @@
+variable,observation_state,value,units,method,evidence_basis
+peak,value,0.5,linear,external-fixture/1,directly_recorded

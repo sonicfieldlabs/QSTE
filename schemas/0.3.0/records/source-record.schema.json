@@ -1,0 +1,69 @@
+{
+  "$id": "https://schemas.qste.invalid/0.3.0/records/source-record.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "allOf": [
+    {
+      "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordBase"
+    },
+    {
+      "properties": {
+        "attributed_origin": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "contract_id": {
+          "const": "qste-contract/0.3.0"
+        },
+        "locator": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "record_type": {
+          "const": "SourceRecord"
+        },
+        "rights": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "schema_id": {
+          "const": "https://schemas.qste.invalid/0.3.0/records/source-record.schema.json"
+        },
+        "source_availability": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/availability"
+        }
+      },
+      "required": [
+        "attributed_origin",
+        "source_availability",
+        "rights"
+      ],
+      "type": "object"
+    },
+    {
+      "anyOf": [
+        {
+          "required": [
+            "locator"
+          ]
+        },
+        {
+          "properties": {
+            "source_availability": {
+              "enum": [
+                "unknown",
+                "unavailable",
+                "withheld",
+                "deleted"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "patternProperties": {
+    "^[a-z][a-z0-9_-]*:[A-Za-z][A-Za-z0-9_.-]*$": {}
+  },
+  "title": "SourceRecord",
+  "unevaluatedProperties": false
+}

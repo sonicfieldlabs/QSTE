@@ -1,0 +1,87 @@
+{
+  "$id": "https://schemas.qste.invalid/0.3.0/records/observation-record.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "allOf": [
+    {
+      "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordBase"
+    },
+    {
+      "properties": {
+        "acquisition_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "contract_id": {
+          "const": "qste-contract/0.3.0"
+        },
+        "evidence_basis": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/evidence_basis"
+        },
+        "method": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "observation_state": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "record_type": {
+          "const": "ObservationRecord"
+        },
+        "schema_id": {
+          "const": "https://schemas.qste.invalid/0.3.0/records/observation-record.schema.json"
+        },
+        "units": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "value": {
+          "type": "number"
+        },
+        "variable": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "variable",
+        "observation_state",
+        "units",
+        "method",
+        "evidence_basis",
+        "acquisition_ref"
+      ],
+      "type": "object"
+    },
+    {
+      "oneOf": [
+        {
+          "properties": {
+            "observation_state": {
+              "const": "value"
+            }
+          },
+          "required": [
+            "value"
+          ]
+        },
+        {
+          "not": {
+            "required": [
+              "value"
+            ]
+          },
+          "properties": {
+            "observation_state": {
+              "const": "absent"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "patternProperties": {
+    "^[a-z][a-z0-9_-]*:[A-Za-z][A-Za-z0-9_.-]*$": {}
+  },
+  "title": "ObservationRecord",
+  "unevaluatedProperties": false
+}

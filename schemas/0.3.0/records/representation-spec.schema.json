@@ -1,0 +1,64 @@
+{
+  "$id": "https://schemas.qste.invalid/0.3.0/records/representation-spec.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "allOf": [
+    {
+      "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordBase"
+    },
+    {
+      "properties": {
+        "algorithm_or_model_digest": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/digest"
+        },
+        "capacity": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "contract_id": {
+          "const": "qste-contract/0.3.0"
+        },
+        "metric": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "native_unit": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "parameters": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "record_type": {
+          "const": "RepresentationSpec"
+        },
+        "renderer_or_decoder": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "representation_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "schema_id": {
+          "const": "https://schemas.qste.invalid/0.3.0/records/representation-spec.schema.json"
+        }
+      },
+      "required": [
+        "representation_id",
+        "algorithm_or_model_digest",
+        "parameters",
+        "native_unit",
+        "metric",
+        "capacity",
+        "renderer_or_decoder"
+      ],
+      "type": "object"
+    }
+  ],
+  "patternProperties": {
+    "^[a-z][a-z0-9_-]*:[A-Za-z][A-Za-z0-9_.-]*$": {}
+  },
+  "title": "RepresentationSpec",
+  "unevaluatedProperties": false
+}

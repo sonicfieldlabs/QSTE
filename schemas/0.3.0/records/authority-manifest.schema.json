@@ -1,0 +1,98 @@
+{
+  "$id": "https://schemas.qste.invalid/0.3.0/records/authority-manifest.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "allOf": [
+    {
+      "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordBase"
+    },
+    {
+      "properties": {
+        "adapter_contracts": {
+          "items": {},
+          "minItems": 1,
+          "type": "array"
+        },
+        "approved_rfc_refs": {
+          "maxItems": 0,
+          "type": "array"
+        },
+        "architecture": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "code": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "compatibility_decision": {
+          "const": "exact_contract_only"
+        },
+        "conformance_profile": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "contract_id": {
+          "const": "qste-contract/0.3.0"
+        },
+        "development_plan": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "experiment_profiles": {
+          "items": {},
+          "minItems": 1,
+          "type": "array"
+        },
+        "manifest_profile": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "model_checkpoint_manifests": {
+          "items": {},
+          "minItems": 1,
+          "type": "array"
+        },
+        "record_type": {
+          "const": "AuthorityManifest"
+        },
+        "research_sources": {
+          "items": {},
+          "minItems": 1,
+          "type": "array"
+        },
+        "schema_id": {
+          "const": "https://schemas.qste.invalid/0.3.0/records/authority-manifest.schema.json"
+        },
+        "schema_set": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "semantic_contract": {
+          "minProperties": 1,
+          "type": "object"
+        }
+      },
+      "required": [
+        "manifest_profile",
+        "semantic_contract",
+        "schema_set",
+        "conformance_profile",
+        "architecture",
+        "development_plan",
+        "research_sources",
+        "code",
+        "adapter_contracts",
+        "model_checkpoint_manifests",
+        "experiment_profiles",
+        "compatibility_decision",
+        "approved_rfc_refs"
+      ],
+      "type": "object"
+    }
+  ],
+  "patternProperties": {
+    "^[a-z][a-z0-9_-]*:[A-Za-z][A-Za-z0-9_.-]*$": {}
+  },
+  "title": "AuthorityManifest",
+  "unevaluatedProperties": false
+}

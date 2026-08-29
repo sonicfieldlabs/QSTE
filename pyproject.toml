@@ -1,0 +1,92 @@
+[project]
+name = "qste"
+version = "0.0.0"
+description = "Local-first research harness for representation-relative digital sonic quanta"
+readme = "README.md"
+requires-python = ">=3.12,<3.14"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+  { name = "eme isaza" },
+  { name = "Sebastián Duque" },
+]
+keywords = ["audio", "sound", "transduction", "research", "provenance"]
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: MacOS",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Multimedia :: Sound/Audio :: Analysis",
+  "Topic :: Scientific/Engineering :: Information Analysis",
+]
+dependencies = [
+  "jsonschema>=4.23",
+  "numpy>=2.0",
+  "referencing>=0.36",
+  "rfc8785>=0.1.4,<0.2",
+  "scipy>=1.15",
+  "soundfile>=0.13",
+  "zarr>=3.0",
+]
+
+[project.scripts]
+qste = "qste.cli:main"
+
+[dependency-groups]
+dev = [
+  "coverage[toml]>=7.6",
+  "hypothesis>=6.124",
+  "mypy>=1.15",
+  "pytest>=8.3",
+  "ruff>=0.9",
+]
+
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/qste"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"schemas/0.3.0" = "qste/contracts/schemas/0.3.0"
+"conformance/0.3.0" = "qste/contracts/conformance/0.3.0"
+"conformance/p4-ingress/0.1" = "qste/contracts/conformance/p4-ingress/0.1"
+"conformance/p5-stft-gabor/0.1" = "qste/contracts/conformance/p5-stft-gabor/0.1"
+"conformance/p6-dsq/0.1" = "qste/contracts/conformance/p6-dsq/0.1"
+"conformance/p7-relations/0.1" = "qste/contracts/conformance/p7-relations/0.1"
+"conformance/p8-transduction-governance/0.1" = "qste/contracts/conformance/p8-transduction-governance/0.1"
+"conformance/p9-external-representations/0.1" = "qste/contracts/conformance/p9-external-representations/0.1"
+"conformance/p10-agent-harness/0.1" = "qste/contracts/conformance/p10-agent-harness/0.1"
+"conformance/p11-ecosystem-engines/0.1" = "qste/contracts/conformance/p11-ecosystem-engines/0.1"
+"profiles/adapters" = "qste/contracts/profiles/adapters"
+"profiles/agents" = "qste/contracts/profiles/agents"
+
+[tool.pytest.ini_options]
+addopts = ["-ra", "--strict-config", "--strict-markers"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+
+[tool.ruff.lint.per-file-ignores]
+"tools/generate_contracts.py" = ["E501"]
+"src/qste/storage/database.py" = ["E501"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["src", "tests"]
+
+[tool.coverage.run]
+branch = true
+source = ["qste"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true

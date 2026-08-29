@@ -1,0 +1,61 @@
+{
+  "$id": "https://schemas.qste.invalid/0.3.0/records/intervention-spec.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "allOf": [
+    {
+      "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordBase"
+    },
+    {
+      "properties": {
+        "contract_id": {
+          "const": "qste-contract/0.3.0"
+        },
+        "controls": {
+          "items": {},
+          "minItems": 1,
+          "type": "array"
+        },
+        "native_operation": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "operator_family": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "random_source": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "record_type": {
+          "const": "InterventionSpec"
+        },
+        "reference_distribution": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "renderer_or_decoder": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "schema_id": {
+          "const": "https://schemas.qste.invalid/0.3.0/records/intervention-spec.schema.json"
+        }
+      },
+      "required": [
+        "operator_family",
+        "native_operation",
+        "reference_distribution",
+        "renderer_or_decoder",
+        "controls",
+        "random_source"
+      ],
+      "type": "object"
+    }
+  ],
+  "patternProperties": {
+    "^[a-z][a-z0-9_-]*:[A-Za-z][A-Za-z0-9_.-]*$": {}
+  },
+  "title": "InterventionSpec",
+  "unevaluatedProperties": false
+}

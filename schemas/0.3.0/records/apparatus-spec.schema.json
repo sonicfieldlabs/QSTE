@@ -1,0 +1,55 @@
+{
+  "$id": "https://schemas.qste.invalid/0.3.0/records/apparatus-spec.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "allOf": [
+    {
+      "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordBase"
+    },
+    {
+      "properties": {
+        "acquisition_surface": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "action_surface": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "apparatus_version": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "computation_surface": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "configuration": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "contract_id": {
+          "const": "qste-contract/0.3.0"
+        },
+        "record_type": {
+          "const": "ApparatusSpec"
+        },
+        "schema_id": {
+          "const": "https://schemas.qste.invalid/0.3.0/records/apparatus-spec.schema.json"
+        }
+      },
+      "required": [
+        "apparatus_version",
+        "configuration",
+        "acquisition_surface",
+        "computation_surface",
+        "action_surface"
+      ],
+      "type": "object"
+    }
+  ],
+  "patternProperties": {
+    "^[a-z][a-z0-9_-]*:[A-Za-z][A-Za-z0-9_.-]*$": {}
+  },
+  "title": "ApparatusSpec",
+  "unevaluatedProperties": false
+}

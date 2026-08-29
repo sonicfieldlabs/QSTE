@@ -1,0 +1,79 @@
+{
+  "$id": "https://schemas.qste.invalid/0.3.0/records/successor-spec.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "allOf": [
+    {
+      "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordBase"
+    },
+    {
+      "properties": {
+        "authority_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "capability_requirements": {
+          "items": {},
+          "minItems": 1,
+          "type": "array"
+        },
+        "completed_run_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "contract_id": {
+          "const": "qste-contract/0.3.0"
+        },
+        "decision_event_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "evidence_fields": {
+          "items": {},
+          "minItems": 1,
+          "type": "array"
+        },
+        "executable_action_set": {
+          "items": {},
+          "minItems": 1,
+          "type": "array"
+        },
+        "persistence_target": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "predecessor_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "record_type": {
+          "const": "SuccessorSpec"
+        },
+        "revision_treatment": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/revision_treatment"
+        },
+        "schema_id": {
+          "const": "https://schemas.qste.invalid/0.3.0/records/successor-spec.schema.json"
+        },
+        "semantic_diff": {
+          "minProperties": 1,
+          "type": "object"
+        }
+      },
+      "required": [
+        "predecessor_ref",
+        "completed_run_ref",
+        "semantic_diff",
+        "executable_action_set",
+        "capability_requirements",
+        "decision_event_ref",
+        "evidence_fields",
+        "revision_treatment",
+        "authority_ref",
+        "persistence_target",
+        "semantic_key"
+      ],
+      "type": "object"
+    }
+  ],
+  "patternProperties": {
+    "^[a-z][a-z0-9_-]*:[A-Za-z][A-Za-z0-9_.-]*$": {}
+  },
+  "title": "SuccessorSpec",
+  "unevaluatedProperties": false
+}

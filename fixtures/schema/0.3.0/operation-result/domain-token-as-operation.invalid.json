@@ -1,0 +1,13 @@
+{
+  "authorization_status": "permitted",
+  "capability_status": "available",
+  "cli_exit_class": 5,
+  "contract_id": "qste-contract/0.3.0",
+  "diagnostics": {},
+  "operation": "qste:assess/0.3.0",
+  "operation_status": "indeterminate",
+  "reason_code": "required_evidence_unavailable",
+  "receipt_id": "qste:operation-receipt:bfc5c3be-3139-4404-afb8-f69aab7306b6",
+  "value": null,
+  "value_type": "https://schemas.qste.invalid/0.3.0/records/dsq-assessment.schema.json"
+}

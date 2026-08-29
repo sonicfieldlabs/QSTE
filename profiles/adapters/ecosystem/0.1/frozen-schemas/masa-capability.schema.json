@@ -1,0 +1,168 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://masa.sonicfield.org/schemas/0.2.0/capability.schema.json",
+  "title": "MASA 0.2.0 capability declaration",
+  "type": "object",
+  "required": [
+    "id",
+    "type",
+    "name",
+    "purpose",
+    "supportedMasaVersions",
+    "profiles",
+    "inputSchema",
+    "outputSchema",
+    "resources",
+    "sideEffects",
+    "authority",
+    "confirmation",
+    "riskFlags",
+    "receiptType",
+    "determinism",
+    "outcomes",
+    "extensions"
+  ],
+  "properties": {
+    "id": { "$ref": "definitions.schema.json#/$defs/Id" },
+    "type": { "const": "masa:Capability" },
+    "name": { "type": "string", "pattern": "^matter\\.[a-z][a-z0-9_-]*$" },
+    "purpose": { "type": "string", "minLength": 1, "maxLength": 4096 },
+    "supportedMasaVersions": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1, "maxLength": 128 },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "profiles": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["core", "audio", "listening", "analysis", "transformation", "generation", "processing", "mapping", "agent", "publication"]
+      },
+      "minItems": 1,
+      "uniqueItems": true,
+      "contains": { "const": "core" }
+    },
+    "inputSchema": { "$ref": "#/$defs/SchemaReferenceState" },
+    "outputSchema": { "$ref": "#/$defs/SchemaReferenceState" },
+    "resources": {
+      "type": "object",
+      "required": ["local", "network", "providers", "hardware"],
+      "properties": {
+        "local": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 512 }, "uniqueItems": true },
+        "network": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 512 }, "uniqueItems": true },
+        "providers": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 512 }, "uniqueItems": true },
+        "hardware": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 512 }, "uniqueItems": true }
+      },
+      "additionalProperties": false
+    },
+    "sideEffects": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["none", "local-read", "local-write", "network-read", "network-write", "external-action", "destructive"]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "authority": {
+      "type": "object",
+      "required": ["required", "source", "scopes"],
+      "properties": {
+        "required": { "type": "boolean" },
+        "source": { "const": "trusted-host" },
+        "scopes": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1, "maxLength": 256 },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "confirmation": { "type": "string", "enum": ["never", "host-policy", "always"] },
+    "riskFlags": {
+      "type": "object",
+      "required": ["expose", "publish", "delete", "overwrite", "paidProvider", "externalSystem", "preciseLocation"],
+      "properties": {
+        "expose": { "type": "boolean" },
+        "publish": { "type": "boolean" },
+        "delete": { "type": "boolean" },
+        "overwrite": { "type": "boolean" },
+        "paidProvider": { "type": "boolean" },
+        "externalSystem": { "type": "boolean" },
+        "preciseLocation": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "receiptType": { "const": "masa:OperationReceipt" },
+    "determinism": {
+      "type": "array",
+      "items": { "type": "string", "enum": ["deterministic", "seeded", "nondeterministic", "undetermined"] },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "outcomes": {
+      "type": "array",
+      "items": { "type": "string", "enum": ["completed", "partial", "failed", "refused", "cancelled", "not_performed", "undetermined"] },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "limits": { "type": "object", "additionalProperties": { "$ref": "definitions.schema.json#/$defs/JsonValue" } },
+    "extensions": { "$ref": "definitions.schema.json#/$defs/ExtensionBag" }
+  },
+  "$defs": {
+    "SchemaReferenceState": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["state", "uri"],
+          "properties": {
+            "state": { "const": "known" },
+            "uri": { "$ref": "definitions.schema.json#/$defs/Id" }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["state", "reason"],
+          "properties": {
+            "state": { "enum": ["unknown", "unavailable"] },
+            "reason": { "type": "string", "minLength": 1, "maxLength": 2048 }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["state", "reason", "policyRefs"],
+          "properties": {
+            "state": { "const": "withheld" },
+            "reason": { "type": "string", "minLength": 1, "maxLength": 2048 },
+            "policyRefs": {
+              "type": "array",
+              "items": { "$ref": "definitions.schema.json#/$defs/Id" },
+              "minItems": 1,
+              "uniqueItems": true
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["state", "reason"],
+          "properties": {
+            "state": { "const": "deleted" },
+            "reason": { "type": "string", "minLength": 1, "maxLength": 2048 }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["state"],
+          "properties": { "state": { "const": "not_applicable" } },
+          "additionalProperties": false
+        }
+      ]
+    }
+  },
+  "additionalProperties": false
+}

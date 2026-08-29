@@ -1,0 +1,26 @@
+{
+  "contract_id": "qste-contract/0.3.0",
+  "id": "qste-conformance/0.3.0",
+  "identity": {
+    "content_digest": "serialized_bytes_sha256",
+    "record_id": "random_uuid4",
+    "semantic_key": "typed_rfc8785_compatible_sha256",
+    "substitution": "prohibited"
+  },
+  "reader": {
+    "json": "strict_finite",
+    "legacy_aliases": "reject",
+    "namespaced_extensions": "preserve_verbatim",
+    "reference_closure": "required_for_bundle",
+    "unknown_unqualified_fields": "reject"
+  },
+  "schema_set_id": "qste-schema/0.3.0",
+  "writer": {
+    "canonical_tokens_only": true,
+    "json": "canonical_sorted_utf8",
+    "legacy_output": "prohibited",
+    "namespaced_extensions": "preserve_verbatim",
+    "nonfinite_numbers": "reject",
+    "unknown_unqualified_fields": "reject"
+  }
+}

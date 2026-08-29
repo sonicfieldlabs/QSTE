@@ -1,0 +1,70 @@
+{
+  "claims": [
+    "frozen_bound_valid_task_contract",
+    "deterministic_and_seeded_stochastic_paired_effects",
+    "full_family_adjusted_intervals",
+    "closed_nonempty_two_bound_qualification",
+    "negative_evidence_only_rejection",
+    "explicit_trivalent_assessment",
+    "all_canonical_assessment_reasons",
+    "candidate_assessment_nonidentity",
+    "nonmonotone_interaction_preservation",
+    "matched_stopping_rule_baselines",
+    "append_only_dependency_invalidation",
+    "design_only_leonardo_profile_without_outcome"
+  ],
+  "contract_id": "qste-contract/0.3.0",
+  "gates": [
+    {
+      "id": "P6-G01",
+      "requirement": "Invalid bounds, units, selection splits, seeds, estimators, multiplicity families, controls, or budgets fail with invalid_assessment_spec and no DSQAssessment."
+    },
+    {
+      "id": "P6-G02",
+      "requirement": "Raw paired scores, un-oriented effects, orientation, oriented effects, seeds, estimator, and interval adjustment remain replayable."
+    },
+    {
+      "id": "P6-G03",
+      "requirement": "Qualification requires a meaningful candidate and inclusive equivalence of every valid required node in a closed nonempty graph."
+    },
+    {
+      "id": "P6-G04",
+      "requirement": "Candidate or proper-node rejection requires valid full-family uncertainty, controls, calibration, and dependencies."
+    },
+    {
+      "id": "P6-G05",
+      "requirement": "Boundary crossing, missing evidence, missing closure, empty proper sets, budget exhaustion, calibration absence, failed controls, and uncertainty absence remain indeterminate."
+    },
+    {
+      "id": "P6-G06",
+      "requirement": "Failure to reject is never substituted for interval containment within the equivalence region."
+    },
+    {
+      "id": "P6-G07",
+      "requirement": "Nonmonotone and synergy annotations are preserved without an indivisibility inference."
+    },
+    {
+      "id": "P6-G08",
+      "requirement": "Candidate IDs, assessment occurrence IDs, assessment semantic keys, and evidence-run identities remain separate."
+    },
+    {
+      "id": "P6-G09",
+      "requirement": "Deterministic tolerance and seeded stochastic Bonferroni-normal protocols replay under exact family size and bounded evaluation counts."
+    },
+    {
+      "id": "P6-G10",
+      "requirement": "Matching-pursuit and perceptual-coding baselines report whether their matched evidence satisfies the DSQ condition."
+    },
+    {
+      "id": "P6-G11",
+      "requirement": "Dependency invalidation appends a canonical event, derives current invalidity, queues recomputation, and does not rewrite assessment bytes."
+    },
+    {
+      "id": "P6-G12",
+      "requirement": "The Leonardo bird-call profile is explicitly design-only and contains no simulated or empirical outcome."
+    }
+  ],
+  "profile_id": "qste-dsq-conformance/0.1",
+  "assessment_profile": "qste-dsq-assessment/v0.1",
+  "task_profile": "qste-paired-score-task/v0.1"
+}

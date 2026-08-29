@@ -1,0 +1,25 @@
+{
+  "adapter_id": "encodec",
+  "compatibility_profile": "qste-external-representation-adapter/v0.1",
+  "environment_lock": {
+    "path": "environments/encodec/uv.lock",
+    "sha256": "f19aa296e4fed10bbb018cfc950280adf86b1f4e5a0b3246f7e70abe3f9612c3"
+  },
+  "execution_mode": "captured_fixture_only",
+  "implementation_ref": "https://github.com/facebookresearch/encodec",
+  "implementation_revision": "f1479a65a75c0e49e7e5d85bb1418fd57e6a9d62",
+  "license": {
+    "package_license_file_sha256": "a7950c0fed88e9a177617e3836e9dc0ae4f4a96e59b15c3706de38ace171aca4",
+    "package_spdx_expression": "CC-BY-NC-4.0",
+    "status": "unresolved_checkpoint_license_not_declared"
+  },
+  "native_metric": "native_token_hamming_distance",
+  "native_unit": "encodec_frame_codebook_token",
+  "package": {
+    "pypi_sdist_sha256": "36dde98ccfe6c51a15576476cadfcb3b35a63507b8b8555abd69889a6fba6772",
+    "pypi_version": "0.1.1",
+    "size_bytes": 3736037
+  },
+  "release": "v0.1.1",
+  "target_id": "encodec/v0.1.1+facebook-encodec-24khz"
+}

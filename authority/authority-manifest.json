@@ -1,0 +1,198 @@
+{
+  "adapter_contracts": [
+    {
+      "availability": "supervised_capture_available_external_execution_unavailable",
+      "id": "samplebrain/v0.18.5_release",
+      "path": "profiles/adapters/samplebrain/0.1/compatibility-target.json",
+      "sha256": "9d76bc6ea75c127675be98f3d0219a40ee4a8f7fe77f6ba09234d9dd5b6684dc"
+    },
+    {
+      "availability": "captured_fixture_available_external_execution_unavailable",
+      "id": "encodec/v0.1.1+facebook-encodec-24khz",
+      "path": "profiles/adapters/encodec/0.1/compatibility-target.json",
+      "sha256": "e564eff97225a0589537cbc5b7f56a64a7cabd3a6740a938892684c23fd6b0bc"
+    }
+  ],
+  "approved_rfc_refs": [],
+  "authorization_status": "permitted",
+  "code": {
+    "commit": "unbound_public_snapshot",
+    "commit_scope": "P11 public runtime snapshot with non-public governance, phase evidence, and superseded authority material excluded",
+    "repository": "https://github.com/sonicfieldlabs/QSTE",
+    "version": "0.0.0"
+  },
+  "compatibility_decision": "exact_contract_only",
+  "conformance_profile": {
+    "id": "qste-conformance/0.3.0",
+    "path": "conformance/0.3.0/conformance-index.json",
+    "sha256": "8506cc664024a3b76eb4281ec9e3b9a77ba66665de0c2a9ce37a7f670ef936f9"
+  },
+  "consent_status": "not_applicable",
+  "contract_id": "qste-contract/0.3.0",
+  "created_at": "2026-08-29T02:27:00Z",
+  "development_plan": {
+    "availability": "private_local_not_disclosed",
+    "id": "qste-development-plan/private"
+  },
+  "disclosure_status": "private",
+  "experiment_profiles": [
+    {
+      "availability": "private_local_not_disclosed",
+      "evidence_status": "not_public",
+      "id": "qste-experiment-profiles/private"
+    }
+  ],
+  "integrity_status": "verified",
+  "manifest_profile": "qste-authority/0.3.0",
+  "model_checkpoint_manifests": [
+    {
+      "availability": "unavailable_not_downloaded_license_unresolved",
+      "id": "facebook/encodec_24khz:model.safetensors",
+      "path": "profiles/adapters/encodec/0.1/checkpoint-manifest.json",
+      "sha256": "75549b36f9b8a28c2a87d9658014d7ae2c7477bef971688935304797e1ec93b1"
+    }
+  ],
+  "producer_role": "executor",
+  "qste:capabilityProfile": {
+    "agent_harness_capability_status": "available",
+    "agentic_hearing_research_evidence_status": "unavailable",
+    "autonomous_agent_model_status": "unavailable",
+    "bounded_engine_fixture_capability_status": "available",
+    "bundle_capability_status": "available",
+    "calibrated_mock_substrate_capability_status": "available",
+    "appeal_repair_capability_status": "available",
+    "bounded_export_projection_capability_status": "available",
+    "capability_status": "available",
+    "comparative_treatment_capability_status": "available",
+    "creative_consequence_evidence_status": "unavailable",
+    "current_phase": "P11",
+    "cross_arm_relation_capability_status": "available",
+    "exact_b_matching_capability_status": "available",
+    "ecosystem_adapter_capability_status": "available",
+    "ecosystem_live_interoperability_status": "untested",
+    "external_audio_engine_execution_status": "unavailable",
+    "external_representation_adapter_capability_status": "available",
+    "governance_policy_capability_status": "available",
+    "id": "qste-foundation/0.1",
+    "identity_storage_capability_status": "available",
+    "information_payload_capability_status": "available",
+    "encodec_captured_fixture_capability_status": "available",
+    "encodec_checkpoint_status": "unavailable",
+    "encodec_external_execution_status": "unavailable",
+    "apparatus_aperture_capability_status": "available",
+    "candidate_formation_capability_status": "available",
+    "dependency_invalidation_capability_status": "available",
+    "dsq_assessment_capability_status": "available",
+    "typed_ingress_capability_status": "available",
+    "numerical_reproducibility_status": "unavailable",
+    "osc_loopback_fixture_capability_status": "available",
+    "schema_capability_status": "available",
+    "shadow_policy_fixture_capability_status": "available",
+    "paired_task_execution_capability_status": "available",
+    "relation_invalidation_capability_status": "available",
+    "samplebrain_external_execution_status": "unavailable",
+    "samplebrain_supervised_capture_capability_status": "available",
+    "stft_reference_arm_capability_status": "available",
+    "transduction_capability_status": "available"
+  },
+  "qste:agentHarnessConformance": {
+    "id": "qste-agent-harness-conformance/0.1",
+    "path": "conformance/p10-agent-harness/0.1/profile.json",
+    "sha256": "3c2b49f6ed3dc80202cbc13f440fba012c571fddd59ddc5db5523a547d0f842b"
+  },
+  "qste:compatibilityTargetManifest": {
+    "id": "qste-compatibility-target-manifest/0.1",
+    "path": "profiles/adapters/ecosystem/0.1/compatibility-target-manifest.json",
+    "sha256": "f16c294d4d763762e9bf58ce49ea6765e3ee28649ad1a3e1b62c5880cefb81ad"
+  },
+  "qste:conformanceClaim": "P11_fixture_first_ecosystem_and_bounded_engine_adapter_conformance_verified",
+  "qste:ecosystemEngineConformance": {
+    "id": "qste-ecosystem-engine-conformance/0.1",
+    "path": "conformance/p11-ecosystem-engines/0.1/profile.json",
+    "sha256": "4fcaac94a185d1d853ea4a6bacbf70d2a884bd57152d937eb44f70be5eb4d770"
+  },
+  "qste:externalRepresentationConformance": {
+    "id": "qste-external-representation-conformance/0.1",
+    "path": "conformance/p9-external-representations/0.1/profile.json",
+    "sha256": "83594e3104b29c0a3b3fe9a1f5e523c39e42bd57b1fd53b2a87d3ede1a415bcd"
+  },
+  "qste:ingressConformance": {
+    "id": "qste-ingress-conformance/0.1",
+    "path": "conformance/p4-ingress/0.1/ingress-profile.json",
+    "sha256": "79bfada652d72755a0e58b103560fd42ea24277ce19ad2b8c2d01773d1a06c20"
+  },
+  "qste:methodologicalBasis": {
+    "id": "inspectable-transduction/source-snapshot",
+    "path": "docs/foundation/transduction_framework.md",
+    "sha256": "044db1b542cc22d8dcb0d532b872b08ebef15bb62093690c9ca325e81e821208"
+  },
+  "qste:quantaConformance": {
+    "id": "qste-dsq-conformance/0.1",
+    "path": "conformance/p6-dsq/0.1/quanta-profile.json",
+    "sha256": "ca8660593448fb27c2fe653c70c894b84be13c604fbb3805cfe791831ce44971"
+  },
+  "qste:relationConformance": {
+    "id": "qste-relation-conformance/0.1",
+    "path": "conformance/p7-relations/0.1/relation-profile.json",
+    "sha256": "5ef25225bb5d047a5bc20484d5eb480f5092fc1feec169855f8679967b6b3725"
+  },
+  "qste:transductionGovernanceConformance": {
+    "id": "qste-transduction-governance-conformance/0.1",
+    "path": "conformance/p8-transduction-governance/0.1/profile.json",
+    "sha256": "c1926bbfce0153372abb12c6ec3b8c9aa1fefc3e86d63101226cb9067be594b9"
+  },
+  "qste:representationConformance": {
+    "id": "qste-stft-gabor-conformance/0.1",
+    "path": "conformance/p5-stft-gabor/0.1/representation-profile.json",
+    "sha256": "f308ca3695f65cf7fb70e6f3bd0bc1a18f199bfa945a86a2bb84382671177e0e"
+  },
+  "qste:semanticKeySpec": {
+    "excluded_fields": [
+      "created_at",
+      "record_id",
+      "semantic_key"
+    ],
+    "id": "qste-semantic-key/authority-snapshot-v1",
+    "method": "RFC8785_SHA256"
+  },
+  "qste:storageConformance": {
+    "id": "qste-storage-conformance/0.1",
+    "path": "conformance/p3-storage/0.1/storage-profile.json",
+    "sha256": "85cf38d6de1a927400cc9a8eb9c99e81c8bdc0fbed73d175c074b0fc11b67fe2"
+  },
+  "record_id": "qste:authority-manifest:cdf4e20b-cc73-4bd2-9b4f-bcb9d759b1f9",
+  "record_type": "AuthorityManifest",
+  "references": [],
+  "research_sources": [
+    {
+      "authorized_locator": null,
+      "availability": "withheld",
+      "id": "agentic-quanta-paper-v3",
+      "reason": "redistribution_not_confirmed",
+      "sha256": "f3494fae2662e5dc9c872939b2f6b5d88d9f16d023ac14e9cc2e04d76e0ffe49"
+    },
+    {
+      "authorized_locator": null,
+      "availability": "withheld",
+      "id": "agentic-quanta-leonardo-final",
+      "reason": "redistribution_not_confirmed",
+      "sha256": "b5c2d195e940577d400d04fd6f99273422f7273dfeb1a6028425bc827c8bbb5f"
+    }
+  ],
+  "schema_id": "https://schemas.qste.invalid/0.3.0/records/authority-manifest.schema.json",
+  "schema_set": {
+    "id": "qste-schema/0.3.0",
+    "path": "schemas/0.3.0/schema-index.json",
+    "sha256": "1a608d18ab61ce75deee364ef97210bf676a497a7b8b9f2eca68e34f42472f9d"
+  },
+  "semantic_contract": {
+    "id": "qste-contract/0.3.0",
+    "path": "ontology/0.3.0/QSTE_ontology.md",
+    "sha256": "02bce3f769a5d9e0d0ad9a4ff6664f6c2473ad5b3c8908a19fcfcee8e26ac2bf"
+  },
+  "semantic_key": "sha256:0448fe53cd3c3f05a68e6d5fda2b2f6bf3d932d75395af800d48b3c9deca1f27",
+  "architecture": {
+    "availability": "private_local_not_disclosed",
+    "id": "qste-architecture/private"
+  }
+}

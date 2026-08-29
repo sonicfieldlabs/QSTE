@@ -1,0 +1,9 @@
+{
+  "adapters": ["samplebrain", "encodec"],
+  "external_execution": false,
+  "fixture_set_id": "qste-external-representation-fixtures/0.1",
+  "fixtures": ["samplebrain-capture.json", "encodec-capture.json"],
+  "model_execution": false,
+  "playback": false,
+  "scientific_or_empirical_outcome": false
+}

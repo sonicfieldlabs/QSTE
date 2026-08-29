@@ -1,0 +1,205 @@
+{
+  "$id": "https://schemas.qste.invalid/0.3.0/records/dsq-assessment.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "allOf": [
+    {
+      "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordBase"
+    },
+    {
+      "properties": {
+        "aperture_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "apparatus_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "artifact_control_results": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "assessment_identity": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "assessment_status": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/assessment_status"
+        },
+        "assessor": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "authorization_status": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/authorization_status"
+        },
+        "candidate_interval": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "candidate_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "candidate_semantic_key": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/semanticKey"
+        },
+        "closure_certificate": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "comparison_operators": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "contract_id": {
+          "const": "qste-contract/0.3.0"
+        },
+        "dependency_validity": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/dependency_validity"
+        },
+        "equivalence_region": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "evidence_refs": {
+          "items": {
+            "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "interaction_annotations": {
+          "items": {},
+          "minItems": 1,
+          "type": "array"
+        },
+        "intervention_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "meaningful_bound": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "multiplicity_evidence": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "native_address": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "negative_evidence_valid": {
+          "type": "boolean"
+        },
+        "oriented_effects": {
+          "items": {
+            "type": "number"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "proper_node_intervals": {
+          "items": {},
+          "minItems": 1,
+          "type": "array"
+        },
+        "qualification_ready": {
+          "type": "boolean"
+        },
+        "raw_effects": {
+          "items": {
+            "type": "number"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "reason_code": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/assessment_reason"
+        },
+        "receipt_refs": {
+          "items": {
+            "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "record_type": {
+          "const": "DSQAssessment"
+        },
+        "refinement_graph_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "representation_family_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "representation_instance_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "schema_id": {
+          "const": "https://schemas.qste.invalid/0.3.0/records/dsq-assessment.schema.json"
+        },
+        "selection_evidence": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "task_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "tested_proper_nodes": {
+          "items": {},
+          "minItems": 1,
+          "type": "array"
+        },
+        "versions": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "well_formed": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "assessment_identity",
+        "candidate_ref",
+        "candidate_semantic_key",
+        "representation_instance_ref",
+        "native_address",
+        "apparatus_ref",
+        "aperture_ref",
+        "representation_family_ref",
+        "intervention_ref",
+        "task_ref",
+        "refinement_graph_ref",
+        "raw_effects",
+        "oriented_effects",
+        "candidate_interval",
+        "proper_node_intervals",
+        "meaningful_bound",
+        "equivalence_region",
+        "comparison_operators",
+        "tested_proper_nodes",
+        "closure_certificate",
+        "selection_evidence",
+        "multiplicity_evidence",
+        "artifact_control_results",
+        "well_formed",
+        "negative_evidence_valid",
+        "qualification_ready",
+        "assessment_status",
+        "reason_code",
+        "interaction_annotations",
+        "dependency_validity",
+        "authorization_status",
+        "evidence_refs",
+        "assessor",
+        "versions",
+        "receipt_refs",
+        "semantic_key"
+      ],
+      "type": "object"
+    }
+  ],
+  "patternProperties": {
+    "^[a-z][a-z0-9_-]*:[A-Za-z][A-Za-z0-9_.-]*$": {}
+  },
+  "title": "DSQAssessment",
+  "unevaluatedProperties": false
+}

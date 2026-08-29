@@ -1,0 +1,101 @@
+{
+  "$id": "https://schemas.qste.invalid/0.3.0/records/repair-receipt.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "allOf": [
+    {
+      "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordBase"
+    },
+    {
+      "properties": {
+        "action_refs": {
+          "items": {
+            "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "actions_applied": {
+          "items": {},
+          "minItems": 1,
+          "type": "array"
+        },
+        "affected_closure": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "appeal_case_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "completed_at": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "contract_id": {
+          "const": "qste-contract/0.3.0"
+        },
+        "event_sequence": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "external_copies": {
+          "items": {},
+          "minItems": 1,
+          "type": "array"
+        },
+        "final_authority_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "pause_status": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/pause_status"
+        },
+        "propagation_failures": {
+          "items": {},
+          "minItems": 1,
+          "type": "array"
+        },
+        "record_type": {
+          "const": "RepairReceipt"
+        },
+        "repair_status": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/repair_status"
+        },
+        "schema_id": {
+          "const": "https://schemas.qste.invalid/0.3.0/records/repair-receipt.schema.json"
+        },
+        "successor_refs": {
+          "items": {
+            "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "unresolved_limits": {
+          "items": {},
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "required": [
+        "appeal_case_ref",
+        "action_refs",
+        "affected_closure",
+        "actions_applied",
+        "propagation_failures",
+        "external_copies",
+        "unresolved_limits",
+        "repair_status",
+        "pause_status",
+        "successor_refs",
+        "final_authority_ref",
+        "completed_at",
+        "event_sequence"
+      ],
+      "type": "object"
+    }
+  ],
+  "patternProperties": {
+    "^[a-z][a-z0-9_-]*:[A-Za-z][A-Za-z0-9_.-]*$": {}
+  },
+  "title": "RepairReceipt",
+  "unevaluatedProperties": false
+}

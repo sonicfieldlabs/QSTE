@@ -1,0 +1,18 @@
+{
+  "profile_id": "qste-model-observations/0.1",
+  "model": {
+    "id": "fixture-model",
+    "version": "1",
+    "checkpoint_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "observations": [
+    {
+      "variable": "event_probability",
+      "observation_state": "value",
+      "value": 0.7,
+      "units": "probability",
+      "method": "external-model/1",
+      "evidence_basis": "model_inferred"
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "adapter_profile": "qste-external-representation-adapter/v0.1",
+  "capture_profile": "qste-external-representation-capture/0.1",
+  "claims": [
+    "complete_eleven_operation_surface",
+    "captured_native_units_and_addresses",
+    "same_instance_mapping_only",
+    "bounded_captured_intervention_and_decode",
+    "opaque_boundary_accounting",
+    "candidate_only_without_closed_refinement_graph",
+    "durable_failure_and_refusal_receipts",
+    "no_model_network_subprocess_or_playback"
+  ],
+  "gates": [
+    {
+      "id": "P9-G01",
+      "requirement": "Every adapter declares encode, enumerate, refine, address, intervene, decode, support, project, measure, perturb, and account as available or unavailable."
+    },
+    {
+      "id": "P9-G02",
+      "requirement": "No external capture becomes a DSQ or RefinementGraph without complete bounded refinement evidence."
+    },
+    {
+      "id": "P9-G03",
+      "requirement": "Changing Samplebrain block size is not a refinement certificate."
+    },
+    {
+      "id": "P9-G04",
+      "requirement": "EnCodec spans, prefixes, frames, codebooks, and tokens remain candidates until mapping and intervention evidence close."
+    },
+    {
+      "id": "P9-G05",
+      "requirement": "Every captured run binds source digest, target revision, configuration, native unit, explicit resampling, evidence class, and opaque fields."
+    },
+    {
+      "id": "P9-G06",
+      "requirement": "Probe reads only explicit regular files under explicit roots and performs no subprocess, network, model, or playback action."
+    },
+    {
+      "id": "P9-G07",
+      "requirement": "Timeout, refusal, malformed capture, silent resampling, and unavailable operations emit durable receipts without an authoritative representation derivative."
+    },
+    {
+      "id": "P9-G08",
+      "requirement": "External tool, environment, checkpoint, and aggregate license availability remain independent explicit states."
+    }
+  ],
+  "operations": [
+    "encode",
+    "enumerate",
+    "refine",
+    "address",
+    "intervene",
+    "decode",
+    "support",
+    "project",
+    "measure",
+    "perturb",
+    "account"
+  ],
+  "profile_id": "qste-external-representation-conformance/0.1",
+  "targets": [
+    "samplebrain/v0.18.5_release",
+    "encodec/v0.1.1+facebook-encodec-24khz"
+  ]
+}

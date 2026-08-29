@@ -1,0 +1,141 @@
+{
+  "$id": "https://schemas.qste.invalid/0.3.0/records/relation-assertion.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "allOf": [
+    {
+      "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordBase"
+    },
+    {
+      "properties": {
+        "comparison_spec_ref": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+        },
+        "comparison_status": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/comparison_status"
+        },
+        "comparison_substrate": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "contract_id": {
+          "const": "qste-contract/0.3.0"
+        },
+        "controls": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "coverage": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "direction": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "effect_contract": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "effect_difference_interval": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "effect_tolerance": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "evidence_refs": {
+          "items": {
+            "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "footprint_contract": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "matching_contract": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "native_addresses": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "perturbation_stability": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/perturbation_stability"
+        },
+        "projection_contract": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "reason_code": {
+          "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/comparison_reason"
+        },
+        "record_type": {
+          "const": "RelationAssertion"
+        },
+        "relation_type": {
+          "anyOf": [
+            {
+              "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/relation_type"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "schema_id": {
+          "const": "https://schemas.qste.invalid/0.3.0/records/relation-assertion.schema.json"
+        },
+        "solution_evidence": {
+          "minProperties": 1,
+          "type": "object"
+        },
+        "source_refs": {
+          "items": {
+            "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "target_refs": {
+          "items": {
+            "$ref": "https://schemas.qste.invalid/0.3.0/common.schema.json#/$defs/recordReference"
+          },
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "required": [
+        "source_refs",
+        "target_refs",
+        "direction",
+        "native_addresses",
+        "comparison_substrate",
+        "projection_contract",
+        "footprint_contract",
+        "effect_contract",
+        "coverage",
+        "effect_difference_interval",
+        "effect_tolerance",
+        "controls",
+        "matching_contract",
+        "solution_evidence",
+        "comparison_spec_ref",
+        "relation_type",
+        "comparison_status",
+        "reason_code",
+        "perturbation_stability",
+        "evidence_refs"
+      ],
+      "type": "object"
+    }
+  ],
+  "patternProperties": {
+    "^[a-z][a-z0-9_-]*:[A-Za-z][A-Za-z0-9_.-]*$": {}
+  },
+  "title": "RelationAssertion",
+  "unevaluatedProperties": false
+}

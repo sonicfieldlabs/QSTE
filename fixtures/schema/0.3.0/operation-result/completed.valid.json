@@ -1,0 +1,17 @@
+{
+  "authorization_status": "permitted",
+  "capability_status": "available",
+  "cli_exit_class": 0,
+  "contract_id": "qste-contract/0.3.0",
+  "diagnostics": {},
+  "operation": "qste:validate/0.3.0",
+  "operation_status": "completed",
+  "reason_code": "completed",
+  "receipt_id": "qste:operation-receipt:bfc5c3be-3139-4404-afb8-f69aab7306b6",
+  "value": {
+    "items": [],
+    "payload_schema_id": "qste-payload/0.3.0",
+    "payload_type": "CandidateSet"
+  },
+  "value_type": "qste-payload/0.3.0/CandidateSet"
+}
