@@ -1,0 +1,47 @@
+{
+  "profile_id": "qste-experiment-preparation/v0.1",
+  "study_stage": "method_pilot",
+  "corpus": {
+    "corpus_id": "qste-synthetic-calibration-corpus/0.1",
+    "rights_status": "cleared",
+    "source_kind": "synthetic_conformance",
+    "content_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "acquisition": {
+    "subset_id": "qste-digital-reference-subset/0.1",
+    "calibration_status": "digital_reference_calibrated",
+    "physical_calibration_status": "unavailable"
+  },
+  "checkpoints": [{"id": "none", "availability": "not_applicable"}],
+  "code": [{"id": "qste", "commit": "fixture_bound_at_runtime"}],
+  "models": [{"id": "none", "availability": "not_executed"}],
+  "licenses": [{"target": "synthetic_corpus", "license": "CC0-1.0"}],
+  "task_profiles": [{"id": "qste-paired-score-task/v0.1"}],
+  "exclusions": ["human_data", "confirmatory_outcomes", "external_models"],
+  "failure_rules": ["freeze_failed_run", "no_post_hoc_bounds", "no_silent_arm_replacement"],
+  "parameters": {
+    "meaningful_bound": 0.5,
+    "equivalence_region": [-0.1, 0.1],
+    "coverage_tolerance": 0.05,
+    "effect_tolerance": 0.05,
+    "capacities": {"source": 1, "target": 1},
+    "unmatched_penalty_lambda": 0.25,
+    "perturbation_plan": {"kind": "bounded_seeded_fixture", "seed": 17},
+    "treatment_construction": {"treatments": ["authentic", "absent", "placebo", "permuted"]},
+    "leakage_checks": {"identity": "required", "payload": "required", "split": "required"},
+    "uncertainty": {"method": "paired_bootstrap", "confidence": 0.95, "seed": 29},
+    "multiplicity": {"method": "holm", "family": "all_eligible_candidates_and_proper_nodes"},
+    "power_assumptions": {"effect": 0.5, "alpha": 0.05, "power": 0.8, "status": "pilot_only"}
+  },
+  "estimands": ["candidate_meaningfulness", "proper_node_equivalence", "information_value"],
+  "execution_packet": {"mode": "dry_run_only", "seeds": [17, 29], "network": false},
+  "treatment_materials": {"status": "synthetic_placeholders", "outcomes": "absent"},
+  "composition_grammar": {"levels": ["L1", "L2", "L3", "L4"], "rendering": "not_executed"},
+  "protocol_inputs": {"presentation_modes": ["multichannel", "stereo"], "human_protocol": "not_submitted"},
+  "safety_flags": {
+    "confirmatory_hypotheses_tested": false,
+    "held_out_outcomes_accessed": false,
+    "human_data_collected": false,
+    "listener_data_collected": false
+  }
+}

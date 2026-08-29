@@ -1,0 +1,22 @@
+{
+  "profile_id": "qste-experiment-preparation-fixtures/0.1",
+  "fixture_scope": "synthetic_conformance_only",
+  "fixtures": [
+    {
+      "path": "preparation.json",
+      "sha256": "4fc114493f97200bc495d709dc3930a259f52fc9049142d6cd6a0c88a0da28be"
+    },
+    {
+      "path": "pilot.json",
+      "sha256": "0017b84c2bbc2871c462fe44d51ae3f8f795b3b1ff2c0a719ef98f077d8c3ee6"
+    }
+  ],
+  "confirmatory_research": false,
+  "held_out_outcomes": false,
+  "human_data": false,
+  "listener_data": false,
+  "external_execution": false,
+  "network_access": false,
+  "playback": false,
+  "public_research_projection": false
+}

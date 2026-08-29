@@ -1,4 +1,4 @@
-# P3-P11 local operations
+# P3-P12a local operations
 
 All P3 operations require an explicit workspace or bundle root. They perform
 no network access, playback, imported-code execution, implicit repair, or
@@ -38,6 +38,9 @@ search outside that root.
 - Bounded engine profile: `qste-bounded-engine-adapter/v0.1`
 - Compatibility target profile: `qste-compatibility-target-manifest/0.1`
 - P11 conformance profile: `qste-ecosystem-engine-conformance/0.1`
+- P12a preparation profile: `qste-experiment-preparation/v0.1`
+- P12a method-pilot profile: `qste-method-pilot/v0.1`
+- P12a conformance profile: `qste-experiment-preparation-conformance/0.1`
 
 Records, events, edges, artifact registrations, and dense registrations are
 append-only. Artifact bytes are addressed by SHA-256. Dense and bundle
@@ -393,6 +396,35 @@ Pure Data, Max/MSP, SuperCollider, and Csound targets return
 the prohibited fixture returns `policy_refused` with `prohibited`. None is
 silently substituted with the synthetic fixture.
 
+## Experiment preparation
+
+P12a freezes an exact preparation packet as an immutable artifact, then lets a
+synthetic method pilot prove that the declared parameters can be bound and
+checked without accessing outcomes. Corpus rights and a content digest are
+mandatory. Digital reference calibration must be declared; unavailable
+physical calibration stays explicit.
+
+```sh
+uv run qste experiment freeze \
+  --workspace /absolute/workspace --context qste:apparatus-spec:... \
+  --packet fixtures/experiment-preparation/0.1/preparation.json \
+  --authorization permitted --json
+
+uv run qste experiment pilot \
+  --workspace /absolute/workspace --preparation qste:artifact-record:... \
+  --evidence fixtures/experiment-preparation/0.1/pilot.json \
+  --authorization permitted --json
+
+uv run qste experiment account \
+  --workspace /absolute/workspace --context qste:apparatus-spec:... \
+  --authorization permitted --json
+```
+
+The packaged fixtures are synthetic conformance inputs, not a plan or research
+result. Confirmatory tests, held-out outcomes, human or listener data, external
+execution, playback, and public research projection are rejected or remain
+unavailable. Human protocol submission requires separate authorization.
+
 ## Aperture derivation
 
 ```sh
@@ -422,4 +454,4 @@ dense manifest, or sealed bundle.
 
 A future migration copies into a new workspace or bundle format and verifies
 the copy before switching authority. The prior SQLite database and bundle are
-retained. There is no in-place migration or legacy compatibility reader in P3-P11.
+retained. There is no in-place migration or legacy compatibility reader in P3-P12a.

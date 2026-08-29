@@ -35,6 +35,9 @@ from qste.operations import (
     engine_account,
     engine_execute,
     engine_loopback,
+    experiment_account,
+    experiment_freeze,
+    experiment_pilot,
     export_projection,
     failure_result,
     governance_declare,
@@ -100,7 +103,7 @@ def _path(value: str) -> Path:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="qste",
-        description="QSTE P11 local foundation, bounded adapters, and agent-host kernel.",
+        description="QSTE local foundation with bounded P12a preparation infrastructure.",
     )
     parser.add_argument(
         "--version",
@@ -305,6 +308,35 @@ def build_parser() -> argparse.ArgumentParser:
         command_parser.add_argument("--context", required=True)
         if name in {"execute", "loopback"}:
             command_parser.add_argument("--request", required=True, type=_path)
+        command_parser.add_argument(
+            "--authorization",
+            required=True,
+            choices=("unknown", "permitted", "refused", "deferred", "revoked"),
+        )
+        command_parser.add_argument("--json", action="store_true")
+
+    experiment_parser = subparsers.add_parser(
+        "experiment", help="P12a preparation and nonconfirmatory method-pilot operations"
+    )
+    experiment_subparsers = experiment_parser.add_subparsers(
+        dest="experiment_command", required=True
+    )
+    experiment_freeze_parser = experiment_subparsers.add_parser("freeze")
+    experiment_freeze_parser.add_argument("--workspace", required=True, type=_path)
+    experiment_freeze_parser.add_argument("--context", required=True)
+    experiment_freeze_parser.add_argument("--packet", required=True, type=_path)
+    experiment_pilot_parser = experiment_subparsers.add_parser("pilot")
+    experiment_pilot_parser.add_argument("--workspace", required=True, type=_path)
+    experiment_pilot_parser.add_argument("--preparation", required=True)
+    experiment_pilot_parser.add_argument("--evidence", required=True, type=_path)
+    experiment_account_parser = experiment_subparsers.add_parser("account")
+    experiment_account_parser.add_argument("--workspace", required=True, type=_path)
+    experiment_account_parser.add_argument("--context", required=True)
+    for command_parser in (
+        experiment_freeze_parser,
+        experiment_pilot_parser,
+        experiment_account_parser,
+    ):
         command_parser.add_argument(
             "--authorization",
             required=True,
@@ -868,6 +900,40 @@ def main(argv: Sequence[str] | None = None) -> int:
                 result = engine_account(
                     arguments.workspace,
                     target_id=arguments.target,
+                    context_record_id=arguments.context,
+                    authorization_status=arguments.authorization,
+                )
+        except ContractError as error:
+            result = failure_result(operation, error)
+        except Exception as error:  # pragma: no cover - defensive CLI boundary
+            result = failure_result(
+                operation,
+                ContractError(
+                    "internal_error", f"unexpected local failure: {type(error).__name__}"
+                ),
+            )
+        return _emit(result, as_json=bool(arguments.json))
+    if arguments.command == "experiment":
+        name = cast(str, arguments.experiment_command)
+        operation = f"qste:experiment_{name}/0.1.0"
+        try:
+            if name == "freeze":
+                result = experiment_freeze(
+                    arguments.workspace,
+                    context_record_id=arguments.context,
+                    packet=read_json_object(arguments.packet),
+                    authorization_status=arguments.authorization,
+                )
+            elif name == "pilot":
+                result = experiment_pilot(
+                    arguments.workspace,
+                    preparation_record_id=arguments.preparation,
+                    evidence=read_json_object(arguments.evidence),
+                    authorization_status=arguments.authorization,
+                )
+            else:
+                result = experiment_account(
+                    arguments.workspace,
                     context_record_id=arguments.context,
                     authorization_status=arguments.authorization,
                 )

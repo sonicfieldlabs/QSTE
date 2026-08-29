@@ -1,0 +1,26 @@
+{
+  "profile_id": "qste-method-pilot/v0.1",
+  "frozen_parameter_digest": "sha256:5cf21d3179e43de4841c9441f43e860c3e8fee701fed10fdffe120cf93580cae",
+  "feasibility_checks": {
+    "calibration": true,
+    "coverage": true,
+    "effect_tolerance": true,
+    "treatment_construction": true,
+    "uncertainty": true,
+    "multiplicity": true,
+    "resource_budget": true
+  },
+  "calibration_summary": {
+    "scope": "synthetic_digital_reference",
+    "physical_claims": "unavailable",
+    "selected_parameters_match_packet": true
+  },
+  "leakage_check_status": "passed",
+  "power_assumption_status": "frozen_not_tested",
+  "safety_flags": {
+    "confirmatory_hypotheses_tested": false,
+    "held_out_outcomes_accessed": false,
+    "human_data_collected": false,
+    "listener_data_collected": false
+  }
+}

@@ -14,6 +14,7 @@ from qste.adapters import (
 from qste.agent import AgentHostService
 from qste.core import SchemaRegistry, loads_json, new_record_id
 from qste.core.contracts import BASE_URI, ContractError
+from qste.experiments import ExperimentPreparationService
 from qste.ingress import AudioTransform, IngressLimits, IngressService
 from qste.ingress import declare_apparatus as persist_apparatus
 from qste.ingress import derive_aperture as persist_aperture
@@ -524,6 +525,78 @@ def engine_account(
             authorization_status=authorization_status,
         ),
         profile="qste-bounded-engine-adapter/v0.1",
+    )
+
+
+def _experiment_result(operation: str, outcome: Any) -> OperationResult:
+    result: OperationResult = {
+        "contract_id": "qste-contract/0.3.0",
+        "operation": f"qste:{operation}/0.1.0",
+        "value_type": outcome.value_type,
+        "operation_status": outcome.operation_status,
+        "value": outcome.value,
+        "reason_code": outcome.reason_code,
+        "authorization_status": "permitted",
+        "capability_status": "available",
+        "receipt_id": outcome.receipt_record["record_id"],
+        "diagnostics": {
+            "event_sequence": outcome.event_sequence,
+            "profile": "qste-experiment-preparation/v0.1",
+            "confirmatory_hypotheses_tested": False,
+            "human_data_collected": False,
+        },
+        "cli_exit_class": 0,
+    }
+    SchemaRegistry().validate_operation_result(result)
+    return result
+
+
+def experiment_freeze(
+    workspace: Path,
+    *,
+    context_record_id: str,
+    packet: Mapping[str, Any],
+    authorization_status: str,
+) -> OperationResult:
+    return _experiment_result(
+        "experiment_freeze",
+        ExperimentPreparationService(workspace).freeze(
+            context_record_id=context_record_id,
+            packet=packet,
+            authorization_status=authorization_status,
+        ),
+    )
+
+
+def experiment_pilot(
+    workspace: Path,
+    *,
+    preparation_record_id: str,
+    evidence: Mapping[str, Any],
+    authorization_status: str,
+) -> OperationResult:
+    return _experiment_result(
+        "experiment_pilot",
+        ExperimentPreparationService(workspace).pilot(
+            preparation_record_id=preparation_record_id,
+            evidence=evidence,
+            authorization_status=authorization_status,
+        ),
+    )
+
+
+def experiment_account(
+    workspace: Path,
+    *,
+    context_record_id: str,
+    authorization_status: str,
+) -> OperationResult:
+    return _experiment_result(
+        "experiment_account",
+        ExperimentPreparationService(workspace).account(
+            context_record_id=context_record_id,
+            authorization_status=authorization_status,
+        ),
     )
 
 

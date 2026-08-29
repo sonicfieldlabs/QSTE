@@ -5,8 +5,9 @@ transducing, and preserving representation-relative digital sonic quanta.
 
 ## Current status
 
-The repository has completed **P11: ecosystem and audio-engine adapters** on
-top of the closed Milestone F `qste-foundation/0.1` profile. It now
+The repository exposes **P12a experiment-preparation infrastructure** on top
+of the completed P11 ecosystem and audio-engine adapter boundary and the
+closed Milestone F `qste-foundation/0.1` profile. It
 validates explicit mappings; executes the five canonical transduction
 modes as bounded local, nonplaying operations; enforces authorization before
 execution; and persists appeals, adjudications, repair actions, repair
@@ -38,6 +39,15 @@ descendants, optional renders, and heard outputs. External Samplebrain or
 EnCodec execution, autonomous agent models, human/empirical studies, playback,
 network services, and model research remain unavailable.
 General scientific numerical reproducibility also remains `unavailable`.
+
+P12a adds an exact, content-addressed preparation packet, frozen parameter
+binding, synthetic method-feasibility evidence, and durable success, failure,
+and refusal receipts. This is infrastructure and contract conformance only:
+the included fixtures are not a research plan, scientific pilot, registered
+protocol, result, or evidence for QSTE. An actual research method pilot,
+confirmatory machine study, integrated analysis, and numerical reproducibility
+remain unavailable. Human protocol submission requires separate authorization;
+human collection and public research projection are prohibited here.
 
 P11 freezes exact compatibility targets for MASA, Cosmoaudition, AKOÚŌ, Oída,
 Earworm, Akousmata, and Listening Stack. Fixture imports and inspections
@@ -92,6 +102,9 @@ uv run qste ecosystem inspect --workspace /path/to/workspace --target listening_
 uv run qste ecosystem account --workspace /path/to/workspace --target oida --context qste:apparatus-spec:... --authorization permitted --json
 uv run qste engine execute --workspace /path/to/workspace --target qste_fixture_process --context qste:apparatus-spec:... --request fixtures/ecosystem-adapters/0.1/engine-process-request.json --authorization permitted --json
 uv run qste engine loopback --workspace /path/to/workspace --target qste_fixture_osc_loopback --context qste:apparatus-spec:... --request fixtures/ecosystem-adapters/0.1/engine-loopback-request.json --authorization permitted --json
+uv run qste experiment freeze --workspace /path/to/workspace --context qste:apparatus-spec:... --packet fixtures/experiment-preparation/0.1/preparation.json --authorization permitted --json
+uv run qste experiment pilot --workspace /path/to/workspace --preparation qste:artifact-record:... --evidence fixtures/experiment-preparation/0.1/pilot.json --authorization permitted --json
+uv run qste experiment account --workspace /path/to/workspace --context qste:apparatus-spec:... --authorization permitted --json
 ```
 
 ## Authority
@@ -119,8 +132,9 @@ make verify
 
 After synchronization, `make offline-smoke` runs the P2 contracts, P3 storage,
 P4 ingress, P5 representation, P6 task/assessment, P7 relation, P8
-transduction/governance, P9 adapter-boundary, P10 agent-host, and P11
-ecosystem/engine checks with external network access disabled.
+transduction/governance, P9 adapter-boundary, P10 agent-host, P11
+ecosystem/engine, and P12a preparation-boundary checks with external network
+access disabled.
 
 The library contract surface is intentionally small:
 
@@ -139,6 +153,7 @@ from qste.adapters import (
     ExternalRepresentationService,
 )
 from qste.agent import AgentHostService
+from qste.experiments import ExperimentPreparationService
 
 registry = SchemaRegistry()
 record = registry.read_record(raw_json_bytes)
@@ -170,7 +185,9 @@ for the P9 gates, and
 [`conformance/p10-agent-harness/0.1/profile.json`](conformance/p10-agent-harness/0.1/profile.json)
 for the P10 gates, and
 [`conformance/p11-ecosystem-engines/0.1/profile.json`](conformance/p11-ecosystem-engines/0.1/profile.json)
-for the P11 gates. The corresponding exact external target profile is
+for the P11 gates, and
+[`conformance/p12-experiment-preparation/0.1/profile.json`](conformance/p12-experiment-preparation/0.1/profile.json)
+for the P12a infrastructure gates. The corresponding exact external target profile is
 [`CompatibilityTargetManifest`](profiles/adapters/ecosystem/0.1/compatibility-target-manifest.json).
 
 ## Boundaries

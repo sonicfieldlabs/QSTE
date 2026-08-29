@@ -1,0 +1,58 @@
+{
+  "profile_id": "qste-experiment-preparation-conformance/0.1",
+  "preparation_profile": "qste-experiment-preparation/v0.1",
+  "pilot_profile": "qste-method-pilot/v0.1",
+  "fixture_profile": "qste-experiment-preparation-fixtures/0.1",
+  "claims": [
+    "exact_preparation_packet_freeze",
+    "rights_and_digest_gate",
+    "explicit_calibration_scope",
+    "immutable_parameter_binding",
+    "synthetic_method_feasibility_only",
+    "durable_success_failure_and_refusal_receipts",
+    "later_research_gates_closed",
+    "no_private_research_material"
+  ],
+  "gates": [
+    {
+      "id": "P12A-G01",
+      "requirement": "Preparation freezes the exact corpus rights, acquisition and calibration scope, checkpoints, code, models, licenses, tasks, exclusions, failure rules, estimands, execution packet, treatment materials, grammar, protocol inputs, and safety flags."
+    },
+    {
+      "id": "P12A-G02",
+      "requirement": "The corpus must be rights-cleared and content-addressed before a preparation record can be created."
+    },
+    {
+      "id": "P12A-G03",
+      "requirement": "Digital reference calibration is required; unavailable physical calibration remains explicit and cannot be upgraded by a synthetic fixture."
+    },
+    {
+      "id": "P12A-G04",
+      "requirement": "Meaningful and equivalence bounds, coverage and effect tolerances, capacities, unmatched penalty, perturbations, treatments, leakage checks, uncertainty, multiplicity, and power assumptions are frozen before the method pilot."
+    },
+    {
+      "id": "P12A-G05",
+      "requirement": "Method-pilot evidence binds the exact frozen-parameter digest and records feasibility only."
+    },
+    {
+      "id": "P12A-G06",
+      "requirement": "Preparation and pilot inputs prohibit confirmatory tests, held-out outcome access, human data, and listener data."
+    },
+    {
+      "id": "P12A-G07",
+      "requirement": "Invalid rights, unsafe flags, incomplete feasibility, leakage failure, or a parameter-digest mismatch creates a durable refusal or failure receipt without a research artifact."
+    },
+    {
+      "id": "P12A-G08",
+      "requirement": "The capability account keeps confirmatory machine study and integrated analysis unavailable, human protocol submission authorization-required, and human collection and public research projection prohibited."
+    },
+    {
+      "id": "P12A-G09",
+      "requirement": "Conformance runs locally with synthetic fixtures and performs no network access, playback, external model or engine execution, participant interaction, or public research projection."
+    },
+    {
+      "id": "P12A-G10",
+      "requirement": "Actual research plans, audits, evidence packets, and phase-control documents remain outside the tracked public repository."
+    }
+  ]
+}

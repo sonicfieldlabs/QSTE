@@ -12,7 +12,7 @@ def test_version_payload_is_explicit() -> None:
     assert payload["package"] == "qste"
     assert payload["contract_id"] == "qste-contract/0.3.0"
     assert payload["capability_profile"] == "qste-foundation/0.1"
-    assert payload["implementation_phase"] == "P11"
+    assert payload["implementation_phase"] == "P12a-infrastructure"
     assert payload["capability_status"] == "available"
     assert payload["schema_capability_status"] == "available"
     assert payload["identity_storage_capability_status"] == "available"
@@ -51,6 +51,14 @@ def test_version_payload_is_explicit() -> None:
     assert payload["external_audio_engine_execution_status"] == "unavailable"
     assert payload["osc_loopback_fixture_capability_status"] == "available"
     assert payload["numerical_reproducibility_status"] == "unavailable"
+    assert payload["experiment_preparation_capability_status"] == "available"
+    assert payload["synthetic_method_pilot_capability_status"] == "available"
+    assert payload["research_method_pilot_status"] == "unavailable"
+    assert payload["confirmatory_machine_study_status"] == "unavailable"
+    assert payload["human_protocol_submission_status"] == "authorization_required"
+    assert payload["human_data_collection_status"] == "prohibited"
+    assert payload["integrated_research_analysis_status"] == "unavailable"
+    assert payload["public_research_projection_status"] == "prohibited"
     assert payload["schema_set_id"] == "qste-schema/0.3.0"
     assert payload["conformance_profile_id"] == "qste-conformance/0.3.0"
     assert payload["representation_conformance_profile_id"] == "qste-stft-gabor-conformance/0.1"
@@ -67,6 +75,9 @@ def test_version_payload_is_explicit() -> None:
     assert payload["agent_harness_conformance_profile_id"] == ("qste-agent-harness-conformance/0.1")
     assert payload["ecosystem_engine_conformance_profile_id"] == (
         "qste-ecosystem-engine-conformance/0.1"
+    )
+    assert payload["experiment_preparation_conformance_profile_id"] == (
+        "qste-experiment-preparation-conformance/0.1"
     )
     assert payload["git_commit"] == "uncommitted" or re.fullmatch(
         r"[0-9a-f]{40}", payload["git_commit"]
@@ -123,6 +134,15 @@ def test_cli_json_reports_all_identity_layers(capsys: object) -> None:
         "external_representation_conformance_profile_id",
         "agent_harness_conformance_profile_id",
         "ecosystem_engine_conformance_profile_id",
+        "experiment_preparation_capability_status",
+        "synthetic_method_pilot_capability_status",
+        "research_method_pilot_status",
+        "confirmatory_machine_study_status",
+        "human_protocol_submission_status",
+        "human_data_collection_status",
+        "integrated_research_analysis_status",
+        "public_research_projection_status",
+        "experiment_preparation_conformance_profile_id",
         "contract_id",
         "git_commit",
         "implementation_phase",

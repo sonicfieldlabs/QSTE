@@ -10,7 +10,7 @@ from pathlib import Path
 
 CONTRACT_ID = "qste-contract/0.3.0"
 CAPABILITY_PROFILE = "qste-foundation/0.1"
-IMPLEMENTATION_PHASE = "P11"
+IMPLEMENTATION_PHASE = "P12a-infrastructure"
 _COMMIT_PATTERN = re.compile(r"^[0-9a-f]{40}$")
 
 try:
@@ -96,6 +96,14 @@ def version_info() -> dict[str, str]:
         "external_audio_engine_execution_status": "unavailable",
         "osc_loopback_fixture_capability_status": "available",
         "numerical_reproducibility_status": "unavailable",
+        "experiment_preparation_capability_status": "available",
+        "synthetic_method_pilot_capability_status": "available",
+        "research_method_pilot_status": "unavailable",
+        "confirmatory_machine_study_status": "unavailable",
+        "human_protocol_submission_status": "authorization_required",
+        "human_data_collection_status": "prohibited",
+        "integrated_research_analysis_status": "unavailable",
+        "public_research_projection_status": "prohibited",
         "schema_set_id": "qste-schema/0.3.0",
         "conformance_profile_id": "qste-conformance/0.3.0",
         "representation_conformance_profile_id": "qste-stft-gabor-conformance/0.1",
@@ -109,4 +117,7 @@ def version_info() -> dict[str, str]:
         ),
         "agent_harness_conformance_profile_id": "qste-agent-harness-conformance/0.1",
         "ecosystem_engine_conformance_profile_id": "qste-ecosystem-engine-conformance/0.1",
+        "experiment_preparation_conformance_profile_id": (
+            "qste-experiment-preparation-conformance/0.1"
+        ),
     }
