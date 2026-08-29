@@ -1,0 +1,65 @@
+{
+  "profile_id": "qste-model-dataset-manifest/v0.1",
+  "manifest_stage": "metadata_only",
+  "program_digest": "sha256:PROGRAM_DIGEST_PLACEHOLDER__________________________________________",
+  "dataset_id": "qste-synthetic-model-registry/0.1",
+  "version": "0.1",
+  "items": [
+    {
+      "item_id": "synthetic-train",
+      "content_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "source_kind": "synthetic_conformance",
+      "source_record_id": "RECORD_ID_PLACEHOLDER",
+      "rights_status": "permitted",
+      "consent_status": "not_applicable",
+      "attribution": "QSTE synthetic fixture",
+      "retention": {"mode": "retain", "scope": "conformance"},
+      "disclosure_status": "private",
+      "self_generated": false,
+      "generator_provenance": null
+    },
+    {
+      "item_id": "synthetic-validation",
+      "content_digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "source_kind": "synthetic_conformance",
+      "source_record_id": "RECORD_ID_PLACEHOLDER",
+      "rights_status": "permitted",
+      "consent_status": "not_applicable",
+      "attribution": "QSTE synthetic fixture",
+      "retention": {"mode": "retain", "scope": "conformance"},
+      "disclosure_status": "private",
+      "self_generated": true,
+      "generator_provenance": {"generator": "fixed-fixture", "version": "0.1", "seed": 17}
+    },
+    {
+      "item_id": "synthetic-test",
+      "content_digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "source_kind": "synthetic_conformance",
+      "source_record_id": "RECORD_ID_PLACEHOLDER",
+      "rights_status": "permitted",
+      "consent_status": "not_applicable",
+      "attribution": "QSTE synthetic fixture",
+      "retention": {"mode": "retain", "scope": "conformance"},
+      "disclosure_status": "private",
+      "self_generated": false,
+      "generator_provenance": null
+    }
+  ],
+  "splits": {
+    "train": ["synthetic-train"],
+    "validation": ["synthetic-validation"],
+    "test": ["synthetic-test"]
+  },
+  "governance": {
+    "all_items_rights_permitted": true,
+    "consent_statuses_complete": true,
+    "self_generated_items_identifiable": true,
+    "held_out_test_sealed": true,
+    "bytes_verified": false
+  },
+  "safety_flags": {
+    "training_executed": false,
+    "evaluation_executed": false,
+    "generation_performed": false
+  }
+}

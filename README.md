@@ -5,8 +5,9 @@ transducing, and preserving representation-relative digital sonic quanta.
 
 ## Current status
 
-The repository has completed **P13: skills, MCP, and inspection workbench** on
-top of the P12a experiment-preparation infrastructure, the completed P11
+The repository now exposes **P14 model-research infrastructure** on top of
+the completed P13 skills, MCP, and inspection workbench, P12a
+experiment-preparation infrastructure, and P11
 ecosystem and audio-engine adapter boundary, and the closed Milestone F
 `qste-foundation/0.1` profile. It
 validates explicit mappings; executes the five canonical transduction
@@ -38,7 +39,8 @@ or creative consequence occurred. P8 availability remains a reference-kernel
 claim, not a scientific result: analytical outputs are distinct from controls, safety
 descendants, optional renders, and heard outputs. External Samplebrain or
 EnCodec execution, autonomous agent models, human/empirical studies, playback,
-network services, and model research remain unavailable.
+network services, trained QSTE models, learned-gain evidence, and model
+execution remain unavailable.
 General scientific numerical reproducibility also remains `unavailable`.
 
 P12a adds an exact, content-addressed preparation packet, frozen parameter
@@ -57,6 +59,18 @@ workbench bind only to `127.0.0.1`. Relation comparison and transduction are
 disabled unless a human enables mutations at server startup and approves the
 individual call. Interface availability does not upgrade any deferred P12
 research capability or authorize playback, external execution, or publication.
+
+P14 adds an immutable model-research program declaration, a metadata-only
+dataset-manifest registry, exact governance requirements, paired DSQ-derived
+and ordinary-segment representation contracts, held-out evaluation
+declarations, bounded compute/environment fields, a complete model-card
+template, failure/recovery rules, and an explicit route toward a separately
+authorized custom model. It does not access dataset bytes, select or download
+a checkpoint, train or run a model, generate outputs, execute evaluation, or
+assert a learned gain. P12c research evidence and separate training
+authorization remain prerequisites for any such work. Model tokens are never
+promoted to universal particles, and recursive evaluation cannot revise the
+ontology or benchmark definitions.
 
 P11 freezes exact compatibility targets for MASA, Cosmoaudition, AKOÚŌ, Oída,
 Earworm, Akousmata, and Listening Stack. Fixture imports and inspections
@@ -114,6 +128,9 @@ uv run qste engine loopback --workspace /path/to/workspace --target qste_fixture
 uv run qste experiment freeze --workspace /path/to/workspace --context qste:apparatus-spec:... --packet fixtures/experiment-preparation/0.1/preparation.json --authorization permitted --json
 uv run qste experiment pilot --workspace /path/to/workspace --preparation qste:artifact-record:... --evidence fixtures/experiment-preparation/0.1/pilot.json --authorization permitted --json
 uv run qste experiment account --workspace /path/to/workspace --context qste:apparatus-spec:... --authorization permitted --json
+uv run qste model freeze --workspace /path/to/workspace --context qste:apparatus-spec:... --program fixtures/model-research/0.1/program.json --authorization permitted --json
+uv run qste model dataset --workspace /path/to/workspace --program-record qste:artifact-record:... --manifest dataset-manifest.json --authorization permitted --json
+uv run qste model account --workspace /path/to/workspace --context qste:apparatus-spec:... --authorization permitted --json
 uv run qste-mcp --workspace /path/to/workspace --allowed-root /path/to --transport stdio
 uv run qste-workbench --workspace /path/to/workspace --allowed-root /path/to --port 8787
 ```
@@ -145,7 +162,8 @@ After synchronization, `make offline-smoke` runs the P2 contracts, P3 storage,
 P4 ingress, P5 representation, P6 task/assessment, P7 relation, P8
 transduction/governance, P9 adapter-boundary, P10 agent-host, P11
 ecosystem/engine, P12a preparation-boundary, and P13 interface checks with
-external network access disabled.
+external network access disabled, plus the P14 model-research declaration
+boundary with all model execution disabled.
 
 The library contract surface is intentionally small:
 
@@ -166,6 +184,7 @@ from qste.adapters import (
 from qste.agent import AgentHostService
 from qste.experiments import ExperimentPreparationService
 from qste.interfaces import InspectionWorkbench, InterfaceBroker, InterfacePolicy
+from qste.model_research import ModelResearchService
 
 registry = SchemaRegistry()
 record = registry.read_record(raw_json_bytes)

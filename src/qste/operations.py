@@ -18,6 +18,7 @@ from qste.experiments import ExperimentPreparationService
 from qste.ingress import AudioTransform, IngressLimits, IngressService
 from qste.ingress import declare_apparatus as persist_apparatus
 from qste.ingress import derive_aperture as persist_aperture
+from qste.model_research import ModelResearchService
 from qste.policy import PolicyService
 from qste.quanta import QuantaService
 from qste.relations import RelationService
@@ -594,6 +595,80 @@ def experiment_account(
     return _experiment_result(
         "experiment_account",
         ExperimentPreparationService(workspace).account(
+            context_record_id=context_record_id,
+            authorization_status=authorization_status,
+        ),
+    )
+
+
+def _model_research_result(operation: str, outcome: Any) -> OperationResult:
+    result: OperationResult = {
+        "contract_id": "qste-contract/0.3.0",
+        "operation": f"qste:{operation}/0.1.0",
+        "value_type": outcome.value_type,
+        "operation_status": outcome.operation_status,
+        "value": outcome.value,
+        "reason_code": outcome.reason_code,
+        "authorization_status": "permitted",
+        "capability_status": "available",
+        "receipt_id": outcome.receipt_record["record_id"],
+        "diagnostics": {
+            "event_sequence": outcome.event_sequence,
+            "profile": "qste-model-research-program/v0.1",
+            "training_executed": False,
+            "checkpoint_downloaded": False,
+            "generation_performed": False,
+            "human_data_used": False,
+        },
+        "cli_exit_class": 0,
+    }
+    SchemaRegistry().validate_operation_result(result)
+    return result
+
+
+def model_program_freeze(
+    workspace: Path,
+    *,
+    context_record_id: str,
+    specification: Mapping[str, Any],
+    authorization_status: str,
+) -> OperationResult:
+    return _model_research_result(
+        "model_program_freeze",
+        ModelResearchService(workspace).freeze_program(
+            context_record_id=context_record_id,
+            specification=specification,
+            authorization_status=authorization_status,
+        ),
+    )
+
+
+def model_dataset_register(
+    workspace: Path,
+    *,
+    program_record_id: str,
+    manifest: Mapping[str, Any],
+    authorization_status: str,
+) -> OperationResult:
+    return _model_research_result(
+        "model_dataset_register",
+        ModelResearchService(workspace).register_dataset_manifest(
+            program_record_id=program_record_id,
+            manifest=manifest,
+            authorization_status=authorization_status,
+        ),
+    )
+
+
+def model_research_account(
+    workspace: Path,
+    *,
+    context_record_id: str,
+    authorization_status: str,
+) -> OperationResult:
+    return _model_research_result(
+        "model_research_account",
+        ModelResearchService(workspace).account(
             context_record_id=context_record_id,
             authorization_status=authorization_status,
         ),

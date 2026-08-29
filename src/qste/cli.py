@@ -1,4 +1,4 @@
-"""QSTE command line for local P4 ingress and P3 storage operations."""
+"""QSTE command line for bounded local P3-P14 operations."""
 
 from __future__ import annotations
 
@@ -44,6 +44,9 @@ from qste.operations import (
     ingest,
     inspect,
     mapping_declare,
+    model_dataset_register,
+    model_program_freeze,
+    model_research_account,
     quanta_assess,
     quanta_baseline,
     quanta_invalidate,
@@ -103,7 +106,7 @@ def _path(value: str) -> Path:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="qste",
-        description="QSTE local foundation with bounded P12a preparation infrastructure.",
+        description="QSTE local foundation with bounded P14 declaration infrastructure.",
     )
     parser.add_argument(
         "--version",
@@ -337,6 +340,29 @@ def build_parser() -> argparse.ArgumentParser:
         experiment_pilot_parser,
         experiment_account_parser,
     ):
+        command_parser.add_argument(
+            "--authorization",
+            required=True,
+            choices=("unknown", "permitted", "refused", "deferred", "revoked"),
+        )
+        command_parser.add_argument("--json", action="store_true")
+
+    model_parser = subparsers.add_parser(
+        "model", help="P14 model-research declarations without model execution"
+    )
+    model_subparsers = model_parser.add_subparsers(dest="model_command", required=True)
+    model_freeze_parser = model_subparsers.add_parser("freeze")
+    model_freeze_parser.add_argument("--workspace", required=True, type=_path)
+    model_freeze_parser.add_argument("--context", required=True)
+    model_freeze_parser.add_argument("--program", required=True, type=_path)
+    model_dataset_parser = model_subparsers.add_parser("dataset")
+    model_dataset_parser.add_argument("--workspace", required=True, type=_path)
+    model_dataset_parser.add_argument("--program-record", required=True)
+    model_dataset_parser.add_argument("--manifest", required=True, type=_path)
+    model_account_parser = model_subparsers.add_parser("account")
+    model_account_parser.add_argument("--workspace", required=True, type=_path)
+    model_account_parser.add_argument("--context", required=True)
+    for command_parser in (model_freeze_parser, model_dataset_parser, model_account_parser):
         command_parser.add_argument(
             "--authorization",
             required=True,
@@ -933,6 +959,44 @@ def main(argv: Sequence[str] | None = None) -> int:
                 )
             else:
                 result = experiment_account(
+                    arguments.workspace,
+                    context_record_id=arguments.context,
+                    authorization_status=arguments.authorization,
+                )
+        except ContractError as error:
+            result = failure_result(operation, error)
+        except Exception as error:  # pragma: no cover - defensive CLI boundary
+            result = failure_result(
+                operation,
+                ContractError(
+                    "internal_error", f"unexpected local failure: {type(error).__name__}"
+                ),
+            )
+        return _emit(result, as_json=bool(arguments.json))
+    if arguments.command == "model":
+        name = cast(str, arguments.model_command)
+        operation = {
+            "freeze": "qste:model_program_freeze/0.1.0",
+            "dataset": "qste:model_dataset_register/0.1.0",
+            "account": "qste:model_research_account/0.1.0",
+        }[name]
+        try:
+            if name == "freeze":
+                result = model_program_freeze(
+                    arguments.workspace,
+                    context_record_id=arguments.context,
+                    specification=read_json_object(arguments.program),
+                    authorization_status=arguments.authorization,
+                )
+            elif name == "dataset":
+                result = model_dataset_register(
+                    arguments.workspace,
+                    program_record_id=arguments.program_record,
+                    manifest=read_json_object(arguments.manifest),
+                    authorization_status=arguments.authorization,
+                )
+            else:
+                result = model_research_account(
                     arguments.workspace,
                     context_record_id=arguments.context,
                     authorization_status=arguments.authorization,

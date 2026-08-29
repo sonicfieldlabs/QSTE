@@ -12,7 +12,7 @@ def test_version_payload_is_explicit() -> None:
     assert payload["package"] == "qste"
     assert payload["contract_id"] == "qste-contract/0.3.0"
     assert payload["capability_profile"] == "qste-foundation/0.1"
-    assert payload["implementation_phase"] == "P13"
+    assert payload["implementation_phase"] == "P14-infrastructure"
     assert payload["capability_status"] == "available"
     assert payload["schema_capability_status"] == "available"
     assert payload["identity_storage_capability_status"] == "available"
@@ -65,6 +65,17 @@ def test_version_payload_is_explicit() -> None:
     assert payload["mcp_remote_binding_status"] == "prohibited"
     assert payload["mcp_mutation_default_status"] == "disabled"
     assert payload["inspection_workbench_capability_status"] == "available"
+    assert payload["model_research_program_capability_status"] == "available"
+    assert payload["model_dataset_manifest_capability_status"] == "available"
+    assert payload["model_dataset_bytes_status"] == "unavailable"
+    assert payload["model_checkpoint_download_status"] == "unavailable"
+    assert payload["model_fine_tuning_execution_status"] == "authorization_required"
+    assert payload["trained_qste_model_status"] == "unavailable"
+    assert payload["learned_model_gain_evidence_status"] == "unavailable"
+    assert payload["model_analysis_evaluation_status"] == "unavailable"
+    assert payload["model_generation_evaluation_status"] == "unavailable"
+    assert payload["custom_model_status"] == "unavailable"
+    assert payload["model_public_projection_status"] == "prohibited"
     assert payload["schema_set_id"] == "qste-schema/0.3.0"
     assert payload["conformance_profile_id"] == "qste-conformance/0.3.0"
     assert payload["representation_conformance_profile_id"] == "qste-stft-gabor-conformance/0.1"
@@ -86,6 +97,9 @@ def test_version_payload_is_explicit() -> None:
         "qste-experiment-preparation-conformance/0.1"
     )
     assert payload["interface_conformance_profile_id"] == "qste-interface-conformance/0.1"
+    assert payload["model_research_conformance_profile_id"] == (
+        "qste-model-research-conformance/0.1"
+    )
     assert payload["git_commit"] == "uncommitted" or re.fullmatch(
         r"[0-9a-f]{40}", payload["git_commit"]
     )
@@ -156,7 +170,19 @@ def test_cli_json_reports_all_identity_layers(capsys: object) -> None:
         "mcp_remote_binding_status",
         "mcp_mutation_default_status",
         "inspection_workbench_capability_status",
+        "model_research_program_capability_status",
+        "model_dataset_manifest_capability_status",
+        "model_dataset_bytes_status",
+        "model_checkpoint_download_status",
+        "model_fine_tuning_execution_status",
+        "trained_qste_model_status",
+        "learned_model_gain_evidence_status",
+        "model_analysis_evaluation_status",
+        "model_generation_evaluation_status",
+        "custom_model_status",
+        "model_public_projection_status",
         "interface_conformance_profile_id",
+        "model_research_conformance_profile_id",
         "contract_id",
         "git_commit",
         "implementation_phase",

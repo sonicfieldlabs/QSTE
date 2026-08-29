@@ -1,4 +1,4 @@
-# P3-P13 local operations
+# P3-P14 local operations
 
 All P3 operations require an explicit workspace or bundle root. They perform
 no network access, playback, imported-code execution, implicit repair, or
@@ -43,6 +43,9 @@ search outside that root.
 - P12a conformance profile: `qste-experiment-preparation-conformance/0.1`
 - P13 interface profile: `qste-local-interface/v0.1`
 - P13 conformance profile: `qste-interface-conformance/0.1`
+- P14 program profile: `qste-model-research-program/v0.1`
+- P14 dataset-manifest profile: `qste-model-dataset-manifest/v0.1`
+- P14 conformance profile: `qste-model-research-conformance/0.1`
 
 Records, events, edges, artifact registrations, and dense registrations are
 append-only. Artifact bytes are addressed by SHA-256. Dense and bundle
@@ -60,6 +63,37 @@ uv run python tools/verify_storage.py
 Verification never repairs. A bundle reports integrity, logical replay, and
 numerical reproducibility separately. In P3, the first two can be `verified`;
 the third is always `unavailable`.
+
+## Model-research declarations
+
+P14 freezes a bounded research question and falsifier, rights/consent and
+retention rules, DSQ-derived and ordinary-segment representation contracts,
+held-out analysis/generation tasks, compute/environment budgets, model-card
+requirements, failure recovery, and the authorization-gated custom-model
+route. Dataset manifests bind the exact program digest and existing source
+record IDs, identify self-generated material, and require complete disjoint
+train/validation/test assignments.
+
+```sh
+uv run qste model freeze \
+  --workspace /absolute/workspace --context qste:apparatus-spec:... \
+  --program fixtures/model-research/0.1/program.json \
+  --authorization permitted --json
+
+uv run qste model dataset \
+  --workspace /absolute/workspace --program-record qste:artifact-record:... \
+  --manifest dataset-manifest.json --authorization permitted --json
+
+uv run qste model account \
+  --workspace /absolute/workspace --context qste:apparatus-spec:... \
+  --authorization permitted --json
+```
+
+This surface stores declarations only. Dataset bytes remain unverified and
+unread; checkpoint download, training, generation, learned-gain evaluation,
+custom-model work, and public projection are unavailable or separately
+authorization-gated. Existing deterministic bundles remain readable if a
+future model capability is revoked.
 
 ## Deterministic STFT reference arm
 

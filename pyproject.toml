@@ -65,6 +65,7 @@ packages = ["src/qste"]
 "conformance/p11-ecosystem-engines/0.1" = "qste/contracts/conformance/p11-ecosystem-engines/0.1"
 "conformance/p12-experiment-preparation/0.1" = "qste/contracts/conformance/p12-experiment-preparation/0.1"
 "conformance/p13-interfaces/0.1" = "qste/contracts/conformance/p13-interfaces/0.1"
+"conformance/p14-model-research/0.1" = "qste/contracts/conformance/p14-model-research/0.1"
 "skills/qste-inspection" = "qste/contracts/skills/qste-inspection"
 "profiles/adapters" = "qste/contracts/profiles/adapters"
 "profiles/agents" = "qste/contracts/profiles/agents"

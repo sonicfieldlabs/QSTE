@@ -10,7 +10,7 @@ from pathlib import Path
 
 CONTRACT_ID = "qste-contract/0.3.0"
 CAPABILITY_PROFILE = "qste-foundation/0.1"
-IMPLEMENTATION_PHASE = "P13"
+IMPLEMENTATION_PHASE = "P14-infrastructure"
 _COMMIT_PATTERN = re.compile(r"^[0-9a-f]{40}$")
 
 try:
@@ -110,6 +110,17 @@ def version_info() -> dict[str, str]:
         "mcp_remote_binding_status": "prohibited",
         "mcp_mutation_default_status": "disabled",
         "inspection_workbench_capability_status": "available",
+        "model_research_program_capability_status": "available",
+        "model_dataset_manifest_capability_status": "available",
+        "model_dataset_bytes_status": "unavailable",
+        "model_checkpoint_download_status": "unavailable",
+        "model_fine_tuning_execution_status": "authorization_required",
+        "trained_qste_model_status": "unavailable",
+        "learned_model_gain_evidence_status": "unavailable",
+        "model_analysis_evaluation_status": "unavailable",
+        "model_generation_evaluation_status": "unavailable",
+        "custom_model_status": "unavailable",
+        "model_public_projection_status": "prohibited",
         "schema_set_id": "qste-schema/0.3.0",
         "conformance_profile_id": "qste-conformance/0.3.0",
         "representation_conformance_profile_id": "qste-stft-gabor-conformance/0.1",
@@ -127,4 +138,5 @@ def version_info() -> dict[str, str]:
             "qste-experiment-preparation-conformance/0.1"
         ),
         "interface_conformance_profile_id": "qste-interface-conformance/0.1",
+        "model_research_conformance_profile_id": "qste-model-research-conformance/0.1",
     }

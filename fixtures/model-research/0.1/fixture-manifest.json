@@ -1,0 +1,16 @@
+{
+  "profile_id": "qste-model-research-fixtures/0.1",
+  "fixture_scope": "synthetic_contract_only",
+  "fixtures": [
+    {"path": "program.json", "sha256": "84d69539e1b97b38f3347b4ccd0332cde4a428b840d51005bd056f59ebd26c6b"},
+    {"path": "dataset-manifest.json", "sha256": "0dca8e947eae51854547552ff1f86f7bda4247129fb4c315d418ad7d953e8509"}
+  ],
+  "dataset_bytes_accessed": false,
+  "checkpoint_downloaded": false,
+  "training_executed": false,
+  "generation_performed": false,
+  "evaluation_executed": false,
+  "human_data_used": false,
+  "network_access": false,
+  "public_projection": false
+}

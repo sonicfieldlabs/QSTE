@@ -1,0 +1,98 @@
+{
+  "profile_id": "qste-model-research-program/v0.1",
+  "stage": "development_contract",
+  "research_question": {
+    "question": "Can a DSQ-derived representation improve held-out analysis or generation relative to an ordinary-segment baseline under equalized budgets?",
+    "justification_evidence_status": "unavailable",
+    "falsifier": "No registered gain over the simpler held-out baseline within the frozen margin.",
+    "simpler_baseline_required": true
+  },
+  "dataset_governance": {
+    "rights_required": true,
+    "consent_required_for_human_data": true,
+    "self_generated_identification_required": true,
+    "retention_required": true,
+    "disclosure_default": "private"
+  },
+  "training_representations": {
+    "dsq_derived": {
+      "status": "contract_only",
+      "qualification_required": true,
+      "universal_particle_claim": false
+    },
+    "ordinary_segment_baseline": {
+      "status": "contract_only",
+      "baseline_required": true,
+      "universal_particle_claim": false
+    }
+  },
+  "fine_tuning": {
+    "base_model_status": "unselected",
+    "training_status": "not_started",
+    "separate_authorization_required": true,
+    "custom_model_status": "unavailable",
+    "method": "paired budget-equalized fine-tuning contract; implementation deferred"
+  },
+  "evaluation_suite": {
+    "analysis_tasks": ["registered held-out analysis"],
+    "generation_tasks": ["registered particle-oriented generation"],
+    "held_out_baselines": ["ordinary-segment baseline", "deterministic baseline"],
+    "recursive_ontology_revision": false,
+    "recursive_benchmark_revision": false,
+    "learned_gains_status": "unavailable"
+  },
+  "compute_environment_budget": {
+    "maximum_cpu_seconds": 3600,
+    "maximum_gpu_seconds": 3600,
+    "maximum_memory_bytes": 17179869184,
+    "maximum_storage_bytes": 107374182400,
+    "energy_accounting": "device time and declared power-estimation method required",
+    "network_access": false
+  },
+  "model_card_template": {
+    "required_sections": [
+      "identity",
+      "intended_use",
+      "out_of_scope_use",
+      "training_data",
+      "evaluation",
+      "limitations",
+      "permissions",
+      "environmental_budget",
+      "failure_analysis",
+      "ontology_boundary"
+    ]
+  },
+  "failure_analysis": {
+    "categories": [
+      "permission_failure",
+      "provenance_failure",
+      "data_leakage",
+      "baseline_not_beaten",
+      "overfit",
+      "mode_collapse",
+      "budget_exceeded",
+      "ontology_conflation"
+    ],
+    "revoke_model_capability": true,
+    "earlier_bundles_remain_readable": true
+  },
+  "custom_model_route": {
+    "status": "not_started",
+    "stages": [
+      "authorized_fine_tuned_baseline",
+      "replicated_held_out_gain",
+      "independent_failure_review",
+      "separate_custom_model_authorization"
+    ]
+  },
+  "safety_flags": {
+    "training_executed": false,
+    "checkpoint_downloaded": false,
+    "data_collected": false,
+    "generation_performed": false,
+    "human_data_used": false,
+    "ontology_revised": false,
+    "benchmark_revised": false
+  }
+}
