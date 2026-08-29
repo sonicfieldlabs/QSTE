@@ -16,8 +16,8 @@
   "approved_rfc_refs": [],
   "authorization_status": "permitted",
   "code": {
-    "commit": "43216d1677be10ef1cef46f539739d73cadbb669",
-    "commit_scope": "P14 public model-research declaration and governance infrastructure only; dataset bytes, checkpoints, training, generation, evaluation evidence, private governance, and phase evidence excluded",
+    "commit": "da2ccfe3fd35f1e66cf9737dc8f1ae2832d19cc5",
+    "commit_scope": "P3-P14 infrastructure hardening: strict storage and bundle closure, typed authorization, bounded local interfaces, model-declaration validation, packaging, and public-history verification; P12 research execution and empirical evidence excluded",
     "repository": "https://github.com/sonicfieldlabs/QSTE",
     "version": "0.0.0"
   },
@@ -29,7 +29,7 @@
   },
   "consent_status": "not_applicable",
   "contract_id": "qste-contract/0.3.0",
-  "created_at": "2026-08-29T12:59:21Z",
+  "created_at": "2026-08-29T21:41:20Z",
   "development_plan": {
     "availability": "private_local_not_disclosed",
     "id": "qste-development-plan/private"
@@ -130,7 +130,7 @@
     "path": "profiles/adapters/ecosystem/0.1/compatibility-target-manifest.json",
     "sha256": "f16c294d4d763762e9bf58ce49ea6765e3ee28649ad1a3e1b62c5880cefb81ad"
   },
-  "qste:conformanceClaim": "P14_model_research_declaration_and_metadata_manifest_infrastructure_conformance_verified_without_model_execution_or_empirical_evidence",
+  "qste:conformanceClaim": "P3_P14_infrastructure_conformance_reverified_after_system_hardening_without_P12_research_execution_or_empirical_evidence",
   "qste:ecosystemEngineConformance": {
     "id": "qste-ecosystem-engine-conformance/0.1",
     "path": "conformance/p11-ecosystem-engines/0.1/profile.json",
@@ -144,12 +144,12 @@
   "qste:interfaceConformance": {
     "id": "qste-interface-conformance/0.1",
     "path": "conformance/p13-interfaces/0.1/profile.json",
-    "sha256": "a24c73cebd24a3f76d55226d36e692db03bced7276cc618c25f7145276301190"
+    "sha256": "96c1b30bc686cef9156165990141a246d37e98652a7888db72025d3317ad893e"
   },
   "qste:modelResearchConformance": {
     "id": "qste-model-research-conformance/0.1",
     "path": "conformance/p14-model-research/0.1/profile.json",
-    "sha256": "6007807ed213b573f5efa8fc312a6f955699cd48b86951e252e0f9d647526e5f"
+    "sha256": "4347bf70f48260cbf05263949ae1f59536c5965b14b9c5f9030eee8f15676c34"
   },
   "qste:externalRepresentationConformance": {
     "id": "qste-external-representation-conformance/0.1",
@@ -198,7 +198,7 @@
   "qste:storageConformance": {
     "id": "qste-storage-conformance/0.1",
     "path": "conformance/p3-storage/0.1/storage-profile.json",
-    "sha256": "85cf38d6de1a927400cc9a8eb9c99e81c8bdc0fbed73d175c074b0fc11b67fe2"
+    "sha256": "148aca10aca35d673968d7bb4c29eba69ebcc3a3bbf6df0d7abc892c5fba7fe3"
   },
   "record_id": "qste:authority-manifest:cdf4e20b-cc73-4bd2-9b4f-bcb9d759b1f9",
   "record_type": "AuthorityManifest",
@@ -228,9 +228,9 @@
   "semantic_contract": {
     "id": "qste-contract/0.3.0",
     "path": "ontology/0.3.0/QSTE_ontology.md",
-    "sha256": "02bce3f769a5d9e0d0ad9a4ff6664f6c2473ad5b3c8908a19fcfcee8e26ac2bf"
+    "sha256": "abe68fc549b1733dc65ee0b9ac7b9989cf52d75eb7e9a49040e17fac8f620fe4"
   },
-  "semantic_key": "sha256:09acb55fa60d935ee073b9aa6a895d61d8050594b5f9ccf055c7117b439db30c",
+  "semantic_key": "sha256:e4b6769409a6f9459f47762b7b6e634d7a1b2cd7cf5183ca1bdc077ebda2c963",
   "architecture": {
     "availability": "private_local_not_disclosed",
     "id": "qste-architecture/private"
