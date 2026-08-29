@@ -16,7 +16,7 @@
   "approved_rfc_refs": [],
   "authorization_status": "permitted",
   "code": {
-    "commit": "unbound_public_snapshot",
+    "commit": "c4229071733bed112b826b7e199e7c0d1aefcec2",
     "commit_scope": "P11 public runtime snapshot with non-public governance, phase evidence, and superseded authority material excluded",
     "repository": "https://github.com/sonicfieldlabs/QSTE",
     "version": "0.0.0"
@@ -29,7 +29,7 @@
   },
   "consent_status": "not_applicable",
   "contract_id": "qste-contract/0.3.0",
-  "created_at": "2026-08-29T02:27:00Z",
+  "created_at": "2026-08-29T02:37:37Z",
   "development_plan": {
     "availability": "private_local_not_disclosed",
     "id": "qste-development-plan/private"
@@ -190,7 +190,7 @@
     "path": "ontology/0.3.0/QSTE_ontology.md",
     "sha256": "02bce3f769a5d9e0d0ad9a4ff6664f6c2473ad5b3c8908a19fcfcee8e26ac2bf"
   },
-  "semantic_key": "sha256:0448fe53cd3c3f05a68e6d5fda2b2f6bf3d932d75395af800d48b3c9deca1f27",
+  "semantic_key": "sha256:744ad5bea4d0fa1865e7f5dacd16fd164995ff3c4043c6e835ba70df2f17a9f9",
   "architecture": {
     "availability": "private_local_not_disclosed",
     "id": "qste-architecture/private"

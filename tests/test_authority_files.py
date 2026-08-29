@@ -82,20 +82,20 @@ def test_authority_capability_boundary_is_explicit() -> None:
     assert capability["numerical_reproducibility_status"] == "unavailable"
 
 
-def test_public_authority_is_schema_valid_and_commit_is_bound_or_bootstrapping() -> None:
+def test_public_authority_is_schema_valid_and_commit_is_bound() -> None:
     manifest = _manifest()
     SchemaRegistry().validate_record(manifest)
     assert manifest["manifest_profile"] == "qste-authority/0.3.0"
     assert manifest["integrity_status"] == "verified"
     commit = manifest["code"]["commit"]
-    assert commit == "unbound_public_snapshot" or re.fullmatch(r"[0-9a-f]{40}", commit)
-    if commit != "unbound_public_snapshot":
-        result = subprocess.run(
-            ["git", "-C", str(ROOT), "cat-file", "-e", f"{commit}^{{commit}}"],
-            check=False,
-            capture_output=True,
-        )
-        assert result.returncode == 0
+    assert commit == "c4229071733bed112b826b7e199e7c0d1aefcec2"
+    assert re.fullmatch(r"[0-9a-f]{40}", commit)
+    result = subprocess.run(
+        ["git", "-C", str(ROOT), "cat-file", "-e", f"{commit}^{{commit}}"],
+        check=False,
+        capture_output=True,
+    )
+    assert result.returncode == 0
 
 
 def test_current_authority_semantic_key_uses_its_declared_snapshot_spec() -> None:
