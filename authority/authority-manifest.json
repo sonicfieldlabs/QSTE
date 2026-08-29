@@ -16,8 +16,8 @@
   "approved_rfc_refs": [],
   "authorization_status": "permitted",
   "code": {
-    "commit": "b9f2b22b68b19b491ef14e2deca7e30db880af2b",
-    "commit_scope": "P12a public preparation infrastructure and synthetic conformance snapshot with non-public governance, research evidence, phase evidence, and superseded authority material excluded",
+    "commit": "e1ca5fa7d1eada1c350fdafeae74bbd986e91535",
+    "commit_scope": "P13 public local-interface snapshot with non-public governance, research evidence, phase evidence, and superseded authority material excluded",
     "repository": "https://github.com/sonicfieldlabs/QSTE",
     "version": "0.0.0"
   },
@@ -65,7 +65,7 @@
     "capability_status": "available",
     "comparative_treatment_capability_status": "available",
     "creative_consequence_evidence_status": "unavailable",
-    "current_phase": "P12a-infrastructure",
+    "current_phase": "P13",
     "cross_arm_relation_capability_status": "available",
     "exact_b_matching_capability_status": "available",
     "ecosystem_adapter_capability_status": "available",
@@ -93,6 +93,12 @@
     "human_data_collection_status": "prohibited",
     "integrated_research_analysis_status": "unavailable",
     "public_research_projection_status": "prohibited",
+    "inspection_skill_capability_status": "available",
+    "mcp_stdio_capability_status": "available",
+    "mcp_loopback_http_capability_status": "available",
+    "mcp_remote_binding_status": "prohibited",
+    "mcp_mutation_default_status": "disabled",
+    "inspection_workbench_capability_status": "available",
     "osc_loopback_fixture_capability_status": "available",
     "schema_capability_status": "available",
     "shadow_policy_fixture_capability_status": "available",
@@ -113,7 +119,7 @@
     "path": "profiles/adapters/ecosystem/0.1/compatibility-target-manifest.json",
     "sha256": "f16c294d4d763762e9bf58ce49ea6765e3ee28649ad1a3e1b62c5880cefb81ad"
   },
-  "qste:conformanceClaim": "P12a_preparation_infrastructure_and_synthetic_method_conformance_verified_research_execution_unavailable",
+  "qste:conformanceClaim": "P13_bounded_local_skills_MCP_and_read_only_workbench_conformance_verified",
   "qste:ecosystemEngineConformance": {
     "id": "qste-ecosystem-engine-conformance/0.1",
     "path": "conformance/p11-ecosystem-engines/0.1/profile.json",
@@ -123,6 +129,11 @@
     "id": "qste-experiment-preparation-conformance/0.1",
     "path": "conformance/p12-experiment-preparation/0.1/profile.json",
     "sha256": "f28080bf0b677b06e6dc354250b280d49968bf28f5b84ad685b775491ec64fb2"
+  },
+  "qste:interfaceConformance": {
+    "id": "qste-interface-conformance/0.1",
+    "path": "conformance/p13-interfaces/0.1/profile.json",
+    "sha256": "a24c73cebd24a3f76d55226d36e692db03bced7276cc618c25f7145276301190"
   },
   "qste:externalRepresentationConformance": {
     "id": "qste-external-representation-conformance/0.1",
@@ -203,7 +214,7 @@
     "path": "ontology/0.3.0/QSTE_ontology.md",
     "sha256": "02bce3f769a5d9e0d0ad9a4ff6664f6c2473ad5b3c8908a19fcfcee8e26ac2bf"
   },
-  "semantic_key": "sha256:0a9df7ba44dd0a8b472b0cad3c987d8eba4feaf2ee1eed8a8184d850be5e6298",
+  "semantic_key": "sha256:cd5e5faceb87d5cc2155cee06245356f0a297a7e1b803d453bbf983079860ee1",
   "architecture": {
     "availability": "private_local_not_disclosed",
     "id": "qste-architecture/private"

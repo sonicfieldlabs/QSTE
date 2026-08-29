@@ -27,6 +27,7 @@ PUBLIC_DIGEST_KEYS = (
     "qste:compatibilityTargetManifest",
     "qste:ecosystemEngineConformance",
     "qste:experimentPreparationConformance",
+    "qste:interfaceConformance",
 )
 
 
@@ -71,7 +72,7 @@ def test_private_authority_inputs_have_no_public_locator_or_digest() -> None:
 
 def test_authority_capability_boundary_is_explicit() -> None:
     capability = _manifest()["qste:capabilityProfile"]
-    assert capability["current_phase"] == "P12a-infrastructure"
+    assert capability["current_phase"] == "P13"
     assert capability["ecosystem_adapter_capability_status"] == "available"
     assert capability["ecosystem_live_interoperability_status"] == "untested"
     assert capability["bounded_engine_fixture_capability_status"] == "available"
@@ -89,6 +90,12 @@ def test_authority_capability_boundary_is_explicit() -> None:
     assert capability["human_data_collection_status"] == "prohibited"
     assert capability["integrated_research_analysis_status"] == "unavailable"
     assert capability["public_research_projection_status"] == "prohibited"
+    assert capability["inspection_skill_capability_status"] == "available"
+    assert capability["mcp_stdio_capability_status"] == "available"
+    assert capability["mcp_loopback_http_capability_status"] == "available"
+    assert capability["mcp_remote_binding_status"] == "prohibited"
+    assert capability["mcp_mutation_default_status"] == "disabled"
+    assert capability["inspection_workbench_capability_status"] == "available"
 
 
 def test_public_authority_is_schema_valid_and_commit_is_bound() -> None:
@@ -97,7 +104,7 @@ def test_public_authority_is_schema_valid_and_commit_is_bound() -> None:
     assert manifest["manifest_profile"] == "qste-authority/0.3.0"
     assert manifest["integrity_status"] == "verified"
     commit = manifest["code"]["commit"]
-    assert commit == "b9f2b22b68b19b491ef14e2deca7e30db880af2b"
+    assert commit == "e1ca5fa7d1eada1c350fdafeae74bbd986e91535"
     assert re.fullmatch(r"[0-9a-f]{40}", commit)
     result = subprocess.run(
         ["git", "-C", str(ROOT), "cat-file", "-e", f"{commit}^{{commit}}"],
