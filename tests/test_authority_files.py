@@ -104,7 +104,7 @@ def test_public_authority_is_schema_valid_and_commit_is_bound() -> None:
     assert manifest["manifest_profile"] == "qste-authority/0.3.0"
     assert manifest["integrity_status"] == "verified"
     commit = manifest["code"]["commit"]
-    assert commit == "e1ca5fa7d1eada1c350fdafeae74bbd986e91535"
+    assert commit == "0e93757f90dc102b6d07559b9775e7127447e198"
     assert re.fullmatch(r"[0-9a-f]{40}", commit)
     result = subprocess.run(
         ["git", "-C", str(ROOT), "cat-file", "-e", f"{commit}^{{commit}}"],

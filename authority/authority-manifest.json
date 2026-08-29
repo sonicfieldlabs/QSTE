@@ -16,7 +16,7 @@
   "approved_rfc_refs": [],
   "authorization_status": "permitted",
   "code": {
-    "commit": "e1ca5fa7d1eada1c350fdafeae74bbd986e91535",
+    "commit": "0e93757f90dc102b6d07559b9775e7127447e198",
     "commit_scope": "P13 public local-interface snapshot with non-public governance, research evidence, phase evidence, and superseded authority material excluded",
     "repository": "https://github.com/sonicfieldlabs/QSTE",
     "version": "0.0.0"
@@ -214,7 +214,7 @@
     "path": "ontology/0.3.0/QSTE_ontology.md",
     "sha256": "02bce3f769a5d9e0d0ad9a4ff6664f6c2473ad5b3c8908a19fcfcee8e26ac2bf"
   },
-  "semantic_key": "sha256:cd5e5faceb87d5cc2155cee06245356f0a297a7e1b803d453bbf983079860ee1",
+  "semantic_key": "sha256:91534d207be06737a4c224824768143255cf226a1062b9bc19befb4b241efee0",
   "architecture": {
     "availability": "private_local_not_disclosed",
     "id": "qste-architecture/private"
