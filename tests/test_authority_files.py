@@ -26,6 +26,7 @@ PUBLIC_DIGEST_KEYS = (
     "qste:agentHarnessConformance",
     "qste:compatibilityTargetManifest",
     "qste:ecosystemEngineConformance",
+    "qste:experimentPreparationConformance",
 )
 
 
@@ -70,7 +71,7 @@ def test_private_authority_inputs_have_no_public_locator_or_digest() -> None:
 
 def test_authority_capability_boundary_is_explicit() -> None:
     capability = _manifest()["qste:capabilityProfile"]
-    assert capability["current_phase"] == "P11"
+    assert capability["current_phase"] == "P12a-infrastructure"
     assert capability["ecosystem_adapter_capability_status"] == "available"
     assert capability["ecosystem_live_interoperability_status"] == "untested"
     assert capability["bounded_engine_fixture_capability_status"] == "available"
@@ -80,6 +81,14 @@ def test_authority_capability_boundary_is_explicit() -> None:
     assert capability["agentic_hearing_research_evidence_status"] == "unavailable"
     assert capability["creative_consequence_evidence_status"] == "unavailable"
     assert capability["numerical_reproducibility_status"] == "unavailable"
+    assert capability["experiment_preparation_capability_status"] == "available"
+    assert capability["synthetic_method_pilot_capability_status"] == "available"
+    assert capability["research_method_pilot_status"] == "unavailable"
+    assert capability["confirmatory_machine_study_status"] == "unavailable"
+    assert capability["human_protocol_submission_status"] == "authorization_required"
+    assert capability["human_data_collection_status"] == "prohibited"
+    assert capability["integrated_research_analysis_status"] == "unavailable"
+    assert capability["public_research_projection_status"] == "prohibited"
 
 
 def test_public_authority_is_schema_valid_and_commit_is_bound() -> None:
@@ -88,7 +97,7 @@ def test_public_authority_is_schema_valid_and_commit_is_bound() -> None:
     assert manifest["manifest_profile"] == "qste-authority/0.3.0"
     assert manifest["integrity_status"] == "verified"
     commit = manifest["code"]["commit"]
-    assert commit == "c4229071733bed112b826b7e199e7c0d1aefcec2"
+    assert commit == "b9f2b22b68b19b491ef14e2deca7e30db880af2b"
     assert re.fullmatch(r"[0-9a-f]{40}", commit)
     result = subprocess.run(
         ["git", "-C", str(ROOT), "cat-file", "-e", f"{commit}^{{commit}}"],
