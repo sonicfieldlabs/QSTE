@@ -28,6 +28,7 @@ PUBLIC_DIGEST_KEYS = (
     "qste:ecosystemEngineConformance",
     "qste:experimentPreparationConformance",
     "qste:interfaceConformance",
+    "qste:modelResearchConformance",
 )
 
 
@@ -72,7 +73,7 @@ def test_private_authority_inputs_have_no_public_locator_or_digest() -> None:
 
 def test_authority_capability_boundary_is_explicit() -> None:
     capability = _manifest()["qste:capabilityProfile"]
-    assert capability["current_phase"] == "P13"
+    assert capability["current_phase"] == "P14-infrastructure"
     assert capability["ecosystem_adapter_capability_status"] == "available"
     assert capability["ecosystem_live_interoperability_status"] == "untested"
     assert capability["bounded_engine_fixture_capability_status"] == "available"
@@ -96,6 +97,17 @@ def test_authority_capability_boundary_is_explicit() -> None:
     assert capability["mcp_remote_binding_status"] == "prohibited"
     assert capability["mcp_mutation_default_status"] == "disabled"
     assert capability["inspection_workbench_capability_status"] == "available"
+    assert capability["model_research_program_capability_status"] == "available"
+    assert capability["model_dataset_manifest_capability_status"] == "available"
+    assert capability["model_dataset_bytes_status"] == "unavailable"
+    assert capability["model_checkpoint_download_status"] == "unavailable"
+    assert capability["model_fine_tuning_execution_status"] == "authorization_required"
+    assert capability["trained_qste_model_status"] == "unavailable"
+    assert capability["learned_model_gain_evidence_status"] == "unavailable"
+    assert capability["model_analysis_evaluation_status"] == "unavailable"
+    assert capability["model_generation_evaluation_status"] == "unavailable"
+    assert capability["custom_model_status"] == "unavailable"
+    assert capability["model_public_projection_status"] == "prohibited"
 
 
 def test_public_authority_is_schema_valid_and_commit_is_bound() -> None:
@@ -104,7 +116,7 @@ def test_public_authority_is_schema_valid_and_commit_is_bound() -> None:
     assert manifest["manifest_profile"] == "qste-authority/0.3.0"
     assert manifest["integrity_status"] == "verified"
     commit = manifest["code"]["commit"]
-    assert commit == "0e93757f90dc102b6d07559b9775e7127447e198"
+    assert commit == "43216d1677be10ef1cef46f539739d73cadbb669"
     assert re.fullmatch(r"[0-9a-f]{40}", commit)
     result = subprocess.run(
         ["git", "-C", str(ROOT), "cat-file", "-e", f"{commit}^{{commit}}"],

@@ -16,8 +16,8 @@
   "approved_rfc_refs": [],
   "authorization_status": "permitted",
   "code": {
-    "commit": "0e93757f90dc102b6d07559b9775e7127447e198",
-    "commit_scope": "P13 public local-interface snapshot with non-public governance, research evidence, phase evidence, and superseded authority material excluded",
+    "commit": "43216d1677be10ef1cef46f539739d73cadbb669",
+    "commit_scope": "P14 public model-research declaration and governance infrastructure only; dataset bytes, checkpoints, training, generation, evaluation evidence, private governance, and phase evidence excluded",
     "repository": "https://github.com/sonicfieldlabs/QSTE",
     "version": "0.0.0"
   },
@@ -29,7 +29,7 @@
   },
   "consent_status": "not_applicable",
   "contract_id": "qste-contract/0.3.0",
-  "created_at": "2026-08-29T02:37:37Z",
+  "created_at": "2026-08-29T12:59:21Z",
   "development_plan": {
     "availability": "private_local_not_disclosed",
     "id": "qste-development-plan/private"
@@ -65,7 +65,7 @@
     "capability_status": "available",
     "comparative_treatment_capability_status": "available",
     "creative_consequence_evidence_status": "unavailable",
-    "current_phase": "P13",
+    "current_phase": "P14-infrastructure",
     "cross_arm_relation_capability_status": "available",
     "exact_b_matching_capability_status": "available",
     "ecosystem_adapter_capability_status": "available",
@@ -99,6 +99,17 @@
     "mcp_remote_binding_status": "prohibited",
     "mcp_mutation_default_status": "disabled",
     "inspection_workbench_capability_status": "available",
+    "model_research_program_capability_status": "available",
+    "model_dataset_manifest_capability_status": "available",
+    "model_dataset_bytes_status": "unavailable",
+    "model_checkpoint_download_status": "unavailable",
+    "model_fine_tuning_execution_status": "authorization_required",
+    "trained_qste_model_status": "unavailable",
+    "learned_model_gain_evidence_status": "unavailable",
+    "model_analysis_evaluation_status": "unavailable",
+    "model_generation_evaluation_status": "unavailable",
+    "custom_model_status": "unavailable",
+    "model_public_projection_status": "prohibited",
     "osc_loopback_fixture_capability_status": "available",
     "schema_capability_status": "available",
     "shadow_policy_fixture_capability_status": "available",
@@ -119,7 +130,7 @@
     "path": "profiles/adapters/ecosystem/0.1/compatibility-target-manifest.json",
     "sha256": "f16c294d4d763762e9bf58ce49ea6765e3ee28649ad1a3e1b62c5880cefb81ad"
   },
-  "qste:conformanceClaim": "P13_bounded_local_skills_MCP_and_read_only_workbench_conformance_verified",
+  "qste:conformanceClaim": "P14_model_research_declaration_and_metadata_manifest_infrastructure_conformance_verified_without_model_execution_or_empirical_evidence",
   "qste:ecosystemEngineConformance": {
     "id": "qste-ecosystem-engine-conformance/0.1",
     "path": "conformance/p11-ecosystem-engines/0.1/profile.json",
@@ -134,6 +145,11 @@
     "id": "qste-interface-conformance/0.1",
     "path": "conformance/p13-interfaces/0.1/profile.json",
     "sha256": "a24c73cebd24a3f76d55226d36e692db03bced7276cc618c25f7145276301190"
+  },
+  "qste:modelResearchConformance": {
+    "id": "qste-model-research-conformance/0.1",
+    "path": "conformance/p14-model-research/0.1/profile.json",
+    "sha256": "6007807ed213b573f5efa8fc312a6f955699cd48b86951e252e0f9d647526e5f"
   },
   "qste:externalRepresentationConformance": {
     "id": "qste-external-representation-conformance/0.1",
@@ -214,7 +230,7 @@
     "path": "ontology/0.3.0/QSTE_ontology.md",
     "sha256": "02bce3f769a5d9e0d0ad9a4ff6664f6c2473ad5b3c8908a19fcfcee8e26ac2bf"
   },
-  "semantic_key": "sha256:91534d207be06737a4c224824768143255cf226a1062b9bc19befb4b241efee0",
+  "semantic_key": "sha256:09acb55fa60d935ee073b9aa6a895d61d8050594b5f9ccf055c7117b439db30c",
   "architecture": {
     "availability": "private_local_not_disclosed",
     "id": "qste-architecture/private"
