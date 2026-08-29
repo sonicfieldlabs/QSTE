@@ -23,6 +23,7 @@ PLANNED_MODULES = {
     "qste.policy": "P8",
     "qste.agent": "P10",
     "qste.adapters": "P9",
+    "qste.interfaces": "P13",
 }
 
 
@@ -44,6 +45,7 @@ def test_planned_modules_report_their_exact_phase_boundary(
         "qste.policy",
         "qste.adapters",
         "qste.agent",
+        "qste.interfaces",
     }:
         expected_status = "available"
     elif module_name == "qste.runtime":

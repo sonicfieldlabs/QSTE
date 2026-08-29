@@ -5,9 +5,10 @@ transducing, and preserving representation-relative digital sonic quanta.
 
 ## Current status
 
-The repository exposes **P12a experiment-preparation infrastructure** on top
-of the completed P11 ecosystem and audio-engine adapter boundary and the
-closed Milestone F `qste-foundation/0.1` profile. It
+The repository has completed **P13: skills, MCP, and inspection workbench** on
+top of the P12a experiment-preparation infrastructure, the completed P11
+ecosystem and audio-engine adapter boundary, and the closed Milestone F
+`qste-foundation/0.1` profile. It
 validates explicit mappings; executes the five canonical transduction
 modes as bounded local, nonplaying operations; enforces authorization before
 execution; and persists appeals, adjudications, repair actions, repair
@@ -48,6 +49,14 @@ protocol, result, or evidence for QSTE. An actual research method pilot,
 confirmatory machine study, integrated analysis, and numerical reproducibility
 remain unavailable. Human protocol submission requires separate authorization;
 human collection and public research projection are prohibited here.
+
+P13 adds the `qste-inspection` skill, a fixed six-tool MCP server, and a
+read-only browser workbench. Every interface binds one existing workspace under
+explicit allowed roots. MCP uses stdio by default; optional HTTP and the
+workbench bind only to `127.0.0.1`. Relation comparison and transduction are
+disabled unless a human enables mutations at server startup and approves the
+individual call. Interface availability does not upgrade any deferred P12
+research capability or authorize playback, external execution, or publication.
 
 P11 freezes exact compatibility targets for MASA, Cosmoaudition, AKOÚŌ, Oída,
 Earworm, Akousmata, and Listening Stack. Fixture imports and inspections
@@ -105,6 +114,8 @@ uv run qste engine loopback --workspace /path/to/workspace --target qste_fixture
 uv run qste experiment freeze --workspace /path/to/workspace --context qste:apparatus-spec:... --packet fixtures/experiment-preparation/0.1/preparation.json --authorization permitted --json
 uv run qste experiment pilot --workspace /path/to/workspace --preparation qste:artifact-record:... --evidence fixtures/experiment-preparation/0.1/pilot.json --authorization permitted --json
 uv run qste experiment account --workspace /path/to/workspace --context qste:apparatus-spec:... --authorization permitted --json
+uv run qste-mcp --workspace /path/to/workspace --allowed-root /path/to --transport stdio
+uv run qste-workbench --workspace /path/to/workspace --allowed-root /path/to --port 8787
 ```
 
 ## Authority
@@ -133,8 +144,8 @@ make verify
 After synchronization, `make offline-smoke` runs the P2 contracts, P3 storage,
 P4 ingress, P5 representation, P6 task/assessment, P7 relation, P8
 transduction/governance, P9 adapter-boundary, P10 agent-host, P11
-ecosystem/engine, and P12a preparation-boundary checks with external network
-access disabled.
+ecosystem/engine, P12a preparation-boundary, and P13 interface checks with
+external network access disabled.
 
 The library contract surface is intentionally small:
 
@@ -154,6 +165,7 @@ from qste.adapters import (
 )
 from qste.agent import AgentHostService
 from qste.experiments import ExperimentPreparationService
+from qste.interfaces import InspectionWorkbench, InterfaceBroker, InterfacePolicy
 
 registry = SchemaRegistry()
 record = registry.read_record(raw_json_bytes)
@@ -187,7 +199,9 @@ for the P10 gates, and
 [`conformance/p11-ecosystem-engines/0.1/profile.json`](conformance/p11-ecosystem-engines/0.1/profile.json)
 for the P11 gates, and
 [`conformance/p12-experiment-preparation/0.1/profile.json`](conformance/p12-experiment-preparation/0.1/profile.json)
-for the P12a infrastructure gates. The corresponding exact external target profile is
+for the P12a infrastructure gates, and
+[`conformance/p13-interfaces/0.1/profile.json`](conformance/p13-interfaces/0.1/profile.json)
+for the P13 interface gates. The corresponding exact external target profile is
 [`CompatibilityTargetManifest`](profiles/adapters/ecosystem/0.1/compatibility-target-manifest.json).
 
 ## Boundaries

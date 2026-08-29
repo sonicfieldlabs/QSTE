@@ -22,6 +22,7 @@ classifiers = [
 ]
 dependencies = [
   "jsonschema>=4.23",
+  "mcp>=2,<3",
   "numpy>=2.0",
   "referencing>=0.36",
   "rfc8785>=0.1.4,<0.2",
@@ -32,6 +33,8 @@ dependencies = [
 
 [project.scripts]
 qste = "qste.cli:main"
+qste-mcp = "qste.interfaces.mcp:main"
+qste-workbench = "qste.interfaces.workbench_server:main"
 
 [dependency-groups]
 dev = [
@@ -61,6 +64,9 @@ packages = ["src/qste"]
 "conformance/p10-agent-harness/0.1" = "qste/contracts/conformance/p10-agent-harness/0.1"
 "conformance/p11-ecosystem-engines/0.1" = "qste/contracts/conformance/p11-ecosystem-engines/0.1"
 "conformance/p12-experiment-preparation/0.1" = "qste/contracts/conformance/p12-experiment-preparation/0.1"
+"conformance/p13-interfaces/0.1" = "qste/contracts/conformance/p13-interfaces/0.1"
+"skills/qste-inspection" = "qste/contracts/skills/qste-inspection"
+"src/qste/interfaces/workbench" = "qste/interfaces/workbench"
 "profiles/adapters" = "qste/contracts/profiles/adapters"
 "profiles/agents" = "qste/contracts/profiles/agents"
 

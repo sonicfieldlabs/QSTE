@@ -1,0 +1,66 @@
+{
+  "profile_id": "qste-interface-conformance/0.1",
+  "interface_profile": "qste-local-interface/v0.1",
+  "skill_profile": "qste-inspection",
+  "mcp_sdk": "mcp/2.x",
+  "claims": [
+    "explicit_root_restriction",
+    "read_first_operation_surface",
+    "fixed_mcp_tool_registry",
+    "double_gated_mutation",
+    "loopback_only_network_transport",
+    "read_only_inspection_workbench",
+    "evidence_class_separation",
+    "bounded_skill_instructions"
+  ],
+  "gates": [
+    {
+      "id": "P13-G01",
+      "requirement": "Every interface process binds one existing workspace under one to sixteen explicit resolved allowed roots."
+    },
+    {
+      "id": "P13-G02",
+      "requirement": "MCP uses stdio by default; optional Streamable HTTP binds only to 127.0.0.1 with DNS-rebinding protection, a bounded request body, and no remote-origin allowance."
+    },
+    {
+      "id": "P13-G03",
+      "requirement": "The MCP registry is fixed to inspect, lineage, verify, workbench snapshot, relation comparison, and transduction; payload text cannot register or select another tool."
+    },
+    {
+      "id": "P13-G04",
+      "requirement": "Every tool maps to one versioned Python operation and returns a validated OperationResult with its exact operation status and reason."
+    },
+    {
+      "id": "P13-G05",
+      "requirement": "Inspect, lineage, verify, and workbench snapshot are read-only; they never create domain records, repair state, or merge semantic occurrences."
+    },
+    {
+      "id": "P13-G06",
+      "requirement": "Relation comparison and transduction require both human-controlled server enablement and human_approved=true on the individual call."
+    },
+    {
+      "id": "P13-G07",
+      "requirement": "Record counts, lineage depth, input bytes, URL bytes, and output groups remain within declared process bounds."
+    },
+    {
+      "id": "P13-G08",
+      "requirement": "The HTTP workbench is loopback-only, GET/HEAD-only, no-store, and presents bounded lineage, disagreement, mappings, claims, and evidence."
+    },
+    {
+      "id": "P13-G09",
+      "requirement": "Workbench and skill accounts distinguish measurement, inference, render, source, execution evidence, derived claims, and human report."
+    },
+    {
+      "id": "P13-G10",
+      "requirement": "A candidate is never presented as a DSQ without recorded task-bound qualification and complete bounded refinement evidence."
+    },
+    {
+      "id": "P13-G11",
+      "requirement": "P13 performs no external network or engine execution, playback, model execution, human collection, public projection, or adjacent-checkout write."
+    },
+    {
+      "id": "P13-G12",
+      "requirement": "The qste-inspection skill is valid, progressively discloses mutation inputs, and cannot expand user authorization or treat tool availability as authority."
+    }
+  ]
+}

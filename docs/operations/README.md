@@ -1,4 +1,4 @@
-# P3-P12a local operations
+# P3-P13 local operations
 
 All P3 operations require an explicit workspace or bundle root. They perform
 no network access, playback, imported-code execution, implicit repair, or
@@ -41,6 +41,8 @@ search outside that root.
 - P12a preparation profile: `qste-experiment-preparation/v0.1`
 - P12a method-pilot profile: `qste-method-pilot/v0.1`
 - P12a conformance profile: `qste-experiment-preparation-conformance/0.1`
+- P13 interface profile: `qste-local-interface/v0.1`
+- P13 conformance profile: `qste-interface-conformance/0.1`
 
 Records, events, edges, artifact registrations, and dense registrations are
 append-only. Artifact bytes are addressed by SHA-256. Dense and bundle
@@ -425,6 +427,42 @@ result. Confirmatory tests, held-out outcomes, human or listener data, external
 execution, playback, and public research projection are rejected or remain
 unavailable. Human protocol submission requires separate authorization.
 
+## Skills, MCP, and inspection workbench
+
+P13 fixes one workspace and one or more containing roots when the process
+starts. No tool call can select a new workspace, root, executable, provider, or
+network target. The MCP server uses stdio unless loopback HTTP is requested
+explicitly.
+
+```sh
+uv run qste-mcp \
+  --workspace /absolute/workspace \
+  --allowed-root /absolute \
+  --transport stdio
+
+uv run qste-mcp \
+  --workspace /absolute/workspace \
+  --allowed-root /absolute \
+  --transport streamable-http --host 127.0.0.1 --port 8765
+
+uv run qste-workbench \
+  --workspace /absolute/workspace \
+  --allowed-root /absolute --host 127.0.0.1 --port 8787
+```
+
+The fixed MCP registry contains four read tools—inspect, lineage, verify, and
+workbench snapshot—and two state-changing tools for registered relation
+comparison and declared transduction. State-changing tools are unavailable by
+default. Enabling them at startup is only the first gate; each call must also
+carry `human_approved=true`. Neither gate authorizes playback, public
+projection, external engines, provider access, or adjacent-checkout writes.
+
+The HTTP workbench accepts GET and HEAD only, returns `Cache-Control: no-store`,
+and groups bounded occurrence summaries as relations/disagreements, mappings,
+claims, and evidence. It does not merge semantic occurrences or present
+inference as measurement. The public `skills/qste-inspection` package gives an
+agent the same evidence and authorization boundaries.
+
 ## Aperture derivation
 
 ```sh
@@ -454,4 +492,4 @@ dense manifest, or sealed bundle.
 
 A future migration copies into a new workspace or bundle format and verifies
 the copy before switching authority. The prior SQLite database and bundle are
-retained. There is no in-place migration or legacy compatibility reader in P3-P12a.
+retained. There is no in-place migration or legacy compatibility reader in P3-P13.

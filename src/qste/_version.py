@@ -10,7 +10,7 @@ from pathlib import Path
 
 CONTRACT_ID = "qste-contract/0.3.0"
 CAPABILITY_PROFILE = "qste-foundation/0.1"
-IMPLEMENTATION_PHASE = "P12a-infrastructure"
+IMPLEMENTATION_PHASE = "P13"
 _COMMIT_PATTERN = re.compile(r"^[0-9a-f]{40}$")
 
 try:
@@ -104,6 +104,12 @@ def version_info() -> dict[str, str]:
         "human_data_collection_status": "prohibited",
         "integrated_research_analysis_status": "unavailable",
         "public_research_projection_status": "prohibited",
+        "inspection_skill_capability_status": "available",
+        "mcp_stdio_capability_status": "available",
+        "mcp_loopback_http_capability_status": "available",
+        "mcp_remote_binding_status": "prohibited",
+        "mcp_mutation_default_status": "disabled",
+        "inspection_workbench_capability_status": "available",
         "schema_set_id": "qste-schema/0.3.0",
         "conformance_profile_id": "qste-conformance/0.3.0",
         "representation_conformance_profile_id": "qste-stft-gabor-conformance/0.1",
@@ -120,4 +126,5 @@ def version_info() -> dict[str, str]:
         "experiment_preparation_conformance_profile_id": (
             "qste-experiment-preparation-conformance/0.1"
         ),
+        "interface_conformance_profile_id": "qste-interface-conformance/0.1",
     }

@@ -1,0 +1,7 @@
+interface:
+  display_name: "QSTE Inspection"
+  short_description: "Inspect bounded QSTE records and lineage"
+  default_prompt: "Use $qste-inspection to inspect this QSTE workspace without expanding claims beyond recorded evidence."
+
+policy:
+  allow_implicit_invocation: true

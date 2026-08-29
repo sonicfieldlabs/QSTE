@@ -1,0 +1,48 @@
+{
+  "profile_id": "qste-local-interface/v0.1",
+  "fixture_scope": "synthetic_local_conformance_only",
+  "workspace": "caller_owned_explicit_root",
+  "allowed_roots_required": true,
+  "transport": {
+    "default": "stdio",
+    "streamable_http_host": "127.0.0.1",
+    "dns_rebinding_protection": true,
+    "remote_binding": false
+  },
+  "tools": {
+    "read": [
+      "qste_inspect",
+      "qste_lineage",
+      "qste_verify",
+      "qste_workbench_snapshot"
+    ],
+    "mutating": [
+      "qste_compare_relations",
+      "qste_transduce"
+    ],
+    "dynamic_registration": false
+  },
+  "mutation_gate": {
+    "server_enablement_required": true,
+    "per_call_human_approval_required": true,
+    "default_enabled": false
+  },
+  "limits": {
+    "maximum_allowed_roots": 16,
+    "maximum_items": 256,
+    "maximum_lineage_depth": 64,
+    "maximum_input_bytes": 1048576,
+    "maximum_url_bytes": 4096
+  },
+  "boundaries": {
+    "external_network": false,
+    "external_engine_execution": false,
+    "model_execution": false,
+    "playback": false,
+    "adjacent_checkout_write": false,
+    "human_data": false,
+    "public_projection": false,
+    "inference_is_measurement": false,
+    "render_is_source": false
+  }
+}

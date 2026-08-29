@@ -12,7 +12,7 @@ def test_version_payload_is_explicit() -> None:
     assert payload["package"] == "qste"
     assert payload["contract_id"] == "qste-contract/0.3.0"
     assert payload["capability_profile"] == "qste-foundation/0.1"
-    assert payload["implementation_phase"] == "P12a-infrastructure"
+    assert payload["implementation_phase"] == "P13"
     assert payload["capability_status"] == "available"
     assert payload["schema_capability_status"] == "available"
     assert payload["identity_storage_capability_status"] == "available"
@@ -59,6 +59,12 @@ def test_version_payload_is_explicit() -> None:
     assert payload["human_data_collection_status"] == "prohibited"
     assert payload["integrated_research_analysis_status"] == "unavailable"
     assert payload["public_research_projection_status"] == "prohibited"
+    assert payload["inspection_skill_capability_status"] == "available"
+    assert payload["mcp_stdio_capability_status"] == "available"
+    assert payload["mcp_loopback_http_capability_status"] == "available"
+    assert payload["mcp_remote_binding_status"] == "prohibited"
+    assert payload["mcp_mutation_default_status"] == "disabled"
+    assert payload["inspection_workbench_capability_status"] == "available"
     assert payload["schema_set_id"] == "qste-schema/0.3.0"
     assert payload["conformance_profile_id"] == "qste-conformance/0.3.0"
     assert payload["representation_conformance_profile_id"] == "qste-stft-gabor-conformance/0.1"
@@ -79,6 +85,7 @@ def test_version_payload_is_explicit() -> None:
     assert payload["experiment_preparation_conformance_profile_id"] == (
         "qste-experiment-preparation-conformance/0.1"
     )
+    assert payload["interface_conformance_profile_id"] == "qste-interface-conformance/0.1"
     assert payload["git_commit"] == "uncommitted" or re.fullmatch(
         r"[0-9a-f]{40}", payload["git_commit"]
     )
@@ -143,6 +150,13 @@ def test_cli_json_reports_all_identity_layers(capsys: object) -> None:
         "integrated_research_analysis_status",
         "public_research_projection_status",
         "experiment_preparation_conformance_profile_id",
+        "inspection_skill_capability_status",
+        "mcp_stdio_capability_status",
+        "mcp_loopback_http_capability_status",
+        "mcp_remote_binding_status",
+        "mcp_mutation_default_status",
+        "inspection_workbench_capability_status",
+        "interface_conformance_profile_id",
         "contract_id",
         "git_commit",
         "implementation_phase",

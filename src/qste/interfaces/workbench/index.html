@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>QSTE Inspection Workbench</title>
+  <style>
+    :root { color-scheme: dark; --bg:#11110f; --panel:#191916; --line:#37372f; --ink:#ecebdc; --muted:#a7a694; --accent:#c8ff3d; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--ink); font:14px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace; }
+    header { display:grid; grid-template-columns:1fr auto; gap:24px; padding:24px; border-bottom:1px solid var(--line); }
+    h1 { margin:0; font-size:clamp(22px,4vw,46px); letter-spacing:-.05em; }
+    .status { color:var(--accent); align-self:end; }
+    main { padding:24px; }
+    form { display:flex; gap:8px; margin-bottom:24px; }
+    input,button { border:1px solid var(--line); background:var(--panel); color:var(--ink); padding:10px 12px; font:inherit; }
+    input { flex:1; min-width:0; }
+    button { color:var(--accent); cursor:pointer; }
+    .grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; }
+    section { border:1px solid var(--line); background:var(--panel); min-height:180px; }
+    h2 { margin:0; padding:12px; border-bottom:1px solid var(--line); color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.08em; }
+    ul { margin:0; padding:0; list-style:none; }
+    li { padding:10px 12px; border-bottom:1px solid var(--line); overflow-wrap:anywhere; }
+    .type { color:var(--accent); }
+    pre { white-space:pre-wrap; overflow-wrap:anywhere; margin:24px 0 0; padding:16px; border:1px solid var(--line); background:#0b0b09; max-height:48vh; overflow:auto; }
+    @media (max-width:900px) { .grid { grid-template-columns:1fr 1fr; } }
+    @media (max-width:560px) { header,.grid { grid-template-columns:1fr; } form { flex-direction:column; } }
+  </style>
+</head>
+<body>
+  <header><h1>QSTE / inspection</h1><div class="status">READ ONLY · LOCAL</div></header>
+  <main>
+    <form id="focus"><input id="record" aria-label="Exact record ID" placeholder="qste:record-type:…"><button>Inspect occurrence</button></form>
+    <div class="grid" id="groups"></div>
+    <pre id="detail" aria-live="polite">Loading bounded workspace snapshot…</pre>
+  </main>
+  <script>
+    const names={relations_and_disagreements:'Relations / disagreement',mappings:'Mappings',claims:'Claims',evidence:'Evidence'};
+    const detail=document.querySelector('#detail');
+    const groups=document.querySelector('#groups');
+    const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    async function load(id=''){
+      const url='/api/snapshot?maximum_items=128'+(id?'&record_id='+encodeURIComponent(id):'');
+      const response=await fetch(url,{cache:'no-store'}); const result=await response.json();
+      detail.textContent=JSON.stringify(result.value?.data?.focus ?? result,null,2);
+      const data=result.value?.data; if(!data)return;
+      groups.innerHTML=Object.entries(data.groups).map(([key,items])=>`<section><h2>${esc(names[key]||key)} · ${items.length}</h2><ul>${items.map(item=>`<li><span class="type">${esc(item.record_type)}</span><br>${esc(item.record_id)}<br><small>${esc(item.evidence_class)}</small></li>`).join('')}</ul></section>`).join('');
+    }
+    document.querySelector('#focus').addEventListener('submit',event=>{event.preventDefault();load(document.querySelector('#record').value.trim()).catch(error=>detail.textContent=String(error));});
+    load().catch(error=>detail.textContent=String(error));
+  </script>
+</body>
+</html>
