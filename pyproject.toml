@@ -22,7 +22,7 @@ classifiers = [
 ]
 dependencies = [
   "jsonschema>=4.23",
-  "mcp>=2,<3",
+  "mcp>=2.2.0,<3",
   "numpy>=2.0",
   "referencing>=0.36",
   "rfc8785>=0.1.4,<0.2",
