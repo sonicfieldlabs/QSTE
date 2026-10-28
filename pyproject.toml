@@ -22,13 +22,13 @@ classifiers = [
 ]
 dependencies = [
   "jsonschema>=4.23",
-  "mcp>=2,<3",
-  "numpy>=2.0",
+  "mcp>=2.3.0,<3",
+  "numpy>=2.5.4",
   "referencing>=0.36",
   "rfc8785>=0.1.4,<0.2",
   "scipy>=1.15",
   "soundfile>=0.13",
-  "zarr>=3.0",
+  "zarr>=3.4.1",
 ]
 
 [project.scripts]
@@ -39,10 +39,10 @@ qste-workbench = "qste.interfaces.workbench_server:main"
 [dependency-groups]
 dev = [
   "coverage[toml]>=7.6",
-  "hypothesis>=6.124",
-  "mypy>=1.15",
+  "hypothesis>=6.170.9",
+  "mypy>=2.4.0",
   "pytest>=8.3",
-  "ruff>=0.9",
+  "ruff>=0.17.2",
 ]
 
 [build-system]
