@@ -23,15 +23,15 @@ classifiers = [
 dependencies = [
   "jsonschema>=4.23",
   "mcp>=2.3,<3",
-  "numpy>=2.0",
+  "numpy>=2.5.4",
   # Keep MCP's permissive transitive bounds above the reviewed security floors.
-  "opentelemetry-api>=1.45.1,<2",
+  "opentelemetry-api>=1.45.2,<2",
   "pyjwt[crypto]>=2.15,<3",
   "referencing>=0.36",
   "rfc8785>=0.1.4,<0.2",
   "scipy>=1.15",
   "soundfile>=0.13",
-  "zarr>=3.0",
+  "zarr>=3.4.2",
 ]
 
 [project.scripts]
@@ -42,10 +42,10 @@ qste-workbench = "qste.interfaces.workbench_server:main"
 [dependency-groups]
 dev = [
   "coverage[toml]>=7.6",
-  "hypothesis>=6.124",
-  "mypy>=1.15",
-  "pytest>=8.3",
-  "ruff>=0.9",
+  "hypothesis>=6.170.14",
+  "mypy>=2.4.1",
+  "pytest>=9.2.0",
+  "ruff>=0.17.3",
 ]
 
 [build-system]
