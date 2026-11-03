@@ -19,6 +19,11 @@ values. It never constructs an EnCodec model, loads a checkpoint, runs inference
 captures audio or establishes listening/scientific results. No Linux/CUDA/MPS,
 installed operator environment or checkpoint compatibility is claimed.
 
+The macOS ARM runtime is the checksum-pinned Python Build Standalone 20261026
+build of Python 3.12.16. This keeps the maintained patch even where GitHub's
+Python setup action does not provide that platform build. The core CI matrix
+continues to use its existing Python setup action.
+
 Source builds of EnCodec use the already locked setuptools environment in the
 disposable runner. The core environment, package version, frozen schemas,
 fixtures, profiles and original EnCodec environment are unchanged.
