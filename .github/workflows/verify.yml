@@ -38,3 +38,58 @@ jobs:
         run: uv sync --frozen --all-groups
       - name: Verify repository, contracts, package, and runtime
         run: make verify
+
+  encodec-successor:
+    name: EnCodec dependency successor (no model)
+    runs-on: macos-15
+    timeout-minutes: 30
+    env:
+      HF_HUB_OFFLINE: "1"
+      TRANSFORMERS_OFFLINE: "1"
+      UV_PYTHON_DOWNLOADS: never
+      HOMEBREW_NO_AUTO_UPDATE: "1"
+    steps:
+      - name: Check out source without persistent credentials
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install checksummed maintained Python for macOS ARM
+        run: |
+          set -euo pipefail
+          test "$(uname -m)" = arm64
+          runtime="$RUNNER_TEMP/qste-python"
+          mkdir -p "$runtime"
+          curl --fail --silent --show-error --location --connect-timeout 10 --max-time 120 \
+            'https://github.com/astral-sh/python-build-standalone/releases/download/20261026/cpython-3.12.16%2B20261026-aarch64-apple-darwin-install_only_stripped.tar.gz' \
+            --output "$runtime/runtime.tar.gz"
+          printf '%s  %s\n' '353d5f1b4fd2715e7053f12f068435d5bbad16b91e057006b5d01e0925709a7e' "$runtime/runtime.tar.gz" | shasum -a 256 --check
+          tar -xzf "$runtime/runtime.tar.gz" -C "$runtime"
+          interpreter="$runtime/python/bin/python3.12"
+          test "$("$interpreter" -c 'import platform; print(platform.python_version())')" = '3.12.16'
+          test -r /etc/ssl/cert.pem
+          {
+            echo "QSTE_PYTHON=$interpreter"
+            echo "UV_PYTHON=$interpreter"
+            echo 'SSL_CERT_FILE=/etc/ssl/cert.pem'
+          } >> "$GITHUB_ENV"
+      - name: Install pinned uv
+        uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+        with:
+          version: "0.12.7"
+      - name: Verify immutable references and current registry metadata
+        run: '"$QSTE_PYTHON" -I tools/verify_encodec_successor.py --registry'
+      - name: Bind FFmpeg shared libraries
+        run: |
+          command -v ffmpeg >/dev/null || brew install ffmpeg
+          library_dir="$(brew --prefix ffmpeg)/lib"
+          test -d "$library_dir"
+          {
+            echo "DYLD_LIBRARY_PATH=$library_dir"
+            echo "DYLD_FALLBACK_LIBRARY_PATH=$library_dir"
+          } >> "$GITHUB_ENV"
+      - name: Install locked dependencies before building the pinned EnCodec source
+        run: |
+          uv sync --project environments/encodec-successor/0.2 --locked --no-install-package encodec
+          uv sync --project environments/encodec-successor/0.2 --locked --no-build-isolation-package encodec
+      - name: Verify synthetic CPU audio and SDK imports without a model
+        run: uv run --project environments/encodec-successor/0.2 --locked --no-sync python -I "$GITHUB_WORKSPACE/tools/verify_encodec_successor.py" --native
