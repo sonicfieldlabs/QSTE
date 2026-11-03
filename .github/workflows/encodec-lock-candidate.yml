@@ -1,0 +1,42 @@
+name: EnCodec candidate lock preparation
+on:
+  push:
+    branches: [security/phase2-encodec-lock-generation-20261103]
+permissions:
+  contents: read
+jobs:
+  resolve:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12.16"
+      - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+        with:
+          version: "0.12.7"
+      - name: Resolve the non-installed candidate on a disposable runner
+        run: |
+          mkdir -p "$RUNNER_TEMP/encodec-candidate"
+          cp environments/encodec-successor/0.2/pyproject.toml "$RUNNER_TEMP/encodec-candidate/"
+          uv lock --project "$RUNNER_TEMP/encodec-candidate" --python 3.12.16 --default-index https://pypi.org/simple
+          test ! -d "$RUNNER_TEMP/encodec-candidate/.venv"
+          python - <<'PY'
+          import hashlib, json, os
+          from pathlib import Path
+          p = Path(os.environ['RUNNER_TEMP']) / 'encodec-candidate'
+          receipt = {'source': os.environ['GITHUB_SHA'], 'run': os.environ['GITHUB_RUN_ID'],
+              'attempt': os.environ['GITHUB_RUN_ATTEMPT'], 'environment_installed': False,
+              'files': {n: hashlib.sha256((p / n).read_bytes()).hexdigest() for n in ('pyproject.toml', 'uv.lock')}}
+          (p / 'receipt.json').write_text(json.dumps(receipt, indent=2) + '\n')
+          PY
+      - name: Retain only candidate lock and provenance
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: encodec-lock-${{ github.sha }}-${{ github.run_id }}
+          path: ${{ runner.temp }}/encodec-candidate/
+          if-no-files-found: error
+          retention-days: 3
