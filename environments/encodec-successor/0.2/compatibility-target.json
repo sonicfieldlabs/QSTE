@@ -1,0 +1,20 @@
+{
+  "adapter_activation_authorized": false,
+  "candidate_id": "qste-encodec-environment/0.2",
+  "checkpoint_download_authorized": false,
+  "checkpoint_license_status": "unresolved_checkpoint_license_not_declared",
+  "environment_lock": {
+    "path": "environments/encodec-successor/0.2/uv.lock",
+    "sha256": "4bcb0f3340ae66e1257bfd5035e2d355df39f6efa9c9ceebb511254635e2987b"
+  },
+  "execution_mode": "dependency_qualification_only",
+  "frozen_reference_sha256": {
+    "environments/encodec/pyproject.toml": "9768c957e399b073dbd9062300294781024c59fcd36ec6d95a8dd9c7a863ac60",
+    "environments/encodec/uv.lock": "f19aa296e4fed10bbb018cfc950280adf86b1f4e5a0b3246f7e70abe3f9612c3",
+    "profiles/adapters/encodec/0.1/checkpoint-manifest.json": "75549b36f9b8a28c2a87d9658014d7ae2c7477bef971688935304797e1ec93b1",
+    "profiles/adapters/encodec/0.1/compatibility-target.json": "e564eff97225a0589537cbc5b7f56a64a7cabd3a6740a938892684c23fd6b0bc"
+  },
+  "model_execution_authorized": false,
+  "platform_qualification_scope": "macOS synthetic CPU audio I/O and SDK imports only; no EnCodec model, checkpoint or accelerator qualification",
+  "supersedes_compatibility_target": "profiles/adapters/encodec/0.1/compatibility-target.json"
+}
