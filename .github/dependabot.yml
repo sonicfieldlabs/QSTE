@@ -1,9 +1,9 @@
 version: 2
 updates:
+  # Frozen EnCodec references and qualified candidates are maintained manually.
   - package-ecosystem: uv
     directories:
       - "/"
-      - "/environments/encodec"
     schedule:
       interval: cron
       cronjob: "0 10 24 * *"

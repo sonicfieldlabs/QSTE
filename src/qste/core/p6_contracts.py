@@ -124,15 +124,12 @@ def _validate_assessment(record: Mapping[str, Any]) -> None:
         )
         if not candidate_negative and not proper_negative:
             raise ContractError("conformance_failed", "rejection predicate is not satisfied")
-    elif status == "indeterminate":
-        if reason in {
-            "meaningful_closed_equivalent",
-            "candidate_nonmeaningful",
-            "proper_node_nonequivalent",
-        }:
-            raise ContractError(
-                "conformance_failed", "indeterminate assessment has decisive reason"
-            )
+    elif status == "indeterminate" and reason in {
+        "meaningful_closed_equivalent",
+        "candidate_nonmeaningful",
+        "proper_node_nonequivalent",
+    }:
+        raise ContractError("conformance_failed", "indeterminate assessment has decisive reason")
 
 
 def _validate_availability_graph(record: Mapping[str, Any]) -> None:
