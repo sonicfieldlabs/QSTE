@@ -23,7 +23,7 @@ classifiers = [
 dependencies = [
   "jsonschema>=4.23",
   "mcp>=2.3,<3",
-  "numpy>=2.5.4",
+  "numpy>=2.5.5",
   # Keep MCP's permissive transitive bounds above the reviewed security floors.
   "opentelemetry-api>=1.45.2,<2",
   "pyjwt[crypto]>=2.15,<3",
@@ -45,7 +45,7 @@ dev = [
   "hypothesis>=6.170.15",
   "mypy>=2.4.1",
   "pytest>=9.2.0",
-  "ruff>=0.17.4",
+  "ruff>=0.17.5",
 ]
 
 [build-system]
